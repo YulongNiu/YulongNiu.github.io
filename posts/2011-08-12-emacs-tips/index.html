@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Emacs使用汇总 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Emacs使用汇总" />
+<meta property="og:description" content="Emacs基本操作。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/" />
+<meta property="article:published_time" content="2011-08-12T14:57:17-04:00" />
+<meta property="article:modified_time" content="2011-08-12T14:57:17-04:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Emacs使用汇总"/>
+<meta name="twitter:description" content="Emacs基本操作。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Emacs使用汇总</h1>
+			<div class="meta">Posted at &mdash; Aug 12, 2011</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<h2 id="1-安装">1. 安装</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 安装Emacs</span>
+$ sudo dnf install emacs </code></pre></div>
+<h2 id="2-窗口和文件操作">2. 窗口和文件操作</h2>
+
+<p>Emacs的按键操作，约定<code>C</code>代表<code>Ctrl</code>键，<code>M</code>代表<code>Alt</code>键，<code>RET</code>表示Enter键。<code>C-x</code>对应字符扩展，比如<code>C-x C-b</code>表示列出所有buffer；<code>M-x</code>对应命令扩展，比如<code>M-x replace-string</code>（可以用TAB补全）表示字符替换。</p>
+
+<ul>
+<li><code>C-x 2</code>或<code>C-x 3</code>：</li>
+</ul>
+
+<ol>
+<li><p>将窗口分割成两个或者三个。</p></li>
+
+<li><p><code>C-x 1</code>：只保留一个窗口。</p></li>
+
+<li><p><code>C-x n</code>：开n个窗口</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-f</code>：</li>
+</ul>
+
+<ol>
+<li><p>读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。</p></li>
+
+<li><p>对于Emacs minibuffer的路径，在Emacs中可以使用<code>~/</code>表示当前登录的用户，可以替代<code>/home/usr</code>。同时，可以在当前路径下直接输入<code>/home//median/TOOL</code>或者<code>/home//~/</code>进入需要的目录，因为Emacs会自动忽略<code>//</code>或者<code>/~</code>之前的内容（不能在终端使用它）。</p></li>
+
+<li><p>输入/su:root@localhost Mypassword：用以打开root权限文件。</p></li>
+
+<li><p><code>M-x ffap</code>（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。</p></li>
+
+<li><p>一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：<code>M-x ido-mode</code>。</p></li>
+</ol>
+
+<ul>
+<li>补充Dired文件操作（Directory Editor）</li>
+</ul>
+
+<ol>
+<li><p>在Dired buffer下，光标所在处<code>+</code>新建文件夹。</p></li>
+
+<li><p><code>f</code>或<code>e</code>或者<code>RET</code>在当前buffer下打开文件。<code>o</code>在另一个buffer中打开文件，并且光标跳转到另一个buffer。<code>C-o</code>在另一个buffer下打开文件，光标保留在Dired buffer中。<code>v</code>在新的buffer打开文件，只读权限。<code>^</code>在新的buffer打开上层目录的Dired buffer。<code>i</code>在Dired buffer下打开文件夹。<code>g</code>更新状态。</p></li>
+
+<li><p><code>m</code>标记文件。<code>%m</code>标记文件名符合正则规则的文件。<code>%g</code>标记内容符合正则规则的文件。<code>u</code>删除当前光标所在文件的标记。<code>M-DEL</code>删除所有标记的文件。<code>t</code>标记所有文件。</p></li>
+
+<li><p>以下操作针对标记的文件；如果没有标记的文件，将操作光标所在处文件。<code>C</code>拷贝文件，<code>R</code>移动或者重命名文件，<code>H</code>创建硬链接，<code>C</code>创建软链接，<code>M</code>更改文件执行权限（比如777），<code>D</code>删除文件，<code>Q</code>正则匹配（所有标记文件）。</p></li>
+
+<li><p><code>d</code>标记要删除的文件。<code>~</code>标记所有Emacs备份文件。<code>#</code>标记所有自动保存文件。<code>%d</code>标记文件名符合正则表达式的文件，以供删除。<code>x</code>执行删除操作。</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-s</code>：</li>
+</ul>
+
+<ol>
+<li><p>保存文件，经常使用这个命令存盘，避免文件丢失。</p></li>
+
+<li><p><code>C-x s</code>：把所有的buffer存盘。</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-w</code>：</li>
+</ul>
+
+<ol>
+<li><p>文件另存为。</p></li>
+
+<li><p><code>M-x recover Myfilename</code> 之后输入文件名和yes：用来恢复自动保存的文件。Emacs自动保存的文件一般以<code>#Myfilename#</code>来命名。</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-b</code>：</li>
+</ul>
+
+<ol>
+<li><p>列出所有buffer。</p></li>
+
+<li><p><code>C-x b</code>：回到某一个buffer，需要在minibuffer中输入需要跳转的buffer名字。</p></li>
+
+<li><p><code>C-x o</code>（other）：在不同的buffer间切换。</p></li>
+
+<li><p><code>C-x k</code>：kill一个buffer。</p></li>
+</ol>
+
+<ul>
+<li>ibuffer模式：</li>
+</ul>
+
+<ol>
+<li><p>ibuffer模式是<code>C-x C-b</code>的功能更加强大版本。可以在<code>~/.emacs</code>文件中写入<code>(global-set-key (kbd &quot;C-x C-b&quot;) 'ibuffer)</code>，将原始的模式替换成ibuffer形式。</p></li>
+
+<li><p><code>/m</code>（mode）：查找符合某个模式的buffer。</p></li>
+
+<li><p><code>/g</code>（group）：对某个类型的buffer进行分组命名。光标停留在组名上，<code>RET</code>展开和压缩buffer。<code>TAB</code>向下一个组跳转。<code>M-p</code>向上一个组跳转。<code>//</code>返回列出所有buffer的状态。<code>/\</code>清除所有分类。</p></li>
+
+<li><p><code>g</code>：更新buffer列表状态。比如，当一个buffer被修改后（但未保存），会有星号标记。</p></li>
+
+<li><p>各种操作：<code>o</code>或者<code>RET</code>打开光标所在处buffer；<code>=</code>比较当前buffer和已保存文件的区别，<code>,</code>对buffer进行各种排序的切换；<code>q</code>退出ibuffer。</p></li>
+</ol>
+
+<ul>
+<li>寄存器（Registers）</li>
+</ul>
+
+<ol>
+<li><p>Emacs的寄存器相关命令使用<code>C-x r</code>作为前缀，可以使用<code>C-x r C-h</code>查看帮助。所谓“寄存器”是指Emacs可以保存某个窗口（windows）状态、框架（frame，即多个打开的Emacs窗口）状态或者文字内容。</p></li>
+
+<li><p><code>C-x r w REG</code>（window-configuration-to-register）：寄存当前窗口为“REG”，“REG”即设定的寄存器名称，可以是数字1、2、3，也可以是字母a、B等。<code>C-x r f REG</code>（frame-configuration-to-register）：寄存当前框架，这些框架不能关闭。<code>C-x r SPC REG</code>（point-to-register）：寄存某个光标位置。<code>C-x r j REG</code>（jump-to-register）：调转到对应的寄存器（框架、窗口或者位置信息）。</p></li>
+
+<li><p><code>C-x r s REG</code>（copy-to-register）：寄存某个区域。<code>C-x r r REG</code>：寄存某个选中的区域。<code>C-x r i REG</code>（insert-register）：召回（即粘贴）某个区域。</p></li>
+</ol>
+
+<ul>
+<li><code>C-g</code>：</li>
+</ul>
+
+<ol>
+<li><p>终止一条命令，通常是写了一半未完成。</p></li>
+
+<li><p><code>C-x u</code>：撤销上一步操作。</p></li>
+
+<li><p><code>C-/</code>（Emacs文档上是<code>C-_</code>）：撤销命令，持续按键可以执行多次撤销。比较有意思的是<code>M-/</code>对应的是自动不全，可以连续按键已获得多个候选补全。</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-c</code>：</li>
+</ul>
+
+<ol>
+<li><p>退出close Emacs。</p></li>
+
+<li><p><code>C-z</code>：跳出Emacs窗口，但不关闭。</p></li>
+</ol>
+
+<h2 id="3-光标移动">3. 光标移动</h2>
+
+<ul>
+<li><code>C-v</code>：</li>
+</ul>
+
+<ol>
+<li><p>向前移动一屏，可以用于清屏（右手C-，左手v）。</p></li>
+
+<li><p><code>C-u 8 C-v</code>：屏幕向下滚动8行。</p></li>
+
+<li><p><code>M-v</code>：向后移动一屏（右手M-，左手v）。</p></li>
+
+<li><p><code>C-u 8 M-v</code>：屏幕向上滚动8行。</p></li>
+
+<li><p><code>C-l</code>：重绘屏幕，并将光标所在行置于屏幕的中央。如果连续按键盘，光标会带动屏幕在上、中、下跳动。<code>M-r</code>光标在该屏幕</p></li>
+
+<li><p><code>C-v</code>和<code>M-v</code>两个命令中的C-和V-用右手操作，正好C-在更靠右，表示向前；而M-偏左，表示向后。</p></li>
+
+<li><p><code>M-g</code>：跳转到第n行</p></li>
+</ol>
+
+<ul>
+<li><code>C-p</code>：</li>
+</ul>
+
+<ol>
+<li><p>移动到上(previous)一行。<code>C-n</code>：移动到下(next)一行。</p></li>
+
+<li><p><code>M-p</code>：搜索先前命令。<code>M-n</code>：搜索先前命令（后翻）。<code>M-p</code>和<code>M-n</code>可以用于Emacs-ESS R界面的上翻下翻。</p></li>
+
+<li><p><code>C-a</code>：移动到行首（ahead）。<code>C-e</code>：移动到行尾（end）。</p></li>
+
+<li><p><code>M-a</code>：移动到句首。<code>M-e</code>：移动到句尾。持续按<code>M-a</code>和<code>M-e</code>会跳行，<code>C-a</code>和<code>C-e</code>不会。<code>M-a</code>和<code>M-e</code>会跳转到语义相关的句首或句尾。</p></li>
+
+<li><p><code>M-&lt;</code>或者<code>C-x [</code>：移动到文档最开头。<code>M-</code>或者<code>C-x ]</code>：移动到文档最末尾。</p></li>
+</ol>
+
+<ul>
+<li><code>C-f</code>：</li>
+</ul>
+
+<ol>
+<li><p>右移（forward）一个字符。</p></li>
+
+<li><p><code>C-b</code>：左移（back）一个字符。</p></li>
+
+<li><p><code>M-f</code>：右移一个单词。以单词为单位移动，更快并且准确。</p></li>
+
+<li><p><code>M-b</code>：左移一个单词。</p></li>
+
+<li><p>左手控制C-和M-。以上操作可以配合<code>C-u Number</code> 作定量Number的移动，如<code>C-u 10 C-b</code>表示左移10个字符； 同时<code>C-u</code> 也可以用作插入同样字符，比如<code>C-u 10 i</code>将插入iiiiiiiiii。</p></li>
+</ol>
+
+<ul>
+<li><code>C-M-f</code>：</li>
+</ul>
+
+<ol>
+<li><p>跳转到下一个匹配的括号，<code>C-M-b</code>：跳转到上一个匹配括号。</p></li>
+
+<li><p><code>C-M-a</code>：跳到函数头部，<code>C-M-e</code>：跳到函数的尾部。</p></li>
+
+<li><p><code>C-M-t</code>：向前移动整个匹配括号的内容。<code>C-M-k</code>：删除匹配括号内容（光标停留在匹配括号处）。</p></li>
+
+<li><p><code>C-M-h</code>：选中当前函数（光标停留在函数中的任意位置）。<code>C-M-SPC</code>：选中匹配括号包括的所有内容（光标停留在匹配括号处）。</p></li>
+</ol>
+
+<ul>
+<li><code>C-M-v</code>：</li>
+</ul>
+
+<ol>
+<li><p>在其他的buffer中向下滚动内容，光标依然停留到当前buffer。</p></li>
+
+<li><p><code>C-M-S-v</code>：在其他的buffer中向上滚动内容。</p></li>
+</ol>
+
+<h2 id="4-删除剪切复制粘贴">4. 删除剪切复制粘贴</h2>
+
+<ul>
+<li><code>C-@</code>（at）：</li>
+</ul>
+
+<ol>
+<li><p>标记起始为点（之后用<code>C-f</code>，<code>M-b</code>等移动命令）。</p></li>
+
+<li><p><code>M-@</code>：选择光标后的一个单词。</p></li>
+
+<li><p><code>C-x h</code>（whole发音）：将整个buffer都标记起来。</p></li>
+</ol>
+
+<ul>
+<li><code>C-x C-x</code>（exchange-point-and-mark）：</li>
+</ul>
+
+<ol>
+<li><p>快速选中上次选中标记的代码块。</p></li>
+
+<li><p>连续按键，光标可以在选中的代码块头部和尾部跳转。因此，可以实现代码向前或或者向后继续高亮；与其他选中命令如<code>C-M-SPC</code>连用。</p></li>
+
+<li><p><code>C-u C-@</code>：在<code>C-y</code>插入一段代码后，光标返回插入前的位置。同时，这个命令也可以跳转光标到上一个标记的地方。</p></li>
+</ol>
+
+<ul>
+<li><code>DEL</code>：</li>
+</ul>
+
+<ol>
+<li><p>删除光标前一个字符。</p></li>
+
+<li><p><code>M-DEL</code>：删除光标前一个单词。删除的内容自动放入粘贴板。</p></li>
+
+<li><p><code>C-d</code>（delete）：删除光标后一个字符。</p></li>
+
+<li><p><code>M-d</code>：删除光标后一单词。</p></li>
+
+<li><p><code>C-S-DEL</code>：删除一整行。</p></li>
+</ol>
+
+<ul>
+<li><code>C-k</code>（kill）：</li>
+</ul>
+
+<ol>
+<li><p>从光标处剪切至行尾。</p></li>
+
+<li><p><code>M-k</code>：从光标处剪切至句尾，用于删除一个行或句子。</p></li>
+
+<li><p>配合<code>C-u</code>使用，<code>C-k</code>只能删除指定的行数，而<code>M-k</code>可以删除句子。所以，<code>M-k</code>可以删除句子间的空白行。</p></li>
+</ol>
+
+<ul>
+<li><code>M-w</code>（write）：</li>
+</ul>
+
+<ol>
+<li><p>标记选定范围后复制。</p></li>
+
+<li><p><code>C-w</code>：标记选定范围后剪切。</p></li>
+</ol>
+
+<ul>
+<li><code>C-y</code>（yank）：</li>
+</ul>
+
+<ol>
+<li><p>粘贴。</p></li>
+
+<li><p>连续<code>M-y</code>可以召回之前的剪切板中的内容。</p></li>
+
+<li><p><code>C-j</code>：插入空白行。</p></li>
+</ol>
+
+<h2 id="5-查找和替换">5. 查找和替换</h2>
+
+<ul>
+<li><code>C-s</code>：</li>
+</ul>
+
+<ol>
+<li><p>搜索（search）。</p></li>
+
+<li><p><code>C-r</code>：反向搜索（research）。</p></li>
+
+<li><p><code>C-s C-w</code>：自动搜索光标到临近的第一个词结尾，可以反复按<code>C-w</code>以扩充选中范围。</p></li>
+
+<li><p><code>C-u C-s</code>：正则匹配选择。</p></li>
+</ol>
+
+<ul>
+<li>Occur模式：</li>
+</ul>
+
+<ol>
+<li><p><code>M-s o</code>：打开occur窗口，支持正则搜索的位置信息提纲式显示。在原始文本buffer，可以使用<code>M-g n</code>和<code>M-g p</code>进行上下跳转到符合区域。</p></li>
+
+<li><p>在Occur buffer下使用<code>C-p</code>和<code>C-n</code>进行上下跳转。<code>&lt;</code>和``跳转到Occur头部和尾部。</p></li>
+
+<li><p>在Occur buffer下使用<code>o</code>跳转到对应文本位置，并且光标跳转到文本buffer。<code>C-o</code>跳转到对应文本位置，光标继续停留在Occur buffer。</p></li>
+
+<li><p>在Occur buffer下使用<code>e</code>，启动在文本匹配位置的编辑。编辑完成后使用<code>C-c C-c</code>退出编辑模式。使用<code>g</code>更新搜索。</p></li>
+</ol>
+
+<ul>
+<li>正则搜索</li>
+</ul>
+
+<ol>
+<li><p><code>M-x rgrep</code>进入正则搜索，可以搜索多个文件，搜索结果会在一个新的buffer中显示搜索结果。在原始文本buffer，可以使用<code>M-g n</code>和<code>M-g p</code>进行上下跳转到符合区域。</p></li>
+
+<li><p>在新打开的搜索buffer中，使用<code>TAB</code>和<code>S-TAB</code>上下移动，但不显示对应搜索的文本。使用<code>p</code>和<code>n</code>上下移动，同时对应搜索内容。使用<code>{</code>和<code>}</code>移动到上个文件和下个文件。</p></li>
+
+<li><p>使用<code>C-v</code>和<code>M-v</code>进行上下翻页。</p></li>
+
+<li><p>使用<code>g</code>更新搜索。使用<code>q</code>退出。</p></li>
+</ol>
+
+<ul>
+<li><code>M-x replace-string RET stringA RET newstring RET</code>：</li>
+</ul>
+
+<ol>
+<li><p>将buffer中所有的A替换成B。</p></li>
+
+<li><p><code>M-x replace-regexp RET regexp RET newstring RET</code>：正则匹配。</p></li>
+</ol>
+
+<h2 id="6-代码整理">6. 代码整理</h2>
+
+<ul>
+<li><p><code>C-M-\</code>：整理（indent）选定代码块后。</p></li>
+
+<li><p><code>M-x hs-minor-mode</code>：</p></li>
+</ul>
+
+<ol>
+<li><p>进入折叠代码模式，以下输入在函数的前大括号处。</p></li>
+
+<li><p><code>C-c @ C-h</code>：隐藏（hide）代码。</p></li>
+
+<li><p><code>C-c @ C-s</code>：显示（show）代码。</p></li>
+
+<li><p><code>C-c @ C-c</code>：隐藏/显示代码的切换。</p></li>
+</ol>
+
+<ul>
+<li><code>M+x comment-region</code>：</li>
+</ul>
+
+<ol>
+<li><p>注释选中的代码。</p></li>
+
+<li><p><code>M+x uncomment-region</code>：反注释选中代码。</p></li>
+</ol>
+
+<h2 id="7-宏-macro">7. 宏（Macro）</h2>
+
+<p>Emacs主持宏，用于记录操作的动作。</p>
+
+<ul>
+<li><code>C-x (</code></li>
+</ul>
+
+<ol>
+<li><p>或者<code>f3</code>开始录入宏。</p></li>
+
+<li><p><code>C-x )</code>或者<code>f4</code>结束宏录入。</p></li>
+
+<li><p><code>C-x e</code>或者<code>f4</code>放映宏。使用<code>C-u 0 f4</code>，对整个文件执行宏。使用<code>C-x C-k r</code>（apply-macro-to-region-lines）对选中区域执行宏。</p></li>
+</ol>
+
+<h2 id="8-emacs与系统交互">8. Emacs与系统交互</h2>
+
+<ul>
+<li><code>M-x !</code>：</li>
+</ul>
+
+<ol>
+<li><p>执行单条的shell命令。</p></li>
+
+<li><p><code>M-x shell RET</code>：进入系统交互界面。</p></li>
+</ol>
+
+<h2 id="9-emacs帮助信息">9. Emacs帮助信息</h2>
+
+<ul>
+<li><code>C-h</code>：</li>
+</ul>
+
+<ol>
+<li><p><code>C-h m</code>（mode）：返回当前所有Emacs主要和次要模式（mode）的快捷键。</p></li>
+
+<li><p><code>C-h c</code>：解释某个命令，后跟命令比如<code>C-x C-f</code>。</p></li>
+
+<li><p>如果需要查找某个命令，尽可能输入该命令，之后跟随<code>C-h</code>查询帮助信息。</p></li>
+
+<li><p><code>C-h i</code>：列出Emacs的所有帮助信息。</p></li>
+
+<li><p><code>C-h r</code>：Emacs帮助文档。</p></li>
+</ol>
+
+<ul>
+<li><code>M-x man</code>：之后跟随UNIX的命令，比如<code>ls</code>，查询该命令帮助文档。</li>
+</ul>
+
+<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
+
+<ul>
+<li><a href="http://tuhdo.github.io/emacs-tutor.html">Emacs Mini Manual</a>: a very good Emacs manual including a configure of C/C++.</li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2019年11月05日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/emacs">Emacs</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

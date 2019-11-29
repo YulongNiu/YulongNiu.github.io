@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Emacs和ESS的使用技巧 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Emacs和ESS的使用技巧" />
+<meta property="og:description" content="ESS基本操作。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/" />
+<meta property="article:published_time" content="2011-08-12T17:20:57-04:00" />
+<meta property="article:modified_time" content="2011-08-12T17:20:57-04:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Emacs和ESS的使用技巧"/>
+<meta name="twitter:description" content="ESS基本操作。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Emacs和ESS的使用技巧</h1>
+			<div class="meta">Posted at &mdash; Aug 12, 2011</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<h2 id="1-安装ess">1. 安装ESS</h2>
+
+<p>有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如<code>yum</code>：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install emacs-ess</code></pre></div>
+<p>但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法<a href="http://yulongniu.bionutshell.org/blog/2012/06/24/emacs-extend-skills/">参考</a>，安装<code>ess</code>包。</p>
+
+<h2 id="2-使用ess">2. 使用ESS</h2>
+
+<p>进入GNU Emacs界面之后，输入<code>M-X R</code> 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。</p>
+
+<ul>
+<li><code>M-x R</code>：</li>
+</ul>
+
+<ol>
+<li><p>启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。</p></li>
+
+<li><p><code>C-u M-x R RET --no-save RET</code>：启动R并且不保存。</p></li>
+
+<li><p><code>M-x ess-transcript-clean-region</code>：清理R界面。</p></li>
+
+<li><p><code>C-c C-z</code>：强制停止运行的R进程。</p></li>
+</ol>
+
+<ul>
+<li><code>C-c C-x</code>：</li>
+</ul>
+
+<ol>
+<li><p>代替<code>ls()</code>函数。</p></li>
+
+<li><p><code>C-c C-s</code>：代替<code>search()</code>函数。</p></li>
+
+<li><p><code>C-c C-d</code>：修改已经建立的对象，非常实用。</p></li>
+</ol>
+
+<ul>
+<li><code>C-c C-n</code>：</li>
+</ul>
+
+<ol>
+<li><p>把当前行送到R。</p></li>
+
+<li><p><code>C-c C-c</code>：把当前段送到R。</p></li>
+
+<li><p><code>C-c C-b</code>：把当前整个文件送到R。</p></li>
+</ol>
+
+<ul>
+<li><p><code>C-c tab</code>：自动补全R代码。</p></li>
+
+<li><p><code>C-x o</code>：滚动屏幕。</p></li>
+
+<li><p><code>C--</code>：</p></li>
+</ul>
+
+<ol>
+<li><p>自动给出R语言中特有的 <code>&lt;-</code>。</p></li>
+
+<li><p><code>C---</code>：连按两下&ndash;，则可以显示下划线。</p></li>
+</ol>
+
+<ul>
+<li><code>C-c C-o C-o</code>：</li>
+</ul>
+
+<ol>
+<li><p>在函数头按下会激活ESS对R代码的注释功能。</p></li>
+
+<li><p><code>M-x customize-group RET ess RET</code>：配置默认模板，如果需要插入空行，回车没用，猛戳空格。</p></li>
+
+<li><p><code>C-c C-o C-c</code>：将代码注释为roxygen的<code>##'</code>开头格式，特别是注释example的时候很好用。</p></li>
+
+<li><p><code>C-c C-o p</code>：光标跳转到注释段落开头。</p></li>
+
+<li><p><code>C-c C-o n</code>：光标跳转到注释所在函数段落结尾。</p></li>
+
+<li><p><code>M-q</code>：整理roxygen注释，将多行注释压缩整理。</p></li>
+</ol>
+
+<p><img src="/images/Emacs_ESS_snap.jpg" alt="Emacs_ESS_snap" /></p>
+
+<ul>
+<li><code>C-x C-f /ssh:user@host: RET</code>:</li>
+</ul>
+
+<p>远程连接服务器R。</p>
+
+<h2 id="3-高级设置">3. 高级设置</h2>
+
+<p>结合Emacs的自动补全、补全括号、颜色显示等功能，设置更加强大的ESS编辑环境。将<a href="#c-mode-config">附加环境设置</a>添加到Emacs设置文件，比如<code>~/.emacs</code>。所需要的包使用<code>M-x list-package</code>安装。</p>
+
+<ul>
+<li>自动补全：<code>auto-complete</code>包</li>
+</ul>
+
+<p><img src="/images/emacs_ess_tipes_autocomplete.png" alt="emacs_ess_tipes_autocomplete" /></p>
+
+<ul>
+<li><p>代码折叠：<code>hs-minor-mode</code>（系统自带）</p></li>
+
+<li><p>括号补全：<code>smartparens</code></p></li>
+
+<li><p>括号颜色：<code>rainbow-delimiters</code></p></li>
+
+<li><p>颜色显示：<code>rainbow-mode</code></p></li>
+</ul>
+
+<p><img src="/images/emacs_ess_tipes_parent.png" alt="emacs_ess_tipes_parent" /></p>
+
+<h2 id="附加内容">附加内容</h2>
+
+<p><a id="c-mode-config">ESS的Emacs编程环境设置</a></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#008000">; auto-completion</span>
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+(require <span style="color:#a31515">&#39;auto-complete</span>)
+(require <span style="color:#a31515">&#39;auto-complete-config</span>)
+(ac-config-default)
+
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#008000">; ESS set</span>
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;</span>
+(require <span style="color:#a31515">&#39;ess-site</span>)
+(setq ess-use-auto-complete t)
+
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#008000">;open hs-mode</span>
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;</span>
+(add-hook <span style="color:#a31515">&#39;ess-mode-hook</span> <span style="color:#a31515">&#39;hs-minor-mode</span>)
+
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#008000">;smartparens</span>
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;</span>
+(require <span style="color:#a31515">&#39;smartparens-config</span>)
+(show-smartparens-global-mode t)
+(smartparens-global-mode t)
+
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#008000">;rainbow mode </span>
+<span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;</span>
+(require <span style="color:#a31515">&#39;rainbow-mode</span>)
+(dolist (hook &#39;(ess-mode-hook inferior-ess-mode-hook))
+(add-hook hook <span style="color:#a31515">&#39;rainbow-turn-on</span>))
+
+<span style="color:#008000">;;;;;;;;;;;;;;</span>
+<span style="color:#008000">;rainbow-delimiters</span>
+<span style="color:#008000">;;;;;;;;;;;;;;</span>
+(require <span style="color:#a31515">&#39;rainbow-delimiters</span>)
+(add-hook <span style="color:#a31515">&#39;prog-mode-hook</span> <span style="color:#a31515">&#39;rainbow-delimiters-mode</span>)
+(add-hook <span style="color:#a31515">&#39;ess-mode-hook</span> <span style="color:#a31515">&#39;rainbow-delimiters-mode</span>)</code></pre></div>
+<h3 id="a-id-ref-参考资料-a"><a id="Ref">参考资料</a></h3>
+
+<ul>
+<li><p><a href="http://cos.name/2011/05/write-r-packages-like-a-ninja/">像忍者一样写R包</a></p></li>
+
+<li><p><a href="http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html">google code R stype</a></p></li>
+
+<li><p><a href="http://joysofprogramming.com/install-emacs-ess-el-fedora-rhel/">记载ESS的博客</a></p></li>
+
+<li><p><a href="http://www.damtp.cam.ac.uk/user/sje30/ess11/ess-slides.pdf">ESS幻灯片</a></p></li>
+
+<li><p><a href="http://ess.r-project.org/Manual/ess.html">ESS文档</a></p></li>
+
+<li><p><a href="http://ygc.name/2014/12/07/auto-complete-in-ess/">YGC auto-complete in ESS</a></p></li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2017年1月6日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/emacs">Emacs</a></li>
+								
+								<li><a href="/tags/r">R</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

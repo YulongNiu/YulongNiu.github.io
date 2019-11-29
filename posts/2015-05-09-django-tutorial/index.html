@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Django使用介绍 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Django使用介绍" />
+<meta property="og:description" content="Django介绍。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/" />
+<meta property="article:published_time" content="2015-05-09T13:42:15+08:00" />
+<meta property="article:modified_time" content="2015-05-09T13:42:15+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django使用介绍"/>
+<meta name="twitter:description" content="Django介绍。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Django使用介绍</h1>
+			<div class="meta">Posted at &mdash; May 9, 2015</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p>本文是学习<a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial</a>的记录，目的为了帮助快速浏览和查找Django使用细节。</p>
+
+<h2 id="1-安装django">1. 安装Django</h2>
+
+<p>本文使用<a href="https://www.python.org/">Python 3.3.6</a>和<a href="http://www.postgresql.org/">PostgreSQL 9.3.6</a>学习Django。可以参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/09/python-different-version/">“使用Pyenv控制多个版本Python”</a>和 <a href="http://yulongniu.bionutshell.org/blog/2015/05/08/install-use-postgresql/">“Fedora安装与使用PostgreSQL”</a>，安装对应版本Python和PostgreSQL。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装Django</span>
+$ pip install django
+
+<span style="color:#008000"># 安装PostgreSQL支持psycopg2</span> 
+$ pip install psycopg2 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 检查Django版本</span>
+$ python -c <span style="color:#a31515">&#34;import django; print(django.get_version())&#34;</span></code></pre></div>
+<h2 id="2-创建项目">2. 创建项目</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 创建名为mysite的项目</span>
+$ django-admin startproject mysite</code></pre></div>
+<p>之后，配制数据库。修改<code>mysite/settings.py</code>对应位置。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># Database</span>
+<span style="color:#008000"># https://docs.djangoproject.com/en/1.8/ref/settings/#databases</span>
+
+DATABASES = {
+    <span style="color:#a31515">&#39;default&#39;</span>: {
+        <span style="color:#a31515">&#39;ENGINE&#39;</span>: <span style="color:#a31515">&#39;django.db.backends.postgresql_psycopg2&#39;</span>,
+        <span style="color:#a31515">&#39;NAME&#39;</span>: <span style="color:#a31515">&#39;testdb&#39;</span>,
+        <span style="color:#a31515">&#39;USER&#39;</span>: <span style="color:#a31515">&#39;userName&#39;</span>,
+        <span style="color:#a31515">&#39;PASSWORD&#39;</span>: <span style="color:#a31515">&#39;passWord&#39;</span>,
+        <span style="color:#a31515">&#39;HOST&#39;</span>: <span style="color:#a31515">&#39;/var/run/postgresql&#39;</span>,
+        <span style="color:#a31515">&#39;PORT&#39;</span>: <span style="color:#a31515">&#39;5432&#39;</span>,
+    }
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 配制好数据库后，链接数据库</span>
+$ python manage.py migrate</code></pre></div>
+<p>开启Django测试网络服务器</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py runserver</code></pre></div>
+<h2 id="3-创建app">3. 创建app</h2>
+
+<p>首先， 创建新的app，比如<code>polls</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py startapp polls</code></pre></div>
+<p>其次，修改app</p>
+
+<p>app文件位置<code>polls/models.py</code>，之后在项目配制文件<code>mysite/settings.py</code>中添加app，最后添加app。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 添加app</span>
+$ python manage.py makemigrations polls
+
+<span style="color:#008000"># 如果有数据库操作，可以打印具体的数据库操作脚本</span>
+$ python manage.py sqlmigrate polls 0001
+
+<span style="color:#008000"># 也可以检查</span>
+$ python manage.py check</code></pre></div>
+<p>最后，链接app与数据库</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py migrate</code></pre></div>
+<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
+
+<ul>
+<li><a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial</a></li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2015年5月9日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/python">Python</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

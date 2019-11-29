@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Octopress安装和使用 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Octopress安装和使用" />
+<meta property="og:description" content="转至Hugo。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-07-22-octopress-install/" />
+<meta property="article:published_time" content="2014-07-22T13:45:46-04:00" />
+<meta property="article:modified_time" content="2014-07-22T13:45:46-04:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Octopress安装和使用"/>
+<meta name="twitter:description" content="转至Hugo。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Octopress安装和使用</h1>
+			<div class="meta">Posted at &mdash; Jul 22, 2014</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p>安装和使用Octopress的一些注意事项，详细的内容可以<a href="#Ref">参考网址</a>。</p>
+
+<h2 id="1-安装">1. 安装</h2>
+
+<p>请参考<a href="http://octopress.org/">官网</a>，其他的博客介绍的安装已经失效或者错误。
+常用命令:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 预览，可自动更新。使用Ctrl+c终止。</span>
+$ rake preview</code></pre></div>
+<h2 id="2-ruby版本调整">2. Ruby版本调整</h2>
+
+<p>Octopress推荐使用<a href="https://rvm.io/">RVM</a>安装Ruby 2.2.10版本。在安转过程中可能会出现<code>&quot;gpg: Can't check signature: public key not found&quot;</code>的错误提示，需要执行一下类似命名，添加公用匙。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3</code></pre></div>
+<p>使用以下操作设定ruby版本：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ source ~/.rvm/scripts/rvm
+$ rvm use ruby-2.2.10</code></pre></div>
+<h2 id="3-预览错误">3. 预览错误</h2>
+
+<p>如果在预览博文时出现<code>TCPServer Error: Address already in use - bind(2)</code>的错误，表示端口（Octopress默认4000）被占，解决办法:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 获取占据4000端口程序的PID</span>
+$ lsof -wni tcp:4000
+$ kill -9 PID</code></pre></div>
+<h2 id="4-更新博文">4. 更新博文</h2>
+
+<p>博文放置在<code>source/_posts</code>目录下。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rake new_post[<span style="color:#a31515">&#34;new post&#34;</span>]
+$ git add .
+$ git commit -m <span style="color:#a31515">&#34;my comment&#34;</span> 
+$ git push origin source
+$ rake generate
+$ rake deploy
+
+<span style="color:#008000"># 或者generate和deploy一步执行</span>
+$ rake gen_deploy</code></pre></div>
+<p>如果需要在首页显示部分博文，在需要隔断的地方（博文markdown文件）加入：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#008000">&lt;!-- more --&gt;</span></code></pre></div>
+<h2 id="5-使用主题">5. 使用主题</h2>
+
+<p>当前博客使用的是<a href="http://kaworu.github.io/octopress/">octostrap</a>主题。</p>
+
+<ul>
+<li><p><a href="http://kaworu.github.io/octostrap3/blog/2013/10/03/category-list-aside/">添加Category侧边栏</a></p></li>
+
+<li><p><a href="http://kaworu.github.io/octostrap3/blog/2013/10/02/pick-a-theme-for-only-one-page/">每个页面更换主题</a></p></li>
+
+<li><p><a href="http://kaworu.github.io/octostrap3/setup/pick-a-theme/">选择Bootstrap主题</a></p></li>
+</ul>
+
+<h2 id="6-修改标签图标记">6. 修改标签图标记</h2>
+
+<p>可以使用<a href="http://converticon.com/">在线转换工具</a>，将png格式图片转换为ico格式（比如32*32），例如文件<code>favicon.ico</code>。之后，将<code>favicon.ico</code>移动到<code>source/</code>目录下。之后修改文件<code>source/_includes/head.html</code>，找到<code>favicon.png</code>将其改为<code>favicon.ico</code>。</p>
+
+<h2 id="7-404公益">7. 404公益</h2>
+
+<p>在<code>source</code>文件夹下添加*404.markdown*文件，之后写入</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">---
+layout: page
+title: <span style="color:#a31515">&#34;404 Error&#34;</span>
+date: 2014-07-22
+comments: <span style="color:#00f">false</span>
+sharing: <span style="color:#00f">false</span>
+footer: <span style="color:#00f">false</span>
+---
+
+&lt;script type=<span style="color:#a31515">&#34;text/javascript&#34;</span> src=<span style="color:#a31515">&#34;http://www.qq.com/404/search_children.js?edition=small&#34;</span> charset=<span style="color:#a31515">&#34;utf-8&#34;</span>&gt;&lt;<span style="">/script&gt;</span>
+</code></pre></div>
+<h2 id="8-私密博文">8. 私密博文</h2>
+
+<p>Octopress提供了隐藏博文的功能，即使文章已经推送到了github，也可以不在博客主页显示。具体方法是在每篇markdown文件头部添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#a31515">published</span>: <span style="color:#00f">false</span></code></pre></div>
+<p>如果需要公开发表，将其删除或者改为：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#a31515">published</span>: <span style="color:#00f">true</span></code></pre></div>
+<h2 id="9-代码高亮设置">9. 代码高亮设置</h2>
+
+<p>安装<code>coderay</code>和<code>kramdown</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gem install coderay
+$ gem install kramdown</code></pre></div>
+<p>在<code>_config.yml</code>文件中写入：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">markdown: kramdown
+kramdown:
+  use_coderay: true
+  coderay:
+    coderay_line_numbers: table
+    coderay_css: class</code></pre></div>
+<h2 id="10-kramdown语法小技巧">10. Kramdown语法小技巧</h2>
+
+<ul>
+<li>代码高亮</li>
+</ul>
+
+<p>代码段高亮参考<a href="http://octopress.org/docs/plugins/codeblock/">Octopress codeblock</a>，其中<code>[lang:language]</code>设置高亮语言种类。<code>[url]</code>和<code>[linktext]</code>非必须。</p>
+
+<ul>
+<li>四个空格或者一个Tab可以生成一个文本块</li>
+</ul>
+
+<h2 id="11-链接在新的选择卡中打开">11. 链接在新的选择卡中打开</h2>
+
+<p>在<code>source/_includes/custom/head.html</code>的末尾添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#008000">&lt;!-- link open with new tab  --&gt;</span>
+&lt;script&gt;
+  <span style="color:#00f">function</span> addBlankTargetForLinks () {
+  $(<span style="color:#a31515">&#39;a[href^=&#34;http&#34;]&#39;</span>).each(<span style="color:#00f">function</span>(){
+  $(<span style="color:#00f">this</span>).attr(<span style="color:#a31515">&#39;target&#39;</span>, <span style="color:#a31515">&#39;_blank&#39;</span>);
+  });
+  }
+  
+  $(document).bind(<span style="color:#a31515">&#39;DOMNodeInserted&#39;</span>, <span style="color:#00f">function</span>(event) {
+  addBlankTargetForLinks();
+  });
+&lt;/script&gt;</code></pre></div>
+<h2 id="12-修改分页数">12. 修改分页数</h2>
+
+<p>修改<code>_config.yml</code>文件</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 每页最多展示的博文数目</span>
+paginate: 5
+
+<span style="color:#008000"># 分页后博文地址</span>
+paginate_path: <span style="color:#a31515">&#34;posts/:num&#34;</span></code></pre></div>
+<h2 id="13-添加图片">13. 添加图片</h2>
+
+<p>将需要添加的图片移动到目录<code>source/images/</code>，之后在正文中添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">{% img [class names] /path/to/image [width] [height] [title text [alt text]] %}
+
+<span style="color:#008000"># 例子</span>
+{% img left /images/testimg.png 350 350 <span style="color:#a31515">&#39;image&#39;</span> <span style="color:#a31515">&#39;images&#39;</span> %}
+{% img right http://placekitten.com/300/500 150 250 Place Kitten <span style="color:#008000">#3 %}</span></code></pre></div>
+<h2 id="14-添加新页面">14. 添加新页面</h2>
+
+<p>首先，添加新的页面：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rake new_page[ANewPage]</code></pre></div>
+<p>这会生成一个新的文件<code>source/anewpage/index.markdown</code>。之后，修改<code>source/_includes/custom/navigation.html</code>文件，根据自己主题，添加如下类似内容</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;li {% if page.navbar == &#39;ANewPage&#39; %}class=&#34;active&#34;{% endif %}&gt;
+  &lt;a href=&#34;{{ root_url }}/anewpage&#34;&gt;ANewPage&lt;/a&gt;
+&lt;/li&gt;</pre></div>
+<h2 id="15-添加表格">15. 添加表格</h2>
+
+<p>建立新文件<code>source/stylesheets/data-table.css</code>，写入以下内容，其中<code>#00B9E3</code>是表头的背景颜色，可以更改为自己喜欢的颜色：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">* + table {
+  <span style="color:#00f">border-style</span>:<span style="color:#00f">solid</span>;
+  <span style="color:#00f">border-width</span>:1<span style="color:#2b91af">px</span>;
+  <span style="color:#00f">border-color</span>:#e7e3e7;
+}
+ 
+* + table th, * + table td {
+  <span style="color:#00f">border-style</span>:<span style="color:#00f">dashed</span>;
+  <span style="color:#00f">border-width</span>:1<span style="color:#2b91af">px</span>;
+  <span style="color:#00f">border-color</span>:#e7e3e7;
+  <span style="color:#00f">padding-left</span>: 3<span style="color:#2b91af">px</span>;
+  <span style="color:#00f">padding-right</span>: 3<span style="color:#2b91af">px</span>;
+}
+ 
+* + table th {
+  <span style="color:#00f">border-style</span>:<span style="color:#00f">solid</span>;
+  <span style="color:#00f">font-weight</span>:<span style="color:#00f">bold</span>;
+  <span style="color:#00f">background</span>: url(<span style="color:#a31515">&#34;/images/noise.png?1330434582&#34;</span>) <span style="color:#00f">repeat</span> <span style="color:#00f">scroll</span> <span style="color:#00f">left</span> <span style="color:#00f">top</span> #00B9E3;
+}
+ 
+* + table th[align=<span style="color:#a31515">&#34;left&#34;</span>], * + table td[align=<span style="color:#a31515">&#34;left&#34;</span>] {
+  <span style="color:#00f">text-align</span>:<span style="color:#00f">left</span>;
+}
+ 
+* + table th[align=<span style="color:#a31515">&#34;right&#34;</span>], * + table td[align=<span style="color:#a31515">&#34;right&#34;</span>] {
+  <span style="color:#00f">text-align</span>:<span style="color:#00f">right</span>;
+}
+ 
+* + table th[align=<span style="color:#a31515">&#34;center&#34;</span>], * + table td[align=<span style="color:#a31515">&#34;center&#34;</span>] {
+  <span style="color:#00f">text-align</span>:<span style="color:#00f">center</span>;
+}</code></pre></div>
+<p>之后，在<code>source/_includes/head.html</code>中修改或者添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;link href=&#34;{{ root_url }}/stylesheets/screen.css&#34; media=&#34;screen, projection&#34; rel=&#34;stylesheet&#34; type=&#34;text/css&#34;&gt;
+{% if page.styles contains &#39;data-table&#39; %}
+&lt;link href=&#34;{{ root_url }}/stylesheets/data-table.css&#34; media=&#34;screen, projection&#34; rel=&#34;stylesheet&#34; type=&#34;text/css&#34; /&gt;
+{% endif %}</pre></div>
+<p>使用方法，在每篇博客头部位置添加<code>styles: [data-table]</code>，之后使用表格样式即可。如果使用Kramdown，表格对其方法如下：</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th><strong>X/Y</strong></th>
+<th><strong>1(Presence)</strong></th>
+<th><strong>0(Absence)</strong></th>
+<th><strong>Sum</strong></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>1(Presence)</strong></td>
+<td>a</td>
+<td>b</td>
+<td>a+b</td>
+</tr>
+
+<tr>
+<td><strong>0(Absence)</strong></td>
+<td>c</td>
+<td>d</td>
+<td>c+d</td>
+</tr>
+
+<tr>
+<td><strong>Sum</strong></td>
+<td>a+c</td>
+<td>b+d</td>
+<td>n=a+b+c+d</td>
+</tr>
+</tbody>
+</table> 
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">|---------------|---------------|--------------|---------|
+|**X/Y**        |**1(Presence)**|**0(Absence)**|**Sum**  |
+|:--------------|:-------------:|:------------:|--------:|
+|**1(Presence)**|a              |b             |a+b      |
+|---------------|---------------|--------------|---------|
+|**0(Absence)** |c              |d             |c+d      |
+|---------------|---------------|--------------|---------|
+|**Sum**        |a+c            |b+d           |n=a+b+c+d|
+|---------------|---------------|--------------|---------|</pre></div>
+<p>如果使用Emacs，可以使用Emacs的<a href="http://orgmode.org/">org模式</a>快速建立和编辑表格。</p>
+
+<h2 id="16-设置mathjax">16. 设置MathJax</h2>
+
+<p>在<code>source/_includes/custom/head.html</code>设置：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#008000">&lt;!-- mathjax config similar to math.stackexchange --&gt;</span>
+&lt;script type=<span style="color:#a31515">&#34;text/x-mathjax-config&#34;</span>&gt;
+ MathJax.Hub.Config({
+     tex2jax: {
+         inlineMath: [ [<span style="color:#a31515">&#39;$&#39;</span>,<span style="color:#a31515">&#39;$&#39;</span>], [<span style="color:#a31515">&#34;\\(&#34;</span>,<span style="color:#a31515">&#34;\\)&#34;</span>] ],
+         processEscapes: <span style="color:#00f">true</span>,
+         extensions: [<span style="color:#a31515">&#34;color.js&#34;</span>]
+     }
+ });
+&lt;/script&gt;
+
+&lt;script type=<span style="color:#a31515">&#34;text/x-mathjax-config&#34;</span>&gt;
+ MathJax.Hub.Config({
+     tex2jax: {
+         skipTags: [<span style="color:#a31515">&#39;script&#39;</span>, <span style="color:#a31515">&#39;noscript&#39;</span>, <span style="color:#a31515">&#39;style&#39;</span>, <span style="color:#a31515">&#39;textarea&#39;</span>, <span style="color:#a31515">&#39;pre&#39;</span>, <span style="color:#a31515">&#39;code&#39;</span>]
+     }
+ });
+&lt;/script&gt;
+
+&lt;script type=<span style="color:#a31515">&#34;text/x-mathjax-config&#34;</span>&gt;
+ MathJax.Hub.Queue(<span style="color:#00f">function</span>() {
+     <span style="color:#00f">var</span> all = MathJax.Hub.getAllJax(), i;
+     <span style="color:#00f">for</span>(i=0; i &lt; all.length; i += 1) {
+         all[i].SourceElement().parentNode.className += <span style="color:#a31515">&#39; has-jax&#39;</span>;
+     }
+ });
+&lt;/script&gt;
+
+<span style="color:#008000">&lt;!-- latest mathjax --&gt;</span>
+&lt;script type=<span style="color:#a31515">&#34;text/javascript&#34;</span> async
+        src=<span style="color:#a31515">&#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML&#34;</span> async&gt;
+&lt;/script&gt;
+
+&lt;meta http-equiv=<span style="color:#a31515">&#34;Content-Security-Policy&#34;</span> content=<span style="color:#a31515">&#34;default-src &#39;self&#39; https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/ ; script-src &#39;self&#39; https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/ &#39;unsafe-eval&#39;;style-src &#39;self&#39; &#39;unsafe-inline&#39;; font-src &#39;self&#39;; img-src &#39;self&#39;;&#34;</span>&gt;</code></pre></div>
+<h2 id="17-重新克隆github上的博文和设置">17. 重新克隆github上的博文和设置</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 注意切换到指定ruby版本</span>
+<span style="color:#008000"># 克隆source分支到本地，注意替换“YulongNiu”为自己的GitHub名称</span>
+$ git clone -b source git@github.com:YulongNiu/YulongNiu.github.io.git octopress
+
+<span style="color:#008000"># 安装bundle</span>
+$ cd octopress
+$ gem install bundler
+$ bundle update
+$ bundle install
+
+<span style="color:#008000"># 克隆master分支到_deploy文件夹</span>
+$ mkdir _deploy
+$ cd _deploy
+$ git init
+$ git remote add origin git@github.com:YulongNiu/YulongNiu.github.io.git
+$ git pull origin master
+$ cd ..
+$ rake gen_deploy</code></pre></div>
+<h2 id="18-多台电脑共同编写博客">18. 多台电脑共同编写博客</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 设定好Octopress，假定Octopress目录为octopress</span>
+$ cd octopress
+$ git pull origin source
+$ cd ./_deploy
+$ git pull origin master</code></pre></div>
+<h3 id="a-id-ref-参考资料-a"><a id="Ref">参考资料</a></h3>
+
+<ul>
+<li><p>Octopress安装和域名设置：<a href="http://tchen.me/posts/2012-12-16-first-blog.html">1</a>, <a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">2</a></p></li>
+
+<li><p>Octopress其他配制：<a href="http://812lcl.com/blog/2013/10/26/octopressce-bian-lan-ji-ping-lun-xi-tong-ding-zhi/">1</a>, <a href="http://cn.soulmachine.me/blog/20130402/">2</a></p></li>
+
+<li><p>添加MathJax支持：<a href="http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/">1</a>, <a href="http://www.idryman.org/blog/2012/03/10/writing-math-equations-on-octopress/">2</a>, <a href="http://adereth.github.io/blog/2013/11/29/colorful-equations/">MathJax彩色公式</a>, <a href="https://unsafe.hen.ne.ke/labs/mathjax-csp/">https支持MathJax</a></p></li>
+
+<li><p><a href="http://kramdown.gettalong.org/syntax.html">Kramdown语法</a></p></li>
+
+<li><p><a href="http://kramdown.gettalong.org/quickref.html">Kramdown演示</a></p></li>
+
+<li><p><a href="http://i.rexdf.org/blog/2014/09/26/octopressbo-ke-geng-xin-ri-zhi/">pygments错误详细提示</a></p></li>
+
+<li><p><a href="http://pygments.org/docs/lexers/">Octopress highlight language list</a></p></li>
+
+<li><p>标记Octopress自身语法：<a href="http://stackoverflow.com/questions/15786144/how-to-escape-in-markdown-on-octopress">1</a>，<a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags/13582517#13582517">2</a></p></li>
+
+<li><p><a href="http://programus.github.io/blog/2012/03/07/add-table-data-css-for-octopress/">Octopress添加表格</a></p></li>
+
+<li><p><a href="http://swalsh.org/blog/2014/09/07/migrating-octopress-to-a-new-computer/">Octopress重装或者多台电脑上并行写作同步</a></p></li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2018年10月21日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/octopress">Octopress</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

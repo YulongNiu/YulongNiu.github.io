@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on Yulong Niu</title>
+    <link>https://YulongNiu.github.io/tags/c/</link>
+    <description>Recent content in C on Yulong Niu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Sun, 17 Apr 2016 22:42:25 +0800</lastBuildDate>
+    
+	<atom:link href="https://YulongNiu.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C语言指针记录</title>
+      <link>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</link>
+      <pubDate>Sun, 17 Apr 2016 22:42:25 +0800</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</guid>
+      <description>1. C语言指针基础 C语言的指针设计是一致和优雅的。C语言中“指针（pointer）”就是地址（所以不能用普通整数储存地址），“指针变量（pointer variable）”是存储地址的变量。一个指针变量，只能指向一个特定类型的变量，比如整数、浮点数、字符或者指针。
+int tmp1 = 1, tmp2; /* &amp;#34;=&amp;#34; does not mean &amp;#34;assignment&amp;#34;, it just means &amp;#34;initiating&amp;#34; */ /* p is the address of tmp1, *p is equal to the value of tmp1*/ int *p = &amp;amp;tmp1; int *q; q = &amp;amp;tmp2; /* p points to tmp1, q points to tmp2, now the value of tmp2 is 1*/ *p = *q; /* p and q now both points to tmp1*/ q = p; 2.</description>
+    </item>
+    
+    <item>
+      <title>C语言学习记录</title>
+      <link>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</link>
+      <pubDate>Sun, 07 Dec 2014 18:23:16 -0500</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</guid>
+      <description>1. 基本数据类型 1.1 算术类型   类型 解释 说明 注意事项 本地字节数     short 有符号短整数 完整形式signed short int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 2   unsigned short 无符号短整数 完整形式unsigned short int，int可以省略 全部位占满 2   int 有符号整数 完整形式signed int，singed可以省略 最左边一位表示符号，0为正数，1为负数 4   unsigned int 无符号整数  全部位占满 4   long 有符号长整数 完整形式为signed long int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 8   unsigned long 无符号长整数 完整形式为unsigned short int，int可以省略 全部位占满 8   long long 无符号长长整数 完整形式为signed long long int，singed和int可以省略 C99特有 8   unsigned long long 有符号长长整数 完整形式为unsigned long long int，int可以省略 C99特有 8   char 字符 实质是“小整数”（可能比短整数占用字节更少） 分为char、singed char和unsigned char。使用单引号标记常量，比如&#39;A&#39;（值为65） 1   _Bool 布尔型整数 实质是无符号整数 只能赋值0或1，赋值_Bool类型变量为非零值会导致赋值为1 1   float 单精度浮点数   4   double 双精度浮点数   8   long double 扩展精度浮点数   16     强制编辑器处理常量为长整数（十进制、八进制和十六进制），1135L；强制处理为无符号，1135U；混合使用，1135UL，U和L顺序和大小写不重要。 C99中增加了ll或者LL后缀，强制long long int型整数，可以与u或U连用。避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果。</description>
+    </item>
+    
+  </channel>
+</rss>

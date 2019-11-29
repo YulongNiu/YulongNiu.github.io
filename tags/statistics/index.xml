@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>statistics on Yulong Niu</title>
+    <link>https://YulongNiu.github.io/tags/statistics/</link>
+    <description>Recent content in statistics on Yulong Niu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Fri, 10 May 2013 00:29:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://YulongNiu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>统计学基本知识汇总</title>
+      <link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link>
+      <pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid>
+      <description>$$ \newcommand{\P}{\mathrm{P}} $$
+1. 完备事件 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：
+$$ \begin{align} \begin{split} \P(x_1) + \P(x_2) + \dots + \P(x_n) = 1 \end{split} \label{eq:1} \end{align} $$
+常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$
+2. 全概率公式 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：
+$$ \begin{align} \begin{split} \P(Y) &amp;amp;= \P(Y, x_1) + \P(Y, x_2) + \dots + \P(Y, x_n) \newline &amp;amp;= \P(x_1)\P(Y|x_1) + \P(x_2)\P(Y|x_2) + \dots + \P(x_n)\P(Y|x_n) \end{split} \label{eq:2} \end{align} $$
+使用概率密度函数表示为：
+$$ \begin{align} \begin{split} f(Y) &amp;amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline &amp;amp;= \int_{-\infty}^{+\infty}f(Y|x)f(x) \mathrm{d}x \end{split} \label{eq:3} \end{align} $$</description>
+    </item>
+    
+  </channel>
+</rss>

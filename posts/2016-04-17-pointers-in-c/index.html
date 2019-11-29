@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>C语言指针记录 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="C语言指针记录" />
+<meta property="og:description" content="C语言指针。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/" />
+<meta property="article:published_time" content="2016-04-17T22:42:25+08:00" />
+<meta property="article:modified_time" content="2016-04-17T22:42:25+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C语言指针记录"/>
+<meta name="twitter:description" content="C语言指针。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+     tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         displayMath: [['$$','$$'], ['\[\[','\]\]']],
+         processEscapes: true,
+         processEnvironments: true,
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+         TeX: { equationNumbers: { autoNumber: "AMS" },
+                extensions: ["AMSmath.js", "AMSsymbols.js"] }
+     }
+ });
+ MathJax.Hub.Queue(function() {
+     
+     
+     
+     var all = MathJax.Hub.getAllJax(), i;
+     for(i = 0; i < all.length; i += 1) {
+         all[i].SourceElement().parentNode.className += ' has-jax';
+     }
+ });
+
+ MathJax.Hub.Config({
+     
+     TeX: { equationNumbers: { autoNumber: "AMS" } }
+ });
+</script>
+
+<style>
+ code.has-jax {
+     font: inherit;
+     font-size: 100%;
+     background: inherit;
+     border: inherit;
+     color: #515151;
+ }
+</style>
+
+
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">C语言指针记录</h1>
+			<div class="meta">Posted at &mdash; Apr 17, 2016</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<h2 id="1-c语言指针基础">1. C语言指针基础</h2>
+
+<p>C语言的指针设计是一致和优雅的。C语言中“指针（pointer）”就是<strong>地址</strong>（所以不能用普通整数储存地址），“指针变量（pointer variable）”是存储地址的变量。一个指针变量，<strong>只能</strong>指向一个特定类型的变量，比如整数、浮点数、字符或者指针。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">int</span> tmp1 = 1, tmp2;
+
+<span style="color:#008000">/* &#34;=&#34; does not mean &#34;assignment&#34;, it just means &#34;initiating&#34; */</span>
+<span style="color:#008000">/* p is the address of tmp1, *p is equal to the value of tmp1*/</span>
+<span style="color:#2b91af">int</span> *p = &amp;tmp1;
+
+<span style="color:#2b91af">int</span> *q;
+q = &amp;tmp2;
+
+<span style="color:#008000">/* p points to tmp1, q points to tmp2, now the value of tmp2 is 1*/</span>
+*p = *q;
+
+<span style="color:#008000">/* p and q now both points to tmp1*/</span>
+q = p;</code></pre></div>
+<h2 id="2-指针运算有且只有三种">2. 指针运算有且只有三种</h2>
+
+<ul>
+<li><p>指针加一个整数，该表达式值为同类型指针；</p></li>
+
+<li><p>指针减一个整数，该表达式值为同类型指针；</p></li>
+
+<li><p>指针与指针相减，该表达式值为整数。</p></li>
+</ul>
+
+<p>指针与<code>++</code>和<code>--</code>结合的表达式</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>表达式</th>
+<th>意义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>*p++</code></td>
+<td>表达式值为p指针指向内容，之后指针自增</td>
+</tr>
+
+<tr>
+<td><code>(*p)++</code></td>
+<td>表达式值为p指针指向内容，之后指向内容自增</td>
+</tr>
+
+<tr>
+<td><code>++*p</code></td>
+<td>表达式值为p指针指向内容自增，指针不变</td>
+</tr>
+
+<tr>
+<td><code>*++p</code></td>
+<td>表达式值为p指针自增后指向内容</td>
+</tr>
+</tbody>
+</table> 
+
+
+<h2 id="3-指针与数组">3. 指针与数组</h2>
+
+<ul>
+<li><p>C语言只有一维数组，其中元素可以是数（整数或浮点数）、字符和指针（字符串、其他类型数组或者其他类型指针）。</p></li>
+
+<li><p>数组地址为第一个元素地址。可以使用数组名作为指向数组第一个元素的指针，但数组名<span style="color: red">不能</span>被修改，例如不能被重新赋值。因此，假如<code>a</code>数组，<code>a+i</code>等价与<code>&amp;a[i]</code>，<code>*(a+i)</code>等价与<code>a[i]</code>。</p></li>
+
+<li><p>对于二维数组<code>a</code>，<code>a</code>表示指向第一行的指针（即指针指向一维数组），<code>a[0]</code>表示指向第一行第一个元素的指针。理解<code>a[0]</code>：<code>a[0]</code>等价与<code>*(a + 0)</code>，表示指针<code>a</code>指向的内容，即第一行数组；同时，一维数组名表示指向第一个元素的指针。</p></li>
+
+<li><p>“字符串字面量（string literal）”被作为字符数组储存，类型为<code>char *</code>，因此对于字符串变量<code>char s[] = &quot;abc&quot;;</code>和<code>char *s = &quot;abc&quot;;</code>都合法。但是，<code>int a[] = {1, 2, 3};</code>合法，<s>int *a = {1, 2, 3};</s>非法。</p></li>
+</ul>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>数组类型</th>
+<th>初始化声明<sup>1</sup></th>
+<th>函数形参声明的指针形式<sup>2</sup></th>
+<th>第一个元素指针声明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素为整数的数组</td>
+<td><code>int a[LEN]</code></td>
+<td><code>int *</code></td>
+<td><code>int *p = &amp;a[0]</code>或<code>int *p = a</code></td>
+</tr>
+
+<tr>
+<td>元素为整数数组的数组（“二维数组”）</td>
+<td><code>int a[ROWNUM][COLNUM]</code></td>
+<td><code>int (*)[COLNUM]</code></td>
+<td><code>int *p = &amp;a[0]</code>或<code>int (*p)[COLNUM] = a</code>　</td>
+</tr>
+
+<tr>
+<td>元素为字符的数组（“字符串”）</td>
+<td><code>char a[LEN]</code></td>
+<td><code>char *</code></td>
+<td><code>char *p = &amp;a[0]</code>或<code>char *p = a</code></td>
+</tr>
+
+<tr>
+<td>元素为字符串指针的数组（“字符串数组”）</td>
+<td><code>char *a[LEN]</code></td>
+<td><code>char **</code>或<code>char *[LEN]</code></td>
+<td><code>char **p = &amp;a[0]</code>或<code>char **p = a</code></td>
+</tr>
+
+<tr>
+<td>元素为结构、联合或枚举的数组</td>
+<td><code>struct t a[LEN]</code></td>
+<td><code>struct t *</code></td>
+<td><code>struct t *p = &amp;a[0]</code>或<code>struct t *p = a</code></td>
+</tr>
+</tbody>
+</table> 
+
+
+<p><sup>1</sup>：初始化声明表示在声明同时初始化的形式，比如<code>int a[3] = {1, 2, 3}</code>、<code>char a[] = 'hello'</code>或者<code>char *a[] = {&quot;hello&quot;, &quot;world!&quot;}</code>。</p>
+
+<p><sup>2</sup>：在函数中声明形参时，对应的指针类型。形参可以是完整类型或者元素类型，比如，形参<code>char *a[LEN]</code>是完整类型，形参<code>char **a</code>是元素类型；再比如，形参<code>int a[ROWNUM][COLNUM]</code>是完整类型，形参<code>int (*a)[COLNUM]</code>是元素类型；再比如，形参<code>char a[]</code>是完整类型，形参<code>char *a</code>是元素类型。编译器把数组型的形参视为指针。</p>
+
+<h2 id="4-指针与函数">4. 指针与函数</h2>
+
+<ul>
+<li><p>C语言传入函数的都是值（数组被当做指针传入），而且形参对应对象的一个副本。</p>
+
+<ul>
+<li><p>形参为指针，可以改变指向的内容。</p></li>
+
+<li><p>形参为数组，传入指针（指向第一个元素地址）副本。因此，即便是数组名，也可以修改，即可以把数组名当做一个指针用。也可以使用指针传入部分数组。如下代码合法：</p></li>
+</ul></li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">void</span> TestFun(<span style="color:#2b91af">int</span> <span style="color:#00f">const</span> *a) {
+  ...
+  ++a;
+  ...
+}</code></pre></div>
+<h2 id="5-注意事项">5. 注意事项</h2>
+
+<ul>
+<li><p>留意未初始化指针，修改未初始化指针所指向内容是<span style="color: red">危险</span>的。字符指针<span style="color: red">必须</span>初始化，比如指向已有字符变量、字符串字面量或动态分配字符串。</p></li>
+
+<li><p>已有数组名<span style="color: red">不能被</span>重新赋值，<span style="color: red">不能</span>指向其他地址。</p></li>
+
+<li><p>函数返回指针时，<span style="color: red">不能</span>返回指向局部自动变量的指针，因为局部变量和对应指针在返回时销毁。可以返回指针形式的形参、指向外部变量的指针、指向声明为<code>static</code>{:.language-c}的局部变量和指向动态分配内存的指针。如下代码合法：</p></li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">struct</span> node *Add(<span style="color:#00f">struct</span> node *n, <span style="color:#2b91af">int</span> v) {
+  <span style="color:#00f">struct</span> node *new;
+  new = malloc(<span style="color:#00f">sizeof</span>(<span style="color:#00f">struct</span> node));
+  ...
+  <span style="color:#00f">return</span> new;
+}</code></pre></div>
+<h3 id="补充材料">补充材料</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">{% codeblock lang:c Using pointers to operate arrays in c %}
+<span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
+</span><span style="color:#00f"></span>
+<span style="color:#00f">#define N 5
+</span><span style="color:#00f"></span>
+<span style="color:#2b91af">void</span> PrintVal(<span style="color:#2b91af">int</span> *a);
+<span style="color:#2b91af">void</span> PrintArray(<span style="color:#2b91af">int</span> *a, <span style="color:#2b91af">int</span> length);
+<span style="color:#2b91af">void</span> PrintString(<span style="color:#2b91af">char</span> *a, <span style="color:#2b91af">int</span> length);
+<span style="color:#2b91af">void</span> Print2Array(<span style="color:#2b91af">int</span> colnum, <span style="color:#2b91af">int</span> rownum, <span style="color:#2b91af">int</span> (*a)[colnum]);
+<span style="color:#2b91af">void</span> Print2Array2(<span style="color:#2b91af">int</span> colnum, <span style="color:#2b91af">int</span> rownum, <span style="color:#2b91af">int</span> **a);
+<span style="color:#2b91af">void</span> PrintStringArray(<span style="color:#2b91af">char</span> *a[], <span style="color:#2b91af">int</span> length);
+<span style="color:#2b91af">void</span> PrintStringArray2(<span style="color:#2b91af">char</span> **a, <span style="color:#2b91af">int</span> length);
+
+<span style="color:#2b91af">int</span> main(<span style="color:#2b91af">void</span>)
+{
+  <span style="color:#2b91af">int</span> testVal = 2;
+  PrintVal(&amp;testVal);
+  printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>);
+
+  <span style="color:#2b91af">int</span> testArray[N] = {2, 3, 5};
+  PrintArray(testArray, N);
+  printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>);
+
+  <span style="color:#2b91af">char</span> testString[N] = <span style="color:#a31515">&#34;hell&#34;</span>;
+  PrintString(testString, N);
+  printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>);
+
+  <span style="color:#2b91af">int</span> test2Array[N][N] = {{1, 2, 3, 4, 5}};
+  Print2Array(N, N, test2Array);
+  <span style="color:#2b91af">int</span> *test2Array2[N] = {test2Array[0], test2Array[1], test2Array[2], test2Array[3], test2Array[4]};
+  Print2Array2(N, N, test2Array2);
+
+  <span style="color:#2b91af">char</span> *testStringArray[N] = {<span style="color:#a31515">&#34;Hello,&#34;</span>, <span style="color:#a31515">&#34;it&#34;</span>, <span style="color:#a31515">&#34;is&#34;</span>, <span style="color:#a31515">&#34;me&#34;</span>, <span style="color:#a31515">&#34;!&#34;</span>};
+  PrintStringArray(testStringArray, N);
+  PrintStringArray2(testStringArray, N);
+
+  <span style="color:#00f">return</span> 0;
+}
+
+<span style="color:#2b91af">void</span> PrintVal(<span style="color:#2b91af">int</span> *a) {
+  printf(<span style="color:#a31515">&#34;%3d&#34;</span>, *a);
+}
+
+<span style="color:#2b91af">void</span> PrintArray(<span style="color:#2b91af">int</span> *a, <span style="color:#2b91af">int</span> length) {
+  <span style="color:#2b91af">int</span> *p;
+  <span style="color:#00f">for</span> (p = a; p &lt; a + length; ++p) {
+    printf(<span style="color:#a31515">&#34;%3d&#34;</span>, *p);
+  }
+}
+
+<span style="color:#2b91af">void</span> PrintString(<span style="color:#2b91af">char</span> *a, <span style="color:#2b91af">int</span> length) {
+  <span style="color:#2b91af">char</span> *p;
+  <span style="color:#00f">for</span> (p = a; p &lt; a + length; ++p) {
+    printf(<span style="color:#a31515">&#34;%c&#34;</span>, *p);
+  }
+}
+
+
+<span style="color:#2b91af">void</span> Print2Array(<span style="color:#2b91af">int</span> colnum, <span style="color:#2b91af">int</span> rownum, <span style="color:#2b91af">int</span> (*a)[colnum]) {
+  <span style="color:#2b91af">int</span> (*p)[colnum];
+  <span style="color:#00f">for</span> (p = a; p &lt; a + colnum; ++p) {
+    <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> *q = *p; q &lt; *p + rownum; ++q) {
+      printf(<span style="color:#a31515">&#34;%3d&#34;</span>, *q);
+    }
+    printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>);
+  }
+}
+
+<span style="color:#2b91af">void</span> Print2Array2(<span style="color:#2b91af">int</span> colnum, <span style="color:#2b91af">int</span> rownum, <span style="color:#2b91af">int</span> **a) {
+  <span style="color:#2b91af">int</span> **p;
+  <span style="color:#00f">for</span> (p = a; p &lt; a + colnum; ++p) {
+    <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> *q = *p; q &lt; *p + rownum; ++q) {
+      printf(<span style="color:#a31515">&#34;%3d&#34;</span>, *q);
+    }
+    printf(<span style="color:#a31515">&#34;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>);
+  }
+}
+
+<span style="color:#2b91af">void</span> PrintStringArray(<span style="color:#2b91af">char</span> *a[], <span style="color:#2b91af">int</span> length) {
+  <span style="color:#2b91af">char</span> **p;
+  <span style="color:#00f">for</span> (p = a; p &lt; a + length; ++p) {
+    printf(<span style="color:#a31515">&#34;%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, *p);
+  }
+}
+
+<span style="color:#2b91af">void</span> PrintStringArray2(<span style="color:#2b91af">char</span> **a, <span style="color:#2b91af">int</span> length) {
+  <span style="color:#2b91af">char</span> **p;
+  <span style="color:#00f">for</span> (p = a; p &lt; a + length; ++p) {
+    printf(<span style="color:#a31515">&#34;%s</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, *p);
+  }
+}</code></pre></div>
+<p>输出结果为：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">  2
+  2  3  5  0  0
+hell
+  1  2  3  4  5
+  0  0  0  0  0
+  0  0  0  0  0
+  0  0  0  0  0
+  0  0  0  0  0
+  1  2  3  4  5
+  0  0  0  0  0
+  0  0  0  0  0
+  0  0  0  0  0
+  0  0  0  0  0
+Hello,
+it
+is
+me
+!
+Hello,
+it
+is
+me
+!</pre></div>
+<h3 id="参考资料">参考资料</h3>
+
+<ul>
+<li>KN King: <a href="http://www.amazon.com/Programming-Modern-Approach-2nd-Edition/dp/0393979504">C Programming: A Modern Approach, 2nd Edition</a>, 2008.</li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>201６年４月17日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/c">C</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

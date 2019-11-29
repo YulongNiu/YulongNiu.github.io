@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>两个git的rebase命令应用 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="两个git的rebase命令应用" />
+<meta property="og:description" content="git rebase使用。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/" />
+<meta property="article:published_time" content="2016-11-11T16:24:39+08:00" />
+<meta property="article:modified_time" content="2016-11-11T16:24:39+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="两个git的rebase命令应用"/>
+<meta name="twitter:description" content="git rebase使用。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+     tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         displayMath: [['$$','$$'], ['\[\[','\]\]']],
+         processEscapes: true,
+         processEnvironments: true,
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+         TeX: { equationNumbers: { autoNumber: "AMS" },
+                extensions: ["AMSmath.js", "AMSsymbols.js"] }
+     }
+ });
+ MathJax.Hub.Queue(function() {
+     
+     
+     
+     var all = MathJax.Hub.getAllJax(), i;
+     for(i = 0; i < all.length; i += 1) {
+         all[i].SourceElement().parentNode.className += ' has-jax';
+     }
+ });
+
+ MathJax.Hub.Config({
+     
+     TeX: { equationNumbers: { autoNumber: "AMS" } }
+ });
+</script>
+
+<style>
+ code.has-jax {
+     font: inherit;
+     font-size: 100%;
+     background: inherit;
+     border: inherit;
+     color: #515151;
+ }
+</style>
+
+
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">两个git的rebase命令应用</h1>
+			<div class="meta">Posted at &mdash; Nov 11, 2016</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p>介绍两个<code>git rebase</code>的应用场景，一个是合并commits记录，另一个是贡献代码。</p>
+
+<h2 id="1-合并commit记录">1. 合并commit记录</h2>
+
+<p>假定有多条commits，按照离当前时间从近至远依次为：<code>c1</code>、<code>b2</code>、<code>b1</code>和<code>a1</code>。希望合并<code>c1</code>、<code>b2</code>和<code>b1</code>，即只保留<code>c1</code>和<code>a1</code>。操作流程如下：</p>
+
+<ul>
+<li>打开交互式rebase</li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase -i sha1id-of-a1</code></pre></div>
+<ul>
+<li>标记合并commits</li>
+</ul>
+
+<p>弹出的文本编辑器初始可能为：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">pick sha1id-of-c1 c1
+pick sha1id-of-b2 b2
+pick sha1id-of-b1 b1
+...</pre></div>
+<p>修改为：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">pick sha1id-of-c1 c1
+squash sha1id-of-b2 b2
+squash sha1id-of-b1 b1
+...</pre></div>
+<ul>
+<li>记录合并commits</li>
+</ul>
+
+<p>在弹出的文本编辑器中标记和注释commits</p>
+
+<ul>
+<li>提交远程</li>
+</ul>
+
+<p>由于本地和远程记录不一致，需要强制合并。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f origin mybranch</code></pre></div>
+<h2 id="2-贡献代码">2. 贡献代码</h2>
+
+<ul>
+<li>Fork项目</li>
+</ul>
+
+<p>Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/my/project.git
+$ git remote add upstream https://github.com/famous/project.git</code></pre></div>
+<ul>
+<li>建立分支并提交修改</li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b devbranch
+$ git commit -a -m <span style="color:#a31515">&#39;these commits&#39;</span>
+$ git push origin devbranch</code></pre></div>
+<ul>
+<li>获取和合并最新远程修改</li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout master
+$ git pull upstream master
+$ git checkout devbranch
+
+$ git rebase master
+<span style="color:#008000">## compare and merge the latest commits</span>
+$ git rebase --continue
+
+<span style="color:#008000">## force push</span>
+$ git push -f origin devbranch</code></pre></div>
+<ul>
+<li>发起pull request。</li>
+</ul>
+
+<h3 id="参考资料">参考资料</h3>
+
+<ol>
+<li><p><a href="http://itspg.logdown.com/posts/1731-git-squash-master-commits">合并分支</a></p></li>
+
+<li><p><a href="https://segmentfault.com/a/1190000000736629">贡献代码</a></p></li>
+</ol>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2016年11月11日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/linux">Linux</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

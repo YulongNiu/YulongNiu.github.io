@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>过滤TopHat分析双端测序的输出 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="过滤TopHat分析双端测序的输出" />
+<meta property="og:description" content="跳转至HISAT2或kallisto。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/" />
+<meta property="article:published_time" content="2015-05-16T04:33:10+08:00" />
+<meta property="article:modified_time" content="2015-05-16T04:33:10+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="过滤TopHat分析双端测序的输出"/>
+<meta name="twitter:description" content="跳转至HISAT2或kallisto。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+     tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         displayMath: [['$$','$$'], ['\[\[','\]\]']],
+         processEscapes: true,
+         processEnvironments: true,
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+         TeX: { equationNumbers: { autoNumber: "AMS" },
+                extensions: ["AMSmath.js", "AMSsymbols.js"] }
+     }
+ });
+ MathJax.Hub.Queue(function() {
+     
+     
+     
+     var all = MathJax.Hub.getAllJax(), i;
+     for(i = 0; i < all.length; i += 1) {
+         all[i].SourceElement().parentNode.className += ' has-jax';
+     }
+ });
+
+ MathJax.Hub.Config({
+     
+     TeX: { equationNumbers: { autoNumber: "AMS" } }
+ });
+</script>
+
+<style>
+ code.has-jax {
+     font: inherit;
+     font-size: 100%;
+     background: inherit;
+     border: inherit;
+     color: #515151;
+ }
+</style>
+
+
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">过滤TopHat分析双端测序的输出</h1>
+			<div class="meta">Posted at &mdash; May 16, 2015</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<h2 id="0-结论">0. 结论</h2>
+
+<p>在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成<code>accepted_hits.bam</code>文件，处理方法如下：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 首先查看bam文件头部有多少行</span>
+$ samtools view -H accepted_hits.bam | wc -l
+86
+
+<span style="color:#008000"># 筛选成对且成功map到基因组唯一位置的reads，按照上一条输出结果，调整“NR &lt;= 86”</span>
+$ samtools view -h accepted_hits.bam | <span style="color:#a31515">\
+</span><span style="color:#a31515"></span>    awk <span style="color:#a31515">&#39;{if (NR &lt;= 86) print $0}; {if($5 == 50 &amp;&amp; ($2 == 163 || $2 == 147 || $2 == 83 || $2 == 99)) print $0}&#39;</span> | <span style="color:#a31515">\
+</span><span style="color:#a31515"></span>    samtools view -b - &gt; accepted_filtered.bam
+
+$ samtools view accepted_filtered.bam | wc -l
+79143942</code></pre></div>
+<h2 id="1-tophat输出sam文件的第五列">1. TopHat输出sam文件的第五列</h2>
+
+<p><a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat文档</a>没有解释其输出bam文件（比如<code>accepted_hits.bam</code>）的第五列的意义。按照<a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a>输出结果来看，是表示映射质量指标Mapping Quality scores（MAPQ），具体计算参考公式$\eqref{eq:1}$。</p>
+
+<p>$$
+\begin{align}
+MAPQ = -10 \times log_{10}(pvalue)
+\label{eq:1}
+\end{align}
+$$</p>
+
+<p>MAPQ值越大，表示对应的read的alignment质量越高。然而，在TopHat输出结果中，MAPQ所代表意义略有不同。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 查看accepted_hits.bam文件的MAPQ数值，并统计出现频数</span>
+$ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $5}&#39;</span> | sort --parallel=4 -n | uniq -c
+5057430 0
+3117731 1
+8058500 3
+93044727 50
+
+<span style="color:#008000">## 查看前100位MAPQ数值和NH:i:n分布</span>
+$ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $5}&#39;</span> | head -100 | sort --parallel=4 -n | uniq -c
+35 0
+42 1
+22 3
+1 50
+
+$ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $20}&#39;</span> | head -100 | sort --parallel=4 -n | uniq -c
+1 NH:i:1
+22 NH:i:2
+3 NH:i:20
+13 NH:i:3
+29 NH:i:4
+5 NH:i:5
+21 NH:i:6
+1 NH:i:7
+2 NH:i:8
+3 NH:i:9
+
+<span style="color:#008000">## 查看前200位MAPQ数值和NH:i:n分布</span>
+$ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $5}&#39;</span> | head -200 | sort --parallel=4 -n | uniq -c
+60 0
+43 1
+67 3
+30 50
+
+$ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $20}&#39;</span> | head -200 | sort --parallel=4 -n | uniq -c
+30 NH:i:1
+8 NH:i:12
+7 NH:i:14
+67 NH:i:2
+3 NH:i:20
+13 NH:i:3
+30 NH:i:4
+5 NH:i:5
+31 NH:i:6
+1 NH:i:7
+2 NH:i:8
+3 NH:i:9</code></pre></div>
+<p>首先，我们可以看到TopHat输出的MAPQ只有四个数值，分别为<code>50</code>、<code>3</code>、<code>1</code>和<code>0</code>。根据<a href="http://samtools.github.io/hts-specs/SAMv1.pdf">sam文件标准</a>，<code>NH:i:n</code>表示含有查询序列的alignment的数量。因此，通过上述前100位和前200位分析可以发现，MAPQ并不是按照公式$\eqref{eq:1}$计算，而有可能是以下关系：</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>MAPQ (tophat)</th>
+<th>Tag</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>50</td>
+<td>NH:i:1</td>
+<td>map至唯一位置</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>NH:i:2</td>
+<td>map至2个位置</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>NH:i:3/NH:i:4</td>
+<td>map至3个或4个位置</td>
+</tr>
+
+<tr>
+<td>0</td>
+<td>NH:i:n (n &gt; 4)</td>
+<td>map到多余4个位置</td>
+</tr>
+</tbody>
+</table> 
+
+
+<p>展示一个<code>NH:i:1</code>的例子，注意Illumina双端测序平台<code>fr-unstranded</code>：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   163     chr1    637224  50      100M    =       637339  215     AAATGATCTGTACAATAACCCCCTGTGACACCAGTCTACCTATGTAACAAATGCCCCTAAACTTAAAATAAAAGTTAAAAAAAAAGAAAATTAAAATCTC  &lt;@@BDABBDFBCDGEGHIGIIGIABAFHBGDFGGGHIIIFIEIGGGGIIIFFDHIGIIIIIIIICEHIIIIIIHEHHDHFFCBCCB@BCAACCCCCECCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
+HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   83      chr1    637339  50      100M    =       637224  -215    GTAATATGAAAAACACAAATCTTTCATTCATTCCTTTCAACTGATGAGGAAAATGAGGCATCGGGAGTTAGTAAAAGTCCACATTGAGATATGAGACCCA  CCADDDCCCCCCCDEEEECAEHEEGGIIHGFAAGGGHEF=IGGGIIGGHGCGIEIIIGIIIIIIIFIHIIIIIIGIIHFEAIGGIIGFFDFHDDDAD@@@    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
+
+HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    99      chr1    643662  50      100M    =       643707  145     CCTATCAAAATCTTAGCATTCCTCTTAGCCCTCAACAAAGCATTTCTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGC  CCCFFFFFHHHHHJJJJIJJHJJJJJJJIIJJJJJJJJJJJJIJJJJJIIIJJIIIJJJJJJJJJIJJJJIJJJIHHHHFFEFFFEEEEEEEDDCDDCDD    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
+HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      100M    =       643662  -145    CTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGCAAAAAGAAAGTTGAGGAAATCTTAAAACATGTTATTGAGCTTAAA  CEEEDDDDEDFEEEEEEEBFFFFFHHHHEJJJJJJJJIJJJJGJIIIIHFJJJIIJJJJJIJJJJJJJJJJJJGHJJJJIJJJJJJJGHHHHFFFFFCCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1</code></pre></div>
+<h2 id="2-sam文件的第二列">2. sam文件的第二列</h2>
+
+<p>sam文件中的第二列提供了具体的map情况，下列表格摘自<a href="http://samtools.github.io/hts-specs/SAMv1.pdf">sam文件标准</a>，sam/bam文件中第二列各种条件<strong>求和</strong>的<strong>十进制</strong>标识，<a href="http://broadinstitute.github.io/picard/explain-flags.html">快速解释第二列的bitwise FLAG</a>：</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>Decimal</th>
+<th>Hexadecimal</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>0x1</td>
+<td>template having multiple segments in sequencing</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>0x2</td>
+<td>each segment properly aligned according to the aligner</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>0x4</td>
+<td>segment unmapped</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>0x8</td>
+<td>next segment in the template unmapped</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>0x10</td>
+<td>SEQ being reverse complemented</td>
+</tr>
+
+<tr>
+<td>32</td>
+<td>0x20</td>
+<td>SEQ of the next segment in the template being reverse complemented</td>
+</tr>
+
+<tr>
+<td>64</td>
+<td>0x40</td>
+<td>the first segment in the template</td>
+</tr>
+
+<tr>
+<td>128</td>
+<td>0x80</td>
+<td>the last segment in the template</td>
+</tr>
+
+<tr>
+<td>256</td>
+<td>0x100</td>
+<td>secondary alignment</td>
+</tr>
+
+<tr>
+<td>512</td>
+<td>0x200</td>
+<td>not passing quality controls</td>
+</tr>
+
+<tr>
+<td>1024</td>
+<td>0x400</td>
+<td>PCR or optical duplicate</td>
+</tr>
+
+<tr>
+<td>2048</td>
+<td>0x800</td>
+<td>supplementary alignment</td>
+</tr>
+</tbody>
+</table> 
+
+
+<p>在map完成双端测序序列中，我们感兴趣的是一对reads都正确align到基因组上，而且方相匹配又距离合适。符合这样条件的reads，对应的第二列数值为99、147、83和163，具体图示参考<a href="https://biobeat.wordpress.com/2013/04/29/directional-rna-seq-part-1-extract-strand-information-from-sam-file/">Directional RNA-seq— Part 1: SAM file flags</a>。下面表格解释四个数值的具体意义，其中<code>1</code>标识双端测序，<code>2</code>表示一对reads正确地map到基因组合适位置，表格中着重陈述<code>64</code>、<code>32</code>、<code>128</code>和<code>16</code>。</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>Flag</th>
+<th>Composition</th>
+<th>Explanation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>99</td>
+<td>64+32+2+1</td>
+<td>一对引物中第一个map到基因组正义链；第二个反方向map到基因组正义链</td>
+</tr>
+
+<tr>
+<td>147</td>
+<td>128+16+2+1</td>
+<td>一对引物中第二个反方向map基因组正义链；第一个map到基因组正义链</td>
+</tr>
+
+<tr>
+<td>83</td>
+<td>64+16+2+1</td>
+<td>一对引物中第一个map到基因组反义链；第二个反方向map到基因组反义链</td>
+</tr>
+
+<tr>
+<td>163</td>
+<td>128+32+2+1</td>
+<td>一对引物中第二个反方向map基因组正义链；第一个map到基因组正义链</td>
+</tr>
+</tbody>
+</table> 
+
+
+<p>之后，我们需要筛选含有这些flags的reads。由于我们通常需要操作bam文件，也希望输出是bam文件，中间过程不希望再重新生成sam文件。那么，就需要结合使用<code>awk</code>进行筛选，具体方法见本篇文章开头所示。当然，如果是只是查看，可以使用下面例子中的 <code>samtools view -f 0x2</code>。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># map到基因组上唯一位置的reads数目</span>
+$ samtools view -q 50 accepted_hits.bam | wc -l
+93044727
+<span style="color:#008000"># 成对reads都map到基因组对应位置的reads数目</span>
+$ samtools view -f 0x2 accepted_hits.bam | wc -l
+88793640
+<span style="color:#008000"># 成对且唯一mapped的reads数目</span>
+$ samtools view -q 50 -f 0x2 accepted_hits.bam | wc -l
+79143942</code></pre></div>
+<h2 id="3-操作tophat输出的文件命令集锦">3. 操作TopHat输出的文件命令集锦</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># samtools的view -c命令，其实就是输出sam文件有多少行</span>
+$ samtools view accepted_hits.bam | wc -l
+109278388
+$ samtools view -c accepted_hits.bam
+109278388
+
+<span style="color:#008000"># 查看bam文件中mapped的reads长度分布</span>
+<span style="color:#008000"># 第二种方法是运行FastQC，输出结果中也有显示</span>
+samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print length($10)}&#39;</span> | sort -n | uniq -c
+
+<span style="color:#008000"># 查看bed文件前几行</span>
+$ head junction.bed
+<span style="color:#008000"># 统计bed文件有多少行，需要去除第一行注释</span>
+<span style="color:#008000"># 以下两种方式相同，但不够完美</span>
+$ wc -l junction.bed
+220648 junctions.bed
+$ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
+220648</code></pre></div>
+<h2 id="4-dna链和mrna链的称呼总结">4. DNA链和mRNA链的称呼总结</h2>
+
+<p>双链DNA和单链mRNA，对每条链都有特定的称呼。总结如下：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">3&#39;~~~~~UCUGAU~~~~~ 5&#39; mRNA的对应基因信息在reverse strand
+
+5&#39;-----AGACTA----------ATTGTT----- 3&#39;
+3&#39;-----TCTGAT----------TAACAA----- 5&#39;
+
+                5&#39;~~~~~AUUGUU~~~~~ 3&#39; mRNA的对应基因信息在forward strand</pre></div>
+<p>对于一条双链DNA，称呼列表如下：</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>方向<sup>a</sup></th>
+<th>名称1</th>
+<th>名称2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>从左至右</td>
+<td>forward</td>
+<td>plus</td>
+</tr>
+
+<tr>
+<td>从右至左</td>
+<td>reverse</td>
+<td>minus</td>
+</tr>
+</tbody>
+</table>
+
+<p><sup>a</sup>：方向是指5&rsquo;至3&rsquo;的阅读方向，用于区分两条DNA链条 
+
+
+<p>对于一条RNA链，其对应的双链DNA称呼如下：</p>
+
+
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+<tr>
+<th>mRNA方向<sup>a</sup></th>
+<th>名称1</th>
+<th>名称2</th>
+<th>名称3</th>
+<th>名称4</th>
+<th>名称5</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>同向</td>
+<td>coding</td>
+<td>nontemplate</td>
+<td>sense</td>
+<td>positive</td>
+<td>+</td>
+</tr>
+
+<tr>
+<td>反向</td>
+<td>template</td>
+<td>noncoding</td>
+<td>antisense</td>
+<td>negative</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+<p><sup>a</sup>：mRNA方向是指5&rsquo;至3&rsquo;。 
+
+
+<h3 id="参考网址">参考网址</h3>
+
+<ul>
+<li><p><a href="http://blog.qiuworld.com:8080/archives/3321">关于map当中的unique mapped reads问题</a></p></li>
+
+<li><p>TopHat的bam输出文件第五列（类似MAPQ）的讨论： <a href="https://groups.google.com/forum/#!topic/tuxedo-tools-users/m0p1qXDEqKA">tophat mapping quality</a>和<a href="http://www.acgt.me/blog/2015/3/17/more-madness-with-mapq-scores-aka-why-bioinformaticians-hate-poor-and-incomplete-software-documentation">More madness with MAPQ scores</a></p></li>
+
+<li><p><a href="https://biobeat.wordpress.com/2013/05/01/directional-rna-seq-part-2-using-samtools/">Directional RNA-seq— Part 2: Explore SAM flags using samtools</a></p></li>
+
+<li><p><a href="http://www.acgt.me/blog/2015/4/15/filtering-a-sam-file-generated-by-tophat-to-find-uniquely-mapped-concordant-read-pairs-awk-vs-samtools">Filtering a SAM file generated by TopHat to find uniquely mapped, concordant read pairs: AWK vs SAMtools</a></p></li>
+
+<li><p><a href="https://www.biostars.org/p/3423/">Question: Forward And Reverse Strand Conventions</a></p></li>
+
+<li><p><a href="http://en.wikipedia.org/wiki/Sense_(molecular_biology)">wiki</a></p></li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2015年5月25日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/bioinfo">bioinfo</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

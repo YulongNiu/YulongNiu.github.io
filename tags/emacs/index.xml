@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on Yulong Niu</title>
+    <link>https://YulongNiu.github.io/tags/emacs/</link>
+    <description>Recent content in Emacs on Yulong Niu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Wed, 07 Oct 2015 22:09:31 -0500</lastBuildDate>
+    
+	<atom:link href="https://YulongNiu.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spacemacs使用记录</title>
+      <link>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</link>
+      <pubDate>Wed, 07 Oct 2015 22:09:31 -0500</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</guid>
+      <description>Spacemacs结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用hybrid模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。hybrid模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是SPC，在Emacs模式下是M-m。
+1. Vim快捷键记录 在Spacemacs中SPC-h-T进入Emacs Evil快速入门。
+1.1 移动  h：前
+ j：上
+ k：下
+ l：后
+ gg：
+ 文档开始位置。
+ G：文档结束位置。
+ :[number]：跳转到制定行。
+   1.2 插入和替换  i：
+ 在光标前的位置，进入insert mode，进行编辑。
+ ESC或者C-[退出insert mode。
+  r：替换光标所在位置的单个字符。
+ [number] d object：
+ cw或ce：从光标处删除整个单词，并进入insert mode。
+ c$：从光标处删除整行，并进入insert mode。
+   1.3 搜索和替换  \：
+ \searchWord：输入搜索内容，n向下搜索，N向上搜索。
+ %：在各种括号跳转。
+ :s/old/new：替换第一个匹配；:s/old/new/g：替换当前行匹配；:#,#s/old/new/g：替换行（#为行号）之间匹配；:%s/old/new/g：替换全文匹配。
+ :%s/old/new/gc：替换全文匹配，每一个匹配会提示是否匹配（输入y表示执行替换，n表示跳过匹配）。
+   1.4 删除、剪切和粘贴  x：删除光标所在位置的单个字符。</description>
+    </item>
+    
+    <item>
+      <title>Emacs配置C语言编程环境</title>
+      <link>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</link>
+      <pubDate>Mon, 01 Dec 2014 17:36:41 -0500</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid>
+      <description>有很多优秀的C语言IDE用来实现高效的编程，比如CLion。目前，CLion还在处于公开测试阶段，可以下载试用。本文介绍在Emacs下配置C/C++编程环境。
+1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*   安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
+2. 文件操作 2.1. 查找  当前buffer查找函数、类的定义
+ C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。  当前project查找定义
+ M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。
+ C-j（helm-gtags-select）：列出当前project所有定义，并且查找。
+  查找引用
+ C-c g r（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。
+ C-c g s（helm-gtags-find-symbol）：光标停留在变量时的查找。
+  查找当前函数引用的函数
+ C-c g a（helm-gtags-tags-in-this-function）  查找文件
+ C-c g P（elm-gtags-find-files）   2.2. 列出源码树  开启和关闭</description>
+    </item>
+    
+    <item>
+      <title>Emacs配置HTML/JS/CSS编辑环境</title>
+      <link>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</link>
+      <pubDate>Mon, 30 Jul 2012 22:31:13 +0800</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</guid>
+      <description>以下所有Emacs mode都使用Emacs包安装系统。
+1. web-mode web-mode 提供了很好的wen配件（HTML、JavaScript、CSS、PHP等）的代码缩进、折叠和高亮等出色的功能。
+有用技巧：
+ C-c C-n：放在HTML标签上，在标签间跳转。
+ C-c C-f：放在HTML标签上，在标签折叠。
+  2. emmet-mode emmet-mode是emmet的Emacs扩展，取代了陈旧的ZenCoding。只需要输入制定的缩写，这个工具可以自动补全HTML标签。非常方便。
+有用技巧：
+ M-x emmet-mode：打开emmet-mode。
+ C-j：自动补全。
+  补全缩写规律：
+ a：a+href
+ #q：div+id(q)
+ .x：div+class(x)
+ #q.x：div+id(q)+class(x)
+  附加内容 Emacs编程环境设置
+;;;;;;;;;;;;;; ;emmet-mode ;;;;;;;;;;;;; (require &amp;#39;emmet-mode) (add-hook &amp;#39;sgml-mode-hook &amp;#39;emmet-mode) ;; Auto-start on any markup modes (add-hook &amp;#39;html-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;web-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;css-mode-hook &amp;#39;emmet-mode) ;;;;;;;;;;;;;; ;web-mode ;;;;;;;;;;;;;;; (require &amp;#39;web-mode) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.</description>
+    </item>
+    
+    <item>
+      <title>Emacs高级使用技巧</title>
+      <link>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</link>
+      <pubDate>Sun, 24 Jun 2012 19:01:36 -0500</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</guid>
+      <description>1. Emacs配置文件位置 在Fedora系统下，Emacs的配置文件位置是~/.emacs。在Emacs配置文件中添加内容后，使用M-x eval-buffer，使当前配置生效。编译代码以加快加载速度，M-x byte-compile-file。
+使用Eamcs解释器M-x ielm。
+2. Emacs自带的包管理系统 在Emacs24之后，自带包管理系统，使用M-x eval-buffer进入。可以添加MELPA源、marmalade源、GNU源。
+(require &amp;#39;package) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;melpa&amp;#34; . &amp;#34;http://melpa.milkbox.net/packages/&amp;#34;)) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;gnu&amp;#34; . &amp;#34;http://elpa.gnu.org/packages/&amp;#34;)) (package-initialize) 这样设置之后，就不需要类似(add-to-list &#39;load-path &amp;quot;~/.emacs.d/elpa/popup-20140207.1702/&amp;quot;)的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上(require &#39;popup)之类的语句。
+3. 显示行号 使用M-x linum-mode添加行号。如果需要永久显示，在Emacs配置文件中添加一下内容。
+;;;;;;;;;;;;;;;;;;;;;;;;; ;open linum mode ;;;;;;;;;;;;;;;;;;;;;;;;; (setq linum-format &amp;#34;%4d \u2502&amp;#34;) (add-hook &amp;#39;prog-mode-hook &amp;#39;linum-mode) (add-hook &amp;#39;ess-mode-hook &amp;#39;linum-mode) 4. 进入Shell 三种方法：
+ M-x shell
+ M-x ansi-term
+ M-x eshell
+  5. root权限 C-x C-f 之后输入root密码/su:root@usrname password
+6. 移动整体代码块 选中代码块后： 向左移动2个字符：C-u -2 C-x TAB 向右移动4个字符：C-u 4 C-x TAB</description>
+    </item>
+    
+    <item>
+      <title>Emacs和ESS的使用技巧</title>
+      <link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link>
+      <pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid>
+      <description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
+$ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法参考，安装ess包。
+2. 使用ESS 进入GNU Emacs界面之后，输入M-X R 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。
+ M-x R：   启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
+ C-u M-x R RET --no-save RET：启动R并且不保存。
+ M-x ess-transcript-clean-region：清理R界面。
+ C-c C-z：强制停止运行的R进程。
+   C-c C-x：   代替ls()函数。
+ C-c C-s：代替search()函数。
+ C-c C-d：修改已经建立的对象，非常实用。
+   C-c C-n：   把当前行送到R。
+ C-c C-c：把当前段送到R。
+ C-c C-b：把当前整个文件送到R。
+   C-c tab：自动补全R代码。
+ C-x o：滚动屏幕。</description>
+    </item>
+    
+    <item>
+      <title>Emacs使用汇总</title>
+      <link>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</link>
+      <pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate>
+      
+      <guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid>
+      <description>1. 安装 ## 安装Emacs $ sudo dnf install emacs  2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
+ C-x 2或C-x 3：   将窗口分割成两个或者三个。
+ C-x 1：只保留一个窗口。
+ C-x n：开n个窗口
+   C-x C-f：   读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。
+ 对于Emacs minibuffer的路径，在Emacs中可以使用~/表示当前登录的用户，可以替代/home/usr。同时，可以在当前路径下直接输入/home//median/TOOL或者/home//~/进入需要的目录，因为Emacs会自动忽略//或者/~之前的内容（不能在终端使用它）。
+ 输入/su:root@localhost Mypassword：用以打开root权限文件。
+ M-x ffap（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。
+ 一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：M-x ido-mode。
+   补充Dired文件操作（Directory Editor）   在Dired buffer下，光标所在处+新建文件夹。
+ f或e或者RET在当前buffer下打开文件。o在另一个buffer中打开文件，并且光标跳转到另一个buffer。C-o在另一个buffer下打开文件，光标保留在Dired buffer中。v在新的buffer打开文件，只读权限。^在新的buffer打开上层目录的Dired buffer。i在Dired buffer下打开文件夹。g更新状态。
+ m标记文件。%m标记文件名符合正则规则的文件。%g标记内容符合正则规则的文件。u删除当前光标所在文件的标记。M-DEL删除所有标记的文件。t标记所有文件。
+ 以下操作针对标记的文件；如果没有标记的文件，将操作光标所在处文件。C拷贝文件，R移动或者重命名文件，H创建硬链接，C创建软链接，M更改文件执行权限（比如777），D删除文件，Q正则匹配（所有标记文件）。</description>
+    </item>
+    
+  </channel>
+</rss>

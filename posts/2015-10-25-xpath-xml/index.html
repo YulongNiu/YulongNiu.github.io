@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>XML中XPath规则总结 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="XML中XPath规则总结" />
+<meta property="og:description" content="XML的Path提取。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/" />
+<meta property="article:published_time" content="2015-10-25T19:05:33+08:00" />
+<meta property="article:modified_time" content="2015-10-25T19:05:33+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XML中XPath规则总结"/>
+<meta name="twitter:description" content="XML的Path提取。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">XML中XPath规则总结</h1>
+			<div class="meta">Posted at &mdash; Oct 25, 2015</div>
+		</div>
+
+		<div class="markdown">
+			
+
+<p><a href="http://www.w3.org/TR/xpath-30/">XPath</a>提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的<a href="http://www.xmlsoft.org/">libxml2</a>和对应的R包 <a href="https://cran.r-project.org/web/packages/xml2/index.html">xml2</a>。</p>
+
+<h2 id="1-查询规则">1. 查询规则</h2>
+
+<p>XPath查询集中在三个对象：节点、节点属性和节点内容。</p>
+
+<h3 id="1-1-选择节点">1.1 选择节点</h3>
+
+<ul>
+<li><p><code>/nodeA/nodeB</code>：nodeA为根节点，nodeA下的所有nodeB节点；等价于<code>nodeB</code>。</p></li>
+
+<li><p><code>//nodeB</code>：所有nodeB节点，在R包xml2中（比如函数<code>xml_find_all()</code>），<code>//nodeB</code>搜索范围是整个文档，忽略当前节点；而<code>.//nodeB</code>搜索范围是当前节点之下。</p></li>
+
+<li><p><code>//nodeB[1]</code>：所有nodeB节点的第一个；<code>//nodeB[last()-1]</code>：所有nodeB节点的倒数第二个；<code>nodeA/nodeB[position()&lt;3]</code>:当前nodeA节点，其下所有nodeB子节点的前两个。</p></li>
+
+<li><p><code>/nodeA/*</code>：nodeA为根节点，nodeA下的所有节点；<code>/*/*/nodeC</code>：所有拥有两个父节点的nodeC节点；<code>//*</code>：所有节点。</p></li>
+
+<li><p><code>//*[count(nodeD)=3]</code>：含有3个nodeD子节点的节点；<code>//*[count(*)=2]</code>：含有任意2个子节点的节点。</p></li>
+
+<li><p><code>//*[name()='nodeB']</code>：所有名称为“nodeB”的节点，等价于<code>//nodeB</code>；<code>//*[starts-with(name(),'N')]</code>：所有名称以“N”开头的节点；<code>//*[contains(name(),'N')]</code>：所有名称中含有“N”的节点；<code>//*[string-length(name()) = 3]</code>：所有名称的字符串长度等于3的节点。</p></li>
+
+<li><p><code>//nodeA | //nodeB</code>：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。</p></li>
+</ul>
+
+<h3 id="1-2-选择节点属性">1.2 选择节点属性</h3>
+
+<ul>
+<li><p><code>//@attr1</code>：所有拥有attr1的<strong>属性</strong>，注意：返回的不是节点，而是类此<code>attr1=text1</code>的属性；<code>//node1/@attr1</code>：所有node1带有的attr1属性；<code>//nodeB[@attr1]</code>：所有拥有“attr1”属性的nodeB节点；<code>//nodeB[@attr1='test1']</code>：所有拥有“attr1”属性为“test1”的nodeB节点；<code>//nodeB[normalize-space(@attr1)='test1']</code>：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。</p></li>
+
+<li><p><code>//node1[@*]</code>：所有node1带有任意属性的节点；<code>//node1[not(@*)]</code>：所有node1不带属性的节点；<code>//node1[contains(@attr1, 'N')]</code>：带有“attr1”属性的node1节点，“attr1”属性中含有“N”。</p></li>
+
+<li><p><code>//node1[TEST1][TEST2]</code>：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。<code>//nodeA[nodeB/@attr1='test1']</code>：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。<code>//nodeC[@attr1='test1'][../nodeB/@attr2='test2']</code>：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。</p></li>
+</ul>
+
+<h3 id="1-3-选择节点内容">1.3 选择节点内容</h3>
+
+<ul>
+<li><p><code>/nodeA/nodeB[nodeC&gt;5]</code>：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。</p></li>
+
+<li><p><code>/nodeA/nodeB[nodeC&gt;5]/nodeD</code>：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。</p></li>
+
+<li><p><code>//nodeC[.=5]</code>：所有nodeC节点，其内容等于5。使用<code>.</code>代替自身。</p></li>
+
+<li><p><code>//nodeC/node()</code>：选择所有nodeC节点下的所有点，包括节点下内容和子节点（距离最近，不包括子节点的子节点）。</p></li>
+
+<li><p><code>//nodeC/text()</code>：选择所有nodeC节点下的内容。</p></li>
+</ul>
+
+<h3 id="1-4-函数使用">1.4 函数使用</h3>
+
+<ul>
+<li><code>//nodeC[contains(text(), 'test1')]</code>：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。</li>
+</ul>
+
+<h2 id="2-轴">2. 轴</h2>
+
+<ul>
+<li><p><code>child::</code>：默认轴，可以省略。比如<code>/child::nodeA</code>等价于<code>/AAA</code>。</p></li>
+
+<li><p><code>descendant::</code>：选择上下文节点的所有子节点、子节点的子节点、子节点的子节点的子节点（依次类推，直至最后一个子节点）。<code>//nodeA/descendant::*</code>：所有nodeA节点的所有子节点、子节点的子节点等等；<code>//nodeA/descendant::nodeC</code>：所有nodeA节点的所有的nodeC子节点，nodeC可能是nodeA的某个子节点的子节点，区别与<code>//nodeA/nodeD</code>；<code>/descendant::*</code>：文档所有子节点、子节点的子节点等等，等价于<code>//*</code>。</p></li>
+
+<li><p><code>descendant-or-self::*</code>：选择上下文节点自身及其所有子节点、子节点的子节点（依次类推，直至最后一个子节点）。</p></li>
+
+<li><p><code>parent::</code>：选择上下文节点的父节点（最靠近的父节点）。<code>//nodeC/parent::*</code>：所有nodeC节点的所有父节点；<code>//nodeC/parent::nodeA[@attr1='test1']</code>：nodeC节点的nodeA父节点，这些nodeA父节点的“attr1”属性等于“test1”。</p></li>
+
+<li><p><code>ancestor::</code>：选择上下文节点的父节点，父节点的父节点（依次类推，直至最前一个父节点，包括根节点）。<code>//nodeC/ancestor::nodeA</code>：所有nodeC的父节点和父节点的父节点等等中的nodeA节点。</p></li>
+
+<li><p><code>ancestor-or-self::</code>：：选择上下文节点自身及其所有父节点，父节点的父节点（依次类推，直至最前一个父节点，包括根节点）。</p></li>
+
+<li><p><code>following-sibling::</code>：选择与上下文节点等级相同（即深度相同）的且位置靠后（上为前，下为后）的兄弟节点。<code>//nodeC/following-sibling::*</code>：所有nodeC节点等级相同的且位置靠后的兄弟节点。</p></li>
+
+<li><p><code>preceding-sibling::</code>：同<code>following-sibling::</code>，也是兄弟节点但位置靠前。</p></li>
+
+<li><p><code>following::</code>：选择上下文节点之后的所有节点（包括对应的子节点），但除了根节点。<code>//nodeC/following::*</code>：所有nodeC节点之后的所有节点。</p></li>
+
+<li><p><code>preceding::</code>：选择上下文节点之前的所有节点（包括对应的子节点），但除了根节点。</p></li>
+
+<li><p><code>//nodeC/ancestor::* | //nodeC/descendant::* | //nodeC/following::* | //nodeC/preceding::* | //nodeC/self::*</code>：所有节点，等价于<code>//*</code>或者等价于<code>/descendant::*</code>。</p></li>
+</ul>
+
+<h2 id="参考网址">参考网址</h2>
+
+<ul>
+<li><p><a href="https://zh.wikipedia.org/wiki/XPath">维基百科对XPath介绍</a></p></li>
+
+<li><p><a href="http://www.zvon.org/xxl/XPathTutorial/General_chi/examples.html">zvon中XPath的有趣例子</a></p></li>
+
+<li><p><a href="http://www.w3school.com.cn/xpath/index.asp">w3school的XPath中文教程</a></p></li>
+
+<li><p><a href="http://xccds1977.blogspot.sg/2013/02/xmlxpath.html">博文《XML和XPath使用方法备忘》</a></p></li>
+</ul>
+
+<h3 id="更新记录">更新记录</h3>
+
+<p>2018年12月25日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/xml">XML</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>
