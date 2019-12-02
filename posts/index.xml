@@ -19,10 +19,9 @@
       
       <guid>https://YulongNiu.github.io/posts/2019-11-03-setup_hugo_blog/</guid>
       <description>从Octopress迁移至Hugo，希望可以稳定地维持5年。
-1. 安装 ## 安装hogu $ sudo dnf install hugo ## 创建个人博客目录 hugo new site HugoBlog cd HugoBlog ## 选择主题 cd themes git clone https://github.com/vividvilla/ezhil.git cd .. ## 启动hugo hugo server 2. 基本配置 2.1 配置主页 编辑模板HugoBlog/config.toml。
+1. 安装 ## 安装hogu $ sudo dnf install hugo ## 创建个人博客目录 $ hugo new site HugoBlog $ cd HugoBlog ## 选择主题 $ cd themes $ git clone https://github.com/vividvilla/ezhil.git $ cd .. ## 启动hugo $ hugo server 2. 基本配置 2.1 配置主页 编辑模板HugoBlog/config.toml。
 2.2 配置博文header 编辑HugoBlog/archetypes/default.md，例如：
---- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .Date }} description: &amp;#34;&amp;#34; tags: [] disqus: false draft: true --- draft: true为私密博文，draft: false为公开博文。
-3. 更新博文 ## 博文放在HugoBlog/content/posts/ ## 图片放在HugoBlog/static/images/ cd HugoBlog hugo new posts/newpost.</description>
+--- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .Date }} description: &amp;#34;&amp;#34; tags: [] disqus: false draft: true --- draft: true为私密博文，draft: false为公开博文。</description>
     </item>
     
     <item>
@@ -43,7 +42,7 @@
  避免在所有情况下都使用significant。应为signficant容易和统计检验混淆，应该使用具体数值描述影响。
  文章起一个陈述性的题目。避免使用暗示性、假设性的题目，而应该具体描述文章的发现。注意不要夸大结果或者模糊描述。“通过避免使用主观词汇、仔细描述文章真实而非潜在暗示的发现，应该能找到一个可读性高、信息量大、有趣的题目，从而不会夸大文章的发现”。
  摘要写法，Nature提供了一个模板。
-    数据和图标
+   数据和图标
  定义不确定量（统计学）。在图例中描述error bar、盒箱图等不确定量的定义。
  使用统计检验。
  展示和提取潜在数据。例如使用散点图（小数据）、盒箱图/小提琴图（大数据）等、提交数据至数据库等。
