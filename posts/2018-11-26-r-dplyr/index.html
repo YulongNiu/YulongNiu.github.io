@@ -82,11 +82,13 @@
 <h2 id="2-列操作">2. 列操作</h2>
 
 <ul>
-<li><p><code>filter()</code>：过滤列，需要输入一个逻辑向量（注意<code>xor(x, y)</code>：x和y并集除去交集的部分。<code>between(x, left, right)</code>：left &lt;= x &lt;= right。<code>near(x, y)</code>：x和y在一定精度下相等，比<code>==</code>安全）。直接使用列名操作，例如<code>year == 2018</code>。多列操作相当于<code>&amp;</code>。受<code>group</code>操作影响。返回一个空的表格，只保留列名，<code>filter(x, FALSE)</code>。</p></li>
+<li><p><code>filter()</code>：过滤列，需要输入一个逻辑向量。<code>xor(x, y)</code>x和y并集除去交集的部分。<code>between(x, left, right)</code>left &lt;= x &lt;= right。<code>near(x, y)</code>x和y在一定精度下相等，比<code>==</code>安全）。直接使用列名操作，例如<code>year == 2018</code>。多列操作相当于<code>&amp;</code>。受<code>group</code>操作影响。返回一个空的表格，只保留列名，<code>filter(x, FALSE)</code>。</p></li>
 
 <li><p><code>arrange()</code>：列排序（默认升序）。多列操作时，先排序第一个，再对第一个相等的排第二个。<code>desc()</code>降序排列。<code>.by_group = FALSE</code>控制是否需要按照group进行组内操作。</p></li>
 
-<li><p><code>select()</code>：选择列，重新组合新的<code>tbl_df</code>。结合<span style="color: blue">tidyselect</span>包<code>的starts_with()</code>前缀、<code>end_with()</code>后缀、<code>contains()</code>部分字符串、<code>matches()</code>正则匹配、<code>num_range</code>类似V01和x02之类、<code>everything()</code>（剩余）所有的列、<code>last_col(offset = n)</code>倒数第n+1列（默认n为0）。<code>select(Col1 = col1)</code>更改col1列名为Col1，并只返回Col1列。<code>rename(Col1 = col1)</code>返回全部列，但更改列名为Col1。不受<code>group</code>操作影响。</p></li>
+<li><p><code>select()</code>：选择列，重新组合新的<code>tbl_df</code>。结合<span style="color: blue">tidyselect</span>包<code>的starts_with()</code>前缀、<code>end_with()</code>后缀、<code>contains()</code>部分字符串、<code>matches()</code>正则匹配、<code>num_range</code>类似V01和x02之类、<code>everything()</code>（剩余）所有的列、<code>last_col(offset = n)</code>倒数第n+1列（默认n为0）。<code>select(Col1 = col1)</code>更改col1列名为Col1，并只返回Col1列。</p></li>
+
+<li><p><code>rename(Col1 = col1)</code>：返回全部列，但更改列名为Col1。不受<code>group</code>操作影响。<code>setNames(...)</code>不属于<span style="color: blue">dplyr</span>包，但能快速更改所有列命名。</p></li>
 
 <li><p><code>mutate()</code>：增加列，返回原始对象和增加列，增加列放置最后。<code>transmute()</code>：只返回增加的列。受<code>group</code>操作影响。</p></li>
 
@@ -163,7 +165,7 @@
 
 <h3 id="更新记录">更新记录</h3>
 
-<p>2019年04月29日</p>
+<p>2020年01月15日</p>
 
 		</div>
 
