@@ -67,68 +67,43 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>在进行RNA-seq数据分析时，需要从<a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC Table</a>下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。</p>
-
-<h2 id="1-基因注释信息">1. 基因注释信息</h2>
-
+			<p>在进行RNA-seq数据分析时，需要从<a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC Table</a>下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。</p>
+<h2 id="1-基因注释信息-">1. 基因注释信息</h2>
 <p>下载转录组Ensembl注释文件：</p>
-
-<p><img src="/images/hg19_ensembl.png" alt="hg19_ensembl.png" /></p>
-
+<p><img src="/images/hg19_ensembl.png" alt="hg19_ensembl.png"></p>
 <p>在“table”选择中，<code>ensemblSource</code>表示Ensembl类型注释，<code>ensemblToGeneName</code>表示Ensembl到基因名注释对应。</p>
-
-<h2 id="2-rrna注释信息">2. rRNA注释信息</h2>
-
+<h2 id="2-rrna注释信息-">2. rRNA注释信息</h2>
 <p>分为两步：</p>
-
 <p>第一步， “table”选择<code>wgEncodeGencodeBasicV19</code>。</p>
-
-<p><img src="/images/hg19_rRNA.png" alt="hg19_rRNA.png" /></p>
-
+<p><img src="/images/hg19_rRNA.png" alt="hg19_rRNA.png"></p>
 <p>第二步，按照下图编辑“filter”。</p>
-
-<p><img src="/images/hg19_rRNA_maskTable.png" alt="hg19_rRNA_maskTable.png" /></p>
-
-<p><img src="/images/hg19_rRNA_mask.png" alt="hg19_rRNA_mask.png" /></p>
-
-<h2 id="3-trna注释信息">3. tRNA注释信息</h2>
-
+<p><img src="/images/hg19_rRNA_maskTable.png" alt="hg19_rRNA_maskTable.png"></p>
+<p><img src="/images/hg19_rRNA_mask.png" alt="hg19_rRNA_mask.png"></p>
+<h2 id="3-trna注释信息-">3. tRNA注释信息</h2>
 <p>分为两步：</p>
-
 <p>第一步，“track”选择 <code>tRNA Genes</code>。</p>
-
-<p><img src="/images/hg19_tRNA.png" alt="hg19_tRNA.png" /></p>
-
+<p><img src="/images/hg19_tRNA.png" alt="hg19_tRNA.png"></p>
 <p>第二步，保留pseudo tRNA注释。</p>
-
-<p><img src="images/hg19_tRNA_mask.png" alt="hg19_tRNA_mask.png" /></p>
-
-<h2 id="4-线粒体基因组注释">4. 线粒体基因组注释</h2>
-
+<p><img src="images/hg19_tRNA_mask.png" alt="hg19_tRNA_mask.png"></p>
+<h2 id="4-线粒体基因组注释-">4. 线粒体基因组注释</h2>
 <p>分为两步：</p>
-
 <p>第一步， “table”选择<code>wgEncodeGencodeBasicV19</code>。</p>
-
-<p><img src="/images/hg19_chrM.png" alt="hg19_chrM.png" /></p>
-
+<p><img src="/images/hg19_chrM.png" alt="hg19_chrM.png"></p>
 <p>第二步，按照下图编辑“filter”。</p>
-
-<p><img src="/images/hg19_chrM_mask.png" alt="hg19_chrM_mask.png" /></p>
-
-<h3 id="参考资料">参考资料</h3>
-
+<p><img src="/images/hg19_chrM_mask.png" alt="hg19_chrM_mask.png"></p>
+<h3 id="参考资料-">参考资料</h3>
 <ul>
-<li><p>USCS Genome Browser的Google论坛：<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!topic/genome/IL_aeOuPYU0">1</a>、<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!msg/genome/jSAY8w1JVVo/P6lk4OJzDNEJ">2</a></p></li>
-
-<li><p>另一种选择rRNA、tRNA和线粒体组注释的方法<a href="http://onetipperday.blogspot.tw/2012/08/how-to-get-trnarrnamitochondrial-gene.html">How to get tRNA/rRNA/mitochondrial gene GTF file</a></p></li>
-
-<li><p><a href="http://webappl.blogspot.tw/2015/02/extract-rrna-and-trna-features-from.html">Extract rRNA and tRNA features from UCSC Browser</a></p></li>
+<li>
+<p>USCS Genome Browser的Google论坛：<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!topic/genome/IL_aeOuPYU0">1</a>、<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!msg/genome/jSAY8w1JVVo/P6lk4OJzDNEJ">2</a></p>
+</li>
+<li>
+<p>另一种选择rRNA、tRNA和线粒体组注释的方法<a href="http://onetipperday.blogspot.tw/2012/08/how-to-get-trnarrnamitochondrial-gene.html">How to get tRNA/rRNA/mitochondrial gene GTF file</a></p>
+</li>
+<li>
+<p><a href="http://webappl.blogspot.tw/2015/02/extract-rrna-and-trna-features-from.html">Extract rRNA and tRNA features from UCSC Browser</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年6月1日</p>
 
 		</div>

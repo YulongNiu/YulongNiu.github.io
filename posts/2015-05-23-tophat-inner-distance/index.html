@@ -67,33 +67,27 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>对于双端测序RNA-seq数据，TopHat在运行时候，有两个参数<code>-r/--mate-inner-dist</code>和<code>--mate-std-dev</code>分别标识一对reads的间隔长度的期望平均值和标准差，其默认值分别为50bp和20bp。这两个参数本身是个估计值，用于TopHat在map过程中确定一对reads是否匹配到基因组正确位置。如果能够准确设定这两个数值，将会提升TopHat结果的准确性和完整性，参考<a href="http://yulongniu.bionutshell.org/blog/2014/07/23/rna-seq-analysis/">一个例子</a>。</p>
-
+			<p>对于双端测序RNA-seq数据，TopHat在运行时候，有两个参数<code>-r/--mate-inner-dist</code>和<code>--mate-std-dev</code>分别标识一对reads的间隔长度的期望平均值和标准差，其默认值分别为50bp和20bp。这两个参数本身是个估计值，用于TopHat在map过程中确定一对reads是否匹配到基因组正确位置。如果能够准确设定这两个数值，将会提升TopHat结果的准确性和完整性，参考<a href="http://yulongniu.bionutshell.org/blog/2014/07/23/rna-seq-analysis/">一个例子</a>。</p>
 <p>有两种方法获得这对参数的准确值：</p>
-
 <p>第一种：获取RNA-seq实验建库方法，之后按照以下网址说明计算，<a href="http://blog.qiuworld.com:8080/archives/3007">RNA-seq差异表达分析工作流程</a>。</p>
-
 <p>第二种：根据RNA-seq数据进行估算，具体步骤为：</p>
-
 <ol>
-<li><p>使用TopHat默认参数先跑一遍。</p></li>
-
-<li><p>使用<a href="http://miso.readthedocs.org/en/fastmiso/#computing-the-insert-length-distribution-and-its-statistics">MISO</a>的<code>pe_utils</code>工具估算。</p></li>
+<li>
+<p>使用TopHat默认参数先跑一遍。</p>
+</li>
+<li>
+<p>使用<a href="http://miso.readthedocs.org/en/fastmiso/#computing-the-insert-length-distribution-and-its-statistics">MISO</a>的<code>pe_utils</code>工具估算。</p>
+</li>
 </ol>
-
 <p>以下详细介绍<code>pe_utils</code>使用方法。</p>
-
 <p>第一步， 下载对应物种的基因注释文件GTF或者GFF，比如<a href="http://genome.ucsc.edu/cgi-bin/hgTables?command=start">USCS Table Browser</a>（<code>output format</code>选择<code>GTF</code>）或者使用MISO提供的<a href="http://miso.readthedocs.org/en/fastmiso/#human-mouse-gene-models-for-isoform-centric-analyses">Ensembl版本</a>。如果GTF文件，使用<a href="https://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>工具进行转换。</p>
-
 <p>第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似<code>chr1</code>命名，而另外一些使用<code>1</code>。如果不一致，建议修改GFF文件。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看GFF文件中基因组命名</span>
 $ awk <span style="color:#a31515">&#39;{print $1}&#39;</span> hg19USCS.gff | sort -n | uniq -c
 
 <span style="color:#008000"># 查看bam文件中基因组命名</span>
-samtools view accepted_hits.bam | head -1000 | awk <span style="color:#a31515">&#39;{print $3}&#39;</span> | sort -n | uniq -c</code></pre></div>
-<p>第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了<code>exon_utils</code>工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为<code>hg19USCS.gff</code>，输出筛选的文件名为<code>hg19USCS_selected.gff</code>。</p>
+samtools view accepted_hits.bam | head -1000 | awk <span style="color:#a31515">&#39;{print $3}&#39;</span> | sort -n | uniq -c
+</code></pre></div><p>第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了<code>exon_utils</code>工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为<code>hg19USCS.gff</code>，输出筛选的文件名为<code>hg19USCS_selected.gff</code>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gffFile &lt;- read.table(<span style="color:#a31515">&#39;hg19USCS.gff&#39;</span>, stringsAsFactors = FALSE)
 
 gffExon &lt;- gffFile[gffFile[, 3] == <span style="color:#a31515">&#39;exon&#39;</span>, ]
@@ -104,8 +98,8 @@ gffExonSelect &lt;- gffExon[exonLen &gt;= 1000, ]
 
 write.table(gffExonSelect, <span style="color:#a31515">&#39;hg19USCS_selected.gff&#39;</span>, 
             row.names = FALSE, col.names = FALSE,
-            quote = FALSE, sep = <span style="color:#a31515">&#39;\t&#39;</span>)</code></pre></div>
-<p>第四步，使用<code>pe_utils</code>，实例如下：</p>
+            quote = FALSE, sep = <span style="color:#a31515">&#39;\t&#39;</span>)
+</code></pre></div><p>第四步，使用<code>pe_utils</code>，实例如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 输入bam文件和GFF文件</span>
 $ pe_utils --compute-insert-len accepted_hits.bam hg19USCS_selected.gff --output-dir insert-dist/
 
@@ -113,9 +107,8 @@ $ pe_utils --compute-insert-len accepted_hits.bam hg19USCS_selected.gff --output
 <span style="color:#008000">## -r/--mate-inner-dist估计值为mean</span>
 <span style="color:#008000">## --mate-std-dev估计值为sdev</span>
 $ head -1 accepted_filtered.bam.insert_len
-<span style="color:#008000">## mean=165.3,sdev=45.2,dispersion=3.5,num_pairs=5622239</span></code></pre></div>
-<h3 id="更新记录">更新记录</h3>
-
+<span style="color:#008000">## mean=165.3,sdev=45.2,dispersion=3.5,num_pairs=5622239</span>
+</code></pre></div><h3 id="更新记录-">更新记录</h3>
 <p>2015年5月23日</p>
 
 		</div>

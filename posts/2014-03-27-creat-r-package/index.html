@@ -67,34 +67,27 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>一个最简单创建R包的流程。</p>
-
-<h2 id="1-载入工具包">1. 载入工具包</h2>
-
-<p>安装并载入<span style="color: blue">devtools</span>包和<span style="color: blue">roxygen2</span>包。<span style="color: blue">devtools</span>包提供了一些包的检查、安装和打包的基本工具。<span style="color: blue">roxygen2</span>包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合<a href="http://ess.r-project.org/">ESS</a>建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用<a href="http://www.rstudio.com/">Rstudio</a>。</p>
+			<p>一个最简单创建R包的流程。</p>
+<h2 id="1-载入工具包-">1. 载入工具包</h2>
+<p>安装并载入<!-- raw HTML omitted -->devtools<!-- raw HTML omitted -->包和<!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->包。<!-- raw HTML omitted -->devtools<!-- raw HTML omitted -->包提供了一些包的检查、安装和打包的基本工具。<!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合<a href="http://ess.r-project.org/">ESS</a>建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用<a href="http://www.rstudio.com/">Rstudio</a>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;devtools&#39;</span>)
-library(<span style="color:#a31515">&#39;roxygen2&#39;</span>)</code></pre></div>
-<h2 id="2-span-style-color-blue-rcpp-span-和相关的包">2. <span style="color: blue">Rcpp</span>和相关的包</h2>
-
-<p>如果使用了<span style="color: blue">Rcpp</span>或者相关的包，比如<span style="color: blue">RcppArmadillo</span>，需要格外设置。所有cpp代码都写在src文件夹下。</p>
-
+library(<span style="color:#a31515">&#39;roxygen2&#39;</span>)
+</code></pre></div><h2 id="2-span-stylecolor-bluercppspan和相关的包-">2. <!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted -->和相关的包</h2>
+<p>如果使用了<!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted -->或者相关的包，比如<!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted -->，需要格外设置。所有cpp代码都写在src文件夹下。</p>
 <p><strong>首先</strong>，执行：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">use_rcpp()</code></pre></div>
-<p><strong>其次</strong>，在<code>DESCRIPTION</code>中添加依赖或者需要链接的包名称，比如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Encoding: UTF-8
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">use_rcpp()
+</code></pre></div><p><strong>其次</strong>，在<code>DESCRIPTION</code>中添加依赖或者需要链接的包名称，比如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Encoding: UTF-8
 Imports: 
     Rcpp
 LinkingTo: 
     Rcpp,
-    RcppArmadillo</pre></div>
-<p><strong>之后</strong>，在包的<code>R/</code>目录下，添加一个文件<code>RcppChk.R</code>（文件名称自定），并写入：</p>
+    RcppArmadillo
+</code></pre></div><p><strong>之后</strong>，在包的<code>R/</code>目录下，添加一个文件<code>RcppChk.R</code>（文件名称自定），并写入：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">#&#39; @useDynLib my-pkg-name, .registration = TRUE</span>
 <span style="color:#008000">#&#39; @importFrom Rcpp sourceCpp</span>
-<span style="color:#00f">NULL</span></code></pre></div>
-<p>注意，修改<code>my-pkg-name</code>为自己的包名称。</p>
-
+<span style="color:#00f">NULL</span>
+</code></pre></div><p>注意，修改<code>my-pkg-name</code>为自己的包名称。</p>
 <p><strong>然后</strong>，在包的<code>src/</code>目录下，添加一个文件<code>registerDynamicSymbol.c</code>（文件名称自定），并写入：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">// RegisteringDynamic Symbols
 </span><span style="color:#008000"></span>
@@ -105,43 +98,45 @@ LinkingTo:
 <span style="color:#2b91af">void</span> R_init_markovchain(DllInfo* info) {
   R_registerRoutines(info, NULL, NULL, NULL, NULL);
   R_useDynamicSymbols(info, TRUE);
-} </code></pre></div>
-<p><strong>最后</strong>，可能需要在<code>~/.R/Makevars</code>文件下添加：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># Settings from /etc/R/Makeconf with &#34;non-portable flag(s):&#34;
+} 
+</code></pre></div><p><strong>最后</strong>，可能需要在<code>~/.R/Makevars</code>文件下添加：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># Settings from /etc/R/Makeconf with &#34;non-portable flag(s):&#34;
 # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic
 # and without -fdebug-prefix-map=... 
 CFLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2 $(LTO)
 CXXFLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2 $(LTO)
 CXX98FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
 CXX11FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
-CXX14FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2</pre></div>
-<h2 id="3-创建description文件模板">3. 创建DESCRIPTION文件模板</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">load_all()</code></pre></div>
-<p>其中<code>import</code>栏目，在源代码中使用了哪些包，需要逐步在import项目中添加和修改。</p>
-
-<h2 id="4-更新文档和检查包">4. 更新文档和检查包</h2>
+CXX14FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
+</code></pre></div><h2 id="3-创建description文件模板-">3. 创建DESCRIPTION文件模板</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">load_all()
+</code></pre></div><p>其中<code>import</code>栏目，在源代码中使用了哪些包，需要逐步在import项目中添加和修改。</p>
+<h2 id="4-更新文档和检查包-">4. 更新文档和检查包</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">document()
-check()</code></pre></div>
-<h2 id="5-安装包">5. 安装包</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install()</code></pre></div>
-<h2 id="6-生成-tar-gz-压缩文件">6. 生成<code>.tar.gz</code>压缩文件</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">build()</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+check()
+</code></pre></div><h2 id="5-安装包-">5. 安装包</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install()
+</code></pre></div><h2 id="6-生成targz压缩文件-">6. 生成<code>.tar.gz</code>压缩文件</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">build()
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="https://www.youtube.com/watch?v=9PyQlbAEujY">创建R包视频</a></p></li>
-
-<li><p><a href="http://r-pkgs.had.co.nz/src.html">R package by Hadley Wickham</a></p></li>
-
-<li><p><a href="http://adv-r.had.co.nz/Rcpp.html">Advanced R by Hadley Wickham</a></p></li>
-
-<li><p><a href="https://stackoverflow.com/questions/50658198/cran-submission-r-cmd-check-warning-compilation-flags-used/52100124#52100124">CRAN submission - R CMD Check warning - compilation flags used</a></p></li>
-
-<li><p><a href="https://stackoverflow.com/questions/51694929/warning-about-utf-8-with-roxygen2">Warning about UTF-8 with roxygen2</a></p></li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=9PyQlbAEujY">创建R包视频</a></p>
+</li>
+<li>
+<p><a href="http://r-pkgs.had.co.nz/src.html">R package by Hadley Wickham</a></p>
+</li>
+<li>
+<p><a href="http://adv-r.had.co.nz/Rcpp.html">Advanced R by Hadley Wickham</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/50658198/cran-submission-r-cmd-check-warning-compilation-flags-used/52100124#52100124">CRAN submission - R CMD Check warning - compilation flags used</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/51694929/warning-about-utf-8-with-roxygen2">Warning about UTF-8 with roxygen2</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2019年04月19日</p>
 
 		</div>

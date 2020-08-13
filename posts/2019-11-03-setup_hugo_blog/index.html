@@ -67,10 +67,7 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>从<a href="http://octopress.org/">Octopress</a>迁移至Hugo，希望可以稳定地维持5年。</p>
-
+			<p>从<a href="http://octopress.org/">Octopress</a>迁移至Hugo，希望可以稳定地维持5年。</p>
 <h2 id="1-安装">1. 安装</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 安装hogu</span>
 $ sudo dnf install hugo
@@ -88,26 +85,21 @@ $ cd ..
 $ hugo server
 
 <span style="color:#008000">## 启动hugo并预览博文</span>
-$ hugo server -D</code></pre></div>
-<h2 id="2-基本配置">2. 基本配置</h2>
-
-<h3 id="2-1-配置主页">2.1 配置主页</h3>
-
+$ hugo server -D
+</code></pre></div><h2 id="2-基本配置">2. 基本配置</h2>
+<h3 id="21-配置主页">2.1 配置主页</h3>
 <p>编辑模板<code>HugoBlog/config.toml</code>。</p>
-
-<h3 id="2-2-配置博文header">2.2 配置博文header</h3>
-
+<h3 id="22-配置博文header">2.2 配置博文header</h3>
 <p>编辑<code>HugoBlog/archetypes/default.md</code>，例如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">---
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">---
 title: &#34;{{ replace .Name &#34;-&#34; &#34; &#34; | title }}&#34;
 date: {{ .Date }}
 description: &#34;&#34;
 tags: []
 disqus: false
 draft: true
----</pre></div>
-<p><code>draft: true</code>为私密博文，<code>draft: false</code>为公开博文。</p>
-
+---
+</code></pre></div><p><code>draft: true</code>为私密博文，<code>draft: false</code>为公开博文。</p>
 <h2 id="3-更新博文">3. 更新博文</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 博文放在HugoBlog/content/posts/</span>
 <span style="color:#008000">## 图片放在HugoBlog/static/images/</span>
@@ -118,20 +110,20 @@ $ hugo new posts/newpost.md
 
 <span style="color:#008000">## 添加新页面</span>
 $ cd HugoBlog
-$ hugo new about.md</code></pre></div>
-<h2 id="4-发布博文">4. 发布博文</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">## 可发布文件夹在HugoBlog/public
-$ hugo</pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+$ hugo new about.md
+</code></pre></div><h2 id="4-发布博文">4. 发布博文</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## 可发布文件夹在HugoBlog/public
+$ hugo
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="https://zilongshanren.com/post/move-from-hexo-to-hugo/">博客从 hexo 迁移到 hugo</a></p></li>
-
-<li><p><a href="https://blog.olowolo.com/post/hugo-quick-start/">Hugo 从入门到会用</a></p></li>
+<li>
+<p><a href="https://zilongshanren.com/post/move-from-hexo-to-hugo/">博客从 hexo 迁移到 hugo</a></p>
+</li>
+<li>
+<p><a href="https://blog.olowolo.com/post/hugo-quick-start/">Hugo 从入门到会用</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2020年01月25日</p>
 
 		</div>

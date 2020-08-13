@@ -67,36 +67,32 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>一个简单的Python包创建和上传PyPI流程。</p>
-
-<h2 id="1-打包">1. 打包</h2>
+			<p>一个简单的Python包创建和上传PyPI流程。</p>
+<h2 id="1-打包-">1. 打包</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 安装相关工具</span>
-pip install --upgrade setuptools wheel twine</code></pre></div>
-<p>当Python包代码完成后，在根目录下创建<code>setup.py</code>文件，具体参考<a href="https://github.com/pypa/sampleproject/blob/master/setup.py">sampleproject</a>。</p>
+pip install --upgrade setuptools wheel twine
+</code></pre></div><p>当Python包代码完成后，在根目录下创建<code>setup.py</code>文件，具体参考<a href="https://github.com/pypa/sampleproject/blob/master/setup.py">sampleproject</a>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
 <span style="color:#008000">## 测试</span>
 python setup.py test
 
 <span style="color:#008000">## 打包</span>
-python setup.py sdist bdist_wheel</code></pre></div>
-<h2 id="2-上传pypi">2. 上传PyPI</h2>
-
+python setup.py sdist bdist_wheel
+</code></pre></div><h2 id="2-上传pypi-">2. 上传PyPI</h2>
 <p><a href="https://pypi.org/">PyPI</a>注册帐号。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
 <span style="color:#008000">## 上传</span>
-twine upload dist/*</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+twine upload dist/*
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="https://packaging.python.org/tutorials/packaging-projects/">Packaging Python Projects</a></p></li>
-
-<li><p><a href="https://pypi.org/project/twine/">twine package</a></p></li>
+<li>
+<p><a href="https://packaging.python.org/tutorials/packaging-projects/">Packaging Python Projects</a></p>
+</li>
+<li>
+<p><a href="https://pypi.org/project/twine/">twine package</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2018年6月23日</p>
 
 		</div>

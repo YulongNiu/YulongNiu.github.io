@@ -67,10 +67,8 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-两两比对">1. 两两比对</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">DataFrame with 12 rows and 2 columns
+			<h2 id="1-两两比对">1. 两两比对</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">DataFrame with 12 rows and 2 columns
          condition genotype
           &lt;factor&gt; &lt;factor&gt;
 sample1          A        I
@@ -83,8 +81,8 @@ sample8          B        I
 sample9          B        I
 sample10         B       II
 sample11         B       II
-sample12         B       II</pre></div>
-<p>组A <em>vs.</em> 组B。</p>
+sample12         B       II
+</code></pre></div><p>组A <em>vs.</em> 组B。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
 dds$genotype &lt;- factor(rep(rep(c(<span style="color:#a31515">&#39;I&#39;</span>, <span style="color:#a31515">&#39;II&#39;</span>), each=3), 2))
 
@@ -102,8 +100,8 @@ res &lt;- results(ddres, contrast = c(<span style="color:#a31515">&#39;genotype&
 dds$group &lt;- factor(paste0(dds$genotype, dds$condition))
 design(dds) &lt;- ~ group
 ddres &lt;- DESeq(dds)
-results(ddres, contrast = c(<span style="color:#a31515">&#39;group&#39;</span>, <span style="color:#a31515">&#39;IIB&#39;</span>, <span style="color:#a31515">&#39;IIA&#39;</span>))</code></pre></div>
-<h2 id="2-交叉项">2. 交叉项</h2>
+results(ddres, contrast = c(<span style="color:#a31515">&#39;group&#39;</span>, <span style="color:#a31515">&#39;IIB&#39;</span>, <span style="color:#a31515">&#39;IIA&#39;</span>))
+</code></pre></div><h2 id="2-交叉项">2. 交叉项</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
 dds$genotype &lt;- factor(rep(rep(c(<span style="color:#a31515">&#39;I&#39;</span>, <span style="color:#a31515">&#39;II&#39;</span>), each=3), 2))
 design(dds) &lt;- ~ genotype + condition + genotype:condition
@@ -116,25 +114,24 @@ res &lt;- results(ddres, contrast = c(<span style="color:#a31515">&#39;condition
 res &lt;- results(ddres, list(c(<span style="color:#a31515">&#39;condition_B_vs_A&#39;</span>, <span style="color:#a31515">&#39;genotypeII.conditionB&#39;</span>)))
 
 <span style="color:#008000">## condition effect *different* across genotypes</span>
-res &lt;- results(ddres, name = <span style="color:#a31515">&#39;genotypeII.conditionB&#39;</span>) </code></pre></div>
-<p>其中，第二例子中的<code>A vs. B at genotype II</code>与第一个的区别是，考虑了交叉项的影响。如果只是为了两两比对，可以考虑使用第一个例子的处理方法。</p>
-
+res &lt;- results(ddres, name = <span style="color:#a31515">&#39;genotypeII.conditionB&#39;</span>) 
+</code></pre></div><p>其中，第二例子中的<code>A vs. B at genotype II</code>与第一个的区别是，考虑了交叉项的影响。如果只是为了两两比对，可以考虑使用第一个例子的处理方法。</p>
 <h2 id="补充技巧">补充技巧</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#008000">## 查看设计</span>
 colData(dds)
 
 <span style="color:#008000">## 查看对比</span>
-resultsName(dds)</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+resultsName(dds)
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="http://master.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#nested-indiv">Analyzing RNA-seq data with DESeq2</a></p></li>
-
-<li><p><a href="https://support.bioconductor.org/p/64352/">Question: DESeq2 factor design vs pair-wise comparison</a></p></li>
+<li>
+<p><a href="http://master.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#nested-indiv">Analyzing RNA-seq data with DESeq2</a></p>
+</li>
+<li>
+<p><a href="https://support.bioconductor.org/p/64352/">Question: DESeq2 factor design vs pair-wise comparison</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2019年04月15日</p>
 
 		</div>

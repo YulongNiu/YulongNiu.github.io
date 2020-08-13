@@ -106,18 +106,12 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>$$
+			<p>$$
 \newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1}
 $$</p>
-
 <p>本文尝试探索Normalized Google distance（简称NGD）的定义和拓展应用。</p>
-
-<h3 id="1-ngd原始定义">1. NGD原始定义</h3>
-
+<h3 id="1-ngd原始定义-">1. NGD原始定义</h3>
 <p><a href="https://en.wikipedia.org/wiki/Normalized_Google_distance">维基百科</a>的定义为：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -126,13 +120,9 @@ NGD(x, y) = \frac{\max{\log f(x), \log f(y)} - \log f(x, y)}{\log N - \min{\log 
 \label{eq:1}
 \end{align}
 $$</p>
-
 <p>其中，$f(x)$和$f(y)$分别为关键词$x$和$y$出现的次数，$f(x,y)$为$x$和$y$同时出现的次数，$N$为全部搜索单词数目。根据$\eqref{eq:1}$可以得出：如果$x$和$y$几乎总是同时出现时，$NGD$趋近于$0$；如果$x$和$y$出现的次数很少，即$\log f(x,y)$趋近于负无穷，则$NGD$可能大于$1$。</p>
-
-<h3 id="2-ngd定义延伸">2. NGD定义延伸</h3>
-
+<h3 id="2-ngd定义延伸-">2. NGD定义延伸</h3>
 <p>Choi and Rashid在2008年的<a href="#Ref">文章</a>提出一种针对向量的$NGD$定义：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -142,11 +132,8 @@ NGD(X, Y) &amp;= \frac{\max\left\{\sumup{x_i}, \sumup{y_i}\right\} - \sumup{\min
 \label{eq:2}
 \end{align}
 $$</p>
-
 <p>其中，$X$和$Y$分别为长度为$n$的数值向量，$\min(x_i, y_i)$为$x_i$和$y_i$中各个元素最小值所组成的数值向量。根据$\eqref{eq:2}$可以得出：$NGD$的取值范围为$[0, 1]$；当$X$和$Y$完全相同时，$NGD$为0；反之，$NGD$为1。</p>
-
 <p>由此，可以得到normalized Google similarity（NGS）为：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -156,17 +143,12 @@ NGS(X, Y) &amp;= 1 - NGD(X, Y) \newline
 \label{eq:3}
 \end{align}
 $$</p>
-
 <p>一个例子：$X = (1, 2, 0, 3)$和$Y = (0, 2, 1, 1)$，则$NGD = 0.5$和$NGS = 0.5$。</p>
-
-<h3 id="a-id-ref-参考资料-a"><a id="Ref">参考资料</a></h3>
-
+<h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="http://ieeexplore.ieee.org/document/4631601/?reload=true">Adapting Normalized Google Similarity in Protein Sequence Comparison</a></li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2017年10月21日</p>
 
 		</div>

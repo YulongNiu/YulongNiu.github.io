@@ -67,33 +67,34 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>在之前的<a href="http://yulongniu.bionutshell.org/blog/2014/06/25/parallel-package/">博文</a>中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">当循环数很大时（1万以上），`foreach`会变得非常慢。</pre></div>
+			<p>在之前的<a href="http://yulongniu.bionutshell.org/blog/2014/06/25/parallel-package/">博文</a>中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：</p>
+<pre><code>当循环数很大时（1万以上），`foreach`会变得非常慢。
+</code></pre>
 <p>这个问题在Florian Privé的<a href="https://privefl.github.io/blog/a-guide-to-parallelism-in-r/">A guide to parallelism in R</a>中也提到，解释是<code>foreach</code>每次只合并100个循环结果。</p>
-
-<h2 id="1-测试">1. 测试</h2>
-
-<p>我尝试使用<span style="color: blue">RcppParallel</span>包调用<code>C++</code>的并行方法。结论是：<strong>在循环数很大时，<span style="color: blue">RcppParallel</span>包提供的并行方法优于<code>foreach</code></strong>。</p>
-
+<h2 id="1-测试-">1. 测试</h2>
+<p>我尝试使用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包调用<code>C++</code>的并行方法。结论是：<strong>在循环数很大时，<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包提供的并行方法优于<code>foreach</code></strong>。</p>
 <p>一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在<a href="https://gist.github.com/YulongNiu/add0d9f066299613b64b8458fd5d741a">Gist1</a>和<a href="https://gist.github.com/YulongNiu/9331ea0d3ef46f0571c5f2dc061c3f8a">Gist2</a>中，分别实现了：</p>
-
 <ul>
-<li><p><code>SqrtR</code>：用循环非并行操作每个元素。这种方法在<code>R</code>语言编程中不推荐，而应该尽量“向量化”操作。</p></li>
-
-<li><p><code>SqrtRforeach</code>：<code>foreach</code>并行版本。</p></li>
-
-<li><p><code>SqrtRParSapply</code>: <code>parSapply</code>并行版本。</p></li>
-
-<li><p><code>SqrtCpp</code>：<code>C++</code>非并行版本。</p></li>
-
-<li><p><code>SqrtCppPara</code>：<span style="color: blue">RcppParallel</span>包的<code>C++</code>并行版本。</p></li>
-
-<li><p><code>sqrt</code>：R内置的向量化方法，<code>C</code>非并行版本。</p></li>
+<li>
+<p><code>SqrtR</code>：用循环非并行操作每个元素。这种方法在<code>R</code>语言编程中不推荐，而应该尽量“向量化”操作。</p>
+</li>
+<li>
+<p><code>SqrtRforeach</code>：<code>foreach</code>并行版本。</p>
+</li>
+<li>
+<p><code>SqrtRParSapply</code>: <code>parSapply</code>并行版本。</p>
+</li>
+<li>
+<p><code>SqrtCpp</code>：<code>C++</code>非并行版本。</p>
+</li>
+<li>
+<p><code>SqrtCppPara</code>：<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包的<code>C++</code>并行版本。</p>
+</li>
+<li>
+<p><code>sqrt</code>：R内置的向量化方法，<code>C</code>非并行版本。</p>
+</li>
 </ul>
-
-<p>首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 CPU@3.6GHz）。测试结果显示<code>SqrtRPara</code>（使用<code>foreach</code>）和非向量化的R版本<code>SqrtR</code>效率较低。</p>
+<p>首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 <a href="mailto:CPU@3.6GHz">CPU@3.6GHz</a>）。测试结果显示<code>SqrtRPara</code>（使用<code>foreach</code>）和非向量化的R版本<code>SqrtR</code>效率较低。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e3)
 
 all.equal(SqrtCpp(tmp1),
@@ -127,8 +128,9 @@ microbenchmark(
 <span style="color:#008000">##    4560.0930   10391.379   100</span>
 <span style="color:#008000">## 1584297.5760 1750382.995   100</span>
 <span style="color:#008000">##  974233.5690 1012400.281   100</span>
-<span style="color:#008000">##     111.9160    1331.442   100</span></code></pre></div>
-<p>然后，增加循环数，比较效率较高的前三种方法。测试结果显示调用<span style="color: blue">RcppParallel</span>包的<code>C++</code>并行版本<code>SqrtCppPara</code>胜出。</p>
+<span style="color:#008000">##     111.9160    1331.442   100</span>
+
+</code></pre></div><p>然后，增加循环数，比较效率较高的前三种方法。测试结果显示调用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包的<code>C++</code>并行版本<code>SqrtCppPara</code>胜出。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e6)
 
 all.equal(SqrtCpp(tmp1),
@@ -146,15 +148,12 @@ microbenchmark(
 <span style="color:#008000">##               expr      min       lq     mean   median       uq       max neval</span>
 <span style="color:#008000">##      SqrtCpp(tmp1) 76.68263 78.55146 82.51442 79.48709 87.03026 100.56873   100</span>
 <span style="color:#008000">##         sqrt(tmp1) 52.19705 53.67441 58.16940 54.60512 66.67642  70.94672   100</span>
-<span style="color:#008000">##  SqrtCppPara(tmp1) 37.10116 38.34199 42.23896 39.17889 42.98785  61.94529   100</span></code></pre></div>
-<h2 id="2-使用-vector-代替-list">2. 使用<code>vector</code>代替<code>List</code></h2>
-
-<p>在使用<span style="color: blue">RcppParallel</span>并行计算时，不能在并行循环中调用<code>Rcpp::List</code>对象。一个解决办法是：使用<code>std::vector</code>替代<code>Rcpp:List</code>。例如，<code>List</code>中都是数值向量，那么可以建立<code>std::vector&lt;Rcpp::NumericVector&gt;</code>对象替代。
+<span style="color:#008000">##  SqrtCppPara(tmp1) 37.10116 38.34199 42.23896 39.17889 42.98785  61.94529   100</span>
+</code></pre></div><h2 id="2-使用vector代替list-">2. 使用<code>vector</code>代替<code>List</code></h2>
+<p>在使用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->并行计算时，不能在并行循环中调用<code>Rcpp::List</code>对象。一个解决办法是：使用<code>std::vector</code>替代<code>Rcpp:List</code>。例如，<code>List</code>中都是数值向量，那么可以建立<code>std::vector&lt;Rcpp::NumericVector&gt;</code>对象替代。
 <a href="https://gist.github.com/YulongNiu/0a11282216162b6e350c9575b68e91cc">Gist3</a>中提供了一个例子。这种方法的局限在于<code>List</code>中每一个元素的类型需要相同。</p>
-
-<h2 id="3-同步">3. 同步</h2>
-
-<p>如果多个线程同时操作某一个共享内存对象，需要在<span style="color: blue">RcppParallel</span>包中使用“锁”。如<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>所示，多个线程都需要操作<code>estcount</code>对象。测试代码如下：</p>
+<h2 id="3-同步-">3. 同步</h2>
+<p>如果多个线程同时操作某一个共享内存对象，需要在<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包中使用“锁”。如<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>所示，多个线程都需要操作<code>estcount</code>对象。测试代码如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;Rcpp&#39;</span>)
 
 sourceCpp(<span style="color:#a31515">&#39;TestSynchron.cpp&#39;</span>)
@@ -166,19 +165,18 @@ ecin &lt;- sample(0:9, g*n, replace = <span style="color:#00f">TRUE</span>) %&gt
 
 ecin %&gt;% unlist %&gt;% table
 
-TestShare(ecin, 10)</code></pre></div>
-<p>如果去掉<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>代码中的第<code>27</code>和<code>31</code>行，可以发现测试结果不正确。</p>
-
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+TestShare(ecin, 10)
+</code></pre></div><p>如果去掉<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>代码中的第<code>27</code>和<code>31</code>行，可以发现测试结果不正确。</p>
+<h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="http://gallery.rcpp.org/articles/parallel-vector-sum/">Summing a Vector in Parallel with RcppParallel</a></p></li>
-
-<li><p><a href="https://scc.ustc.edu.cn/zlsc/tc4600/intel/2017.0.098/advisor/help/GUID-D98B389E-61B9-414A-9450-D28EF9F61A95.htm">Intel TBB Simple Mutex - Example</a></p></li>
+<li>
+<p><a href="http://gallery.rcpp.org/articles/parallel-vector-sum/">Summing a Vector in Parallel with RcppParallel</a></p>
+</li>
+<li>
+<p><a href="https://scc.ustc.edu.cn/zlsc/tc4600/intel/2017.0.098/advisor/help/GUID-D98B389E-61B9-414A-9450-D28EF9F61A95.htm">Intel TBB Simple Mutex - Example</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2018年10月5日</p>
 
 		</div>

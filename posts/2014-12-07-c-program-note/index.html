@@ -67,12 +67,8 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-基本数据类型">1. 基本数据类型</h2>
-
-<h3 id="1-1-算术类型">1.1 算术类型</h3>
-
+			<h2 id="1-基本数据类型-">1. 基本数据类型</h2>
+<h3 id="11-算术类型-">1.1 算术类型</h3>
 
 
 
@@ -88,7 +84,6 @@
 <th>本地字节数</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><code>short</code></td>
@@ -97,7 +92,6 @@
 <td>最左边一位表示符号，<code>0</code>为正数，<code>1</code>为负数</td>
 <td>2</td>
 </tr>
-
 <tr>
 <td><code>unsigned short</code></td>
 <td>无符号短整数</td>
@@ -105,7 +99,6 @@
 <td>全部位占满</td>
 <td>2</td>
 </tr>
-
 <tr>
 <td><code>int</code></td>
 <td>有符号整数</td>
@@ -113,7 +106,6 @@
 <td>最左边一位表示符号，<code>0</code>为正数，<code>1</code>为负数</td>
 <td>4</td>
 </tr>
-
 <tr>
 <td><code>unsigned int</code></td>
 <td>无符号整数</td>
@@ -121,7 +113,6 @@
 <td>全部位占满</td>
 <td>4</td>
 </tr>
-
 <tr>
 <td><code>long</code></td>
 <td>有符号长整数</td>
@@ -129,7 +120,6 @@
 <td>最左边一位表示符号，<code>0</code>为正数，<code>1</code>为负数</td>
 <td>8</td>
 </tr>
-
 <tr>
 <td><code>unsigned long</code></td>
 <td>无符号长整数</td>
@@ -137,23 +127,20 @@
 <td>全部位占满</td>
 <td>8</td>
 </tr>
-
 <tr>
 <td><code>long long</code></td>
 <td>无符号长长整数</td>
 <td>完整形式为<code>signed long long int</code>，<code>singed</code>和<code>int</code>可以省略</td>
-<td><span style="color: green"><strong>C99</strong></span>特有</td>
+<td><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->特有</td>
 <td>8</td>
 </tr>
-
 <tr>
-<td><code>unsigned long long</code></td>
+<td><code>unsigned long long </code></td>
 <td>有符号长长整数</td>
 <td>完整形式为<code>unsigned long long int</code>，<code>int</code>可以省略</td>
-<td><span style="color: green"><strong>C99</strong></span>特有</td>
+<td><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->特有</td>
 <td>8</td>
 </tr>
-
 <tr>
 <td><code>char</code></td>
 <td>字符</td>
@@ -161,7 +148,6 @@
 <td>分为<code>char</code>、<code>singed char</code>和<code>unsigned char</code>。使用<strong>单引号</strong>标记常量，比如<code>'A'</code>（<strong>值</strong>为65）</td>
 <td>1</td>
 </tr>
-
 <tr>
 <td><code>_Bool</code></td>
 <td>布尔型整数</td>
@@ -169,7 +155,6 @@
 <td>只能赋值0或1，赋值<code>_Bool</code>类型变量为非零值会导致赋值为1</td>
 <td>1</td>
 </tr>
-
 <tr>
 <td><code>float</code></td>
 <td>单精度浮点数</td>
@@ -177,7 +162,6 @@
 <td></td>
 <td>4</td>
 </tr>
-
 <tr>
 <td><code>double</code></td>
 <td>双精度浮点数</td>
@@ -185,7 +169,6 @@
 <td></td>
 <td>8</td>
 </tr>
-
 <tr>
 <td><code>long double</code></td>
 <td>扩展精度浮点数</td>
@@ -194,61 +177,66 @@
 <td>16</td>
 </tr>
 </tbody>
-</table> 
-
+</table>
+ 
 
 <ul>
-<li><p>强制编辑器处理常量为长整数（十进制、八进制和十六进制），<code>1135L</code>；强制处理为无符号，<code>1135U</code>；混合使用，<code>1135UL</code>，<code>U</code>和<code>L</code>顺序和大小写不重要。
-<span style="color: green"><strong>C99</strong></span>中增加了<code>ll</code>或者<code>LL</code>后缀，强制<code>long long int</code>型整数，可以与<code>u</code>或<code>U</code>连用。<strong>避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果</strong>。</p></li>
-
-<li><p>强制编辑器处理常量为单精度浮点数，<code>11.3f</code>，<code>11.3</code>会被认为是<code>double</code>型；强制为双精度，<code>11.3L</code>或者<code>11.3l</code>（这里看出使用<code>L</code>更好，因为<code>l</code>会被误认为数字<code>1</code>）。</p></li>
-
-<li><p>强制类型转化表达式的一般形式为：<code>(int) floatNumber</code>。C语言把<code>(type)</code>视为一元运算符，所以其等级高于二元运算符。</p></li>
-
-<li><p>类型定义一般形式为：<code>typedef int Newint;</code>，注意结尾的<code>；</code>。区别与使用宏定义类型，函数体内定义的<code>typdef</code>变量在函数体外无法使用，而宏可以作用于任何对应位置。</p></li>
-
-<li><p><code>sizeof</code>运算符一般形式为：<code>sizeof(type)</code>，比如<code>sizeof(long int)</code>计算<code>int</code>类型占用多少个字节。<code>sizeof</code>表达式的类型是<code>size_t</code>（无符号整数），所以安全的方法是强制转换为<code>unsigned long</code>型，比如<code>(unsigned long) sizeof(int)</code>。括号不是强制需要，加上括号防止因为优先级不同而引起歧义。可以应用与常量、变量或者表达式。</p></li>
+<li>
+<p>强制编辑器处理常量为长整数（十进制、八进制和十六进制），<code>1135L</code>；强制处理为无符号，<code>1135U</code>；混合使用，<code>1135UL</code>，<code>U</code>和<code>L</code>顺序和大小写不重要。
+<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->中增加了<code>ll</code>或者<code>LL</code>后缀，强制<code>long long int</code>型整数，可以与<code>u</code>或<code>U</code>连用。<strong>避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果</strong>。</p>
+</li>
+<li>
+<p>强制编辑器处理常量为单精度浮点数，<code>11.3f</code>，<code>11.3</code>会被认为是<code>double</code>型；强制为双精度，<code>11.3L</code>或者<code>11.3l</code>（这里看出使用<code>L</code>更好，因为<code>l</code>会被误认为数字<code>1</code>）。</p>
+</li>
+<li>
+<p>强制类型转化表达式的一般形式为：<code>(int) floatNumber</code>。C语言把<code>(type)</code>视为一元运算符，所以其等级高于二元运算符。</p>
+</li>
+<li>
+<p>类型定义一般形式为：<code>typedef int Newint;</code>，注意结尾的<code>；</code>。区别与使用宏定义类型，函数体内定义的<code>typdef</code>变量在函数体外无法使用，而宏可以作用于任何对应位置。</p>
+</li>
+<li>
+<p><code>sizeof</code>运算符一般形式为：<code>sizeof(type)</code>，比如<code>sizeof(long int)</code>计算<code>int</code>类型占用多少个字节。<code>sizeof</code>表达式的类型是<code>size_t</code>（无符号整数），所以安全的方法是强制转换为<code>unsigned long</code>型，比如<code>(unsigned long) sizeof(int)</code>。括号不是强制需要，加上括号防止因为优先级不同而引起歧义。可以应用与常量、变量或者表达式。</p>
+</li>
 </ul>
-
-<h3 id="1-2-数组">1.2 数组</h3>
-
+<h3 id="12-数组-">1.2 数组</h3>
 <p>数组索引从0开始；数组按行存储。</p>
-
-<h4 id="1-2-1-一维数组">1.2.1 一维数组</h4>
-
+<h4 id="121-一维数组-">1.2.1 一维数组</h4>
 <p>数组长度：</p>
-
 <ul>
-<li><p>数组长度可以是任何整数常量或整数常量表达式，比如<code>testLen + 1;</code>，<code>testLen</code>之前声明为整数常量（&gt;-1）。</p></li>
-
-<li><p>数组长度之后可能会变，所以可以使用宏定义一维数组的长度，比如<code>#define LEN 5</code>。</p></li>
-
-<li><p>确定数组长度，可以联合使用宏和<code>sizeof</code>，比如<code>#define SIZE ((int) (sizeof(a) / sizeof(a[0])))</code>。</p></li>
+<li>
+<p>数组长度可以是任何整数常量或整数常量表达式，比如<code>testLen + 1;</code>，<code>testLen</code>之前声明为整数常量（&gt;-1）。</p>
+</li>
+<li>
+<p>数组长度之后可能会变，所以可以使用宏定义一维数组的长度，比如<code>#define LEN 5</code>。</p>
+</li>
+<li>
+<p>确定数组长度，可以联合使用宏和<code>sizeof</code>，比如<code>#define SIZE ((int) (sizeof(a) / sizeof(a[0])))</code>。</p>
+</li>
 </ul>
-
 <p>初始化：</p>
-
 <ul>
-<li><p>声明每一个元素的数值，比如<code>int testArray[5] = {1, 2, 3, 4, 5};</code>。这种情况可以忽略数组长度，比如<code>int testArray[] = {1, 2, 3, 4, 5}</code>;。</p></li>
-
-<li><p>声明部分元素，比如<code>int testArray[5] = {1, 2, 3};，4号与5号元素默认为0。&lt;span style=&quot;color: green&quot;&gt;**C99**&lt;/span&gt;提供元素下标初始化，比如：</code>int testArray[5] = {[0] = 1, [1] = 2, [2] = 3};；或者混用，比如<code>int testArray[5] = {1, 2, [2] = 3};</code>；甚至自动判断长度，比如<code>int testArray[] = {[0] = 1, 2, [2] = 3, a[4] = 0};</code>，编译器根据最大元素序号，制定数组长度为5。使用元素下标初始化，<strong>尽量按照下标序号从大到小初始化</strong>，否则可能引起后面元素覆盖前面元素。</p></li>
-
-<li><p>声明全部元素为0，比如<code>int testArray[5] = {0}</code>;。</p></li>
+<li>
+<p>声明每一个元素的数值，比如<code>int testArray[5] = {1, 2, 3, 4, 5};</code>。这种情况可以忽略数组长度，比如<code>int testArray[] = {1, 2, 3, 4, 5}</code>;。</p>
+</li>
+<li>
+<p>声明部分元素，比如<code>int testArray[5] = {1, 2, 3};，4号与5号元素默认为0。&lt;span style=&quot;color: green&quot;&gt;**C99**&lt;/span&gt;提供元素下标初始化，比如：</code>int testArray[5] = {[0] = 1, [1] = 2, [2] = 3};；或者混用，比如<code>int testArray[5] = {1, 2, [2] = 3};</code>；甚至自动判断长度，比如<code>int testArray[] = {[0] = 1, 2, [2] = 3, a[4] = 0};</code>，编译器根据最大元素序号，制定数组长度为5。使用元素下标初始化，<strong>尽量按照下标序号从大到小初始化</strong>，否则可能引起后面元素覆盖前面元素。</p>
+</li>
+<li>
+<p>声明全部元素为0，比如<code>int testArray[5] = {0}</code>;。</p>
+</li>
 </ul>
-
-<h4 id="1-2-2-多维数组">1.2.2 多维数组</h4>
-
+<h4 id="122-多维数组-">1.2.2 多维数组</h4>
 <p>初始化：</p>
-
 <ul>
-<li><p>声明每一个元素或者部分元素，其余未声明元素为0。<span style="color: green"><strong>C99</strong></span>同样提供了下标初始化。比如：<code>int testArray[2][2] = {[0][0] = 0, [1][1] = 1};</code>。</p></li>
-
-<li><p>声明全部元素为0，比如<code>int testArray[5][10] = {0};</code>。</p></li>
+<li>
+<p>声明每一个元素或者部分元素，其余未声明元素为0。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->同样提供了下标初始化。比如：<code>int testArray[2][2] = {[0][0] = 0, [1][1] = 1};</code>。</p>
+</li>
+<li>
+<p>声明全部元素为0，比如<code>int testArray[5][10] = {0};</code>。</p>
+</li>
 </ul>
-
-<h4 id="1-2-3-span-style-color-green-c99-span-变长数组">1.2.3 <span style="color: green"><strong>C99</strong></span>变长数组</h4>
-
-<p><span style="color: green"><strong>C99</strong></span>允许声明变长数组。但是，变长数组的声明和初始化不能在一条语句中。正确的做法是：先声明变长数组，之后初始化。比如：</p>
+<h4 id="123-span-stylecolor-greenc99span变长数组-">1.2.3 <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->变长数组</h4>
+<p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许声明变长数组。但是，变长数组的声明和初始化不能在一条语句中。正确的做法是：先声明变长数组，之后初始化。比如：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">int</span> size;
 printf(<span style="color:#a31515">&#34;Enter size of array: &#34;</span>);
 scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
@@ -257,51 +245,50 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <span style="color:#008000">/* initial square */</span>
 <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> i = 0; i &lt; size; i++) {
   square[i] = 0;
-}</code></pre></div>
-<h4 id="1-2-4-字符串">1.2.4 字符串</h4>
-
+}
+</code></pre></div><h4 id="124-字符串-">1.2.4 字符串</h4>
 <p>字符串长度：</p>
-
 <ul>
 <li>字符串的实现是使用数组储存字符，最后一个是空字符<code>\0</code>（对应ASCII码为0）。使用<code>&lt;string.h&gt;</code>头文件时，<code>str()</code>函数返回输入字符串中，第一个空字符之前的字符数。</li>
 </ul>
-
 <p>初始化：</p>
-
 <ul>
-<li><p>第一种储存为字符数组。<code>char a[6] = &quot;hello&quot;;</code>合法，最后一个是空字符；<code>char a[6] = &quot;hell&quot;;</code>合法，最后两个是空字符；省略长度，比如<code>char a[] = &quot;hello&quot;;</code>合法，最后一个是空字符，自动分配6个字符空间；<code>char a[5] = &quot;hello&quot;;</code>对于字符串非法，对于字符数组合法。</p></li>
-
-<li><p>第二种储存为字符指针。<code>char *b = &quot;hello&quot;;</code>合法，声明字符指针；声明字符指针，将其指向已有字符变量、字符串字面量或动态分配字符串，合法；已有字符指针重新指向其他字符串，合法；声明字符指针，却不初始化，非法；声明字符指针，却不初始化，而且修改或赋值指向的字符，非法。</p></li>
-
-<li><p>字符数组可以修改元素，比如<code>a[0] = 'l';</code>；字符指针指向的字符串不能修改，应该杜绝<s>*b = &lsquo;l&rsquo;;</s>之类的字符指针赋值，除非保证<code>b</code>是一个字符数组；对于操作字符串的函数，如果形参为字符指针，允许修改其指向的内容，比如<code>*b = 'l';</code>，因为默认（也只允许）传入参数是一个字符数组，而不是一个字符串字面量。</p></li>
+<li>
+<p>第一种储存为字符数组。<code>char a[6] = &quot;hello&quot;;</code>合法，最后一个是空字符；<code>char a[6] = &quot;hell&quot;;</code>合法，最后两个是空字符；省略长度，比如<code>char a[] = &quot;hello&quot;;</code>合法，最后一个是空字符，自动分配6个字符空间；<code>char a[5] = &quot;hello&quot;;</code>对于字符串非法，对于字符数组合法。</p>
+</li>
+<li>
+<p>第二种储存为字符指针。<code>char *b = &quot;hello&quot;;</code>合法，声明字符指针；声明字符指针，将其指向已有字符变量、字符串字面量或动态分配字符串，合法；已有字符指针重新指向其他字符串，合法；声明字符指针，却不初始化，非法；声明字符指针，却不初始化，而且修改或赋值指向的字符，非法。</p>
+</li>
+<li>
+<p>字符数组可以修改元素，比如<code>a[0] = 'l';</code>；字符指针指向的字符串不能修改，应该杜绝<!-- raw HTML omitted -->*b = &lsquo;l&rsquo;;<!-- raw HTML omitted -->之类的字符指针赋值，除非保证<code>b</code>是一个字符数组；对于操作字符串的函数，如果形参为字符指针，允许修改其指向的内容，比如<code>*b = 'l';</code>，因为默认（也只允许）传入参数是一个字符数组，而不是一个字符串字面量。</p>
+</li>
 </ul>
-
-<h4 id="1-2-4-字符串数组">1.2.4 字符串数组</h4>
-
+<h4 id="124-字符串数组-">1.2.4 字符串数组</h4>
 <p>初始化：</p>
-
 <ul>
 <li>使用指针数组储存，比如<code>char *a[5] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;, &quot;!&quot;};</code>；省略长度，<code>char *a[] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;, &quot;!&quot;};</code>合法；<code>char *a[5] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;};</code>合法，最后一个是空指针（<code>NULL</code>）。</li>
 </ul>
-
-<h3 id="1-3-结构">1.3 结构</h3>
-
+<h3 id="13-结构-">1.3 结构</h3>
 <p>结构空间分配：</p>
-
 <ul>
-<li><p>成员按照声明的顺序在内存依次排列。</p></li>
-
-<li><p>第一个成员之前无间隙，因此方便指针指向结构。但成员之间或者最后一个成员之后，可能有间隙。</p></li>
+<li>
+<p>成员按照声明的顺序在内存依次排列。</p>
+</li>
+<li>
+<p>第一个成员之前无间隙，因此方便指针指向结构。但成员之间或者最后一个成员之后，可能有间隙。</p>
+</li>
 </ul>
-
 <p>初始化：</p>
-
 <ul>
-<li><p>结构中可以嵌套结构、联合、枚举、字符串等多种类型。</p></li>
-
-<li><p>不需要初始化全部成员，剩下未初始化的成员使用0作为初始值，比如<code>&quot;&quot;</code>作为空字符串。</p></li>
-
-<li><p><span style="color: green"><strong>C99</strong></span>使用符合字面量，比如<code>(struct test1) {.b = &quot;test that&quot;, .c = 1};</code>。</p></li>
+<li>
+<p>结构中可以嵌套结构、联合、枚举、字符串等多种类型。</p>
+</li>
+<li>
+<p>不需要初始化全部成员，剩下未初始化的成员使用0作为初始值，比如<code>&quot;&quot;</code>作为空字符串。</p>
+</li>
+<li>
+<p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->使用符合字面量，比如<code>(struct test1) {.b = &quot;test that&quot;, .c = 1};</code>。</p>
+</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">struct</span> test1 {
   <span style="color:#2b91af">int</span> a;
@@ -322,8 +309,8 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <span style="color:#00f">struct</span> test1 p2 = {.b = <span style="color:#a31515">&#34;world&#34;</span>, 3};
 
 <span style="color:#008000">/* c99 */</span>
-(<span style="color:#00f">struct</span> test1){.c = 10};</code></pre></div>
-<ul>
+(<span style="color:#00f">struct</span> test1){.c = 10};
+</code></pre></div><ul>
 <li>结构、联合和枚举都可以使用<code>typedef</code>定义，总结如下：</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">typedef</span> <span style="color:#00f">struct</span> {
@@ -345,17 +332,13 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
   Test3 p3 = CIRCLE;
   
   <span style="color:#00f">return</span> 0;
-}</code></pre></div>
-<h3 id="1-4-联合">1.4 联合</h3>
-
+}
+</code></pre></div><h3 id="14-联合-">1.4 联合</h3>
 <p>联合空间分配：</p>
-
 <ul>
 <li>只为最大的成员分配空间。</li>
 </ul>
-
 <p>初始化：</p>
-
 <ul>
 <li>初始化与结构类似。</li>
 </ul>
@@ -375,8 +358,8 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <span style="color:#00f">union</span> test1 p2 = {.b = <span style="color:#a31515">&#34;world&#34;</span>};
 
 <span style="color:#008000">/* c99 */</span>
-(<span style="color:#00f">union</span> test1){.a = 10};</code></pre></div>
-<ul>
+(<span style="color:#00f">union</span> test1){.a = 10};
+</code></pre></div><ul>
 <li>如果联合包括两个及两个以上结构成员，而且这些结构中最初一个或多个成员类型匹配，那么这些匹配成员会同步。</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">union</span> test {
@@ -393,41 +376,40 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 
 t1.b.b1 = 10;
 <span style="color:#008000">/* t.c.c1 is 10 */</span>
-printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, t1.c.c1);</code></pre></div>
-<h3 id="1-5-枚举">1.5 枚举</h3>
-
+printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, t1.c.c1);
+</code></pre></div><h3 id="15-枚举-">1.5 枚举</h3>
 <p>初始化：</p>
-
 <ul>
 <li>枚举元素如不指定，从0开始，依次增加1；可以指定具体数值，指定数值可以相同，允许尾逗号，例如<code>enum {THIS = 2, THAT = 10, THESE = 2,} test1</code>;。</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> {FIRST, SECOND} p1;
 <span style="color:#00f">enum</span> test1 {FIRST, SECOND};
-<span style="color:#00f">enum</span> test1 = SECOND;</code></pre></div>
-<h3 id="1-6-指针">1.6 指针</h3>
-
+<span style="color:#00f">enum</span> test1 = SECOND;
+</code></pre></div><h3 id="16-指针-">1.6 指针</h3>
 <p>参考<a href="http://yulongniu.bionutshell.org/blog/2016/04/17/pointers-in-c/">C语言指针记录</a>。</p>
-
-<h3 id="1-7-函数">1.7 函数</h3>
-
-<h4 id="1-7-1-函数定义">1.7.1 函数定义</h4>
-
+<h3 id="17-函数-">1.7 函数</h3>
+<h4 id="171-函数定义-">1.7.1 函数定义</h4>
 <ul>
-<li><p>函数不能返回数组，也不能返回两个数。</p></li>
-
-<li><p>函数返回类型可以是<code>void</code>，形参可以是<code>void</code>。<code>void</code>类型函数没有返回值，可以写一条表达式为空的<code>return</code>语句，比如<code>return</code>;。</p></li>
-
-<li><p>每个形参必须单独声明类型，使用<code>,</code>连接；</p></li>
-
-<li><p>使用<code>void</code>丢弃函数返回值，比如<code>printf()</code>函数返回显示的字符数目，强制丢弃返回数值写为：<code>(void) printf(&quot;Drop the return value.&quot;);</code>。</p></li>
-
-<li><p><code>main</code>函数返回值：<code>return</code>语句；<code>exit()</code>函数（位于<code>&lt;stdlib.h&gt;</code>库）。任何函数调用<code>exit()</code>函数，都会导致程序终止；只有<code>main</code>函数调用<code>return</code>语句，程序才终止。<span style="color: green"><strong>C99</strong></span>规定：非<code>void</code>类型函数必须指定返回类型，不能缺省。</p></li>
-
-<li><p>函数声明的形式为<code>int thisFun(double para1, int para2);</code>。<span style="color: green"><strong>C99</strong></span>规定：函数在调用前，必须事先声明或者定义。调用前声明有很多好处，比如避免实际参数的默认转换等。</p></li>
+<li>
+<p>函数不能返回数组，也不能返回两个数。</p>
+</li>
+<li>
+<p>函数返回类型可以是<code>void</code>，形参可以是<code>void</code>。<code>void</code>类型函数没有返回值，可以写一条表达式为空的<code>return</code>语句，比如<code>return</code>;。</p>
+</li>
+<li>
+<p>每个形参必须单独声明类型，使用<code>,</code>连接；</p>
+</li>
+<li>
+<p>使用<code>void</code>丢弃函数返回值，比如<code>printf()</code>函数返回显示的字符数目，强制丢弃返回数值写为：<code>(void) printf(&quot;Drop the return value.&quot;);</code>。</p>
+</li>
+<li>
+<p><code>main</code>函数返回值：<code>return</code>语句；<code>exit()</code>函数（位于<code>&lt;stdlib.h&gt;</code>库）。任何函数调用<code>exit()</code>函数，都会导致程序终止；只有<code>main</code>函数调用<code>return</code>语句，程序才终止。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->规定：非<code>void</code>类型函数必须指定返回类型，不能缺省。</p>
+</li>
+<li>
+<p>函数声明的形式为<code>int thisFun(double para1, int para2);</code>。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->规定：函数在调用前，必须事先声明或者定义。调用前声明有很多好处，比如避免实际参数的默认转换等。</p>
+</li>
 </ul>
-
-<h4 id="1-7-2-数组型参数">1.7.2 数组型参数</h4>
-
+<h4 id="172-数组型参数-">1.7.2 数组型参数</h4>
 <ul>
 <li>定义形参为一维数组的函数，普遍形式为：</li>
 </ul>
@@ -442,13 +424,17 @@ printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> [], <span style="color:#2b91af">int</span>);
 
 <span style="color:#008000">/* 实际调用 */</span>
-oneArrayFun(testArry, testLen);</code></pre></div>
-<ul>
-<li><p>对于一维数组类型的参数，“长度”的实际参数可以比形式参数小，但不能大。</p></li>
-
-<li><p>函数可以改变一维数组形参的值，并在实参中体现。</p></li>
-
-<li><p><strong>C89</strong>定义形参为多维数组的函数，只能省略第一维长度，其余维度必须声明（即常量），普遍形式为：</p></li>
+oneArrayFun(testArry, testLen);
+</code></pre></div><ul>
+<li>
+<p>对于一维数组类型的参数，“长度”的实际参数可以比形式参数小，但不能大。</p>
+</li>
+<li>
+<p>函数可以改变一维数组形参的值，并在实参中体现。</p>
+</li>
+<li>
+<p><strong>C89</strong>定义形参为多维数组的函数，只能省略第一维长度，其余维度必须声明（即常量），普遍形式为：</p>
+</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 比如二维数组，行不是必须，但必须制定列 */</span>
 <span style="color:#00f">#define COL 10
@@ -463,9 +449,9 @@ oneArrayFun(testArry, testLen);</code></pre></div>
 <span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> [][COL], <span style="color:#2b91af">int</span>);
 
 <span style="color:#008000">/* 实际调用 */</span>
-twoArrayFun(testArry, testRow);</code></pre></div>
-<ul>
-<li><span style="color: green"><strong>C99</strong></span>可以声明任意变长数组作为函数参数，普遍形式为：</li>
+twoArrayFun(testArry, testRow);
+</code></pre></div><ul>
+<li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->可以声明任意变长数组作为函数参数，普遍形式为：</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维VLA */</span>
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> len, <span style="color:#2b91af">int</span> a[len]) {
@@ -491,16 +477,16 @@ oneArrayFun(testArry, testLen);
 <span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> row, <span style="color:#2b91af">int</span> col, <span style="color:#2b91af">int</span> a[row][col]); 
 <span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> row, <span style="color:#2b91af">int</span> col, <span style="color:#2b91af">int</span> a[*][*]); 
 <span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> row, <span style="color:#2b91af">int</span> col, <span style="color:#2b91af">int</span> a[][col]); 
-<span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> row, <span style="color:#2b91af">int</span> col, <span style="color:#2b91af">int</span> a[][*]); </code></pre></div>
-<ul>
-<li><span style="color: green"><strong>C99</strong></span>允许在数组参数中使用关键字<code>static</code>，但只能用于第一维。好处是编译器更快访问数组，比如：</li>
+<span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> row, <span style="color:#2b91af">int</span> col, <span style="color:#2b91af">int</span> a[][*]); 
+</code></pre></div><ul>
+<li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许在数组参数中使用关键字<code>static</code>，但只能用于第一维。好处是编译器更快访问数组，比如：</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维数组长度至少为5 */</span>
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> a[<span style="color:#00f">static</span> 5], <span style="color:#2b91af">int</span> len) {
 ...
-}</code></pre></div>
-<ul>
-<li><span style="color: green"><strong>C99</strong></span>允许使用<strong>复合字面量</strong>。复合字面量是“左值”，可以包括常量或者常量表达式，形式与数组初始化类似；也可以使用<code>const</code>修饰。</li>
+}
+</code></pre></div><ul>
+<li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许使用<strong>复合字面量</strong>。复合字面量是“左值”，可以包括常量或者常量表达式，形式与数组初始化类似；也可以使用<code>const</code>修饰。</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
@@ -541,99 +527,130 @@ oneArrayFun(testArry, testLen);
   }
 
   <span style="color:#00f">return</span> sum;
-}</code></pre></div>
-<h2 id="2-操作符类型和优先级">2. 操作符类型和优先级</h2>
+}
 
-<p><img src="/images/coperator.png" title="image" alt="C operators"></p>
-
+</code></pre></div><h2 id="2-操作符类型和优先级-">2. 操作符类型和优先级</h2>
+<!-- raw HTML omitted -->
 <p>图片取自<a href="#Ref">参考资料2</a>。</p>
-
 <ul>
-<li><p>操作符有两个性质：<strong>结合方向</strong>和<strong>优先级</strong>。<strong>结合方向</strong>决定操作符的执行对象，比如多个同等操作符；而<strong>优先级</strong>决定操作符的结合方式，通俗来讲即谁和谁结合在一起。但是，C没有规定表达式运算的先后顺序。比如对于二元操作符<code>+</code>，<code>a = i + i++;</code>，由编译器决定是<code>i</code>还是<code>i++</code>先执行。</p></li>
-
-<li><p>操作符<code>/</code>和<code>%</code>用于负整数操作，结果由编译器决定。<span style="color: green"><strong>C99</strong></span>中<code>/</code>和<code>%</code>操作负数，返回最靠近0的结果。</p></li>
-
-<li><p>运算符<code>&amp;&amp;</code>和<code>||</code>（从左向右结合），两侧的两个表达式有运算顺序，先左后右。<strong>有可能右侧表达式没有计算，因此不要在右侧放入有副作用的表达式</strong>。</p></li>
+<li>
+<p>操作符有两个性质：<strong>结合方向</strong>和<strong>优先级</strong>。<strong>结合方向</strong>决定操作符的执行对象，比如多个同等操作符；而<strong>优先级</strong>决定操作符的结合方式，通俗来讲即谁和谁结合在一起。但是，C没有规定表达式运算的先后顺序。比如对于二元操作符<code>+</code>，<code>a = i + i++;</code>，由编译器决定是<code>i</code>还是<code>i++</code>先执行。</p>
+</li>
+<li>
+<p>操作符<code>/</code>和<code>%</code>用于负整数操作，结果由编译器决定。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->中<code>/</code>和<code>%</code>操作负数，返回最靠近0的结果。</p>
+</li>
+<li>
+<p>运算符<code>&amp;&amp;</code>和<code>||</code>（从左向右结合），两侧的两个表达式有运算顺序，先左后右。<strong>有可能右侧表达式没有计算，因此不要在右侧放入有副作用的表达式</strong>。</p>
+</li>
 </ul>
-
-<h2 id="3-表达式">3. 表达式</h2>
-
+<h2 id="3-表达式-">3. 表达式</h2>
 <ul>
-<li><p>条件表达式<code>i &gt; 0 ? i : f;</code>，如果<code>i</code>和<code>f</code>是整数型和浮点型，即使条件判定为真，表达式的值为浮点型。</p></li>
-
-<li><p><code>switch</code>语句最后一个分支，添加<code>break;语句。原因是防止之后修改程序，需要再添加判断条件时，遗漏</code>break;语句。C语言的<code>switch</code>语句不能判断范围，但适合替代多个<code>OR</code>连接的判断语句。</p></li>
-
-<li><p>逗号表达式中，<code>表达式1, 表达式2</code>，<code>表达式1</code>先计算之后丢弃其值，之后计算<code>表达式2</code>。因此，<strong><code>表达式1</code>必须有副作用</strong>。</p></li>
+<li>
+<p>条件表达式<code>i &gt; 0 ? i : f;</code>，如果<code>i</code>和<code>f</code>是整数型和浮点型，即使条件判定为真，表达式的值为浮点型。</p>
+</li>
+<li>
+<p><code>switch</code>语句最后一个分支，添加<code>break;语句。原因是防止之后修改程序，需要再添加判断条件时，遗漏</code>break;语句。C语言的<code>switch</code>语句不能判断范围，但适合替代多个<code>OR</code>连接的判断语句。</p>
+</li>
+<li>
+<p>逗号表达式中，<code>表达式1, 表达式2</code>，<code>表达式1</code>先计算之后丢弃其值，之后计算<code>表达式2</code>。因此，<strong><code>表达式1</code>必须有副作用</strong>。</p>
+</li>
 </ul>
-
-<h2 id="4-语法注意事项">4. 语法注意事项</h2>
-
+<h2 id="4-语法注意事项-">4. 语法注意事项</h2>
 <ul>
-<li><p><code>#define LOWER 0</code>定义常量的语句之后，没有分号<code>;</code>。</p></li>
-
-<li><p><code>break;</code>只能跳出一层循环。</p></li>
-
-<li><p><code>continue;</code>。有意思的应用场景，结合<code>if</code>语句和<code>continue;</code>语句，在循环中<strong>条件性</strong>忽略一些语句。</p></li>
-
-<li><p><code>EOF</code>是文档结束的标志（End of File），在<code>&lt;stdio.h&gt;</code>定义为一个整数<code>-1</code>，代码如下：</p></li>
+<li>
+<p><code>#define LOWER 0</code>定义常量的语句之后，没有分号<code>;</code>。</p>
+</li>
+<li>
+<p><code>break;</code>只能跳出一层循环。</p>
+</li>
+<li>
+<p><code>continue;</code>。有意思的应用场景，结合<code>if</code>语句和<code>continue;</code>语句，在循环中<strong>条件性</strong>忽略一些语句。</p>
+</li>
+<li>
+<p><code>EOF</code>是文档结束的标志（End of File），在<code>&lt;stdio.h&gt;</code>定义为一个整数<code>-1</code>，代码如下：</p>
+</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#ifndef EOF
 </span><span style="color:#00f"># define EOF (-1)
-</span><span style="color:#00f">#endif</span></code></pre></div>
+</span><span style="color:#00f">#endif
+</span></code></pre></div><ul>
+<li>
+<p>用单引号<code>''</code>标记的字符，对应的是ASCII的数字值。</p>
+</li>
+<li>
+<p><code>for</code>循环声明需要有主体；如无，在<code>for</code>语句后添加<code>;</code>作“无效声明（null statement）”。<strong>为了避免误解，<code>;</code>单独占一行</strong>，或者使用<code>{}</code>代替单独一行的<code>;</code>。</p>
+</li>
+<li>
+<p>顺序点（sequence point）</p>
 <ul>
-<li><p>用单引号<code>''</code>标记的字符，对应的是ASCII的数字值。</p></li>
-
-<li><p><code>for</code>循环声明需要有主体；如无，在<code>for</code>语句后添加<code>;</code>作“无效声明（null statement）”。<strong>为了避免误解，<code>;</code>单独占一行</strong>，或者使用<code>{}</code>代替单独一行的<code>;</code>。</p></li>
-
-<li><p>顺序点（sequence point）</p>
-
+<li>
+<p><code>&amp;&amp;</code>、<code>||</code>和comma operators，左边和右边表达式之间。</p>
+</li>
+<li>
+<p>三元条件操作符<code>?:</code>，在条件判断表达式与第二（第三）表达式之间。</p>
+</li>
+<li>
+<p>完整表达式结束，包括赋值、<code>return</code>语句、<code>if</code>/<code>switch</code>/<code>while</code>/<code>do-while</code>条件表达式判断结束和<code>for</code>三个表示式。</p>
+</li>
+<li>
+<p>函数的所有参数赋值和函数第一条语句执行之前（见后举例）。</p>
+</li>
+<li>
+<p>变量初始化语句结束，比如<code>int a = 1;</code>。如果多个变量初始化（<code>,</code>分割），则在每一个<code>,</code>结束处，比如 <code>int a = 1, b = 2;</code>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>i++</code>与<code>++i</code></p>
 <ul>
-<li><p><code>&amp;&amp;</code>、<code>||</code>和comma operators，左边和右边表达式之间。</p></li>
-
-<li><p>三元条件操作符<code>?:</code>，在条件判断表达式与第二（第三）表达式之间。</p></li>
-
-<li><p>完整表达式结束，包括赋值、<code>return</code>语句、<code>if</code>/<code>switch</code>/<code>while</code>/<code>do-while</code>条件表达式判断结束和<code>for</code>三个表示式。</p></li>
-
-<li><p>函数的所有参数赋值和函数第一条语句执行之前（见后举例）。</p></li>
-
-<li><p>变量初始化语句结束，比如<code>int a = 1;</code>。如果多个变量初始化（<code>,</code>分割），则在每一个<code>,</code>结束处，比如 <code>int a = 1, b = 2;</code>。</p></li>
-</ul></li>
-
-<li><p><code>i++</code>与<code>++i</code></p>
-
+<li>
+<p>大多数情况用于整数操作。</p>
+</li>
+<li>
+<p><code>++i</code>马上自增，<code>i++</code>自增则在两个相邻顺序点之间进行。表达式<code>++i值为</code>i+1<code>，表达式</code>i++值为<code>i</code>。</p>
+</li>
+<li>
+<p>表达式<code>i++ == 0;</code>中，<code>i</code>使用原始数值，在表达式结束后自增；相反，表达式<code>++i == 0;</code>中，<code>i</code>马上自增后与0比较。</p>
+</li>
+<li>
+<p>对于表达式<code>f(i++)</code>，传入的参数值为<code>i</code>，但是在函数内部开始执行前，<code>i</code>完成自增。这是因为在<strong>函数的所有参数赋值和函数第一条语句执行之前</strong>有一个<strong>顺序点</strong>。</p>
+</li>
+<li>
+<p>在<code>for</code>语句中，使用<code>for(i = 0; i &lt; 10; i++)</code>与<code>for(i = 0; i &lt; 10; ++i)</code>效果一样。</p>
+</li>
+<li>
+<p>对于现代编译器，<code>i++</code>和<code>++i</code>的执行效率没有区别。所以写代码时，按照自认为最清楚的方式写。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>未定义行为（undefined behavior）</p>
 <ul>
-<li><p>大多数情况用于整数操作。</p></li>
-
-<li><p><code>++i</code>马上自增，<code>i++</code>自增则在两个相邻顺序点之间进行。表达式<code>++i值为</code>i+1<code>，表达式</code>i++值为<code>i</code>。</p></li>
-
-<li><p>表达式<code>i++ == 0;</code>中，<code>i</code>使用原始数值，在表达式结束后自增；相反，表达式<code>++i == 0;</code>中，<code>i</code>马上自增后与0比较。</p></li>
-
-<li><p>对于表达式<code>f(i++)</code>，传入的参数值为<code>i</code>，但是在函数内部开始执行前，<code>i</code>完成自增。这是因为在<strong>函数的所有参数赋值和函数第一条语句执行之前</strong>有一个<strong>顺序点</strong>。</p></li>
-
-<li><p>在<code>for</code>语句中，使用<code>for(i = 0; i &lt; 10; i++)</code>与<code>for(i = 0; i &lt; 10; ++i)</code>效果一样。</p></li>
-
-<li><p>对于现代编译器，<code>i++</code>和<code>++i</code>的执行效率没有区别。所以写代码时，按照自认为最清楚的方式写。</p></li>
-</ul></li>
-
-<li><p>未定义行为（undefined behavior）</p>
-
+<li>
+<p>一个表达式中既访问又修改同一个变量。</p>
+</li>
+<li>
+<p>数组访问超过上下限。造成原因：很有可能是忘记<strong>数组从0开始索引</strong>。</p>
+</li>
+<li>
+<p><strong>C89</strong>中，非<code>void</code>类型函数，执行到末尾，没有执行<code>return</code>语句。程序调用此类函数，会出现未定义行为。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->中，不合法。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>副作用（side effect）</p>
 <ul>
-<li><p>一个表达式中既访问又修改同一个变量。</p></li>
-
-<li><p>数组访问超过上下限。造成原因：很有可能是忘记<strong>数组从0开始索引</strong>。</p></li>
-
-<li><p><strong>C89</strong>中，非<code>void</code>类型函数，执行到末尾，没有执行<code>return</code>语句。程序调用此类函数，会出现未定义行为。<span style="color: green"><strong>C99</strong></span>中，不合法。</p></li>
-</ul></li>
-
-<li><p>副作用（side effect）</p>
-
-<ul>
-<li><p>所有赋值运算、<code>i++</code>和<code>++i</code>都有副作用，即改变原始变量的值。</p></li>
-
-<li><p>赋值运算的值是赋值操作后右侧的值，并且将其强制转换为左侧值类型；赋值运算左侧必须为“左值（lvalue）”。</p></li>
-
-<li><p>在同一个表达式，即访问某个变量，同时又修改这个变量，会造成<strong>“未定义行为”</strong>。有副作用的操作，会带来隐晦未定义行为。未定义行为会随着不同的编译器，而产生不同的结果。其危险性不仅在于阻碍跨平台使用，而且也会有程序运行失败或者得到意想不到结果。<strong>建议：不在一个表达式中即访问又修改同一个变量</strong>。一些典型的未定义行为的例子：</p></li>
-</ul></li>
+<li>
+<p>所有赋值运算、<code>i++</code>和<code>++i</code>都有副作用，即改变原始变量的值。</p>
+</li>
+<li>
+<p>赋值运算的值是赋值操作后右侧的值，并且将其强制转换为左侧值类型；赋值运算左侧必须为“左值（lvalue）”。</p>
+</li>
+<li>
+<p>在同一个表达式，即访问某个变量，同时又修改这个变量，会造成**“未定义行为”**。有副作用的操作，会带来隐晦未定义行为。未定义行为会随着不同的编译器，而产生不同的结果。其危险性不仅在于阻碍跨平台使用，而且也会有程序运行失败或者得到意想不到结果。**建议：不在一个表达式中即访问又修改同一个变量**。一些典型的未定义行为的例子：</p>
+</li>
+</ul>
+</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f"># can not decide whether &#34;++&#34;, &#34;=&#34;, or &#34;+&#34; is the first
 </span><span style="color:#00f"></span>a = i + i++;
@@ -641,97 +658,125 @@ i = i++;
 a[i] = i++;
 
 <span style="color:#00f"># &#34;,&#34; is not comma operator
-</span><span style="color:#00f"></span>printf(<span style="color:#a31515">&#34;%d %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, ++i, i);</code></pre></div>
-<h2 id="5-标准库">5. 标准库</h2>
-
-<h3 id="5-1-include-stdio-h">5.1 <code>#include &lt;stdio.h&gt;</code></h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#a31515">&#34;%3.0f %6.1f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, fahr, celsius);</code></pre></div>
-<p><code>%m.pX</code>：格式串模板，<code>m</code>表示要显示的最小字段宽度，<code>p</code>表示精度，<code>X</code>表示类型。</p>
-
+</span><span style="color:#00f"></span>printf(<span style="color:#a31515">&#34;%d %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, ++i, i);
+</code></pre></div><h2 id="5-标准库-">5. 标准库</h2>
+<h3 id="51-include-stdioh-">5.1 <code>#include &lt;stdio.h&gt;</code></h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#a31515">&#34;%3.0f %6.1f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, fahr, celsius);
+</code></pre></div><p><code>%m.pX</code>：格式串模板，<code>m</code>表示要显示的最小字段宽度，<code>p</code>表示精度，<code>X</code>表示类型。</p>
 <p>对于 <code>printf()</code>函数：</p>
-
 <ul>
-<li><p><code>%d</code>：十进制整数。</p>
-
+<li>
+<p><code>%d</code>：十进制整数。</p>
 <ul>
-<li><p><code>%1d</code>一个十进制整数，配合<code>scanf()</code>实现单个整数输入操作。</p></li>
-
-<li><p><code>%6d</code>：十进制整数，至少6位宽，右对齐；如果数字位数超过6位，则全部显示。</p></li>
-
-<li><p><code>%-6d</code>：同上，区别左对齐。</p></li>
-
-<li><p><code>%-6.3d</code>：同上，如果数字位数少于3位，左侧加0。比如，<code>printf(&quot;.2d%&quot;, 5)</code>的输出为<code>05</code>。</p></li>
-</ul></li>
-
-<li><p><code>%u</code>：无符号十进制数。</p>
-
-<ul>
-<li><p><code>%o</code>：无符号八进制数。</p></li>
-
-<li><p><code>%x</code>：无符号十六进制数。</p></li>
-
-<li><p>没有标准方法打印负八进制和负十六进制数。</p></li>
-</ul></li>
-
-<li><p><code>%h</code>：短整数前缀。</p>
-
-<ul>
-<li><p><code>%l</code>：长整数前缀。</p></li>
-
-<li><p><code>%ll</code>：长长整数前缀，<span style="color: green"><strong>C99</strong></span>特有。</p></li>
-
-<li><p><code>%h</code>、<code>%l</code>、<code>%ll</code>与<code>d</code>、<code>u</code>、<code>o</code>和<code>x</code>连用，比如<code>ho</code>表示无符号短八进制数。</p></li>
-</ul></li>
-
-<li><p><code>%f</code>：浮点数，默认小数位为6位。</p>
-
-<ul>
-<li><p><code>%6f</code>：浮点数，至少6位宽。</p></li>
-
-<li><p><code>%6.0f</code>：浮点树，至少6位宽，无小数点而且无小数位。</p></li>
-
-<li><p><code>%.2f</code>：浮点数，小数点后两位。</p></li>
-
-<li><p><code>%6.2f</code>：浮点数，至少6位宽，小数点后两位。</p></li>
-
-<li><p><code>%e</code>：科学计数。</p></li>
-
-<li><p><code>%g</code>：科学计数或者浮点数。</p></li>
-</ul></li>
-
-<li><p><code>%l</code>：<code>double</code>型前缀。</p>
-
-<ul>
-<li><p><code>%l</code>只在<code>scanf()</code>中使用，在<code>printf()</code>使用<code>%f</code>和<code>%e</code>（或者<code>%g</code>）表示<code>float</code>型和<code>double</code>型。</p></li>
-
-<li><p><span style="color: green"><strong>C99</strong></span>中允许在<code>printf()</code>使用<code>%lf</code>、<code>%le</code>和<code>%lg</code>，但是<code>l</code>不起作用。</p></li>
-
-<li><p><code>%L</code>：<code>long double</code>型前缀。</p></li>
-
-<li><p><code>%l</code>和<code>%L</code>与<code>e</code>、<code>f</code>、<code>g</code>连用。</p></li>
-</ul></li>
-
-<li><p><code>%c</code>：字符。</p></li>
-
-<li><p><code>%s</code>：字符串。</p></li>
-
-<li><p><code>%%</code>：<code>%</code>自身。</p></li>
+<li>
+<p><code>%1d</code>一个十进制整数，配合<code>scanf()</code>实现单个整数输入操作。</p>
+</li>
+<li>
+<p><code>%6d</code>：十进制整数，至少6位宽，右对齐；如果数字位数超过6位，则全部显示。</p>
+</li>
+<li>
+<p><code>%-6d</code>：同上，区别左对齐。</p>
+</li>
+<li>
+<p><code>%-6.3d</code>：同上，如果数字位数少于3位，左侧加0。比如，<code>printf(&quot;.2d%&quot;, 5)</code>的输出为<code>05</code>。</p>
+</li>
 </ul>
-
+</li>
+<li>
+<p><code>%u</code>：无符号十进制数。</p>
+<ul>
+<li>
+<p><code>%o</code>：无符号八进制数。</p>
+</li>
+<li>
+<p><code>%x</code>：无符号十六进制数。</p>
+</li>
+<li>
+<p>没有标准方法打印负八进制和负十六进制数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>%h</code>：短整数前缀。</p>
+<ul>
+<li>
+<p><code>%l</code>：长整数前缀。</p>
+</li>
+<li>
+<p><code>%ll</code>：长长整数前缀，<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->特有。</p>
+</li>
+<li>
+<p><code>%h</code>、<code>%l</code>、<code>%ll</code>与<code>d</code>、<code>u</code>、<code>o</code>和<code>x</code>连用，比如<code>ho</code>表示无符号短八进制数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>%f</code>：浮点数，默认小数位为6位。</p>
+<ul>
+<li>
+<p><code>%6f</code>：浮点数，至少6位宽。</p>
+</li>
+<li>
+<p><code>%6.0f</code>：浮点树，至少6位宽，无小数点而且无小数位。</p>
+</li>
+<li>
+<p><code>%.2f</code>：浮点数，小数点后两位。</p>
+</li>
+<li>
+<p><code>%6.2f</code>：浮点数，至少6位宽，小数点后两位。</p>
+</li>
+<li>
+<p><code>%e</code>：科学计数。</p>
+</li>
+<li>
+<p><code>%g</code>：科学计数或者浮点数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>%l</code>：<code>double</code>型前缀。</p>
+<ul>
+<li>
+<p><code>%l</code>只在<code>scanf()</code>中使用，在<code>printf()</code>使用<code>%f</code>和<code>%e</code>（或者<code>%g</code>）表示<code>float</code>型和<code>double</code>型。</p>
+</li>
+<li>
+<p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->中允许在<code>printf()</code>使用<code>%lf</code>、<code>%le</code>和<code>%lg</code>，但是<code>l</code>不起作用。</p>
+</li>
+<li>
+<p><code>%L</code>：<code>long double</code>型前缀。</p>
+</li>
+<li>
+<p><code>%l</code>和<code>%L</code>与<code>e</code>、<code>f</code>、<code>g</code>连用。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>%c</code>：字符。</p>
+</li>
+<li>
+<p><code>%s</code>：字符串。</p>
+</li>
+<li>
+<p><code>%%</code>：<code>%</code>自身。</p>
+</li>
+</ul>
 <p>对于<code>scanf()</code>函数：</p>
-
 <ul>
-<li><p>格式串中出现空白字符（<strong>空格、水平或者垂直制表符、换页符、换行符</strong>），数量无关紧要，因为可以匹配任意数量（包括0个）空白字符。</p></li>
-
-<li><p><strong>不要输把空白字符（比如<code>&quot;%d &quot;</code>）放入格式串的结尾</strong>。原因：<code>scanf()</code>会挂起，直到出现不能匹配的空白字符。</p></li>
+<li>
+<p>格式串中出现空白字符（<strong>空格、水平或者垂直制表符、换页符、换行符</strong>），数量无关紧要，因为可以匹配任意数量（包括0个）空白字符。</p>
+</li>
+<li>
+<p><strong>不要输把空白字符（比如<code>&quot;%d &quot;</code>）放入格式串的结尾</strong>。原因：<code>scanf()</code>会挂起，直到出现不能匹配的空白字符。</p>
+</li>
 </ul>
-
-<h2 id="6-span-style-color-green-c99-span-注意事项">6. <span style="color: green"><strong>C99</strong></span>注意事项</h2>
-
+<h2 id="6-span-stylecolor-greenc99span注意事项-">6. <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->注意事项</h2>
 <ul>
-<li><p>在<code>for</code>语句中声明的计数变量，只能在for循环中使用。比如 <code>for(int i = 0; i &lt; 10; i++){...}</code>，变量<code>i</code>只能在循环内起作用。</p></li>
-
-<li><p>新增加表示布尔数值的头文件<code>&lt;stdbool.h&gt;</code>，使用方法：</p></li>
+<li>
+<p>在<code>for</code>语句中声明的计数变量，只能在for循环中使用。比如 <code>for(int i = 0; i &lt; 10; i++){...}</code>，变量<code>i</code>只能在循环内起作用。</p>
+</li>
+<li>
+<p>新增加表示布尔数值的头文件<code>&lt;stdbool.h&gt;</code>，使用方法：</p>
+</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdbool.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
@@ -744,8 +789,8 @@ a[i] = i++;
   <span style="color:#2b91af">bool</span> a2[10][10] = {false};
 
   <span style="color:#00f">return</span> 0;
-}</code></pre></div>
-<ul>
+}
+</code></pre></div><ul>
 <li>允许使用<code>typedef</code>定义占用特定位数（是“比特数”，不是“字节数”）的整数，比如：</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdint.h&gt;</span><span style="color:#00f">
@@ -755,23 +800,26 @@ a[i] = i++;
   <span style="color:#00f">typedef</span> int32_t Int32;
 
   <span style="color:#00f">return</span> 0;
-}</code></pre></div>
-<h3 id="a-id-ref-参考资料-a"><a id="Ref">参考资料</a></h3>
-
+}
+</code></pre></div><h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
-<li><p>BW Kernighan and DM Ritchie: <a href="http://www.amazon.com/The-Programming-Language-2nd-Edition/dp/0131103628">The C Programming Language (2nd Edition)</a>, 1988.</p></li>
-
-<li><p>KN King: <a href="http://www.amazon.com/Programming-Modern-Approach-2nd-Edition/dp/0393979504">C Programming: A Modern Approach, 2nd Edition</a>, 2008.</p></li>
-
-<li><p><a href="http://port70.net/~nsz/c/">C各种标准</a></p></li>
-
-<li><p><a href="http://en.cppreference.com/w/">C在线文档（推荐）</a></p></li>
-
-<li><p><a href="http://ganquan.info/standard-c/">C头快速查询</a></p></li>
+<li>
+<p>BW Kernighan and DM Ritchie: <a href="http://www.amazon.com/The-Programming-Language-2nd-Edition/dp/0131103628">The C Programming Language (2nd Edition)</a>, 1988.</p>
+</li>
+<li>
+<p>KN King: <a href="http://www.amazon.com/Programming-Modern-Approach-2nd-Edition/dp/0393979504">C Programming: A Modern Approach, 2nd Edition</a>, 2008.</p>
+</li>
+<li>
+<p><a href="http://port70.net/~nsz/c/">C各种标准</a></p>
+</li>
+<li>
+<p><a href="http://en.cppreference.com/w/">C在线文档（推荐）</a></p>
+</li>
+<li>
+<p><a href="http://ganquan.info/standard-c/">C头快速查询</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年4月30日</p>
 
 		</div>

@@ -106,16 +106,10 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$</p>
-
-<h2 id="mututal-information-mi">Mututal Information (MI)</h2>
-
-<h3 id="introduction">Introduction</h3>
-
+			<p>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$</p>
+<h2 id="mututal-information-mi-">Mututal Information (MI)</h2>
+<h3 id="introduction-">Introduction</h3>
 <p>Mutual Information (MI) is used to measure the distance between two genes vectors, for example $x_1 = {{1, 0, 1, 1, 1, 1, 0}}$ and $y_1 = {{0, 1, 1, 1, 1, 1, 0}}$. It is easily to transfer the two vectors into a binary table:</p>
-
 
 
 
@@ -130,7 +124,6 @@
 <th><strong>Sum</strong></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><strong>1(Presence)</strong></td>
@@ -138,14 +131,12 @@
 <td>b</td>
 <td>a+b</td>
 </tr>
-
 <tr>
 <td><strong>0(Absence)</strong></td>
 <td>c</td>
 <td>d</td>
 <td>c+d</td>
 </tr>
-
 <tr>
 <td><strong>Sum</strong></td>
 <td>a+c</td>
@@ -153,35 +144,29 @@
 <td>n=a+b+c+d</td>
 </tr>
 </tbody>
-</table> 
-
+</table>
+ 
 
 <p>Typically, here we give the example of two discrete variables, the mutual information between $x_1$ and $y_1$ is</p>
-
 <p>$$
 \begin{align}
 \begin{split}
 I(X;Y) &amp;= H(X) + H(Y) - H(X,Y)\newline
 &amp;= -\sum_{x \in {0, 1}}p(x)\log(p(x)) - \sum_{y \in {0, 1}}p(y)\log(p(y))\newline
-&amp; \quad -\left( -\sum_{x \in {0, 1}}\sum_{y \in {0, 1}}p(x,y)\log(p(x,y)) \right)<br />
+&amp; \quad -\left( -\sum_{x \in {0, 1}}\sum_{y \in {0, 1}}p(x,y)\log(p(x,y)) \right)\<br>
 \end{split}
 \label{eq:1}
 \end{align}
 $$</p>
-
 <p>The $\eqref{eq:1}$ is equal to</p>
-
 <p>$$
 \begin{equation}
 I(X;Y) = \sum_{x \in {0, 1}}\sum_{y \in {0, 1}} p(x,y) \log\left(\frac{p(x,y)}{p(x)p(y)}\right)
 \label{eq:2}
 \end{equation}
 $$</p>
-
 <p>$p(x)$ is the probability that a symbol (here is 0 or 1) appears in the gene vector X regardless that what the symbol is in gene vector Y. $p(y)$ has a similar definition of $p(x). $$p(x, y)$ is probability of a symbol combination appears in gene vector X and Y. In this example, there are four kinds of symbol combination $(1, 1)$, $(1, 0)$, $(0, 1)$ and $(0, 0)$.</p>
-
 <p>If we use the binary table to illustrate this equation, the $\eqref{eq:1}$ is:</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -194,9 +179,7 @@ I(X; Y) &amp;= -\left( \entropfrac{a+c}{n} + \entropfrac{b+d}{n} \right)\newline
 \label{eq:3}
 \end{align}
 $$</p>
-
 <p>The $\eqref{eq:3}$ is mathmatically equal to:</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -206,11 +189,8 @@ I(X; Y) &amp;= \frac{a}{n}\log\frac{na}{(a+b)(a+c)} + \frac{b}{n}\log\frac{nc}{(
 \label{eq:4}
 \end{align}
 $$</p>
-
-<h3 id="example">Example</h3>
-
+<h3 id="example-">Example</h3>
 <p>We can use R to directly calculate the MI between two gene vectors mentioned above.</p>
-
 <ol>
 <li>Use basic R function</li>
 </ol>
@@ -223,38 +203,45 @@ x1  0 1
   1 1 4
 <span style="color:#008000"># calculate MI</span>
 4/7 * log(28/25) + 1/7 * log(7/10) + 1/7 * log(7/10) + 1/7 * log(7/4)
-[1] 0.04279723</code></pre></div>
-<ol>
-<li>Use R package <span style="color: blue">bioDist</span></li>
+[1] 0.04279723
+</code></pre></div><ol start="2">
+<li>Use R package <!-- raw HTML omitted -->bioDist<!-- raw HTML omitted --></li>
 </ol>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;bioDist&#39;</span>)
 mutualInfo(rbind(x1, y1))
            x1
-y1 0.04279723</code></pre></div>
-<h3 id="reference">Reference</h3>
-
+y1 0.04279723
+</code></pre></div><h3 id="reference-">Reference</h3>
 <ul>
-<li><p><a href="http://nlp.stanford.edu/IR-book/html/htmledition/mutual-information-1.html">An example of MI</a></p></li>
-
-<li><p><a href="http://www1.ece.uic.edu/~devroye/courses/ECE534/lectures/ch2.pdf">Slices of MI</a></p></li>
-
-<li><p><a href="http://people.cs.umass.edu/~elm/Teaching/Docs/mutInf.pdf">Entropy and Mutual Information</a></p></li>
-
-<li><p><a href="http://www.scholarpedia.org/article/Mutual_information">Useful Websites 1</a></p></li>
-
-<li><p><a href="http://montana.informatics.indiana.edu/LabWebPage/Presentations/Vikas_Nov02_2011.pdf">Slices about MI application in bioinformatics</a></p></li>
-
-<li><p>Seung-Seok Choi, Sung-Hyuk Cha, Charles C. Tappert: <a href="http://www.iiisci.org/journal/sci/Abstract.asp?var=&amp;id=GS315JG">A Survey of Binary Similarity and Distance Measures</a>.</p></li>
-
-<li><p>Huynen M, Snel B, Lathe W 3rd, Bork P: Predicting protein function by genomic context: quantitative evaluation and qualitative inferences.Genome Res. 2000;10(8):1204-10.</p></li>
-
-<li><p>Korber BT, Farber RM, Wolpert DH, Lapedes AS: Covariation of mutations in the V3 loop of human immunodeficiency virus type 1 envelope protein: an information theoretic analysis. Proc Natl Acad Sci U S A. 1993;90(15):7176-80.</p></li>
-
-<li><p>Kensche PR, van Noort V, Dutilh BE, Huynen MA: Practical and theoretical advances in predicting the function of a protein by its phylogenetic distribution. J R Soc Interface. 2008;5(19):151-70.</p></li>
+<li>
+<p><a href="http://nlp.stanford.edu/IR-book/html/htmledition/mutual-information-1.html">An example of MI</a></p>
+</li>
+<li>
+<p><a href="http://www1.ece.uic.edu/~devroye/courses/ECE534/lectures/ch2.pdf">Slices of MI</a></p>
+</li>
+<li>
+<p><a href="http://people.cs.umass.edu/~elm/Teaching/Docs/mutInf.pdf">Entropy and Mutual Information</a></p>
+</li>
+<li>
+<p><a href="http://www.scholarpedia.org/article/Mutual_information">Useful Websites 1</a></p>
+</li>
+<li>
+<p><a href="http://montana.informatics.indiana.edu/LabWebPage/Presentations/Vikas_Nov02_2011.pdf">Slices about MI application in bioinformatics</a></p>
+</li>
+<li>
+<p>Seung-Seok Choi, Sung-Hyuk Cha, Charles C. Tappert: <a href="http://www.iiisci.org/journal/sci/Abstract.asp?var=&amp;id=GS315JG">A Survey of Binary Similarity and Distance Measures</a>.</p>
+</li>
+<li>
+<p>Huynen M, Snel B, Lathe W 3rd, Bork P: Predicting protein function by genomic context: quantitative evaluation and qualitative inferences.Genome Res. 2000;10(8):1204-10.</p>
+</li>
+<li>
+<p>Korber BT, Farber RM, Wolpert DH, Lapedes AS: Covariation of mutations in the V3 loop of human immunodeficiency virus type 1 envelope protein: an information theoretic analysis. Proc Natl Acad Sci U S A. 1993;90(15):7176-80.</p>
+</li>
+<li>
+<p>Kensche PR, van Noort V, Dutilh BE, Huynen MA: Practical and theoretical advances in predicting the function of a protein by its phylogenetic distribution. J R Soc Interface. 2008;5(19):151-70.</p>
+</li>
 </ul>
-
-<h3 id="update-record">Update record</h3>
-
+<h3 id="update-record-">Update record</h3>
 <p>02/11/2016</p>
 
 		</div>

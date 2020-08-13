@@ -106,12 +106,8 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-基本数据类型">1. 基本数据类型</h2>
-
+			<h2 id="1-基本数据类型-">1. 基本数据类型</h2>
 <p>Java有<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.2">八种</a>基本数据类型（primitive data type），分别是<code>boolean</code>、<code>char</code>、<code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>和<code>double</code>，所占用的比特数如下表所示。</p>
-
 
 
 
@@ -125,93 +121,75 @@
 <th>Range</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>boolean</td>
 <td>not precisely defined</td>
 <td><code>True</code> or <code>false</code></td>
 </tr>
-
 <tr>
 <td>char</td>
 <td>unsigned 16</td>
 <td>$2^{16}$</td>
 </tr>
-
 <tr>
 <td>byte</td>
 <td>signed 8</td>
 <td>$-2^{7}$ ~ $2^7-1$</td>
 </tr>
-
 <tr>
 <td>short</td>
 <td>signed 16</td>
 <td>$-2^{15}$ ~ $2^{15}-1$</td>
 </tr>
-
 <tr>
 <td>int</td>
 <td>signed 32</td>
 <td>$-2^{31}$ ~ $2^{31}-1$</td>
 </tr>
-
 <tr>
 <td>long</td>
 <td>signed 64</td>
 <td>$-2^{63}$ ~ $2^{63}-1$</td>
 </tr>
-
 <tr>
 <td>float</td>
 <td>signed 32</td>
 <td>$\pm (1-2^{-24}) * 2^{128}$ 精度$2^{-126}$</td>
 </tr>
 </tbody>
-</table> 
+</table>
+ 
 
-
-<h2 id="2-整数二进制表示和范围">2. 整数二进制表示和范围</h2>
-
+<h2 id="2-整数二进制表示和范围-">2. 整数二进制表示和范围</h2>
 <p>以<code>byte</code>类型为例，每个整数占用了8个比特，最左边比特位表示正负（0为正，1为负）。例如，$1$表示为$0000 0001_2$。因此，能表示的最大正整数为$0111 1111_2$，即</p>
-
 <p>$$
 2^0 + 2^1 + 2^2 + \cdots + 2^6 = 2^7 - 1
 $$</p>
-
 <p>由于要满足$-1 + 1 = 0$，所以$-1$表示为$1111 1111_2$，$-2$表示为$1111 1110_2$。类似于正整数，可以得到能表示的最大负整数为$1000 0001_2$，即$-(2^7 - 1)$。</p>
-
 <p>但是，这里出现一个问题：出现了两个0，一个是$+0$（$0000 0000_2$），一个是$-0$（$1000 0000_2$）。因此，规定$1000 0000_2$为最大负整数$-2^7$。</p>
-
-<h2 id="3-浮点数二进制表示和范围">3. 浮点数二进制表示和范围</h2>
-
+<h2 id="3-浮点数二进制表示和范围-">3. 浮点数二进制表示和范围</h2>
 <p>Java使用<a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a>标准表示浮点数，其二进制表示分为三个部分：1. 最左边比特位表示正负（0为正，1为负）；2. 指数（<code>float</code>有8个比特位，<code>double</code>有11比特位）；3. 尾数（<code>float</code>有23个比特位，<code>double</code>有52比特位）。同时，由于指数需要区分正负，所以<code>float</code>指数位转为十进制后需要减去$2^7-1$，而<code>double</code>需要减去$2^{10}-1$。</p>
-
 <p>以<code>float</code>为例，最大的二进制表示为$0 11111110 11111111111111111111111_2$：</p>
-
 <ul>
-<li><p>最右比特位是0；</p></li>
-
-<li><p>指数为$1111 1110_2$，即$127$；</p></li>
-
-<li><p>尾数全为1，即：</p></li>
+<li>
+<p>最右比特位是0；</p>
+</li>
+<li>
+<p>指数为$1111 1110_2$，即$127$；</p>
+</li>
+<li>
+<p>尾数全为1，即：</p>
+</li>
 </ul>
-
 <p>$$
 2^0 + 2^{-1} + 2^{-2} + \cdots + 2^{-23} = 2-2^{-23}
 $$</p>
-
 <p>该数为$(1-2^{-24}) * 2^{128}$。</p>
-
 <p>同理，最小正数为$0 00000001 00000000000000000000000_2$，即$2^{-126}$。</p>
-
 <p>$0 00000000 00000000000000000000000_2$是$+0$，而$1 00000000 00000000000000000000000_2$是$-0$。</p>
-
 <p>$0 11111111 00000000000000000000000_2$是$\infty$，而$1 11111111 00000000000000000000000_2$是$-\infty$。</p>
-
-<h2 id="4-关于2的n次方的有趣事实">4. 关于2的n次方的有趣事实</h2>
-
+<h2 id="4-关于2的n次方的有趣事实-">4. 关于2的n次方的有趣事实</h2>
 
 
 
@@ -224,85 +202,75 @@ $$</p>
 <th>十进制</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>1</td>
 <td>2</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>4</td>
 </tr>
-
 <tr>
 <td>3</td>
 <td>8</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>16</td>
 </tr>
-
 <tr>
 <td>5</td>
 <td>32</td>
 </tr>
-
 <tr>
 <td>6</td>
 <td>64</td>
 </tr>
-
 <tr>
 <td>7</td>
 <td>128</td>
 </tr>
-
 <tr>
 <td>8</td>
 <td>256</td>
 </tr>
-
 <tr>
 <td>9</td>
 <td>512</td>
 </tr>
-
 <tr>
 <td>10</td>
 <td>1024（千）</td>
 </tr>
-
 <tr>
 <td>20</td>
 <td>1048576（百万）</td>
 </tr>
-
 <tr>
 <td>30</td>
 <td>1073741824（十亿）</td>
 </tr>
 </tbody>
-</table> 
+</table>
+ 
 
-
-<h3 id="参考资料">参考资料</h3>
-
+<h3 id="参考资料-">参考资料</h3>
 <ol>
-<li><p><a href="https://docs.oracle.com/javase/specs/index.html">The Java Language Specification, Java SE 8 Edition</a></p></li>
-
-<li><p><a href="http://introcs.cs.princeton.edu/java/home/">Introduction to Programming in Java</a></p></li>
-
-<li><p><a href="https://en.wikipedia.org/wiki/Two's_complement">Wiki Two&rsquo;s complement</a></p></li>
-
-<li><p><a href="http://cs-fundamentals.com/java-programming/java-primitive-data-types.php">Java Primitive Data Types. Size, Range and Default Value of Basic Data Types</a></p></li>
+<li>
+<p><a href="https://docs.oracle.com/javase/specs/index.html">The Java Language Specification, Java SE 8 Edition</a></p>
+</li>
+<li>
+<p><a href="http://introcs.cs.princeton.edu/java/home/">Introduction to Programming in Java</a></p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Two's_complement">Wiki Two&rsquo;s complement</a></p>
+</li>
+<li>
+<p><a href="http://cs-fundamentals.com/java-programming/java-primitive-data-types.php">Java Primitive Data Types. Size, Range and Default Value of Basic Data Types</a></p>
+</li>
 </ol>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2017年5月16日</p>
 
 		</div>

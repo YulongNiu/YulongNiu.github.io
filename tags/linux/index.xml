@@ -38,7 +38,7 @@ pick sha1id-of-c1 c1 pick sha1id-of-b2 b2 pick sha1id-of-b1 b1 ... 修改为：
 pick sha1id-of-c1 c1 squash sha1id-of-b2 b2 squash sha1id-of-b1 b1 ...  记录合并commits  在弹出的文本编辑器中标记和注释commits
  提交远程  由于本地和远程记录不一致，需要强制合并。
 $ git push -f origin mybranch 2. 贡献代码  Fork项目  Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：
-$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git  建立分支并提交修改  $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch  获取和合并最新远程修改  $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch  发起pull request。  参考资料  合并分支</description>
+$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git  建立分支并提交修改  $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch  获取和合并最新远程修改  $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch  发起pull request。  参考资料   合并分支</description>
     </item>
     
     <item>
@@ -88,7 +88,7 @@ for i in *.zip do echo &amp;#34;$i&amp;#34; done 2. 创建数组 declare -a test
       <description>1. 安装和开启postgresql Fedora直接使用dnf安装相关组件。
 # 安装PostgreSQL $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3 初始化（只需要执行一次）。如果出现类似Data directory is not empty!报错，可以尝试执行删除操作rm -f -r /usr/local/pgsql/data
 # 初始化 $ sudo postgresql-setup --initdb --unit postgresql # 开启服务 $ sudo service postgresql start # 查询工作状态 $ sudo service postgresql status # 关闭服务 $ sudo service postgresql stop # 开机启动 $ sudo chkconfig postgresql on 2. 创建用户和数据库 为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。
-# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.</description>
+# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.3$”。 $ sudo postgres # 创建用户 # -P：创建用户后立即创建密码 # -s：用户为superuser # -e：打印消息 bash-4.</description>
     </item>
     
     <item>
@@ -120,7 +120,7 @@ raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_
 # 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
 # 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
 需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .</description>
+# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .zip格式文件</description>
     </item>
     
     <item>
@@ -130,13 +130,12 @@ raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_
       
       <guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid>
       <description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
-1. 添加常用源  添加rpmfusion的free和nonfree源。
- 添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
-  2. 辅助安装工具  Fedy  Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
+1. 添加常用源   添加rpmfusion的free和nonfree源。
+  添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
+  2. 辅助安装工具   Fedy  Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
 3. 影音  VLC  $ sudo dnf install vlc  Mplayer  $ sudo dnf install mplayer-gui xine smplayer  录音工具Audacity  $ sudo dnf install audacity  屏幕录制RecordMyDesktop  Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。
 # 安装方法 $ sudo dnf install recordmydesktop # 使用方法 $ qt-recordMyDesktop 4. 办公  字典GoldenDict  Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人GoldenDict 。GoldenDict的主要特点有：
- 字典库丰富;
- 直接查询维基百科和其他网络字典;</description>
+  字典库丰富;</description>
     </item>
     
   </channel>

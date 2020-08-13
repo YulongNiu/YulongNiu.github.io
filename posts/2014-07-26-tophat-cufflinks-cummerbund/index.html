@@ -67,16 +67,10 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p><a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a>、<a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks</a>和cummeRbund，被称为处理RNA-seq数据的“燕尾服（tuxedo）”。TopHat负责RNA-seq的reads映射比对到基因组，并且自动识别mRNA“内含子-外显子”剪切；Cufflinks擅长组装转录组和寻找差异表达基因（或转录起始位点TSS等）；cummeRbund主攻数据可视化。</p>
-
-<h2 id="1-tophat">1. Tophat</h2>
-
+			<p><a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a>、<a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks</a>和cummeRbund，被称为处理RNA-seq数据的“燕尾服（tuxedo）”。TopHat负责RNA-seq的reads映射比对到基因组，并且自动识别mRNA“内含子-外显子”剪切；Cufflinks擅长组装转录组和寻找差异表达基因（或转录起始位点TSS等）；cummeRbund主攻数据可视化。</p>
+<h2 id="1-tophat-">1. Tophat</h2>
 <p><strong>简介</strong>：<a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a>是快速将RNA测序片段“对应（mapping）”到基因组上的工具，优势在于处理外显子间的剪切。内部首先使用bowtie或bowtie2把RNA测序片段“比对（alignment）”到基因组，之后再分析和鉴定剪切连接区域。</p>
-
 <p><strong>平台</strong>：Mac OS/Linux</p>
-
 <p><strong>快速运行</strong>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 双端测序</span>
 $ tophat2 -p 8 -o human_1 <span style="color:#a31515">\
@@ -84,157 +78,185 @@ $ tophat2 -p 8 -o human_1 <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>          hg19 human_1.fastq.gz human_2.fastq.gz 
 
 <span style="color:#008000"># 单端测序</span>
-$ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+$ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-p</code>：设置线程数，用于多核计算。</p></li>
-
-<li><p><code>-o</code>：执行输入文件夹。</p></li>
-
-<li><p><code>-r/--mate-inner-dist</code>：一对reads的间隔长度的期望平均值，默认值为50bp，<strong>建议添加</strong>。具体解释，参考<a href="http://blog.qiuworld.com:8080/archives/3007">RNA-seq差异表达分析工作流程</a>和<a href="http://www.plob.org/2012/12/04/4988.html">Tophat中-r/–mate-inner-dist参数</a>。</p></li>
-
-<li><p><code>--mate-std-dev</code>：一对reads的间隔长度分布的标准差，默认值为20bp，<strong>建议添加</strong>。<code>-r/--mate-inner-dist</code>和<code>--mate-std-dev</code>的估计方法参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/23/tophat-inner-distance/">确定TopHat中mate-inner-dist参数</a>。</p></li>
-
-<li><p><code>--library-type</code>：</p>
-
+<li>
+<p><code>-p</code>：设置线程数，用于多核计算。</p>
+</li>
+<li>
+<p><code>-o</code>：执行输入文件夹。</p>
+</li>
+<li>
+<p><code>-r/--mate-inner-dist</code>：一对reads的间隔长度的期望平均值，默认值为50bp，<strong>建议添加</strong>。具体解释，参考<a href="http://blog.qiuworld.com:8080/archives/3007">RNA-seq差异表达分析工作流程</a>和<a href="http://www.plob.org/2012/12/04/4988.html">Tophat中-r/–mate-inner-dist参数</a>。</p>
+</li>
+<li>
+<p><code>--mate-std-dev</code>：一对reads的间隔长度分布的标准差，默认值为20bp，<strong>建议添加</strong>。<code>-r/--mate-inner-dist</code>和<code>--mate-std-dev</code>的估计方法参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/23/tophat-inner-distance/">确定TopHat中mate-inner-dist参数</a>。</p>
+</li>
+<li>
+<p><code>--library-type</code>：</p>
 <ul>
-<li><p>测序仪器和方法，默认为标准Illumina平台的<code>fr-unstranded</code>。其他平台设置，详见<a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat说明文档</a>、<a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">How to tell which library type to use (fr-firststrand or fr-secondstrand)?</a>和<a href="http://www.plob.org/2013/12/03/6731.html">链特异性转录组原理</a>。</p></li>
-
-<li><p>如果分不清楚<code>fr-firststrand</code>和<code>fr-secondstrand</code>，推荐两种方法：<a href="http://ccb.jhu.edu/software/tophat/faq.shtml">第一种</a>用两个参数试运行一个有1M reads的小样本，之后比较<code>junction.bed</code>大小；<a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">第二种</a>在两个双端测序文件（<code>fastq.gz</code>）中抽取一些reads，之后<a href="http://genome.ucsc.edu/cgi-bin/hgBlat?org=human">Blat</a>到USCS genomes上观察。</p></li>
-</ul></li>
-
-<li><p><code>--no-discordant</code>：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。</p></li>
-
-<li><p><code>--no-mixed</code>：只对于paired reads，只报告paired reads都成功map。TopHat默认不加这个参数，即如果对于一个read，如果没有找到alignment的concordant或者discordant mate，那么这一对read将分别寻找和报道各自的alignment。这个参数与<code>--no-discordant</code>不同，因为加上<code>--no-mixed</code>也可能报道discordant pairs（例如一对reads都成功alignment，但是方向或者之间距离不对）。</p></li>
-
-<li><p><code>-g/--max-multihits</code>：对于多个map的reads，设定报告数目，默认数值为20。需要注意，尽管这个参数可以设定为1，也不能用于设定唯一map的read。因为某个read有可能map到基因组多个位点，当设定为1时，只会返回得分最高的情况。</p></li>
+<li>
+<p>测序仪器和方法，默认为标准Illumina平台的<code>fr-unstranded</code>。其他平台设置，详见<a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat说明文档</a>、<a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">How to tell which library type to use (fr-firststrand or fr-secondstrand)?</a>和<a href="http://www.plob.org/2013/12/03/6731.html">链特异性转录组原理</a>。</p>
+</li>
+<li>
+<p>如果分不清楚<code>fr-firststrand</code>和<code>fr-secondstrand</code>，推荐两种方法：<a href="http://ccb.jhu.edu/software/tophat/faq.shtml">第一种</a>用两个参数试运行一个有1M reads的小样本，之后比较<code>junction.bed</code>大小；<a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">第二种</a>在两个双端测序文件（<code>fastq.gz</code>）中抽取一些reads，之后<a href="http://genome.ucsc.edu/cgi-bin/hgBlat?org=human">Blat</a>到USCS genomes上观察。</p>
+</li>
 </ul>
-
+</li>
+<li>
+<p><code>--no-discordant</code>：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。</p>
+</li>
+<li>
+<p><code>--no-mixed</code>：只对于paired reads，只报告paired reads都成功map。TopHat默认不加这个参数，即如果对于一个read，如果没有找到alignment的concordant或者discordant mate，那么这一对read将分别寻找和报道各自的alignment。这个参数与<code>--no-discordant</code>不同，因为加上<code>--no-mixed</code>也可能报道discordant pairs（例如一对reads都成功alignment，但是方向或者之间距离不对）。</p>
+</li>
+<li>
+<p><code>-g/--max-multihits</code>：对于多个map的reads，设定报告数目，默认数值为20。需要注意，尽管这个参数可以设定为1，也不能用于设定唯一map的read。因为某个read有可能map到基因组多个位点，当设定为1时，只会返回得分最高的情况。</p>
+</li>
+</ul>
 <p><strong>后续操作</strong>：</p>
-
 <ul>
-<li><p>TopHat2运行后查看<code>align_summary.txt</code>获得比对结果。</p></li>
-
-<li><p>TopHat2会输出<code>accepted_hits.bam</code>（接受map的reads文件）和<code>unmapped.bam</code>（没有map上的reads文件）。对于后者，使用基因组浏览器，如<a href="http://www.broadinstitute.org/igv/">IGV</a>或者<a href="http://genome.ucsc.edu/">UCSC Genome Browser</a>大致看下是有无map，之后可以直接丢弃。</p></li>
-
-<li><p>过滤双端测序的TopHat结果，参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。</p></li>
+<li>
+<p>TopHat2运行后查看<code>align_summary.txt</code>获得比对结果。</p>
+</li>
+<li>
+<p>TopHat2会输出<code>accepted_hits.bam</code>（接受map的reads文件）和<code>unmapped.bam</code>（没有map上的reads文件）。对于后者，使用基因组浏览器，如<a href="http://www.broadinstitute.org/igv/">IGV</a>或者<a href="http://genome.ucsc.edu/">UCSC Genome Browser</a>大致看下是有无map，之后可以直接丢弃。</p>
+</li>
+<li>
+<p>过滤双端测序的TopHat结果，参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。</p>
+</li>
 </ul>
-
 <p><strong>补充</strong>：</p>
-
 <ul>
-<li><p>TopHat2运行时，可以将基因组的fasta格式文件（比如<code>hg19.fa</code>），一起放在index的文件夹中（如果没有，Bowtie2先生成一个），可以节省运行时间。具体生成方法，参考：<a href="http://yulongniu.bionutshell.org/blog/2014/07/26/short-sequence-alignment/">二代测序中的短序列比对</a>。</p></li>
-
-<li><p><a href="http://www.acgt.me/blog/2015/4/27/the-dangers-of-default-parameters-in-bioinformatics-lessons-from-bowtie-and-tophat?utm_content=bufferb2c35&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">不加思考地使用默认参数的下场</a></p></li>
+<li>
+<p>TopHat2运行时，可以将基因组的fasta格式文件（比如<code>hg19.fa</code>），一起放在index的文件夹中（如果没有，Bowtie2先生成一个），可以节省运行时间。具体生成方法，参考：<a href="http://yulongniu.bionutshell.org/blog/2014/07/26/short-sequence-alignment/">二代测序中的短序列比对</a>。</p>
+</li>
+<li>
+<p><a href="http://www.acgt.me/blog/2015/4/27/the-dangers-of-default-parameters-in-bioinformatics-lessons-from-bowtie-and-tophat?utm_content=bufferb2c35&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">不加思考地使用默认参数的下场</a></p>
+</li>
 </ul>
-
-<h2 id="2-cufflinks">2. Cufflinks</h2>
-
+<h2 id="2-cufflinks-">2. Cufflinks</h2>
 <p><strong>简介</strong>：<a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks</a>是TopHat的下游工具，用于分析差异表达基因、差异转录起始位点、新基因和选择性剪切。一般可以分为三步：1. <code>cufflinks</code>对每个bam文件生成转录组；2. <code>cuffmerge</code>结合真实转录组和bam生成转录组，构建一个整合转录组；3. <code>cuffdiff</code>比较不同生物学样本，寻找差异表达基因。</p>
-
 <p><strong>平台</strong>：Mac OS/Linux</p>
-
-<h3 id="2-1-cufflinks-快速运行">2.1 <code>cufflinks</code> 快速运行</h3>
+<h3 id="21-cufflinks-快速运行-">2.1 <code>cufflinks</code> 快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cufflinks -p 8 -g hg19_ensembl.gtf -b hg19.fa -M hg19_rRNAtRNAchrM -u <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>            -o outPutLinks accepted_filtered.bam</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+</span><span style="color:#a31515"></span>            -o outPutLinks accepted_filtered.bam
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-p/--num-threads</code>：设置线程数，用于多核计算。</p></li>
-
-<li><p><code>-o/--output-dir</code>：输出文件夹。</p></li>
-
-<li><p><code>-g/--GTF-guide</code>：使用参考转录组注释文件指导组装过程，<strong>建议添加</strong>。加入这个参数和对应的注释文件，可以有效提高cufflinks转录本组装。输出的转录组是传入注释文件和cufflinks自行组装的联合。具体解释如下图<a href="#Roberts et.al., 2011">[Roberts et.al., 2011]</a>：</p></li>
+<li>
+<p><code>-p/--num-threads</code>：设置线程数，用于多核计算。</p>
+</li>
+<li>
+<p><code>-o/--output-dir</code>：输出文件夹。</p>
+</li>
+<li>
+<p><code>-g/--GTF-guide</code>：使用参考转录组注释文件指导组装过程，<strong>建议添加</strong>。加入这个参数和对应的注释文件，可以有效提高cufflinks转录本组装。输出的转录组是传入注释文件和cufflinks自行组装的联合。具体解释如下图[[Roberts et.al., 2011]](#Roberts et.al., 2011)：</p>
+</li>
 </ul>
-
-<p><img src="/images/faux_reads_cufflinks.png" alt="faux_reads_cufflinks.png" /></p>
-
+<p><img src="/images/faux_reads_cufflinks.png" alt="faux_reads_cufflinks.png"></p>
 <ul>
-<li><p><code>-G/--GTF</code>：只对传入的转录组注释文件进行表达量估计，即生成的结果如<code>genes.fpkm_tracking</code>只包括转录组注释文件，而不包括cufflinks自己可能的组装。如果RNA-seq分析的目的是为了获得差异表达基因，而不是寻找新的转录本，建议添加，以加快运行速度。</p></li>
-
-<li><p><code>-b/--frag-bias-correct</code>：提供一个multifasta文件，可以提高转录丰度的准确度，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-M/–mask-file</code>：需要去除的转录本，比如tRNA、rRNA和线粒体转录本，<strong>建议添加</strong>。在RNA-seq数据中，这些转录本量非常高。<a href="http://cole-trapnell-lab.github.io/cufflinks/cufflinks/index.html">cufflinks</a>提示剔除这些转录本，有助于提高转录量估计的准确程度。tRNA、rRNA和线粒体基因组注释信息提取，参考<a href="http://yulongniu.bionutshell.org/blog/2015/06/02/download-ucsc-gene-mask/">UCSC Table下载注释文件</a>。</p></li>
-
-<li><p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。对于TopHat，建议过滤掉这部分reads，过滤方法见<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。按照上述方法过滤这部分reads后，则不需要加这个参数。</p></li>
-
-<li><p><code>--library-type</code>：设定测序方法，默认为<code>fr-unstranded</code>，可以用于典型的Illumina双端（paired-end）测序。</p></li>
+<li>
+<p><code>-G/--GTF</code>：只对传入的转录组注释文件进行表达量估计，即生成的结果如<code>genes.fpkm_tracking</code>只包括转录组注释文件，而不包括cufflinks自己可能的组装。如果RNA-seq分析的目的是为了获得差异表达基因，而不是寻找新的转录本，建议添加，以加快运行速度。</p>
+</li>
+<li>
+<p><code>-b/--frag-bias-correct</code>：提供一个multifasta文件，可以提高转录丰度的准确度，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-M/–mask-file</code>：需要去除的转录本，比如tRNA、rRNA和线粒体转录本，<strong>建议添加</strong>。在RNA-seq数据中，这些转录本量非常高。<a href="http://cole-trapnell-lab.github.io/cufflinks/cufflinks/index.html">cufflinks</a>提示剔除这些转录本，有助于提高转录量估计的准确程度。tRNA、rRNA和线粒体基因组注释信息提取，参考<a href="http://yulongniu.bionutshell.org/blog/2015/06/02/download-ucsc-gene-mask/">UCSC Table下载注释文件</a>。</p>
+</li>
+<li>
+<p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。对于TopHat，建议过滤掉这部分reads，过滤方法见<a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出</a>。按照上述方法过滤这部分reads后，则不需要加这个参数。</p>
+</li>
+<li>
+<p><code>--library-type</code>：设定测序方法，默认为<code>fr-unstranded</code>，可以用于典型的Illumina双端（paired-end）测序。</p>
+</li>
 </ul>
-
-<h3 id="2-2-cuffmerge-快速运行">2.2 <code>cuffmerge</code> 快速运行</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cuffmerge -p 8 -g hg19USCS_ensembl.gtf -s hg19.fa -o mergeFile assemblies.txt</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+<h3 id="22-cuffmerge-快速运行-">2.2 <code>cuffmerge</code> 快速运行</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cuffmerge -p 8 -g hg19USCS_ensembl.gtf -s hg19.fa -o mergeFile assemblies.txt
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-p/--num-threads</code>：设置线程数，用于多核计算。</p></li>
-
-<li><p><code>-o/--output-dir</code>：输出文件夹。</p></li>
-
-<li><p><code>g/--ref-gtf</code>：参考转录组，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>g/--ref-gtf</code>：参考基因组序列，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>assemblies.txt</code>：是一个文件，写入需要组装转录本的路径。</p></li>
+<li>
+<p><code>-p/--num-threads </code>：设置线程数，用于多核计算。</p>
+</li>
+<li>
+<p><code>-o/--output-dir</code>：输出文件夹。</p>
+</li>
+<li>
+<p><code>g/--ref-gtf</code>：参考转录组，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>g/--ref-gtf</code>：参考基因组序列，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>assemblies.txt</code>：是一个文件，写入需要组装转录本的路径。</p>
+</li>
 </ul>
-
-<h3 id="2-3-cuffquant-快速运行">2.3 <code>cuffquant</code> 快速运行</h3>
+<h3 id="23-cuffquant-快速运行-">2.3 <code>cuffquant</code> 快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cuffquant -p 14 -o quantOut -b hg19.fa <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>            -M maskfile.gtf -u <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>            merged.gtf h1.bam</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+</span><span style="color:#a31515"></span>            merged.gtf h1.bam
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-p/--num-threads</code>：设置线程数，用于多核计算。</p></li>
-
-<li><p><code>-o/--output-dir</code>：输出文件夹。</p></li>
-
-<li><p><code>-b/--frag-bias-correct</code>：参考基因组序列，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-M/--mask-file</code>：过滤序列GTF文件，放入这个文件中的序列都不会被计算，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。</p></li>
+<li>
+<p><code>-p/--num-threads </code>：设置线程数，用于多核计算。</p>
+</li>
+<li>
+<p><code>-o/--output-dir</code>：输出文件夹。</p>
+</li>
+<li>
+<p><code>-b/--frag-bias-correct </code>：参考基因组序列，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-M/--mask-file </code>：过滤序列GTF文件，放入这个文件中的序列都不会被计算，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。</p>
+</li>
 </ul>
-
-<h3 id="2-4-cuffdiff-快速运行">2.4 <code>cuffdiff</code>快速运行</h3>
+<h3 id="24-cuffdiff快速运行-">2.4 <code>cuffdiff</code>快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># cuffdiff可以输入cuffquant生成的cxb文件或者原始的bam文件</span>
 $ cuffdiff -p 14 -o diffOut -b hg19.fa <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>           -M maskfile.gtf -u <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>           -L P,R merged.gtf h1.cxb,h2.cxb,h5.cxb h2.cxb,h4.cxb,h6.cxb</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+</span><span style="color:#a31515"></span>           -L P,R merged.gtf h1.cxb,h2.cxb,h5.cxb h2.cxb,h4.cxb,h6.cxb
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-p/--num-threads</code>：设置线程数，用于多核计算。</p></li>
-
-<li><p><code>-o/--output-dir</code>：输出文件夹。</p></li>
-
-<li><p><code>-b/--frag-bias-correct</code>：参考基因组序列，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-M/--mask-file</code>：过滤序列GTF文件，放入这个文件中的序列都不会被计算，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。</p></li>
-
-<li><p><code>-L/--labels</code>：指定样品组名</p></li>
+<li>
+<p><code>-p/--num-threads </code>：设置线程数，用于多核计算。</p>
+</li>
+<li>
+<p><code>-o/--output-dir</code>：输出文件夹。</p>
+</li>
+<li>
+<p><code>-b/--frag-bias-correct </code>：参考基因组序列，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-M/--mask-file </code>：过滤序列GTF文件，放入这个文件中的序列都不会被计算，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。</p>
+</li>
+<li>
+<p><code>-L/--labels </code>：指定样品组名</p>
+</li>
 </ul>
-
-<h2 id="3-cummerbund">3. CummeRbund</h2>
-
+<h2 id="3-cummerbund-">3. CummeRbund</h2>
 <p>个人感觉CummeRbund不好用，不做介绍和讨论。</p>
-
-<h3 id="参考资料">参考资料</h3>
-
+<h3 id="参考资料-">参考资料</h3>
 <ul>
-<li><p><a href="http://www.chenlianfu.com/?p=623">一篇介绍cufflinks的中文博客</a></p></li>
-
-<li><p><a href="http://cole-trapnell-lab.github.io/cufflinks/getting_started/#common-uses-of-the-cufflinks-package">cufflinks安装介绍</a></p></li>
-
-<li><p><a id="Roberts et.al., 2011">Roberts A</a>, Pimentel H, Trapnell C, Pachter L: <strong>Identification of novel transcripts in annotated genomes using RNA-Seq.</strong> <em>Bioinformatics</em>. 2011, 27(17):2325-9. <a href="http://bioinformatics.oxfordjournals.org/content/early/2011/06/21/bioinformatics.btr355.full.pdf">pdf</a></p></li>
-
-<li><p><a href="http://www.ebiotrade.com/newsf/2015-3/2015316173503298.htm">RNA-seq分析新三件套</a></p></li>
+<li>
+<p><a href="http://www.chenlianfu.com/?p=623">一篇介绍cufflinks的中文博客</a></p>
+</li>
+<li>
+<p><a href="http://cole-trapnell-lab.github.io/cufflinks/getting_started/#common-uses-of-the-cufflinks-package">cufflinks安装介绍</a></p>
+</li>
+<li>
+<p><!-- raw HTML omitted -->Roberts A<!-- raw HTML omitted -->, Pimentel H, Trapnell C, Pachter L: <strong>Identification of novel transcripts in annotated genomes using RNA-Seq.</strong> <em>Bioinformatics</em>. 2011, 27(17):2325-9. <a href="http://bioinformatics.oxfordjournals.org/content/early/2011/06/21/bioinformatics.btr355.full.pdf">pdf</a></p>
+</li>
+<li>
+<p><a href="http://www.ebiotrade.com/newsf/2015-3/2015316173503298.htm">RNA-seq分析新三件套</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年6月10日</p>
 
 		</div>

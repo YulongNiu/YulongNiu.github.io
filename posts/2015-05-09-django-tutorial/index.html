@@ -67,23 +67,20 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>本文是学习<a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial</a>的记录，目的为了帮助快速浏览和查找Django使用细节。</p>
-
-<h2 id="1-安装django">1. 安装Django</h2>
-
+			<p>本文是学习<a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial</a>的记录，目的为了帮助快速浏览和查找Django使用细节。</p>
+<h2 id="1-安装django-">1. 安装Django</h2>
 <p>本文使用<a href="https://www.python.org/">Python 3.3.6</a>和<a href="http://www.postgresql.org/">PostgreSQL 9.3.6</a>学习Django。可以参考<a href="http://yulongniu.bionutshell.org/blog/2015/05/09/python-different-version/">“使用Pyenv控制多个版本Python”</a>和 <a href="http://yulongniu.bionutshell.org/blog/2015/05/08/install-use-postgresql/">“Fedora安装与使用PostgreSQL”</a>，安装对应版本Python和PostgreSQL。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装Django</span>
 $ pip install django
 
 <span style="color:#008000"># 安装PostgreSQL支持psycopg2</span> 
-$ pip install psycopg2 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 检查Django版本</span>
-$ python -c <span style="color:#a31515">&#34;import django; print(django.get_version())&#34;</span></code></pre></div>
-<h2 id="2-创建项目">2. 创建项目</h2>
+$ pip install psycopg2 
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 检查Django版本</span>
+$ python -c <span style="color:#a31515">&#34;import django; print(django.get_version())&#34;</span>
+</code></pre></div><h2 id="2-创建项目-">2. 创建项目</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 创建名为mysite的项目</span>
-$ django-admin startproject mysite</code></pre></div>
-<p>之后，配制数据库。修改<code>mysite/settings.py</code>对应位置。</p>
+$ django-admin startproject mysite
+</code></pre></div><p>之后，配制数据库。修改<code>mysite/settings.py</code>对应位置。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># Database</span>
 <span style="color:#008000"># https://docs.djangoproject.com/en/1.8/ref/settings/#databases</span>
 
@@ -96,16 +93,15 @@ DATABASES = {
         <span style="color:#a31515">&#39;HOST&#39;</span>: <span style="color:#a31515">&#39;/var/run/postgresql&#39;</span>,
         <span style="color:#a31515">&#39;PORT&#39;</span>: <span style="color:#a31515">&#39;5432&#39;</span>,
     }
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 配制好数据库后，链接数据库</span>
-$ python manage.py migrate</code></pre></div>
-<p>开启Django测试网络服务器</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py runserver</code></pre></div>
-<h2 id="3-创建app">3. 创建app</h2>
-
+}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 配制好数据库后，链接数据库</span>
+$ python manage.py migrate
+</code></pre></div><p>开启Django测试网络服务器</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py runserver
+</code></pre></div><h2 id="3-创建app-">3. 创建app</h2>
 <p>首先， 创建新的app，比如<code>polls</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py startapp polls</code></pre></div>
-<p>其次，修改app</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py startapp polls
+</code></pre></div><p>其次，修改app</p>
 <p>app文件位置<code>polls/models.py</code>，之后在项目配制文件<code>mysite/settings.py</code>中添加app，最后添加app。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 添加app</span>
 $ python manage.py makemigrations polls
@@ -114,17 +110,14 @@ $ python manage.py makemigrations polls
 $ python manage.py sqlmigrate polls 0001
 
 <span style="color:#008000"># 也可以检查</span>
-$ python manage.py check</code></pre></div>
-<p>最后，链接app与数据库</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py migrate</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+$ python manage.py check
+</code></pre></div><p>最后，链接app与数据库</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python manage.py migrate
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial</a></li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年5月9日</p>
 
 		</div>

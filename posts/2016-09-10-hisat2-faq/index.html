@@ -106,14 +106,10 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p><a href="https://ccb.jhu.edu/software/hisat2/manual.shtml#the-hisat2-build-indexer">HISAT2</a>是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代<a href="http://ccb.jhu.edu/software/hisat/index.shtml">HISAT</a>和<a href="http://www.ccb.jhu.edu/software/tophat/index.shtml">TopHat2</a>。本文汇集一些使用HISAT2的常见问题问答。</p>
-
+			<p><a href="https://ccb.jhu.edu/software/hisat2/manual.shtml#the-hisat2-build-indexer">HISAT2</a>是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代<a href="http://ccb.jhu.edu/software/hisat/index.shtml">HISAT</a>和<a href="http://www.ccb.jhu.edu/software/tophat/index.shtml">TopHat2</a>。本文汇集一些使用HISAT2的常见问题问答。</p>
 <h3 id="如何解读hisat2的输出统计">如何解读HISAT2的输出统计？</h3>
-
 <p>一个常见的双端测序样本HISAT2输出统计：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">10000 reads; of these:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">10000 reads; of these:
   10000 (100.00%) were paired; of these:
     650 (6.50%) aligned concordantly 0 times
     8823 (88.23%) aligned concordantly exactly 1 time
@@ -127,23 +123,24 @@
         660 (53.57%) aligned 0 times
         571 (46.35%) aligned exactly 1 time
         1 (0.08%) aligned &gt;1 times
-96.70% overall alignment rate</pre></div>
-<ul>
-<li><p>总共10000对reads；</p></li>
-
-<li><p>8823对concordant pairs（一对既方向匹配又有合适距离的reads）有1次精确比对；527对concordant pairs有1次以上比对；34对disconcordant pairs;</p></li>
-
-<li><p>616对不是concordant pairs，也不是disconcordant pairs中，571个reads有1次精确比对；1个read有1次以上比对；660个reads没有比对成功。</p></li>
-
-<li><p>因此，整体比对率为1 - (660 / 2) / 10000</p></li>
+96.70% overall alignment rate
+</code></pre></div><ul>
+<li>
+<p>总共10000对reads；</p>
+</li>
+<li>
+<p>8823对concordant pairs（一对既方向匹配又有合适距离的reads）有1次精确比对；527对concordant pairs有1次以上比对；34对disconcordant pairs;</p>
+</li>
+<li>
+<p>616对不是concordant pairs，也不是disconcordant pairs中，571个reads有1次精确比对；1个read有1次以上比对；660个reads没有比对成功。</p>
+</li>
+<li>
+<p>因此，整体比对率为1 - (660 / 2) / 10000</p>
+</li>
 </ul>
-
-<h3 id="2-使用hisat2前-是否需要对原始数据进行清洗">2. 使用HISAT2前，是否需要对原始数据进行清洗？</h3>
-
+<h3 id="2-使用hisat2前是否需要对原始数据进行清洗">2. 使用HISAT2前，是否需要对原始数据进行清洗？</h3>
 <p>需要。</p>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2016年9月10日</p>
 
 		</div>

@@ -67,30 +67,19 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h1 id="r-package-span-style-color-blue-ggplot2-span-notes">R Package <span style="color: blue">ggplot2</span> Notes</h1>
-
-<h2 id="1-basic-grammar">1. Basic grammar</h2>
-
-<h3 id="1-1-plot-types">1.1 Plot types</h3>
-
-<p>The R package <span style="color: blue">ggplot2</span> is a famous plot tool for high quality scientific figures. The <span style="color: blue">ggplot2</span> style figures are widely seen in papers published in high quality journals such as <em>PNAS</em>, <em>Nature</em> and <em>Cell</em>.</p>
-
-<p>The input data should be in <strong>data frame</strong> form, and it is easily to use the function <code>as.data.frame()</code>. &ldquo;<span style="color:red"><strong>+</strong></span>&rdquo; is used to connect different plot statement. A typical <span style="color: blue">ggplot2</span> plot statement is like:</p>
+			<h1 id="r-package-span-stylecolor-blueggplot2span-notes-">R Package <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> Notes</h1>
+<h2 id="1-basic-grammar-">1. Basic grammar</h2>
+<h3 id="11-plot-types-">1.1 Plot types</h3>
+<p>The R package <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> is a famous plot tool for high quality scientific figures. The <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> style figures are widely seen in papers published in high quality journals such as <em>PNAS</em>, <em>Nature</em> and <em>Cell</em>.</p>
+<p>The input data should be in <strong>data frame</strong> form, and it is easily to use the function <code>as.data.frame()</code>. &ldquo;<!-- raw HTML omitted --><strong>+</strong><!-- raw HTML omitted -->&rdquo; is used to connect different plot statement. A typical <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> plot statement is like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">require(<span style="color:#a31515">&#39;ggplot2&#39;</span>)
 ggplot(data=mpg, mapping=aes(x=cty, y=hwy, colour=factor(year))) +
-geom_point() + stat_smooth()</code></pre></div>
-<p><code>ggplot()</code>: <strong>data</strong> is a <span style="color:blue">data.frame</span> class object. <strong>mapping</strong> is an <code>aes()</code> function to specify the X-axis and Y-axis. When a <code>aes()</code> is used, a figure legend will be added. If we do not want the legends appear, use <code>show_guide = FALSE</code> in <em>geom_XXX</em> or <em>stat_XXX</em></p>
-
+geom_point() + stat_smooth()
+</code></pre></div><p><code>ggplot()</code>: <strong>data</strong> is a <!-- raw HTML omitted -->data.frame<!-- raw HTML omitted --> class object. <strong>mapping</strong> is an <code>aes()</code> function to specify the X-axis and Y-axis. When a <code>aes()</code> is used, a figure legend will be added. If we do not want the legends appear, use <code>show_guide = FALSE</code> in <em>geom_XXX</em> or <em>stat_XXX</em></p>
 <p><code>geom_point()</code>: is used to plot points with the attributes <strong>x</strong>, <strong>y</strong>, alpha, colour, fill, shape, size.</p>
-
 <p><code>geom_line()</code>: is used to plot points with the attributes <strong>x</strong>, <strong>y</strong>, alpha, colour, fill, shape, size.</p>
-
 <p><code>geom_bar()</code>: bar plot. <code>stat = 'identity'</code> for draw the identical, <code>hjust</code> and <code>vjust</code> is to adjust the x and y axis distance. <code>coord_flip()</code> to reverse X and Y axis. <code>position = 'dodge'</code> to set position of two bars, can be set as &lsquo;dodge&rsquo;, &lsquo;stack&rsquo;, &lsquo;fill&rsquo; and &lsquo;identity&rsquo;.</p>
-
 <p><code>geom_box()</code>: boxplot.</p>
-
 <p><code>geom_tile()</code>: fill blocks.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># example</span>
 require(<span style="color:#a31515">&#39;ggplot2&#39;</span>)
@@ -100,77 +89,59 @@ p + geom_boxplot()
 <span style="color:#008000"># add colors to boxes</span>
 p + geom_boxplot(aes(fill = factor(cyl)))
 <span style="color:#008000"># change default colors</span>
-p + geom_boxplot(aes(fill = factor(cyl))) + scale_fill_manual(values = c(<span style="color:#a31515">&#39;red&#39;</span>, <span style="color:#a31515">&#39;green&#39;</span>, <span style="color:#a31515">&#39;blue&#39;</span>))</code></pre></div>
-<p><code>geom_rect(mapping = NULL, data = NULL, stat = &quot;identity&quot;, position = &quot;identity&quot;, ...)</code>: plot rectangles.
+p + geom_boxplot(aes(fill = factor(cyl))) + scale_fill_manual(values = c(<span style="color:#a31515">&#39;red&#39;</span>, <span style="color:#a31515">&#39;green&#39;</span>, <span style="color:#a31515">&#39;blue&#39;</span>))
+</code></pre></div><p><code>geom_rect(mapping = NULL, data = NULL, stat = &quot;identity&quot;, position = &quot;identity&quot;, ...)</code>: plot rectangles.
 In <code>aes()</code>, <code>xmin</code>, <code>xmax</code>, <code>ymin</code>, and <code>ymax</code> are necessary.
 <code>inherit.aes = FALSE</code> may be used if new <code>data</code> is applied.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># example</span>
 ggplot(mtcars) +
   geom_density(aes(x=disp, group=cyl, fill=cyl), alpha=0.6, adjust=0.75) + 
-  geom_rect(data=mtcars[1,], aes(xmin=100, xmax=200, ymin=0,ymax=<span style="color:#00f">Inf</span>), fill=<span style="color:#a31515">&#34;red&#34;</span>, alpha=0.2)</code></pre></div>
-<h3 id="1-2-statistics">1.2 Statistics</h3>
-
+  geom_rect(data=mtcars[1,], aes(xmin=100, xmax=200, ymin=0,ymax=<span style="color:#00f">Inf</span>), fill=<span style="color:#a31515">&#34;red&#34;</span>, alpha=0.2)
+</code></pre></div><h3 id="12-statistics-">1.2 Statistics</h3>
 <p><code>geom_smooth()</code>: is used for the add smooth line with the <strong>method</strong> lm, glm, gam, loess and rlm. <code>se = TRUE</code> is to display the confident region. The following aesthetics <strong>x</strong>, <strong>y</strong>, alpha, colour, fill, linetype, size, weight could be added.</p>
-
 <p><code>stat_boxplot()</code>: plot error lines in boxplot.</p>
-
-<h3 id="1-3-add-elements">1.3 Add elements</h3>
-
+<h3 id="13-add-elements-">1.3 Add elements</h3>
 <p><code>xlab()</code>: change X axis label, set <code>xlab('')</code> to remove the X axis label; <code>ylab()</code>: change Y axis label; <code>ggtitle()</code>: add figure title; <code>scale_y_continuous(limits=c(0, 20))</code> and <code>scale_x_continuous(limits=c(0, 20))</code> to adjust range of X and Y axis.</p>
-
 <p><code>geom_abline(intercept = 37, slope = -5)</code>: to add line.</p>
-
 <p><code>geom_hline</code> and <code>geom_vline</code>: to add horizontal and vertical lines.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># example </span>
 p &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
-geom_vline(xintercept = 1:5, colour=<span style="color:#a31515">&#34;green&#34;</span>, linetype = <span style="color:#a31515">&#34;longdash&#34;</span>)</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># ggplot2 line type</span>
+geom_vline(xintercept = 1:5, colour=<span style="color:#a31515">&#34;green&#34;</span>, linetype = <span style="color:#a31515">&#34;longdash&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># ggplot2 line type</span>
 d &lt;- data.frame(lt=c(<span style="color:#a31515">&#39;blank&#39;</span>, <span style="color:#a31515">&#39;solid&#39;</span>, <span style="color:#a31515">&#39;dashed&#39;</span>, <span style="color:#a31515">&#39;dotted&#39;</span>, <span style="color:#a31515">&#39;dotdash&#39;</span>, <span style="color:#a31515">&#39;longdash&#39;</span>, <span style="color:#a31515">&#39;twodash&#39;</span>, <span style="color:#a31515">&#39;1F&#39;</span>, <span style="color:#a31515">&#39;F1&#39;</span>, <span style="color:#a31515">&#39;4C88C488&#39;</span>, <span style="color:#a31515">&#39;12345678&#39;</span>))
 ggplot() +
   scale_x_continuous(name=<span style="color:#a31515">&#39;&#39;</span>, limits=c(0,1), breaks=<span style="color:#00f">NULL</span>) +
   scale_y_discrete(name=<span style="color:#a31515">&#39;linetype&#39;</span>) +
   scale_linetype_identity() +
-  geom_segment(data=d, mapping=aes(x=0, xend=1, y=lt, yend=lt, linetype=lt))</code></pre></div>
-<p><code>geom_text()</code>: to add text. Set <code>parse = TRUE</code> to use expression and greek letters.</p>
-
+  geom_segment(data=d, mapping=aes(x=0, xend=1, y=lt, yend=lt, linetype=lt))
+</code></pre></div><p><code>geom_text()</code>: to add text. Set <code>parse = TRUE</code> to use expression and greek letters.</p>
 <p><code>scale_fill_discrete(..., values)</code>: change labels. <code>name</code> to reset label names, <code>labels</code> to reset labels.</p>
-
 <p><code>scale_shape_manual(..., values)</code>: change the shape of points.</p>
-
 <p><code>scale_linetype_manual(..., values)</code>: change the types of lines. line referring <a href="http://www.cookbook-r.com/Graphs/Shapes_and_line_types/">R plot</a>.<code>name</code>, <code>value</code>, <code>labels</code> are used to change value.</p>
-
 <p><code>scale_color_manual</code> is used for change the colors. Please refer to <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/">Useful color palette</a>, <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Introduction of ggplot2 colors</a>, and <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">R Color Chart</a>
 . The default ggplot2 colors are generated from the &ldquo;<em>scales</em>&rdquo; package, for example the default &ldquo;hue pallet&rdquo; could be view as <code>show_col(hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1)(9))</code></p>
-
 <p><code>scale_fill_manual(..., alues)</code> to change filled colors.</p>
-
 <p><code>theme</code> is used for exact control. <code>legend.position='none'</code> to remove the side legend.</p>
-
-<h2 id="2-save-plot">2. Save plot</h2>
-
+<h2 id="2-save-plot-">2. Save plot</h2>
 <p>The function <code>ggsave()</code> is used to save the screen plot to file. <code>print()</code> is also applied like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pdf(<span style="color:#a31515">&#39;testfile.pdf&#39;</span>)
 q &lt;- ggplot()
 print(q)
-dev.off()</code></pre></div>
-<h2 id="3-other-issues">3. Other issues</h2>
-
-<h3 id="3-1-plot-mutiple-ggplot2">3.1 Plot mutiple ggplot2</h3>
-
-<p>Use <span style="color: blue">gridExtra</span> package to plot multiple ggplot2 figures in the one figure.</p>
+dev.off()
+</code></pre></div><h2 id="3-other-issues-">3. Other issues</h2>
+<h3 id="31-plot-mutiple-ggplot2-">3.1 Plot mutiple ggplot2</h3>
+<p>Use <!-- raw HTML omitted -->gridExtra<!-- raw HTML omitted --> package to plot multiple ggplot2 figures in the one figure.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># example</span>
 require(<span style="color:#a31515">&#39;gridExtra&#39;</span>)
 <span style="color:#008000"># save ggplot object into a list like &#34;plotList&#34;</span>
-do.call(grid.arrange, plotList)</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+do.call(grid.arrange, plotList)
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="http://directlabels.r-forge.r-project.org/examples.html">Better labels</a></li>
 <li><a href="http://docs.ggplot2.org/current/">ggplot2 doc</a></li>
 <li><a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/#working-with-colors">ggplot2 cheatsheet</a></li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2014年8月28日</p>
 
 		</div>

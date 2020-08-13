@@ -106,10 +106,7 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="0-结论">0. 结论</h2>
-
+			<h2 id="0-结论-">0. 结论</h2>
 <p>在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成<code>accepted_hits.bam</code>文件，处理方法如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 首先查看bam文件头部有多少行</span>
 $ samtools view -H accepted_hits.bam | wc -l
@@ -121,18 +118,15 @@ $ samtools view -h accepted_hits.bam | <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>    samtools view -b - &gt; accepted_filtered.bam
 
 $ samtools view accepted_filtered.bam | wc -l
-79143942</code></pre></div>
-<h2 id="1-tophat输出sam文件的第五列">1. TopHat输出sam文件的第五列</h2>
-
+79143942
+</code></pre></div><h2 id="1-tophat输出sam文件的第五列-">1. TopHat输出sam文件的第五列</h2>
 <p><a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat文档</a>没有解释其输出bam文件（比如<code>accepted_hits.bam</code>）的第五列的意义。按照<a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a>输出结果来看，是表示映射质量指标Mapping Quality scores（MAPQ），具体计算参考公式$\eqref{eq:1}$。</p>
-
 <p>$$
 \begin{align}
 MAPQ = -10 \times log_{10}(pvalue)
 \label{eq:1}
 \end{align}
 $$</p>
-
 <p>MAPQ值越大，表示对应的read的alignment质量越高。然而，在TopHat输出结果中，MAPQ所代表意义略有不同。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 查看accepted_hits.bam文件的MAPQ数值，并统计出现频数</span>
 $ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $5}&#39;</span> | sort --parallel=4 -n | uniq -c
@@ -179,9 +173,8 @@ $ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print 
 31 NH:i:6
 1 NH:i:7
 2 NH:i:8
-3 NH:i:9</code></pre></div>
-<p>首先，我们可以看到TopHat输出的MAPQ只有四个数值，分别为<code>50</code>、<code>3</code>、<code>1</code>和<code>0</code>。根据<a href="http://samtools.github.io/hts-specs/SAMv1.pdf">sam文件标准</a>，<code>NH:i:n</code>表示含有查询序列的alignment的数量。因此，通过上述前100位和前200位分析可以发现，MAPQ并不是按照公式$\eqref{eq:1}$计算，而有可能是以下关系：</p>
-
+3 NH:i:9
+</code></pre></div><p>首先，我们可以看到TopHat输出的MAPQ只有四个数值，分别为<code>50</code>、<code>3</code>、<code>1</code>和<code>0</code>。根据<a href="http://samtools.github.io/hts-specs/SAMv1.pdf">sam文件标准</a>，<code>NH:i:n</code>表示含有查询序列的alignment的数量。因此，通过上述前100位和前200位分析可以发现，MAPQ并不是按照公式$\eqref{eq:1}$计算，而有可能是以下关系：</p>
 
 
 
@@ -195,45 +188,39 @@ $ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print 
 <th>描述</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>50</td>
 <td>NH:i:1</td>
 <td>map至唯一位置</td>
 </tr>
-
 <tr>
 <td>3</td>
 <td>NH:i:2</td>
 <td>map至2个位置</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td>NH:i:3/NH:i:4</td>
 <td>map至3个或4个位置</td>
 </tr>
-
 <tr>
 <td>0</td>
 <td>NH:i:n (n &gt; 4)</td>
 <td>map到多余4个位置</td>
 </tr>
 </tbody>
-</table> 
-
+</table>
+ 
 
 <p>展示一个<code>NH:i:1</code>的例子，注意Illumina双端测序平台<code>fr-unstranded</code>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   163     chr1    637224  50      100M    =       637339  215     AAATGATCTGTACAATAACCCCCTGTGACACCAGTCTACCTATGTAACAAATGCCCCTAAACTTAAAATAAAAGTTAAAAAAAAAGAAAATTAAAATCTC  &lt;@@BDABBDFBCDGEGHIGIIGIABAFHBGDFGGGHIIIFIEIGGGGIIIFFDHIGIIIIIIIICEHIIIIIIHEHHDHFFCBCCB@BCAACCCCCECCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
 HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   83      chr1    637339  50      100M    =       637224  -215    GTAATATGAAAAACACAAATCTTTCATTCATTCCTTTCAACTGATGAGGAAAATGAGGCATCGGGAGTTAGTAAAAGTCCACATTGAGATATGAGACCCA  CCADDDCCCCCCCDEEEECAEHEEGGIIHGFAAGGGHEF=IGGGIIGGHGCGIEIIIGIIIIIIIFIHIIIIIIGIIHFEAIGGIIGFFDFHDDDAD@@@    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
 
 HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    99      chr1    643662  50      100M    =       643707  145     CCTATCAAAATCTTAGCATTCCTCTTAGCCCTCAACAAAGCATTTCTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGC  CCCFFFFFHHHHHJJJJIJJHJJJJJJJIIJJJJJJJJJJJJIJJJJJIIIJJIIIJJJJJJJJJIJJJJIJJJIHHHHFFEFFFEEEEEEEDDCDDCDD    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
-HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      100M    =       643662  -145    CTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGCAAAAAGAAAGTTGAGGAAATCTTAAAACATGTTATTGAGCTTAAA  CEEEDDDDEDFEEEEEEEBFFFFFHHHHEJJJJJJJJIJJJJGJIIIIHFJJJIIJJJJJIJJJJJJJJJJJJGHJJJJIJJJJJJJGHHHHFFFFFCCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1</code></pre></div>
-<h2 id="2-sam文件的第二列">2. sam文件的第二列</h2>
-
+HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      100M    =       643662  -145    CTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGCAAAAAGAAAGTTGAGGAAATCTTAAAACATGTTATTGAGCTTAAA  CEEEDDDDEDFEEEEEEEBFFFFFHHHHEJJJJJJJJIJJJJGJIIIIHFJJJIIJJJJJIJJJJJJJJJJJJGHJJJJIJJJJJJJGHHHHFFFFFCCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
+</code></pre></div><h2 id="2-sam文件的第二列-">2. sam文件的第二列</h2>
 <p>sam文件中的第二列提供了具体的map情况，下列表格摘自<a href="http://samtools.github.io/hts-specs/SAMv1.pdf">sam文件标准</a>，sam/bam文件中第二列各种条件<strong>求和</strong>的<strong>十进制</strong>标识，<a href="http://broadinstitute.github.io/picard/explain-flags.html">快速解释第二列的bitwise FLAG</a>：</p>
-
 
 
 
@@ -247,85 +234,72 @@ HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      
 <th>Description</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>1</td>
 <td>0x1</td>
 <td>template having multiple segments in sequencing</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>0x2</td>
 <td>each segment properly aligned according to the aligner</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>0x4</td>
 <td>segment unmapped</td>
 </tr>
-
 <tr>
 <td>8</td>
 <td>0x8</td>
 <td>next segment in the template unmapped</td>
 </tr>
-
 <tr>
 <td>16</td>
 <td>0x10</td>
 <td>SEQ being reverse complemented</td>
 </tr>
-
 <tr>
 <td>32</td>
 <td>0x20</td>
 <td>SEQ of the next segment in the template being reverse complemented</td>
 </tr>
-
 <tr>
 <td>64</td>
 <td>0x40</td>
 <td>the first segment in the template</td>
 </tr>
-
 <tr>
 <td>128</td>
 <td>0x80</td>
 <td>the last segment in the template</td>
 </tr>
-
 <tr>
 <td>256</td>
 <td>0x100</td>
 <td>secondary alignment</td>
 </tr>
-
 <tr>
 <td>512</td>
 <td>0x200</td>
 <td>not passing quality controls</td>
 </tr>
-
 <tr>
 <td>1024</td>
 <td>0x400</td>
 <td>PCR or optical duplicate</td>
 </tr>
-
 <tr>
 <td>2048</td>
 <td>0x800</td>
 <td>supplementary alignment</td>
 </tr>
 </tbody>
-</table> 
-
+</table>
+ 
 
 <p>在map完成双端测序序列中，我们感兴趣的是一对reads都正确align到基因组上，而且方相匹配又距离合适。符合这样条件的reads，对应的第二列数值为99、147、83和163，具体图示参考<a href="https://biobeat.wordpress.com/2013/04/29/directional-rna-seq-part-1-extract-strand-information-from-sam-file/">Directional RNA-seq— Part 1: SAM file flags</a>。下面表格解释四个数值的具体意义，其中<code>1</code>标识双端测序，<code>2</code>表示一对reads正确地map到基因组合适位置，表格中着重陈述<code>64</code>、<code>32</code>、<code>128</code>和<code>16</code>。</p>
-
 
 
 
@@ -339,34 +313,30 @@ HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      
 <th>Explanation</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>99</td>
 <td>64+32+2+1</td>
 <td>一对引物中第一个map到基因组正义链；第二个反方向map到基因组正义链</td>
 </tr>
-
 <tr>
 <td>147</td>
 <td>128+16+2+1</td>
 <td>一对引物中第二个反方向map基因组正义链；第一个map到基因组正义链</td>
 </tr>
-
 <tr>
 <td>83</td>
 <td>64+16+2+1</td>
 <td>一对引物中第一个map到基因组反义链；第二个反方向map到基因组反义链</td>
 </tr>
-
 <tr>
 <td>163</td>
 <td>128+32+2+1</td>
 <td>一对引物中第二个反方向map基因组正义链；第一个map到基因组正义链</td>
 </tr>
 </tbody>
-</table> 
-
+</table>
+ 
 
 <p>之后，我们需要筛选含有这些flags的reads。由于我们通常需要操作bam文件，也希望输出是bam文件，中间过程不希望再重新生成sam文件。那么，就需要结合使用<code>awk</code>进行筛选，具体方法见本篇文章开头所示。当然，如果是只是查看，可以使用下面例子中的 <code>samtools view -f 0x2</code>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># map到基因组上唯一位置的reads数目</span>
@@ -377,8 +347,8 @@ $ samtools view -f 0x2 accepted_hits.bam | wc -l
 88793640
 <span style="color:#008000"># 成对且唯一mapped的reads数目</span>
 $ samtools view -q 50 -f 0x2 accepted_hits.bam | wc -l
-79143942</code></pre></div>
-<h2 id="3-操作tophat输出的文件命令集锦">3. 操作TopHat输出的文件命令集锦</h2>
+79143942
+</code></pre></div><h2 id="3-操作tophat输出的文件命令集锦-">3. 操作TopHat输出的文件命令集锦</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># samtools的view -c命令，其实就是输出sam文件有多少行</span>
 $ samtools view accepted_hits.bam | wc -l
 109278388
@@ -396,18 +366,16 @@ $ head junction.bed
 $ wc -l junction.bed
 220648 junctions.bed
 $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
-220648</code></pre></div>
-<h2 id="4-dna链和mrna链的称呼总结">4. DNA链和mRNA链的称呼总结</h2>
-
+220648
+</code></pre></div><h2 id="4-dna链和mrna链的称呼总结-">4. DNA链和mRNA链的称呼总结</h2>
 <p>双链DNA和单链mRNA，对每条链都有特定的称呼。总结如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">3&#39;~~~~~UCUGAU~~~~~ 5&#39; mRNA的对应基因信息在reverse strand
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">3&#39;~~~~~UCUGAU~~~~~ 5&#39; mRNA的对应基因信息在reverse strand
 
 5&#39;-----AGACTA----------ATTGTT----- 3&#39;
 3&#39;-----TCTGAT----------TAACAA----- 5&#39;
 
-                5&#39;~~~~~AUUGUU~~~~~ 3&#39; mRNA的对应基因信息在forward strand</pre></div>
-<p>对于一条双链DNA，称呼列表如下：</p>
-
+                5&#39;~~~~~AUUGUU~~~~~ 3&#39; mRNA的对应基因信息在forward strand
+</code></pre></div><p>对于一条双链DNA，称呼列表如下：</p>
 
 
 
@@ -416,19 +384,17 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 <table class="table table-responsive table-striped">
 <thead>
 <tr>
-<th>方向<sup>a</sup></th>
+<th>方向<!-- raw HTML omitted -->a<!-- raw HTML omitted --></th>
 <th>名称1</th>
 <th>名称2</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>从左至右</td>
 <td>forward</td>
 <td>plus</td>
 </tr>
-
 <tr>
 <td>从右至左</td>
 <td>reverse</td>
@@ -436,12 +402,9 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 </tr>
 </tbody>
 </table>
-
-<p><sup>a</sup>：方向是指5&rsquo;至3&rsquo;的阅读方向，用于区分两条DNA链条 
-
+<p><!-- raw HTML omitted -->a<!-- raw HTML omitted -->：方向是指5&rsquo;至3&rsquo;的阅读方向，用于区分两条DNA链条 
 
 <p>对于一条RNA链，其对应的双链DNA称呼如下：</p>
-
 
 
 
@@ -450,7 +413,7 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 <table class="table table-responsive table-striped">
 <thead>
 <tr>
-<th>mRNA方向<sup>a</sup></th>
+<th>mRNA方向<!-- raw HTML omitted -->a<!-- raw HTML omitted --></th>
 <th>名称1</th>
 <th>名称2</th>
 <th>名称3</th>
@@ -458,7 +421,6 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 <th>名称5</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>同向</td>
@@ -468,7 +430,6 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 <td>positive</td>
 <td>+</td>
 </tr>
-
 <tr>
 <td>反向</td>
 <td>template</td>
@@ -479,28 +440,30 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 </tr>
 </tbody>
 </table>
+<p><!-- raw HTML omitted -->a<!-- raw HTML omitted -->：mRNA方向是指5&rsquo;至3&rsquo;。 
 
-<p><sup>a</sup>：mRNA方向是指5&rsquo;至3&rsquo;。 
-
-
-<h3 id="参考网址">参考网址</h3>
-
+<h3 id="参考网址-">参考网址</h3>
 <ul>
-<li><p><a href="http://blog.qiuworld.com:8080/archives/3321">关于map当中的unique mapped reads问题</a></p></li>
-
-<li><p>TopHat的bam输出文件第五列（类似MAPQ）的讨论： <a href="https://groups.google.com/forum/#!topic/tuxedo-tools-users/m0p1qXDEqKA">tophat mapping quality</a>和<a href="http://www.acgt.me/blog/2015/3/17/more-madness-with-mapq-scores-aka-why-bioinformaticians-hate-poor-and-incomplete-software-documentation">More madness with MAPQ scores</a></p></li>
-
-<li><p><a href="https://biobeat.wordpress.com/2013/05/01/directional-rna-seq-part-2-using-samtools/">Directional RNA-seq— Part 2: Explore SAM flags using samtools</a></p></li>
-
-<li><p><a href="http://www.acgt.me/blog/2015/4/15/filtering-a-sam-file-generated-by-tophat-to-find-uniquely-mapped-concordant-read-pairs-awk-vs-samtools">Filtering a SAM file generated by TopHat to find uniquely mapped, concordant read pairs: AWK vs SAMtools</a></p></li>
-
-<li><p><a href="https://www.biostars.org/p/3423/">Question: Forward And Reverse Strand Conventions</a></p></li>
-
-<li><p><a href="http://en.wikipedia.org/wiki/Sense_(molecular_biology)">wiki</a></p></li>
+<li>
+<p><a href="http://blog.qiuworld.com:8080/archives/3321">关于map当中的unique mapped reads问题</a></p>
+</li>
+<li>
+<p>TopHat的bam输出文件第五列（类似MAPQ）的讨论： <a href="https://groups.google.com/forum/#!topic/tuxedo-tools-users/m0p1qXDEqKA">tophat mapping quality</a>和<a href="http://www.acgt.me/blog/2015/3/17/more-madness-with-mapq-scores-aka-why-bioinformaticians-hate-poor-and-incomplete-software-documentation">More madness with MAPQ scores</a></p>
+</li>
+<li>
+<p><a href="https://biobeat.wordpress.com/2013/05/01/directional-rna-seq-part-2-using-samtools/">Directional RNA-seq— Part 2: Explore SAM flags using samtools</a></p>
+</li>
+<li>
+<p><a href="http://www.acgt.me/blog/2015/4/15/filtering-a-sam-file-generated-by-tophat-to-find-uniquely-mapped-concordant-read-pairs-awk-vs-samtools">Filtering a SAM file generated by TopHat to find uniquely mapped, concordant read pairs: AWK vs SAMtools</a></p>
+</li>
+<li>
+<p><a href="https://www.biostars.org/p/3423/">Question: Forward And Reverse Strand Conventions</a></p>
+</li>
+<li>
+<p><a href="http://en.wikipedia.org/wiki/Sense_(molecular_biology)">wiki</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年5月25日</p>
 
 		</div>

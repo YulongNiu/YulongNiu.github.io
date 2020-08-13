@@ -67,26 +67,20 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，<strong>一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。</strong></p>
-
-<h2 id="1-if-爱你-else-就要和你在一起-又要给你一些距离">1. <code>if</code>爱你，<code>else</code>就要和你在一起，又要给你一些距离</h2>
+			<p>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，<strong>一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。</strong></p>
+<h2 id="1-if爱你else就要和你在一起又要给你一些距离-">1. <code>if</code>爱你，<code>else</code>就要和你在一起，又要给你一些距离</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">if (con){
   expr
   } else{
   expr2
-  }</code></pre></div>
-<p><code>if...else..</code>结构中，<code>}</code>与<code>else</code>必须在同一行。</p>
-
-<p>简易形式（<span style="color: blue">不推荐</span>）：</p>
+  }
+</code></pre></div><p><code>if...else..</code>结构中，<code>}</code>与<code>else</code>必须在同一行。</p>
+<p>简易形式（<!-- raw HTML omitted -->不推荐<!-- raw HTML omitted -->）：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># else不能与expr在同一行</span>
 if (con) expr
-else expr2</code></pre></div>
-<p>建议将所有<code>if ... else ...</code>结构写成第一种形式，如果没有<code>else</code>，用<code>else {}</code>代替。</p>
-
-<h2 id="2-null-是空-null-是气-null-在r中就是空气">2. <code>NULL</code>是空，<code>NULL</code>是气，<code>NULL</code>在R中就是空气。</h2>
-
+else expr2
+</code></pre></div><p>建议将所有<code>if ... else ...</code>结构写成第一种形式，如果没有<code>else</code>，用<code>else {}</code>代替。</p>
+<h2 id="2-null是空null是气null在r中就是空气">2. <code>NULL</code>是空，<code>NULL</code>是气，<code>NULL</code>在R中就是空气。##</h2>
 <p>如果表达式（expression）或者函数（function）的值没有定义，那么将返回<code>NULL</code>。在R中，<code>NULL</code>与很多对象合并在一起时，都被忽略掉。比如以下例子：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># NULL is neglected in vector</span>
 &gt; c(1, <span style="color:#00f">NA</span>, <span style="color:#00f">NULL</span>, <span style="color:#00f">FALSE</span>)
@@ -108,93 +102,67 @@ In matrix(c(1, <span style="color:#00f">NA</span>, <span style="color:#00f">NULL
 [1] 2
 &gt; tmp[[1]] &lt;- <span style="color:#00f">NULL</span>
 &gt; tmp
-list()</code></pre></div>
-<p>如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</p>
+list()
+</code></pre></div><p>如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; tmp &lt;- list()
 &gt; tmp[1] &lt;- list(<span style="color:#00f">NULL</span>)
 &gt; tmp
 [[1]]
 <span style="color:#00f">NULL</span>
 &gt; is.null(tmp[[1]])
-[1] <span style="color:#00f">TRUE</span></code></pre></div>
-<h2 id="3-list不是万能的-但没有list是万万不能的">3. list不是万能的，但没有list是万万不能的</h2>
-
+[1] <span style="color:#00f">TRUE</span>
+</code></pre></div><h2 id="3-list不是万能的但没有list是万万不能的-">3. list不是万能的，但没有list是万万不能的</h2>
 <p>列表（list）在R中是个全能选手、无所不“包”；list还是金箍棒，别看它丫的开始长度（<code>length()</code>）短，之后想变长就变长，多长都行。</p>
-
 <p>这暗示list可以这样用：在循环开始时，我们不知道会产生多少个元素，可以事先规定输出结果为<code>a &lt;- list()</code>，之后赋值；甚至可以按照名字赋值，比如<code>a$add &lt;- exprs</code>。</p>
-
 <ul>
 <li>创建</li>
 </ul>
-
 <blockquote>
 <p>如果要创建一个长度为n的、每个元素都为<code>NULL</code>的list，可以使用<code>vector(&quot;list&quot;, n)</code>。</p>
 </blockquote>
-
 <ul>
 <li>插入</li>
 </ul>
-
 <blockquote>
 <p>如果要在list中插入元素，可以使用<code>append(x, values, after = length(x))</code>函数。<code>append()</code>函数原本是对vector设计的，但是list也能使用。</p>
 </blockquote>
-
-<h2 id="4-创建-空-值很淡定-要么空来要么0">4. 创建“空”值很淡定，要么空来要么0</h2>
-
+<h2 id="4-创建空值很淡定要么空来要么0-">4. 创建“空”值很淡定，要么空来要么0</h2>
 <p>如果要创建一个空的对象（对象的长度是0）很容易，比如：</p>
-
 <ul>
 <li>创建一个长度为0的数值向量</li>
 </ul>
-
 <blockquote>
 <p><code>numeric()</code>或者<code>numeric(0)</code></p>
-
 <p><code>character()</code>或者<code>character(0)</code></p>
-
 <p><code>integer()</code>或者<code>integer(0)</code>可以起到同样的效果</p>
-
 <p><code>factor()</code>创建一个长度为0的因子</p>
-
-<p><span style="color: blue">注意</span>：<code>factor(0)</code>的长度是1</p>
+<p><!-- raw HTML omitted -->注意<!-- raw HTML omitted -->：<code>factor(0)</code>的长度是1</p>
 </blockquote>
-
 <ul>
 <li>创建一个长度为0的矩阵</li>
 </ul>
-
 <blockquote>
 <p><code>matrix(0, 0, 0)</code></p>
-
-<p><span style="color: blue">注意</span>：<code>array()</code>创建的对象长度为1。</p>
+<p><!-- raw HTML omitted -->注意<!-- raw HTML omitted -->：<code>array()</code>创建的对象长度为1。</p>
 </blockquote>
-
 <ul>
 <li>创建一个长度为0的列表</li>
 </ul>
-
 <blockquote>
 <p><code>list()</code></p>
 </blockquote>
-
 <ul>
 <li>创建一个长度为0的data.frame</li>
 </ul>
-
 <blockquote>
 <p><code>data.frame()</code></p>
 </blockquote>
-
-<h2 id="5-对象转换要小心-data-frame是陷阱">5. 对象转换要小心，data.frame是陷阱</h2>
-
+<h2 id="5-对象转换要小心dataframe是陷阱-">5. 对象转换要小心，data.frame是陷阱</h2>
 <p>R中一些对象转换要格外小心，特别是牵扯到data.frame类型。以下是几个常见的陷阱：</p>
-
-<h3 id="5-1-字符型因子-转换为-数值型向量">5.1 “字符型因子”转换为“数值型向量”</h3>
-
+<h3 id="51-字符型因子转换为数值型向量">5.1 “字符型因子”转换为“数值型向量”</h3>
 <p>需要先转成字符串向量过渡一下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">as.numeric(as.character(MyFactor))</code></pre></div>
-<h3 id="5-2-字符和数值因子混搭data-frame">5.2 字符和数值因子混搭data.frame</h3>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">as.numeric(as.character(MyFactor))
+</code></pre></div><h3 id="52-字符和数值因子混搭dataframe-">5.2 字符和数值因子混搭data.frame</h3>
 <p>每一列是按照字符型因子保存。留意表面上是数值的一列，它非常危险，特别是排序。一个例子：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; a1 &lt;- as.factor(as.character(a1))
 &gt; a1
@@ -202,11 +170,9 @@ list()</code></pre></div>
 Levels: 10 11 12 13 14 15 5 6 7 8 9
 &gt; sort(a1)
  [1] 10 11 12 13 14 15 5  6  7  8  9 
-Levels: 10 11 12 13 14 15 5 6 7 8 9</code></pre></div>
-<h2 id="6-多个-else-if-别担心-switch-函数来帮助">6. 多个<code>else</code>/<code>if</code>别担心，<code>switch()</code>函数来帮助</h2>
-
+Levels: 10 11 12 13 14 15 5 6 7 8 9
+</code></pre></div><h2 id="6-多个elseif别担心switch函数来帮助-">6. 多个<code>else</code>/<code>if</code>别担心，<code>switch()</code>函数来帮助</h2>
 <p>如果需要在不同情况下，对变量进行不同的处理，自然会联想到使用多个多个<code>else</code>/<code>if</code>。如果<code>else</code>/<code>if</code>是用来处理的简单的赋值，可以使用<code>switch(EXPR, ...)</code>函数。其中，<code>EXPR</code>是一个表达式，生成一个数字或者字符串；接下来，使用生成的数字和字符串匹配<code>...</code>中的内容。</p>
-
 <p>所以，我们很容易想到，如果<code>EXPR</code>生成的数字，则对应匹配<code>...</code>的第几个元素，此时<code>...</code>中的变量可以没有名字；如果是字符串，就会严格地匹配<code>...</code>中相同名字的变量；如果<code>EXPR</code>生成是字符串，<code>...</code>中没有相匹配的变量名，则返回<code>NULL</code>；如果<code>...</code>中有一个“无名”变量（即没有对变量赋值），上一种情况下返回该无名变量，相当于最后一个<code>else</code>。比如：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; switch(1, a = 3, b = 2)
 [1] 3
@@ -221,24 +187,25 @@ Levels: 10 11 12 13 14 15 5 6 7 8 9</code></pre></div>
 &gt; switch(2, aa = <span style="color:#a31515">&#39;red&#39;</span>, bb = , cc = <span style="color:#a31515">&#39;yellow&#39;</span>)
 Error: empty alternative in numeric switch
 &gt; switch(<span style="color:#a31515">&#39;dd&#39;</span>, aa = <span style="color:#a31515">&#39;red&#39;</span>, bb = , cc = <span style="color:#a31515">&#39;yellow&#39;</span>, <span style="color:#a31515">&#39;no&#39;</span>, <span style="color:#a31515">&#39;value&#39;</span>)
-Error: duplicate switch defaults: <span style="color:#a31515">&#39;&#34;no&#34;&#39;</span> and <span style="color:#a31515">&#39;&#34;value&#34;&#39;</span></code></pre></div>
-<p><span style="color: blue">注意</span>：</p>
-
+Error: duplicate switch defaults: <span style="color:#a31515">&#39;&#34;no&#34;&#39;</span> and <span style="color:#a31515">&#39;&#34;value&#34;&#39;</span>
+</code></pre></div><p><!-- raw HTML omitted -->注意<!-- raw HTML omitted -->：</p>
 <ul>
-<li><p>如果<code>EXPR</code>是数字，范围不能超过<code>...</code>的长度。同时，虽然此时<code>...</code>变量可以名字，但是有名字的变量必须有数值，不能学习以上例子中倒数第二种情况，否则会报错。</p></li>
-
-<li><p>如果<code>EXPR</code>是字符串，那么会进行自动继承，即前者继承后者。</p></li>
-
-<li><p>虽然<code>EXPR</code>是字符串情况可以自动继承，甚至继承一个无名变量，但是无名变量只能有一个。</p></li>
-
-<li><p>最后将<code>EXPR</code>明确写出，为了R的版本兼容。</p></li>
+<li>
+<p>如果<code>EXPR</code>是数字，范围不能超过<code>...</code>的长度。同时，虽然此时<code>...</code>变量可以名字，但是有名字的变量必须有数值，不能学习以上例子中倒数第二种情况，否则会报错。</p>
+</li>
+<li>
+<p>如果<code>EXPR</code>是字符串，那么会进行自动继承，即前者继承后者。</p>
+</li>
+<li>
+<p>虽然<code>EXPR</code>是字符串情况可以自动继承，甚至继承一个无名变量，但是无名变量只能有一个。</p>
+</li>
+<li>
+<p>最后将<code>EXPR</code>明确写出，为了R的版本兼容。</p>
+</li>
 </ul>
-
 <p><strong>总结</strong>：
 <code>swich()</code>函数是一个好玩却又危险的函数，一个没有歧义的使用方法是：<code>EXPR</code>明确写出，且返回字符串，<code>...</code>中每一个变量都有确切的值，无名变量只有一个，比如：<code>switch(EXPR='dd', aa = 'red', bb = 'blue', cc = 'yellow', 'no value')</code>。</p>
-
-<h2 id="7-r取值有技巧-drop-选项巧帮助">7. R取值有技巧，<code>drop</code>选项巧帮助</h2>
-
+<h2 id="7-r取值有技巧drop选项巧帮助-">7. R取值有技巧，<code>drop</code>选项巧帮助</h2>
 <p>当对象是一个矩阵的时候，通常我们要获取其中一些元素。如果取出的正好是一行或者一列，此时，R会返回给我们一个向量，而不是矩阵。这会带来很大的麻烦，因为我们必须判断返回对象是向量，还是矩阵，才能继续下面的操作。此时，<code>drop</code>可以帮助我们，如果设置<code>drop = FALSE</code>，就会保持原样返回结果。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; b &lt;- matrix(1:6, nrow = 2, ncol = 3)
 &gt; b
@@ -253,34 +220,26 @@ Error: duplicate switch defaults: <span style="color:#a31515">&#39;&#34;no&#34;&
 [2,]    6
 &gt; b[1, , drop = <span style="color:#00f">FALSE</span>]
      [,1] [,2] [,3]
-[1,]    1    3    5</code></pre></div>
-<h2 id="8-和-有区别-返回向量与单值">8. <code>|</code> 和 <code>||</code> 有区别，返回向量与单值</h2>
-
+[1,]    1    3    5
+</code></pre></div><h2 id="8--和--有区别返回向量与单值-">8. <code>|</code> 和 <code>||</code> 有区别，返回向量与单值</h2>
 <p>R中的逻辑运算符号有两组，<code>|</code>或者<code>||</code>（<code>&amp;</code>或者<code>&amp;&amp;</code>），看起来觉得有些多余。其实，这是为了R独特的“<strong>向量运算</strong>”考虑的。<code>|</code>或者<code>&amp;</code>首先考虑返回一个向量，而<code>||</code>和<code>&amp;&amp;</code>则只返回第一个比较结果。比如：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; c(<span style="color:#00f">FALSE</span>, <span style="color:#00f">TRUE</span>) | c(<span style="color:#00f">FALSE</span>, <span style="color:#00f">FALSE</span>)
 [1] <span style="color:#00f">FALSE</span>  <span style="color:#00f">TRUE</span>
 &gt; c(<span style="color:#00f">FALSE</span>, <span style="color:#00f">TRUE</span>) || c(<span style="color:#00f">FALSE</span>, <span style="color:#00f">FALSE</span>)
-[1] <span style="color:#00f">FALSE</span></code></pre></div>
-<h2 id="9-递归">9. 递归</h2>
-
+[1] <span style="color:#00f">FALSE</span>
+</code></pre></div><h2 id="9-递归-">9. 递归</h2>
 <p>R在解释代码时，不支持尾递归优化，所以在R中不要写递归。</p>
-
-<h2 id="10-r图例空元素-0-和-na-来代替">10. R图例空元素，<code>0</code>和<code>NA</code>来代替</h2>
-
+<h2 id="10-r图例空元素0和na来代替-">10. R图例空元素，<code>0</code>和<code>NA</code>来代替</h2>
 <p>在R绘图的图例中，通常需要“线条”和“点”分开单独表示，这里用到<code>0</code>和<code>NA</code>的小技巧。如果在<code>legend()</code>函数函数中，<code>pch = NA</code>表示没有点，<code>lty=0</code>表示没有线条。</p>
-
-<h2 id="11-字符串转代码很容易-eval-parse-很随意">11. 字符串转代码很容易，<code>eval()</code>/<code>parse()</code>很随意</h2>
-
+<h2 id="11-字符串转代码很容易evalparse很随意-">11. 字符串转代码很容易，<code>eval()</code>/<code>parse()</code>很随意</h2>
 <p>如果我们有一个字符字符串，现在需要将其转为可执行代码。方法如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; test1 = <span style="color:#a31515">&#39;1:3&#39;</span>
 &gt; test1
 [1] <span style="color:#a31515">&#34;1:3&#34;</span>
 &gt; eval(parse(text = test1))
-[1] 1 2 3</code></pre></div>
-<h2 id="12-factor如需换标签-c-函数有妙招">12. factor如需换标签，<code>c()</code>函数有妙招</h2>
-
+[1] 1 2 3
+</code></pre></div><h2 id="12-factor如需换标签c函数有妙招-">12. factor如需换标签，<code>c()</code>函数有妙招</h2>
 <p>如果我们需要对一个factor的标签（level）进行转换，并且返回一个向量，有两种方法可以使用:</p>
-
 <ul>
 <li>第一种方法，使用<code>c()</code>函数</li>
 </ul>
@@ -289,8 +248,8 @@ Error: duplicate switch defaults: <span style="color:#a31515">&#39;&#34;no&#34;&
 [1] 1 1 1 2 2 2 3 3 3
 Levels: 1 2 3
 &gt; c(<span style="color:#00f">letters</span>[1:3])[tmp1]
-[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span></code></pre></div>
-<ul>
+[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span>
+</code></pre></div><ul>
 <li>第二种方法，先转换标签，之后再使用<code>as.character()</code>函数。</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; tmp2 &lt;- factor(tmp1, labels = <span style="color:#00f">letters</span>[1:3])
@@ -298,10 +257,9 @@ Levels: 1 2 3
 [1] a a a b b b c c c
 Levels: a b c
 &gt; as.character(tmp2)
-[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span></code></pre></div>
-<p>同时，配合使用<code>droplevels()</code>（去除多余level）、<code>relevel()</code>（以某个level为基准）和<code>ordered(.., levels)</code>（调整level顺序）等操作factor的level。</p>
-
-<h2 id="13-操作符也是函数-使用起来有妙招">13. 操作符也是函数，使用起来有妙招</h2>
+[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;c&#34;</span>
+</code></pre></div><p>同时，配合使用<code>droplevels()</code>（去除多余level）、<code>relevel()</code>（以某个level为基准）和<code>ordered(.., levels)</code>（调整level顺序）等操作factor的level。</p>
+<h2 id="13-操作符也是函数使用起来有妙招-">13. 操作符也是函数，使用起来有妙招</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; <span style="color:#a31515">&#34;+&#34;</span>(1, 2)
 [1] 3
 &gt; <span style="color:#a31515">&#39;&gt;&#39;</span>(1, 2)
@@ -340,18 +298,14 @@ Levels: a b c
 [[10]]
 [1] 10 11
 &gt; sapply(tmp1, <span style="color:#a31515">&#39;[[&#39;</span>, 2)
- [1]  2  3  4  5  6  7  8  9 10 11</code></pre></div>
-<p>最后一个例子中，使用了<code>[[</code>，巧妙地取得了第二个元素。</p>
-
-<h2 id="14-输出table有引号-quote-参数来帮忙">14. 输出table有引号，<code>quote</code>参数来帮忙</h2>
-
+ [1]  2  3  4  5  6  7  8  9 10 11
+</code></pre></div><p>最后一个例子中，使用了<code>[[</code>，巧妙地取得了第二个元素。</p>
+<h2 id="14-输出table有引号quote参数来帮忙-">14. 输出table有引号，<code>quote</code>参数来帮忙</h2>
 <p>在使用<code>write.table()</code>命令输入一个data.frame对象时候，输入文件会加引号。这时，设定<code>quote</code>参数，<code>write.table(..., quote = FALSE)</code>。</p>
-
-<h2 id="15-比较两个元素-identical">15. 比较两个元素<code>identical()</code></h2>
-
-<h2 id="16-压缩list用-do-call">16. 压缩list用<code>do.call()</code></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">do.call(rbind, list)</code></pre></div>
-<h2 id="17-分割数据使用-split">17. 分割数据使用<code>split()</code></h2>
+<h2 id="15-比较两个元素identical-">15. 比较两个元素<code>identical()</code></h2>
+<h2 id="16-压缩list用docall-">16. 压缩list用<code>do.call()</code></h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">do.call(rbind, list)
+</code></pre></div><h2 id="17-分割数据使用split-">17. 分割数据使用<code>split()</code></h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; test1 &lt;- rep(c(<span style="color:#a31515">&#39;a&#39;</span>, <span style="color:#a31515">&#39;b&#39;</span>), c(3, 4))
 &gt; test1
 [1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span>
@@ -360,15 +314,13 @@ $a
 [1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;a&#34;</span>
 
 $b
-[1] <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span></code></pre></div>
-<h2 id="18-输出txt文档找-sink">18. 输出txt文档找<code>sink()</code></h2>
-
+[1] <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;b&#34;</span>
+</code></pre></div><h2 id="18-输出txt文档找sink-">18. 输出txt文档找<code>sink()</code></h2>
 <p><code>sink()</code>可以将R的对象输出到外部文档中，第一遍可能包括了系统信息，需要输出第二遍。一个典型的流程如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; sink(filename)
 &gt; test1
-&gt; sink()</code></pre></div>
-<h2 id="19-r中循环for妙用">19. R中循环for妙用</h2>
-
+&gt; sink()
+</code></pre></div><h2 id="19-r中循环for妙用-">19. R中循环for妙用</h2>
 <p>R中for循环中，需要指定一个计数器，比如i in 1:10之类。R可以直接将一个向量用于计数，返回向量中对应的值，比如:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; tmp1 &lt;- <span style="color:#00f">letters</span>[1:10]
 for (i in tmp1) {
@@ -383,27 +335,27 @@ for (i in tmp1) {
 [1] <span style="color:#a31515">&#34;g&#34;</span>
 [1] <span style="color:#a31515">&#34;h&#34;</span>
 [1] <span style="color:#a31515">&#34;i&#34;</span>
-[1] <span style="color:#a31515">&#34;j&#34;</span></code></pre></div>
-<h2 id="20-多个序列取交集并集用-reduce">20. 多个序列取交集并集用<code>Reduce()</code></h2>
+[1] <span style="color:#a31515">&#34;j&#34;</span>
+</code></pre></div><h2 id="20-多个序列取交集并集用reduce-">20. 多个序列取交集并集用<code>Reduce()</code></h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; Reduce(union, list(<span style="color:#00f">letters</span>[1:3], <span style="color:#00f">letters</span>[1:4], <span style="color:#00f">letters</span>[1:5]))
-[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;d&#34;</span> <span style="color:#a31515">&#34;e&#34;</span></code></pre></div>
-<h2 id="21-载入github储存的r代码使用-source-url">21. 载入github储存的R代码使用<code>source_url</code></h2>
-
+[1] <span style="color:#a31515">&#34;a&#34;</span> <span style="color:#a31515">&#34;b&#34;</span> <span style="color:#a31515">&#34;c&#34;</span> <span style="color:#a31515">&#34;d&#34;</span> <span style="color:#a31515">&#34;e&#34;</span>
+</code></pre></div><h2 id="21-载入github储存的r代码使用source_url-">21. 载入github储存的R代码使用<code>source_url</code></h2>
 <p>需要安装和调用<a href="http://cran.r-project.org/web/packages/devtools/index.html">devtools</a>包</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; library(devtools)
-&gt; source_url(<span style="color:#a31515">&#39;https://raw.githubusercontent.com/YulongNiu/FunFunc/master/test_two_proportion.R&#39;</span>)</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+&gt; source_url(<span style="color:#a31515">&#39;https://raw.githubusercontent.com/YulongNiu/FunFunc/master/test_two_proportion.R&#39;</span>)
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="https://stat.ethz.ch/pipermail/r-help/attachments/20030506/ba1b4515/attachment.pl">R中的if/else</a></p></li>
-
-<li><p>建立长度为0的对象：<a href="http://cos.name/cn/topic/105751">1</a>, <a href="http://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf">2</a></p></li>
-
-<li><p>R中其他令人迷惑的地方：<a href="http://ygc.name/2012/07/10/tricky-things-in-r/">1</a>，<a href="http://cos.name/cn/topic/17000#post-17000">2</a></p></li>
+<li>
+<p><a href="https://stat.ethz.ch/pipermail/r-help/attachments/20030506/ba1b4515/attachment.pl">R中的if/else</a></p>
+</li>
+<li>
+<p>建立长度为0的对象：<a href="http://cos.name/cn/topic/105751">1</a>, <a href="http://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf">2</a></p>
+</li>
+<li>
+<p>R中其他令人迷惑的地方：<a href="http://ygc.name/2012/07/10/tricky-things-in-r/">1</a>，<a href="http://cos.name/cn/topic/17000#post-17000">2</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2018年11月26日</p>
 
 		</div>

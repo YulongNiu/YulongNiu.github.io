@@ -67,16 +67,10 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-fastqc">1. FastQC</h2>
-
+			<h2 id="1-fastqc-">1. FastQC</h2>
 <p><strong>简介</strong>：<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看<a href="http://www.bioinformatics.nl/courses/RNAseq/FastQC_Manual.pdf">输出结果解释</a>。</p>
-
 <p><strong>平台</strong>：所有平台。</p>
-
 <p><strong>安装</strong>： 依赖Java，下载后直接安装使用。</p>
-
 <p><strong>快速运行</strong>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 输出分析结果至特定文档</span>
 $ fastqc seqFile1 --outdir setFolder1
@@ -90,52 +84,54 @@ $ fastqc --help
 <span style="color:#008000"># 查看一共分析了多少个reads，比如fastqc文件为“accepted_filtered_fastqc.zip”</span>
 $ unzip -p accepted_filtered_fastqc.zip accepted_filtered_fastqc/fastqc_data.txt | <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>      sed -n <span style="color:#a31515">&#39;7 p&#39;</span> | <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>      awk <span style="color:#a31515">&#39;{print $3}&#39;</span></code></pre></div>
-<h2 id="2-trim-galore">2. Trim Galore!</h2>
-
+</span><span style="color:#a31515"></span>      awk <span style="color:#a31515">&#39;{print $3}&#39;</span>
+</code></pre></div><h2 id="2-trim-galore-">2. Trim Galore!</h2>
 <p><strong>简介</strong>：<a href="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/">Trim Galore!</a>是对<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>和<a href="https://cutadapt.readthedocs.org/en/stable/installation.html">Cutadapt</a>的包装。可以处理Illumina、Nextera 3和smallRNA测序平台的双端和单端数据，包括去除adapter和低质量reads。</p>
-
 <p><strong>平台</strong>：Linux</p>
-
 <p><strong>安装</strong>:</p>
-
 <ul>
 <li>需要先分别安装FastQC和Cutadapt，其中Cutadapt安装使用</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># pip install cutadapt</span></code></pre></div>
-<p><strong>快速运行</strong>：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># pip install cutadapt</span>
+</code></pre></div><p><strong>快速运行</strong>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 处理双端测序结果</span>
 $ trim_galore --quality 20 --phred33 --stringency 3 --length 20 --paired <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>              --gzip --output_dir human_trimgalore <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>              mySeq_1_1.fastq.gz mySeq_1_2.fastq.gz</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
+</span><span style="color:#a31515"></span>              mySeq_1_1.fastq.gz mySeq_1_2.fastq.gz
 
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>--quality</code>：设定Phred quality score阈值，默认为20。</p></li>
-
-<li><p><code>--phred33</code>：：选择<code>-phred33</code>或者<code>-phred64</code>，表示测序平台使用的Phred quality score。</p></li>
-
-<li><p><code>--adapter</code>：输入adapter序列。也可以不输入，Trim Galore!会自动寻找可能性最高的平台对应的adapter。自动搜选的平台三个，也直接显式输入这三种平台，即<code>--illumina</code>、<code>--nextera</code>和<code>--small_rna</code>。</p></li>
-
-<li><p><code>--stringency</code>：设定可以忍受的前后adapter重叠的碱基数，默认为1（非常苛刻）。可以适度放宽，因为后一个adapter几乎不可能被测序仪读到。</p></li>
-
-<li><p><code>--length</code>：设定输出reads长度阈值，小于设定值会被抛弃。</p></li>
-
-<li><p><code>--paired</code>：对于双端测序结果，一对reads中，如果有一个被剔除，那么另一个会被同样抛弃，而不管是否达到标准。</p></li>
-
-<li><p><code>--retain_unpaired</code>：对于双端测序结果，一对reads中，如果一个read达到标准，但是对应的另一个要被抛弃，达到标准的read会被单独保存为一个文件。</p></li>
-
-<li><p><code>--gzip</code>和<code>--dont_gzip</code>：清洗后的数据zip打包或者不打包。</p></li>
-
-<li><p><code>--output_dir</code>：输入目录。需要提前建立目录，否则运行会报错。</p></li>
+<li>
+<p><code>--quality</code>：设定Phred quality score阈值，默认为20。</p>
+</li>
+<li>
+<p><code>--phred33</code>：：选择<code>-phred33</code>或者<code>-phred64</code>，表示测序平台使用的Phred quality score。</p>
+</li>
+<li>
+<p><code>--adapter</code>：输入adapter序列。也可以不输入，Trim Galore!会自动寻找可能性最高的平台对应的adapter。自动搜选的平台三个，也直接显式输入这三种平台，即<code>--illumina</code>、<code>--nextera</code>和<code>--small_rna</code>。</p>
+</li>
+<li>
+<p><code>--stringency</code>：设定可以忍受的前后adapter重叠的碱基数，默认为1（非常苛刻）。可以适度放宽，因为后一个adapter几乎不可能被测序仪读到。</p>
+</li>
+<li>
+<p><code>--length</code>：设定输出reads长度阈值，小于设定值会被抛弃。</p>
+</li>
+<li>
+<p><code>--paired</code>：对于双端测序结果，一对reads中，如果有一个被剔除，那么另一个会被同样抛弃，而不管是否达到标准。</p>
+</li>
+<li>
+<p><code>--retain_unpaired</code>：对于双端测序结果，一对reads中，如果一个read达到标准，但是对应的另一个要被抛弃，达到标准的read会被单独保存为一个文件。</p>
+</li>
+<li>
+<p><code>--gzip</code>和<code>--dont_gzip</code>：清洗后的数据zip打包或者不打包。</p>
+</li>
+<li>
+<p><code>--output_dir</code>：输入目录。需要提前建立目录，否则运行会报错。</p>
+</li>
 </ul>
-
-<h2 id="3-trimmomatic">3. Trimmomatic</h2>
-
+<h2 id="3-trimmomatic-">3. Trimmomatic</h2>
 <p><strong>简介</strong>：<a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a>是针对Illumina高通量测序平台设计的接头去除和低质量reads清洗软件。软件中包括有Illumina平台常见接头序列，可以很方便处理单端和双端RNA-seq数据。Trimmomatic也支持自己设计要去除的接头序列文件。</p>
-
 <p><strong>平台</strong>：Java跨平台使用</p>
-
 <p><strong>快速运行</strong>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 处理双端测序结果</span>
 $ java -jar /path/trimmomatic-0.33.jar PE<span style="color:#a31515">\
@@ -147,27 +143,32 @@ $ java -jar /path/trimmomatic-0.33.jar PE<span style="color:#a31515">\
 </span><span style="color:#a31515"></span>       LEADING:3 <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>       TRAILING:3 <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>       SLIDINGWINDOW:4:15 <span style="color:#a31515">\
-</span><span style="color:#a31515"></span>       MINLEN:51</code></pre></div>
-<p><strong>重要参数解释</strong>：</p>
-
+</span><span style="color:#a31515"></span>       MINLEN:51
+</code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
-<li><p><code>-threads</code>：设置线程数目。</p></li>
-
-<li><p><code>-phred33</code>：选择<code>-phred33</code>或者<code>-phred64</code>，表示测序平台使用的Phred quality score。查询方法：首先，运行<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>，在结果报告第一项会“猜出”测序平台。之后，查询平台对应Phred<a href="http://en.wikipedia.org/wiki/FASTQ_format">列表</a>。</p></li>
-
-<li><p><code>-trimlog</code>：输出运行日志。日志中包括对每一个read具体选择数据，所以文件会比较大。</p></li>
-
-<li><p><code>ILLUMINACLIP</code>：跟随四个参数，分别是<code>:&lt;fastaWithAdaptersEtc&gt;</code>为adaptesr文件完整路径（在Trimmomatic的默认安装目录下的 <code>adapter</code>，有整理好的）；<code>&lt;fastaWithAdaptersEtc&gt;</code>为seed matches（16bases）在匹配时的最大错配数目；<code>&lt;palindrome clip threshold&gt;</code>对于一对reads当得分超过30（约50 bases），seeds会被延伸和固定；<code>&lt;simple clip threshold&gt;</code>，对于单端reads当得分超过10（约17 bases），seeds会被延伸和固定。</p></li>
-
-<li><p><code>LEADING</code>和<code>TRAILING</code>：分别为去除read头部和尾部的低质量（低于quality3）碱基数目。</p></li>
-
-<li><p><code>SLIDINGWINDOW</code>：跟随两个参数，分别是 <code>&lt;windowSize&gt;</code>为扫描“窗口”长度；<code>&lt;requiredQuality&gt;</code>为窗口碱基质量的平均阈值，低于此会被删除。</p></li>
-
-<li><p><code>MINLEN</code>：设置最短reads数目。需要根据下游alignment软件设定，比如<a href="http://bowtie-bio.sourceforge.net/index.shtml">Bowtie</a>适用于短序列，比如50bp以下；而<a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a>适用于50bp以上。<a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a> 则根据实际使用Bowtie或者Bowtie2选择。</p></li>
+<li>
+<p><code>-threads</code>：设置线程数目。</p>
+</li>
+<li>
+<p><code>-phred33</code>：选择<code>-phred33</code>或者<code>-phred64</code>，表示测序平台使用的Phred quality score。查询方法：首先，运行<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>，在结果报告第一项会“猜出”测序平台。之后，查询平台对应Phred<a href="http://en.wikipedia.org/wiki/FASTQ_format">列表</a>。</p>
+</li>
+<li>
+<p><code>-trimlog</code>：输出运行日志。日志中包括对每一个read具体选择数据，所以文件会比较大。</p>
+</li>
+<li>
+<p><code>ILLUMINACLIP</code>：跟随四个参数，分别是<code>:&lt;fastaWithAdaptersEtc&gt;</code>为adaptesr文件完整路径（在Trimmomatic的默认安装目录下的 <code>adapter</code>，有整理好的）；<code>&lt;fastaWithAdaptersEtc&gt;</code>为seed matches（16bases）在匹配时的最大错配数目；<code>&lt;palindrome clip threshold&gt;</code>对于一对reads当得分超过30（约50 bases），seeds会被延伸和固定；<code>&lt;simple clip threshold&gt;</code>，对于单端reads当得分超过10（约17 bases），seeds会被延伸和固定。</p>
+</li>
+<li>
+<p><code>LEADING</code>和<code>TRAILING</code>：分别为去除read头部和尾部的低质量（低于quality3）碱基数目。</p>
+</li>
+<li>
+<p><code>SLIDINGWINDOW</code>：跟随两个参数，分别是 <code>&lt;windowSize&gt;</code>为扫描“窗口”长度；<code>&lt;requiredQuality&gt;</code>为窗口碱基质量的平均阈值，低于此会被删除。</p>
+</li>
+<li>
+<p><code>MINLEN</code>：设置最短reads数目。需要根据下游alignment软件设定，比如<a href="http://bowtie-bio.sourceforge.net/index.shtml">Bowtie</a>适用于短序列，比如50bp以下；而<a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a>适用于50bp以上。<a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a> 则根据实际使用Bowtie或者Bowtie2选择。</p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2016年9月10日</p>
 
 		</div>

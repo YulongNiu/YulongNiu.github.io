@@ -67,35 +67,29 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-r包介绍">1. R包介绍</h2>
-
+			<h2 id="1-r包介绍-">1. R包介绍</h2>
 <p>R的包（package）通常有两种:</p>
-
 <ul>
-<li><p>二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。</p></li>
-
-<li><p>源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。</p></li>
+<li>
+<p>二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。</p>
+</li>
+<li>
+<p>源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。</p>
+</li>
 </ul>
-
-<h2 id="2-r包安装">2. R包安装</h2>
-
-<h3 id="2-1-源代码安装">2.1 源代码安装</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo R CMD INSTALL /.../myPackage.tar.gz</code></pre></div>
-<p>使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。</p>
-
-<h3 id="2-2-内置-install-packages-函数安装">2.2 内置<code>install.packages()</code>函数安装</h3>
-
+<h2 id="2-r包安装-">2. R包安装</h2>
+<h3 id="21-源代码安装-">2.1 源代码安装</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo R CMD INSTALL /.../myPackage.tar.gz
+</code></pre></div><p>使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。</p>
+<h3 id="22-内置installpackages函数安装">2.2 内置<code>install.packages()</code>函数安装###</h3>
 <p>使用<code>install.packages()</code>安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如<a href="http://www.bioconductor.org/packages/release/bioc/html/Rsubread.html">Rsubread</a>不能在Windows操作系统下使用。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install.packages(<span style="color:#a31515">&#39;myPackage&#39;</span>)</code></pre></div>
-<p>同时，可以使用<code>install.packages()</code>安装本地下载的包，尤其适用于在服务器上安装包</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install.packages(<span style="color:#a31515">&#39;myPackage&#39;</span>)
+</code></pre></div><p>同时，可以使用<code>install.packages()</code>安装本地下载的包，尤其适用于在服务器上安装包</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install.packages(
   c(<span style="color:#a31515">&#39;XML_0.99-5.tar.gz&#39;</span>, <span style="color:#a31515">&#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&#39;</span>),
   repos = <span style="color:#00f">NULL</span>,
-  configure.args = c(XML = <span style="color:#a31515">&#39;--with-xml-config=xml-config&#39;</span>, RSPerl = <span style="color:#a31515">&#39;--with-modules= &#34;IO Fcntl&#34;&#39;</span>)) </code></pre></div>
-<h2 id="3-r包版本查询和更新">3. R包版本查询和更新</h2>
-
+  configure.args = c(XML = <span style="color:#a31515">&#39;--with-xml-config=xml-config&#39;</span>, RSPerl = <span style="color:#a31515">&#39;--with-modules= &#34;IO Fcntl&#34;&#39;</span>)) 
+</code></pre></div><h2 id="3-r包版本查询和更新-">3. R包版本查询和更新</h2>
 <p>R和R包版本查询</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># 在启动的R中执行</span>
 R.version
@@ -104,16 +98,16 @@ R.version
 packageVersion(<span style="color:#a31515">&#39;myPackage&#39;</span>)
 
 <span style="color:#008000"># 查询当前R的详细信息，包括R版本、R包版本、命名空间等</span>
-sessionInfo()</code></pre></div>
-<p><a href="http://cran.r-project.org/">CRAN</a>包更新</p>
+sessionInfo()
+</code></pre></div><p><a href="http://cran.r-project.org/">CRAN</a>包更新</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># 可以定期执行以下</span>
-update.packages()  </code></pre></div>
-<p><a href="http://www.bioconductor.org/">Bioconductor</a>的安装和更新方法</p>
+update.packages()  
+</code></pre></div><p><a href="http://www.bioconductor.org/">Bioconductor</a>的安装和更新方法</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">source(<span style="color:#a31515">&#39;http://bioconductor.org/biocLite.R&#39;</span>)
-biocLite(<span style="color:#a31515">&#39;myPackage&#39;</span>)</code></pre></div>
-<h2 id="4-卸载r包">4. 卸载R包</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remove.packages(<span style="color:#a31515">&#39;myPackage&#39;</span>)</code></pre></div>
-<h2 id="5-r包相关函数">5. R包相关函数</h2>
+biocLite(<span style="color:#a31515">&#39;myPackage&#39;</span>)
+</code></pre></div><h2 id="4-卸载r包">4. 卸载R包##</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remove.packages(<span style="color:#a31515">&#39;myPackage&#39;</span>)
+</code></pre></div><h2 id="5-r包相关函数-">5. R包相关函数</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># 查看包的安装目录</span>
 .libPaths()
 
@@ -131,10 +125,9 @@ require(myPackage)
 search()
 
 <span style="color:#008000"># 查看启动R时自动载入的包。</span>
-getOption(<span style="color:#a31515">&#39;defaultPackages&#39;</span>)</code></pre></div>
-<h2 id="6-帮助信息查询">6. 帮助信息查询</h2>
-
-<h3 id="6-1-r和r包帮助信息">6.1 R和R包帮助信息</h3>
+getOption(<span style="color:#a31515">&#39;defaultPackages&#39;</span>)
+</code></pre></div><h2 id="6-帮助信息查询-">6. 帮助信息查询</h2>
+<h3 id="61-r和r包帮助信息-">6.1 R和R包帮助信息</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># 查询R HOME安装地址</span>
 Sys.getenv(<span style="color:#a31515">&#39;R_HOME&#39;</span>)
 
@@ -164,8 +157,8 @@ vignette(<span style="color:#a31515">&#39;myPackage&#39;</span>)
 openVignette(<span style="color:#a31515">&#39;myPackage&#39;</span>)
 
 <span style="color:#008000"># 展示一些包中demostration</span>
-demo(<span style="color:#a31515">&#39;package&#39;</span>)</code></pre></div>
-<h3 id="6-2-查询对象信息">6.2 查询对象信息</h3>
+demo(<span style="color:#a31515">&#39;package&#39;</span>)
+</code></pre></div><h3 id="62-查询对象信息-">6.2 查询对象信息</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># 查看&#34;myPackage&#34;中的所有对象</span>
 ls(<span style="color:#a31515">&#39;package:myPackage&#39;</span>)
 
@@ -207,23 +200,21 @@ getSlots(<span style="color:#a31515">&#39;class&#39;</span>)
 slotNames(myObject)
 
 <span style="color:#008000"># 访问对象的slot值使用@，可以连续用</span>
-Myobject@slotNames</code></pre></div>
-<h2 id="7-查看函数源代码">7. 查看函数源代码</h2>
-
-<h3 id="7-1-普通函数源代码">7.1 普通函数源代码</h3>
-
+Myobject@slotNames
+</code></pre></div><h2 id="7-查看函数源代码-">7. 查看函数源代码</h2>
+<h3 id="71-普通函数源代码-">7.1 普通函数源代码</h3>
 <p>直接输入函数名称，不加后面的括号。比如:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; fivenum</code></pre></div>
-<h3 id="7-2-查询s3-s4函数源代码">7.2 查询S3/S4函数源代码</h3>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; fivenum
+</code></pre></div><h3 id="72-查询s3s4函数源代码-">7.2 查询S3/S4函数源代码</h3>
 <p>因为如果使用了R的S3和S4方法，可能一个函数名称对应的多个不同的方法（对应不同的对象）。这时，采用的策略是：</p>
-
 <ol>
-<li><p>查询函数对应的方法</p></li>
-
-<li><p>查询具体方法对应的源代码</p></li>
+<li>
+<p>查询函数对应的方法</p>
+</li>
+<li>
+<p>查询具体方法对应的源代码</p>
+</li>
 </ol>
-
 <p>比如<code>t.test</code>的源代码</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; t.test
 function (x, <span style="color:#00f">...</span>) 
@@ -241,8 +232,8 @@ UseMethod(<span style="color:#a31515">&#34;t.test&#34;</span>)
 <span style="color:#008000"># 查看源代码，三种方法</span>
 &gt; getAnywhere(<span style="color:#a31515">&#39;t.test.default&#39;</span>)
 &gt; getS3method(<span style="color:#a31515">&#39;t.test&#39;</span>,<span style="color:#a31515">&#39;default&#39;</span>)
-&gt; stats:::t.test.default</code></pre></div>
-<p>另外一个例子，查询<span style="color: blue">affy</span>包中<code>pm()</code>的源代码：</p>
+&gt; stats:::t.test.default
+</code></pre></div><p>另外一个例子，查询<!-- raw HTML omitted -->affy<!-- raw HTML omitted -->包中<code>pm()</code>的源代码：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">&gt; library(affy)
 &gt; pm
 standardGeneric for <span style="color:#a31515">&#34;pm&#34;</span> defined from package <span style="color:#a31515">&#34;affy&#34;</span>
@@ -253,17 +244,17 @@ standardGeneric(<span style="color:#a31515">&#34;pm&#34;</span>)
 Methods may be defined for arguments: object
 Use  showMethods(<span style="color:#a31515">&#34;pm&#34;</span>)  for currently available ones.
 
-&gt; findMethods(<span style="color:#a31515">&#39;pm&#39;</span>)</code></pre></div>
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+&gt; findMethods(<span style="color:#a31515">&#39;pm&#39;</span>)
+</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
-<li><p><a href="http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/">R包安装</a></p></li>
-
-<li><p>《R语言编程技术》(The Art of R Programming)</p></li>
+<li>
+<p><a href="http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/">R包安装</a></p>
+</li>
+<li>
+<p>《R语言编程技术》(The Art of R Programming)</p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2014年11月25日</p>
 
 		</div>

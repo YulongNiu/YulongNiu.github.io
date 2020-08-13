@@ -67,67 +67,54 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-emacs配置文件位置">1. Emacs配置文件位置</h2>
-
+			<h2 id="1-emacs配置文件位置-">1. Emacs配置文件位置</h2>
 <p>在Fedora系统下，Emacs的配置文件位置是<code>~/.emacs</code>。在Emacs配置文件中添加内容后，使用<code>M-x eval-buffer</code>，使当前配置生效。编译代码以加快加载速度，<code>M-x byte-compile-file</code>。</p>
-
 <p>使用Eamcs解释器<code>M-x ielm</code>。</p>
-
-<h2 id="2-emacs自带的包管理系统">2. Emacs自带的包管理系统</h2>
-
+<h2 id="2-emacs自带的包管理系统-">2. Emacs自带的包管理系统</h2>
 <p>在Emacs24之后，自带包管理系统，使用<code>M-x eval-buffer</code>进入。可以添加<a href="http://melpa.org/">MELPA源</a>、<a href="https://marmalade-repo.org/">marmalade源</a>、<a href="http://elpa.gnu.org/packages/">GNU源</a>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(require <span style="color:#a31515">&#39;package</span>)
 (add-to-list <span style="color:#a31515">&#39;package-archives</span>
 	     &#39;(<span style="color:#a31515">&#34;melpa&#34;</span> . <span style="color:#a31515">&#34;http://melpa.milkbox.net/packages/&#34;</span>))
 (add-to-list <span style="color:#a31515">&#39;package-archives</span>
 	     &#39;(<span style="color:#a31515">&#34;gnu&#34;</span> . <span style="color:#a31515">&#34;http://elpa.gnu.org/packages/&#34;</span>))
-(package-initialize)</code></pre></div>
-<p>这样设置之后，就不需要类似<code>(add-to-list 'load-path &quot;~/.emacs.d/elpa/popup-20140207.1702/&quot;)</code>的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上<code>(require 'popup)</code>之类的语句。</p>
-
-<h2 id="3-显示行号">3. 显示行号</h2>
-
+(package-initialize)
+</code></pre></div><p>这样设置之后，就不需要类似<code>(add-to-list 'load-path &quot;~/.emacs.d/elpa/popup-20140207.1702/&quot;)</code>的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上<code>(require 'popup)</code>之类的语句。</p>
+<h2 id="3-显示行号-">3. 显示行号</h2>
 <p>使用<code>M-x linum-mode</code>添加行号。如果需要永久显示，在Emacs配置文件中添加一下内容。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;</span>
 <span style="color:#008000">;open linum mode</span>
 <span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;</span>
 (setq linum-format <span style="color:#a31515">&#34;%4d \u2502&#34;</span>)
 (add-hook <span style="color:#a31515">&#39;prog-mode-hook</span> <span style="color:#a31515">&#39;linum-mode</span>)
-(add-hook <span style="color:#a31515">&#39;ess-mode-hook</span> <span style="color:#a31515">&#39;linum-mode</span>)</code></pre></div>
-<h2 id="4-进入shell">4. 进入Shell</h2>
-
+(add-hook <span style="color:#a31515">&#39;ess-mode-hook</span> <span style="color:#a31515">&#39;linum-mode</span>)
+</code></pre></div><h2 id="4-进入shell-">4. 进入Shell</h2>
 <p>三种方法：</p>
-
 <ul>
-<li><p><code>M-x shell</code></p></li>
-
-<li><p><code>M-x ansi-term</code></p></li>
-
-<li><p><code>M-x eshell</code></p></li>
+<li>
+<p><code>M-x shell</code></p>
+</li>
+<li>
+<p><code>M-x ansi-term</code></p>
+</li>
+<li>
+<p><code>M-x eshell</code></p>
+</li>
 </ul>
-
-<h2 id="5-root权限">5. root权限</h2>
-
+<h2 id="5-root权限-">5. root权限</h2>
 <p><code>C-x C-f</code> 之后输入root密码<code>/su:root@usrname password</code></p>
-
-<h2 id="6-移动整体代码块">6. 移动整体代码块</h2>
-
+<h2 id="6-移动整体代码块-">6. 移动整体代码块</h2>
 <p>选中代码块后：
 向左移动2个字符：<code>C-u -2 C-x TAB</code>
 向右移动4个字符：<code>C-u 4 C-x TAB</code></p>
-
-<h2 id="7-添加彩虹猫">7. 添加彩虹猫</h2>
-
+<h2 id="7-添加彩虹猫-">7. 添加彩虹猫</h2>
 <p>添加<code>nyan-mode</code>包，之后在Emacs配置文档中写入：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
 <span style="color:#008000">;nyan-mode</span>
 <span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-(nyan-mode t)</code></pre></div>
-<h2 id="8-自定义yasnippet模板">8. 自定义YASnippet模板</h2>
-
+(nyan-mode t)
+</code></pre></div><h2 id="8-自定义yasnippet模板-">8. 自定义YASnippet模板</h2>
 <p>使用<code>M-x yas-new-snippet</code>，打开一个模板。比如，添加Octopress的语言高亮模板</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># -*- mode: snippet; require-final-newline: nil -*-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># -*- mode: snippet; require-final-newline: nil -*-
 # name: Highlight Language
 # key: hl
 # binding: direct-keybinding
@@ -135,25 +122,25 @@
 # --
 
 {% codeblock lang:${1:bash} %}
-$0</pre></div>
-<p>其中 <code>${1:bash}</code>表示光标跳转位置，编号从1开始。<code>$0</code>表示光标最后停留位置。如果不需要插入空行，在模板中把多余空行去掉。</p>
-
+$0
+</code></pre></div><p>其中 <code>${1:bash}</code>表示光标跳转位置，编号从1开始。<code>$0</code>表示光标最后停留位置。如果不需要插入空行，在模板中把多余空行去掉。</p>
 <p>自定义的模板建议存放与 <code>~/.emacs.d/snippets/</code>的对应mode文件夹下。比如在markdown模式下使用的模板，存放与 <code>~/.emacs.d/snippets/markdown-mode/</code>。</p>
-
-<h3 id="参考资料">参考资料</h3>
-
+<h3 id="参考资料-">参考资料</h3>
 <ul>
-<li><p><a href="http://capitaomorte.github.io/yasnippet/">YASnippet Tutorial</a></p></li>
-
-<li><p><a href="http://www.cnblogs.com/ibgo/p/3900317.html">自定义 Yasnippet 模板</a></p></li>
-
-<li><p><a href="https://github.com/mad4alcohol/mad4a-blog/blob/master/_posts/2012-08-02-emacs-summary-cont.md">YASnippet添加模板</a></p></li>
-
-<li><p><a href="Copy/Paste in emacs ansi-term shell">Copy/Paste in emacs ansi-term shell</a></p></li>
+<li>
+<p><a href="http://capitaomorte.github.io/yasnippet/">YASnippet Tutorial</a></p>
+</li>
+<li>
+<p><a href="http://www.cnblogs.com/ibgo/p/3900317.html">自定义 Yasnippet 模板</a></p>
+</li>
+<li>
+<p><a href="https://github.com/mad4alcohol/mad4a-blog/blob/master/_posts/2012-08-02-emacs-summary-cont.md">YASnippet添加模板</a></p>
+</li>
+<li>
+<p>[Copy/Paste in emacs ansi-term shell](Copy/Paste in emacs ansi-term shell)</p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年5月9日</p>
 
 		</div>

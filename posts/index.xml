@@ -31,26 +31,25 @@
       
       <guid>https://YulongNiu.github.io/posts/2019-05-04-small-changes-smooth-review/</guid>
       <description>我最近看到Nature的一篇报道，讲述一些小的改进能提升文章的审稿速度。内容包括了草稿排版、写作和图表等方面，简要摘录关键信息。尽管遵循这些建议不会增加或减少文章被接受的概率，但能更加清楚地向读者和审稿人展现自己文章的核心内容。
- 草稿排版
- 宽行间距和大号字体。单列排版时，推荐使用1.5倍行距，每行12-15个单词。
- 连续行编号，方便审稿人指出问题所在位置。
- 图和图例尽量靠近相关文字。
-  写作
- 避免主观词汇。审稿人通常反感主观词汇，例如：unprecedented、 paradigm shift、 amazing、 dramatic、 interesting、 remarkable等。
- 减少使用缩写。当文中出现5次或以上时，再考虑使用缩写。但一些熟知的专业名词，例如DNA、RNA等要使用缩写。
- 避免使用无方向性词汇，influence。应该明确指出怎样影响（增加或减少），最好能有具体的数值表述。例如，改变×××倍提高了×××产量等。
- 避免在所有情况下都使用significant。应为signficant容易和统计检验混淆，应该使用具体数值描述影响。
- 文章起一个陈述性的题目。避免使用暗示性、假设性的题目，而应该具体描述文章的发现。注意不要夸大结果或者模糊描述。“通过避免使用主观词汇、仔细描述文章真实而非潜在暗示的发现，应该能找到一个可读性高、信息量大、有趣的题目，从而不会夸大文章的发现”。
- 摘要写法，Nature提供了一个模板。
-   数据和图标
- 定义不确定量（统计学）。在图例中描述error bar、盒箱图等不确定量的定义。
- 使用统计检验。
- 展示和提取潜在数据。例如使用散点图（小数据）、盒箱图/小提琴图（大数据）等、提交数据至数据库等。
- 合理上色。避免使用彩虹图、使用ColorBrewer等更加友好的配色方案。比如一种diverge配色方案（热图），中间数据使用白色、两边渐进黄蓝强对比色。
- 简化图。去除3D、阴影或不必要的颜色等。
- 图例中添加小标题。
-   参考资料  How small changes to a paper can help to smooth the review process
- Statistics for Biologists</description>
+  草稿排版
+  宽行间距和大号字体。单列排版时，推荐使用1.5倍行距，每行12-15个单词。
+  连续行编号，方便审稿人指出问题所在位置。
+  图和图例尽量靠近相关文字。
+    写作
+  避免主观词汇。审稿人通常反感主观词汇，例如：unprecedented、 paradigm shift、 amazing、 dramatic、 interesting、 remarkable等。
+  减少使用缩写。当文中出现5次或以上时，再考虑使用缩写。但一些熟知的专业名词，例如DNA、RNA等要使用缩写。
+  避免使用无方向性词汇，influence。应该明确指出怎样影响（增加或减少），最好能有具体的数值表述。例如，改变×××倍提高了×××产量等。
+  避免在所有情况下都使用significant。应为signficant容易和统计检验混淆，应该使用具体数值描述影响。
+  文章起一个陈述性的题目。避免使用暗示性、假设性的题目，而应该具体描述文章的发现。注意不要夸大结果或者模糊描述。“通过避免使用主观词汇、仔细描述文章真实而非潜在暗示的发现，应该能找到一个可读性高、信息量大、有趣的题目，从而不会夸大文章的发现”。
+  摘要写法，Nature提供了一个模板。
+    数据和图标
+  定义不确定量（统计学）。在图例中描述error bar、盒箱图等不确定量的定义。
+  使用统计检验。
+  展示和提取潜在数据。例如使用散点图（小数据）、盒箱图/小提琴图（大数据）等、提交数据至数据库等。
+  合理上色。避免使用彩虹图、使用ColorBrewer等更加友好的配色方案。比如一种diverge配色方案（热图），中间数据使用白色、两边渐进黄蓝强对比色。
+  简化图。去除3D、阴影或不必要的颜色等。
+  图例中添加小标题。
+    参考资料   How small changes to a paper can help to smooth the review process</description>
     </item>
     
     <item>
@@ -69,19 +68,18 @@ dds &amp;lt;- makeExampleDESeqDataSet(n = 100, m = 12) dds$genotype &amp;lt;- fa
       <pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</guid>
-      <description>1. 使用dplyr包的好处  大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
- 与magrittr包的管道更好地结合。
- 更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
-  2. 列操作  filter()：过滤列，需要输入一个逻辑向量。xor(x, y)x和y并集除去交集的部分。between(x, left, right)left &amp;lt;= x &amp;lt;= right。near(x, y)x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。受group操作影响。返回一个空的表格，只保留列名，filter(x, FALSE)。
- arrange()：列排序（默认升序）。多列操作时，先排序第一个，再对第一个相等的排第二个。desc()降序排列。.by_group = FALSE控制是否需要按照group进行组内操作。
- select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
- rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
- mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
- summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
- filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
+      <description>1. 使用dplyr包的好处   大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
+  与magrittr包的管道更好地结合。
+  更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
+  2. 列操作   filter()：过滤列，需要输入一个逻辑向量。xor(x, y)x和y并集除去交集的部分。between(x, left, right)left &amp;lt;= x &amp;lt;= right。near(x, y)x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。受group操作影响。返回一个空的表格，只保留列名，filter(x, FALSE)。
+  arrange()：列排序（默认升序）。多列操作时，先排序第一个，再对第一个相等的排第二个。desc()降序排列。.by_group = FALSE控制是否需要按照group进行组内操作。
+  select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
+  rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
+  mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
+  summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
+  filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
    _at()使用contains()等函数时，.var参数需要处理为.var = vars(contains())的形式。
-参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, ., NA), repEmp = replace_na(., &#39;&#39;))。在.funs中使用expr(.)引用列名。
-  $依然有效，可以方便取某列或者对某列赋值。</description>
+  参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, .</description>
     </item>
     
     <item>
@@ -92,10 +90,10 @@ dds &amp;lt;- makeExampleDESeqDataSet(n = 100, m = 12) dds$genotype &amp;lt;- fa
       <guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid>
       <description>1. R性能检测 直接使用profvis包即可，例如示例。
 2. Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
-#include &amp;lt;Rcpp.h&amp;gt;#include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; }  包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
+#include &amp;lt;Rcpp.h&amp;gt;#include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; } 包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
 2.3 调试 使用方法为：
 Mypkg:::start_profiler(&amp;#34;/tmp/profile.out&amp;#34;) run_cpp_codes() Mypkg:::stop_profiler() 查看profile结果：
-## text pprof --text src/Mypkg.so /tmp/profile.out ## pdf pprof --pdf src/Mypkg.</description>
+## text pprof --text src/Mypkg.so /tmp/profile.out ## pdf pprof --pdf src/Mypkg.so /tmp/profile.out &amp;gt; profile.</description>
     </item>
     
     <item>
@@ -105,17 +103,17 @@ Mypkg:::start_profiler(&amp;#34;/tmp/profile.out&amp;#34;) run_cpp_codes() Mypkg
       
       <guid>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</guid>
       <description>在之前的博文中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：
-当循环数很大时（1万以上），`foreach`会变得非常慢。 这个问题在Florian Privé的A guide to parallelism in R中也提到，解释是foreach每次只合并100个循环结果。
+当循环数很大时（1万以上），`foreach`会变得非常慢。  这个问题在Florian Privé的A guide to parallelism in R中也提到，解释是foreach每次只合并100个循环结果。
 1. 测试 我尝试使用RcppParallel包调用C++的并行方法。结论是：在循环数很大时，RcppParallel包提供的并行方法优于foreach。
 一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在Gist1和Gist2中，分别实现了：
- SqrtR：用循环非并行操作每个元素。这种方法在R语言编程中不推荐，而应该尽量“向量化”操作。
- SqrtRforeach：foreach并行版本。
- SqrtRParSapply: parSapply并行版本。
- SqrtCpp：C++非并行版本。
- SqrtCppPara：RcppParallel包的C++并行版本。
- sqrt：R内置的向量化方法，C非并行版本。
+  SqrtR：用循环非并行操作每个元素。这种方法在R语言编程中不推荐，而应该尽量“向量化”操作。
+  SqrtRforeach：foreach并行版本。
+  SqrtRParSapply: parSapply并行版本。
+  SqrtCpp：C++非并行版本。
+  SqrtCppPara：RcppParallel包的C++并行版本。
+  sqrt：R内置的向量化方法，C非并行版本。
   首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 CPU@3.6GHz）。测试结果显示SqrtRPara（使用foreach）和非向量化的R版本SqrtR效率较低。
-tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## TRUE microbenchmark( SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## Unit: microseconds ## expr min lq mean median ## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.0335 ## sqrt(tmp1) 36.216 46.074 4.865115e+01 48.</description>
+tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## TRUE microbenchmark( SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## Unit: microseconds ## expr min lq mean median ## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.</description>
     </item>
     
     <item>
@@ -126,7 +124,7 @@ tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), Sqr
       <guid>https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/</guid>
       <description>$$ \newcommand{\tildel}{\widetilde{l_t}} $$
 $$ \newcommand{\P}{\mathrm{P}} $$
-$$ \DeclareMathOperator*{\argmax}{arg\,max} $$
+$$ \DeclareMathOperator*{\argmax}{arg,max} $$
 本文基于参考资料1，展示RNA-Seq在评估基因表达量模型的细节。
 1. 符号表示 $K$个长度为$l_i$的转录序列$t_i$，构成转录本的集合$T=\{t_1, t_2, \dots, t_K\}$。单个转录组中，每个转录序列$t_i$有$c_i$个拷贝数，全部转录序列的总拷贝数为$M$。单个转录序列的相对丰度为$\rho_k=\frac{c_k}{\sum\limits_{t \in T} c_t} = \frac{c_k}{M}$，易得$\sum\limits_{k=1}^K \rho_k=1$。
 单个转录组中，全部转录片段构成集合$F=\{f_1, f_2, \dots, f_N\}$，总转录片段数目为$N=|F|$。比对到的转录序列$t_i$上的转录片段，构成集合$F_t \in F$，对应的转录片段数目为$X_t=|F_t|$。
@@ -236,7 +234,7 @@ pick sha1id-of-c1 c1 pick sha1id-of-b2 b2 pick sha1id-of-b1 b1 ... 修改为：
 pick sha1id-of-c1 c1 squash sha1id-of-b2 b2 squash sha1id-of-b1 b1 ...  记录合并commits  在弹出的文本编辑器中标记和注释commits
  提交远程  由于本地和远程记录不一致，需要强制合并。
 $ git push -f origin mybranch 2. 贡献代码  Fork项目  Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：
-$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git  建立分支并提交修改  $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch  获取和合并最新远程修改  $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch  发起pull request。  参考资料  合并分支</description>
+$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git  建立分支并提交修改  $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch  获取和合并最新远程修改  $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch  发起pull request。  参考资料   合并分支</description>
     </item>
     
     <item>
@@ -261,30 +259,23 @@ $ git clone https://github.com/my/project.git $ git remote add upstream https://
       
       <guid>https://YulongNiu.github.io/posts/2016-09-22-how-to-publish-in-nc/</guid>
       <description>我最近看到一个幻灯片，主要讲了在Nature Communications（NC）上发表文章的建议，作者是NC的副主编Nicky Dean。整个幻灯片一种轻松幽默的口吻，讲述了投稿和发表文章过程的各种问题，并提出了针对性建议，值得推荐。以下记录一些关键信息。
-投稿前注意事项  Nature杂志（可能此处也指NC）只考虑有重大创新（conceptually novel）的工作，而不是补充完善数据类型研究。
- 不要有快速发表的想法。
- 不介意会议报告或者预印服务网站发表。
- 介意发表在出版的会议录（conference proceedings）或者其他大规模传播的媒介上。
-  准备充分  问问自己这个研究适合于本领域的哪些地方？这个研究是否有显著的进步？
- 从一开始就好好准备文稿，比如文稿有清晰的结构、容易理解，并且能够传达出最主要信息。
- 阅读《作者须知》，使得文稿符合杂志的要求。
-  准备cover letters  解释工作的创新，但不要过了。
- 推荐审稿人，但不能都是自己的熟人。
- 可以推荐需要屏蔽的审稿人。
- 明确一切相关的正在发表或者已经投稿的文章。
-  文章要素  解释清楚研究领域背景，即回答“我们为什么要重视这项研究？”
- 清晰地描述做了什么工作。
- 连接研究内容和领域背景，以说服别人这项研究确实有重大突破。
- 发表文章的目的是为了更有效地交流，而不是显示自己有聪明!
-  NC编辑审核常规要点  研究的创新性。
- 支持数据。
- 作者或者他人之前的研究。
- 参考文献是否完成，是否重大遗漏。
-  应对审稿人意见  如果被邀请重新提交文章，确保文章解决了所有审稿人提出的问题。
- 如果被要求进一步实验，不要尝试规避。
- 保持专业，不要使用侮辱性语言、自大或者恐吓。
- 审稿人也可能会犯错，并且记住他们是自己同行专家。不管怎样，以后大家还是要一起打交道。
-  更新记录 2016年9月22日</description>
+投稿前注意事项   Nature杂志（可能此处也指NC）只考虑有重大创新（conceptually novel）的工作，而不是补充完善数据类型研究。
+  不要有快速发表的想法。
+  不介意会议报告或者预印服务网站发表。
+  介意发表在出版的会议录（conference proceedings）或者其他大规模传播的媒介上。
+  准备充分   问问自己这个研究适合于本领域的哪些地方？这个研究是否有显著的进步？
+  从一开始就好好准备文稿，比如文稿有清晰的结构、容易理解，并且能够传达出最主要信息。
+  阅读《作者须知》，使得文稿符合杂志的要求。
+  准备cover letters   解释工作的创新，但不要过了。
+  推荐审稿人，但不能都是自己的熟人。
+  可以推荐需要屏蔽的审稿人。
+  明确一切相关的正在发表或者已经投稿的文章。
+  文章要素   解释清楚研究领域背景，即回答“我们为什么要重视这项研究？”
+  清晰地描述做了什么工作。
+  连接研究内容和领域背景，以说服别人这项研究确实有重大突破。
+  发表文章的目的是为了更有效地交流，而不是显示自己有聪明!
+  NC编辑审核常规要点   研究的创新性。
+  支持数据。</description>
     </item>
     
     <item>
@@ -305,12 +296,12 @@ $ git clone https://github.com/my/project.git $ git remote add upstream https://
       
       <guid>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</guid>
       <description>本文收集了一些常用参考基因组的下载网址和补充说明。
- NCBI genome
- Ensembl FTP
- UCSC FTP：cytoband文件可能含有gneg等标识，其中acen表示着丝粒区域、stalk表示近端着丝粒区域、gvar表示异染色质，例如臂间或端粒区域。
- GENCODE：只有人和大鼠，注释较好。
- iGenomes：部分模式生物bowtie、bowtie2和BWA索引基因组。
- HISAT2：部分模式生物HISAT2索引基因组。
+  NCBI genome
+  Ensembl FTP
+  UCSC FTP：cytoband文件可能含有gneg等标识，其中acen表示着丝粒区域、stalk表示近端着丝粒区域、gvar表示异染色质，例如臂间或端粒区域。
+  GENCODE：只有人和大鼠，注释较好。
+  iGenomes：部分模式生物bowtie、bowtie2和BWA索引基因组。
+  HISAT2：部分模式生物HISAT2索引基因组。
   更新记录 2018年8月6日</description>
     </item>
     
@@ -323,9 +314,9 @@ $ git clone https://github.com/my/project.git $ git remote add upstream https://
       <description>这篇博文的目的是展示R语言中下标操作矩阵的潜在问题。R语言提供了多种方法提取一个矩阵的单个或者部分元素，不同方法对应的效率在Hadley Wickham的Advance R中已有讨论。这些方法中，使用最广泛的是通过下标（行或者列）取值，即操作符[。然而，这种方法存在潜在问题，即内存中会拷贝原始对象。
 举例：首先建立一个矩阵，之后取这个矩阵除了第一行之外的部分，接下来操作这个部分矩阵。
 ## step1: build matrix n &amp;lt;- 8000 tmp1 &amp;lt;- matrix(rnorm(n * n), nrow = n, ncol = n) gc() ## step2: manipulate a subset of matrix sink(&amp;#39;/dev/null&amp;#39;) apply(tmp1[2:n, ], 1, function(x) x[1]) sink() ## step3: garbage collection gc() 内存使用情况如下：
- 标记1内存上升，因为建立了tmp1的矩阵；
- 标记2内存再次上升，主要因为使用下标取矩阵操作，tmp1[2:n, ]；
- 标记3内存下降，因为手动执行垃圾回收。
+  标记1内存上升，因为建立了tmp1的矩阵；
+  标记2内存再次上升，主要因为使用下标取矩阵操作，tmp1[2:n, ]；
+  标记3内存下降，因为手动执行垃圾回收。
   可以明显看到内存中多余的垃圾对象。如果使用for循环形式，就可以有效避免内存对象拷贝。虽然，R在内存空间不足时，会自动执行gc()。但是，执行程序时，不能全指望自动垃圾回收，毕竟有时回收得并不及时，而新的对象又相继生成。这种情况下，内存空间不足就成为很严重的问题。
 R版本3.3.1。
 更新记录 2016年7月21日</description>
@@ -361,15 +352,15 @@ $ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次�
       <guid>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</guid>
       <description>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。
 1. Rcpp  可以使用逻辑下标（LogicalVector）对向量和列表取值。  2. RcppArmadillo 基本类型是mat、vec（colvec）和rowvec。
- 属性
- 对于矩阵，行数：m.n_rows;；列数：m.n_cols;；维度：m.size();或size(m);。对于向量，元素数：v.n_elem;。  特殊向量或矩阵
- 全是1ones&amp;lt;mat&amp;gt;(3, 4);/vec(10, fill::ones);/；全是0zeros&amp;lt;vec&amp;gt;(10);/mat(3, 4, fill::zeros);；全是某个数mat a(4, 5); a.fill(123.4);。
- 连续向量，规定长度linspace&amp;lt;vec&amp;gt;(0, 5, 6);；连续向量，规定间距regspace&amp;lt;vec&amp;gt;(0, 2, 9);。
-  取值
- 对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
- 对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
-  Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
-  arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.begin(), x.nrow(), x.ncol(), false); vec ty(y.</description>
+  属性
+ 对于矩阵，行数：m.n_rows;；列数：m.n_cols;；维度：m.size();或size(m);。对于向量，元素数：v.n_elem;。    特殊向量或矩阵
+  全是1ones&amp;lt;mat&amp;gt;(3, 4);/vec(10, fill::ones);/；全是0zeros&amp;lt;vec&amp;gt;(10);/mat(3, 4, fill::zeros);；全是某个数mat a(4, 5); a.fill(123.4);。
+  连续向量，规定长度linspace&amp;lt;vec&amp;gt;(0, 5, 6);；连续向量，规定间距regspace&amp;lt;vec&amp;gt;(0, 2, 9);。
+    取值
+  对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
+  对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
+    Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
+  arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.</description>
     </item>
     
     <item>
@@ -380,26 +371,22 @@ $ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次�
       <guid>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</guid>
       <description>XPath提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的libxml2和对应的R包 xml2。
 1. 查询规则 XPath查询集中在三个对象：节点、节点属性和节点内容。
-1.1 选择节点  /nodeA/nodeB：nodeA为根节点，nodeA下的所有nodeB节点；等价于nodeB。
- //nodeB：所有nodeB节点，在R包xml2中（比如函数xml_find_all()），//nodeB搜索范围是整个文档，忽略当前节点；而.//nodeB搜索范围是当前节点之下。
- //nodeB[1]：所有nodeB节点的第一个；//nodeB[last()-1]：所有nodeB节点的倒数第二个；nodeA/nodeB[position()&amp;lt;3]:当前nodeA节点，其下所有nodeB子节点的前两个。
- /nodeA/*：nodeA为根节点，nodeA下的所有节点；/*/*/nodeC：所有拥有两个父节点的nodeC节点；//*：所有节点。
- //*[count(nodeD)=3]：含有3个nodeD子节点的节点；//*[count(*)=2]：含有任意2个子节点的节点。
- //*[name()=&#39;nodeB&#39;]：所有名称为“nodeB”的节点，等价于//nodeB；//*[starts-with(name(),&#39;N&#39;)]：所有名称以“N”开头的节点；//*[contains(name(),&#39;N&#39;)]：所有名称中含有“N”的节点；//*[string-length(name()) = 3]：所有名称的字符串长度等于3的节点。
- //nodeA | //nodeB：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。
-  1.2 选择节点属性  //@attr1：所有拥有attr1的属性，注意：返回的不是节点，而是类此attr1=text1的属性；//node1/@attr1：所有node1带有的attr1属性；//nodeB[@attr1]：所有拥有“attr1”属性的nodeB节点；//nodeB[@attr1=&#39;test1&#39;]：所有拥有“attr1”属性为“test1”的nodeB节点；//nodeB[normalize-space(@attr1)=&#39;test1&#39;]：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。
- //node1[@*]：所有node1带有任意属性的节点；//node1[not(@*)]：所有node1不带属性的节点；//node1[contains(@attr1, &#39;N&#39;)]：带有“attr1”属性的node1节点，“attr1”属性中含有“N”。
- //node1[TEST1][TEST2]：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。//nodeA[nodeB/@attr1=&#39;test1&#39;]：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。//nodeC[@attr1=&#39;test1&#39;][../nodeB/@attr2=&#39;test2&#39;]：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。
-  1.3 选择节点内容  /nodeA/nodeB[nodeC&amp;gt;5]：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
- /nodeA/nodeB[nodeC&amp;gt;5]/nodeD：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
- //nodeC[.=5]：所有nodeC节点，其内容等于5。使用.代替自身。
- //nodeC/node()：选择所有nodeC节点下的所有点，包括节点下内容和子节点（距离最近，不包括子节点的子节点）。
- //nodeC/text()：选择所有nodeC节点下的内容。
-  1.4 函数使用  //nodeC[contains(text(), &#39;test1&#39;)]：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。  2. 轴  child::：默认轴，可以省略。比如/child::nodeA等价于/AAA。
- descendant::：选择上下文节点的所有子节点、子节点的子节点、子节点的子节点的子节点（依次类推，直至最后一个子节点）。//nodeA/descendant::*：所有nodeA节点的所有子节点、子节点的子节点等等；//nodeA/descendant::nodeC：所有nodeA节点的所有的nodeC子节点，nodeC可能是nodeA的某个子节点的子节点，区别与//nodeA/nodeD；/descendant::*：文档所有子节点、子节点的子节点等等，等价于//*。
- descendant-or-self::*：选择上下文节点自身及其所有子节点、子节点的子节点（依次类推，直至最后一个子节点）。
- parent::：选择上下文节点的父节点（最靠近的父节点）。//nodeC/parent::*：所有nodeC节点的所有父节点；//nodeC/parent::nodeA[@attr1=&#39;test1&#39;]：nodeC节点的nodeA父节点，这些nodeA父节点的“attr1”属性等于“test1”。
- ancestor::：选择上下文节点的父节点，父节点的父节点（依次类推，直至最前一个父节点，包括根节点）。//nodeC/ancestor::nodeA：所有nodeC的父节点和父节点的父节点等等中的nodeA节点。</description>
+1.1 选择节点   /nodeA/nodeB：nodeA为根节点，nodeA下的所有nodeB节点；等价于nodeB。
+  //nodeB：所有nodeB节点，在R包xml2中（比如函数xml_find_all()），//nodeB搜索范围是整个文档，忽略当前节点；而.//nodeB搜索范围是当前节点之下。
+  //nodeB[1]：所有nodeB节点的第一个；//nodeB[last()-1]：所有nodeB节点的倒数第二个；nodeA/nodeB[position()&amp;lt;3]:当前nodeA节点，其下所有nodeB子节点的前两个。
+  /nodeA/*：nodeA为根节点，nodeA下的所有节点；/*/*/nodeC：所有拥有两个父节点的nodeC节点；//*：所有节点。
+  //*[count(nodeD)=3]：含有3个nodeD子节点的节点；//*[count(*)=2]：含有任意2个子节点的节点。
+  //*[name()=&#39;nodeB&#39;]：所有名称为“nodeB”的节点，等价于//nodeB；//*[starts-with(name(),&#39;N&#39;)]：所有名称以“N”开头的节点；//*[contains(name(),&#39;N&#39;)]：所有名称中含有“N”的节点；//*[string-length(name()) = 3]：所有名称的字符串长度等于3的节点。
+  //nodeA | //nodeB：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。
+  1.2 选择节点属性   //@attr1：所有拥有attr1的属性，注意：返回的不是节点，而是类此attr1=text1的属性；//node1/@attr1：所有node1带有的attr1属性；//nodeB[@attr1]：所有拥有“attr1”属性的nodeB节点；//nodeB[@attr1=&#39;test1&#39;]：所有拥有“attr1”属性为“test1”的nodeB节点；//nodeB[normalize-space(@attr1)=&#39;test1&#39;]：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。
+  //node1[@*]：所有node1带有任意属性的节点；//node1[not(@*)]：所有node1不带属性的节点；//node1[contains(@attr1, &#39;N&#39;)]：带有“attr1”属性的node1节点，“attr1”属性中含有“N”。
+  //node1[TEST1][TEST2]：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。//nodeA[nodeB/@attr1=&#39;test1&#39;]：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。//nodeC[@attr1=&#39;test1&#39;][../nodeB/@attr2=&#39;test2&#39;]：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。
+  1.3 选择节点内容   /nodeA/nodeB[nodeC&amp;gt;5]：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
+  /nodeA/nodeB[nodeC&amp;gt;5]/nodeD：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
+  //nodeC[.=5]：所有nodeC节点，其内容等于5。使用.代替自身。
+  //nodeC/node()：选择所有nodeC节点下的所有点，包括节点下内容和子节点（距离最近，不包括子节点的子节点）。
+  //nodeC/text()：选择所有nodeC节点下的内容。
+  1.4 函数使用  //nodeC[contains(text(), &#39;test1&#39;)]：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。  2.</description>
     </item>
     
     <item>
@@ -410,27 +397,22 @@ $ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次�
       <guid>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</guid>
       <description>Spacemacs结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用hybrid模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。hybrid模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是SPC，在Emacs模式下是M-m。
 1. Vim快捷键记录 在Spacemacs中SPC-h-T进入Emacs Evil快速入门。
-1.1 移动  h：前
- j：上
- k：下
- l：后
- gg：
- 文档开始位置。
- G：文档结束位置。
- :[number]：跳转到制定行。
-   1.2 插入和替换  i：
- 在光标前的位置，进入insert mode，进行编辑。
- ESC或者C-[退出insert mode。
-  r：替换光标所在位置的单个字符。
- [number] d object：
- cw或ce：从光标处删除整个单词，并进入insert mode。
- c$：从光标处删除整行，并进入insert mode。
-   1.3 搜索和替换  \：
- \searchWord：输入搜索内容，n向下搜索，N向上搜索。
- %：在各种括号跳转。
- :s/old/new：替换第一个匹配；:s/old/new/g：替换当前行匹配；:#,#s/old/new/g：替换行（#为行号）之间匹配；:%s/old/new/g：替换全文匹配。
- :%s/old/new/gc：替换全文匹配，每一个匹配会提示是否匹配（输入y表示执行替换，n表示跳过匹配）。
-   1.4 删除、剪切和粘贴  x：删除光标所在位置的单个字符。</description>
+1.1 移动   h：前
+  j：上
+  k：下
+  l：后
+  gg：
+  文档开始位置。
+  G：文档结束位置。
+  :[number]：跳转到制定行。
+    1.2 插入和替换   i：
+  在光标前的位置，进入insert mode，进行编辑。
+  ESC或者C-[退出insert mode。
+    r：替换光标所在位置的单个字符。
+  [number] d object：
+  cw或ce：从光标处删除整个单词，并进入insert mode。
+  c$：从光标处删除整行，并进入insert mode。
+    1.</description>
     </item>
     
     <item>
@@ -456,9 +438,9 @@ $$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \
       <pubDate>Wed, 29 Jul 2015 18:24:10 +0800</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/</guid>
-      <description>1. 查询 -- 选取特定的一列或者多列 SELECT column1, column2 FROM dataset -- 选取全部列 SELECT * FROM dataset -- 去除重复，选取一列或多列中唯一元素 -- 如输入多列，则去除多列组合后的重复 SELECT DISTINCT column1, column2 FROM dataset -- 指定输出列数 -- a是输出行数，b是输出起始行（第一行计为0） SELECT column FROM dataset LIMIT a OFFSET b  使用;结束一条SQL语句，本文中省略；
- 返回未排序数据；
-  2. 排序 -- 按照一列或者多列升序排序 -- 可以按照“不查询”的列排序 -- 先按照column2排，再按照column5排 SELECT column1, column2, column3 FROM dataset ORDER BY column2, column5 -- 降序 -- DESC只作用于最靠近的唯一一列，即column2，不作用于column5 SELECT column1, column2, column3 FROM dataset ORDER BY column2 DESC, column5 --使用查询列相对编号 SELECT column1, column2, column3 FROM dataset ORDER BY 2, column5  使用相对列查询时，不查询的列，比如上述例子的column5，不能用数字代替。</description>
+      <description>1. 查询 -- 选取特定的一列或者多列 SELECT column1, column2 FROM dataset -- 选取全部列 SELECT * FROM dataset -- 去除重复，选取一列或多列中唯一元素 -- 如输入多列，则去除多列组合后的重复 SELECT DISTINCT column1, column2 FROM dataset -- 指定输出列数 -- a是输出行数，b是输出起始行（第一行计为0） SELECT column FROM dataset LIMIT a OFFSET b   使用;结束一条SQL语句，本文中省略；
+  返回未排序数据；
+  2. 排序 -- 按照一列或者多列升序排序 -- 可以按照“不查询”的列排序 -- 先按照column2排，再按照column5排 SELECT column1, column2, column3 FROM dataset ORDER BY column2, column5 -- 降序 -- DESC只作用于最靠近的唯一一列，即column2，不作用于column5 SELECT column1, column2, column3 FROM dataset ORDER BY column2 DESC, column5 --使用查询列相对编号 SELECT column1, column2, column3 FROM dataset ORDER BY 2, column5   使用相对列查询时，不查询的列，比如上述例子的column5，不能用数字代替。</description>
     </item>
     
     <item>
@@ -470,7 +452,7 @@ $$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \
       <description>收集了一些使用Python过程中的小技巧或者常见错误。
 1. While&amp;ndash;if&amp;ndash;break 适用情况：当需要执行一个循环，但是不能事先判断何时终止。 可以在循环内部加入判断，符合要求时跳出。比如，使用程序在某个目录下新建一个文件夹，如果文件名已经存在，需要重新生成文件名；否则，创建文件夹。
 import random, os while True: letter = [chr(i) for i in range(97, 123)] folderName = [random.choice(letter) for i in range(5)] fn = &amp;#39;&amp;#39;.join(folderName) if os.path.exists(fn) is not True: # get an unique name  os.mkdir(fn) break 2. 链式比较操作 Python支持一个链式的比较操作。
-testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &amp;lt; testNum &amp;lt; 5): print(&amp;#39;It passed!&amp;#39;) 参考网址  Python Wiki</description>
+testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &amp;lt; testNum &amp;lt; 5): print(&amp;#39;It passed!&amp;#39;) 参考网址   Python Wiki</description>
     </item>
     
     <item>
@@ -483,14 +465,13 @@ testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &a
 平台：Python跨平台使用。
 快速运行：
 # 查看帮助 $ htseq-count --help # 对bam文件按照reads名称排序 $ samtools sort -n accepted_filtered.bam accepted_sortname # 注意“=”前后无空格 $ htseq-count --mode=union --stranded=no --type=exon --idattr=gene_id \ 	--format=bam accepted_sort.bam hg19USCS_ensembl.gtf &amp;gt; htseqcount_accepted.hsc 重要参数解释：
- --mode：统计落在某个基因上的reads数目的模型，默认值为“union”（图示）。作者认为“union”方法在绝大多数情况下都有很好的表现，建议使用。
- --stranded：测序方法，默认为“yes”。
- --type：计数单元类型，默认为GTF文件的exon。
- --idattr：计数单元归类，默认为gene_id。比如把合并汇报多个exon对应的一个gene。
- --format：可以输入bam或者sam文件，bam文件需要制定此参数。
+  --mode：统计落在某个基因上的reads数目的模型，默认值为“union”（图示）。作者认为“union”方法在绝大多数情况下都有很好的表现，建议使用。
+  --stranded：测序方法，默认为“yes”。
+  --type：计数单元类型，默认为GTF文件的exon。
+  --idattr：计数单元归类，默认为gene_id。比如把合并汇报多个exon对应的一个gene。
+  --format：可以输入bam或者sam文件，bam文件需要制定此参数。
   补充：
- 如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为：  $ samtools sort -n accepted_filerted.bam acceted_sortname 1.2 GenomicAlignments GenomicAlignments是R/Bioconductor的一个包，其中summarizeOverlaps函数用于对alignment数据进行计数。
-1.3 Kallisto 简介：kallisto是由Lior Pachter小组开发一款快速测量RNA-seq数据中转录本表达丰度的软件。因为使用了*pseudoalignment*的想法，可以不用alignment，直接测量原始测序数据，因此极大提高了运算速度。因为kallisto极高的速度，可以使用bootstrap精确估计的“不确定性（uncertainty）”，可以配合下游软件sleuth确定差异表达基因。</description>
+ 如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为：  $ samtools sort -n accepted_filerted.bam acceted_sortname 1.2 GenomicAlignments GenomicAlignments是R/Bioconductor的一个包，其中summarizeOverlaps函数用于对alignment数据进行计数。</description>
     </item>
     
     <item>
@@ -511,9 +492,9 @@ testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &a
 4. 线粒体基因组注释 分为两步：
 第一步， “table”选择wgEncodeGencodeBasicV19。
 第二步，按照下图编辑“filter”。
-参考资料  USCS Genome Browser的Google论坛：1、2
- 另一种选择rRNA、tRNA和线粒体组注释的方法How to get tRNA/rRNA/mitochondrial gene GTF file
- Extract rRNA and tRNA features from UCSC Browser
+参考资料   USCS Genome Browser的Google论坛：1、2
+  另一种选择rRNA、tRNA和线粒体组注释的方法How to get tRNA/rRNA/mitochondrial gene GTF file
+  Extract rRNA and tRNA features from UCSC Browser
   更新记录 2015年6月1日</description>
     </item>
     
@@ -526,8 +507,8 @@ testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &a
       <description>SSH建立端口转发分为两步：
 1. 连接远程主机 $ ssh -NT -D 8080 usrname@host 其中，-N表示只连接远程主机，不打开远程shell；-T表示不分配TTY；-D表示某端口数据都通过SSH传向远程主机；8080可以设置为其他端口。
 2. 添加Chrome浏览器支持 添加Proxy SwitchySharp插件，之后在SOCKS host栏目中填入地址127.0.0.1，端口8080并启用即可。
-参考网址  SSH隧道翻墙的原理和实现
- SSH原理与运用（二）：远程操作与端口转发
+参考网址   SSH隧道翻墙的原理和实现
+  SSH原理与运用（二）：远程操作与端口转发
   更新记录 2017年5月31日</description>
     </item>
     
@@ -552,8 +533,8 @@ for i in *.zip do echo &amp;#34;$i&amp;#34; done 2. 创建数组 declare -a test
 有两种方法获得这对参数的准确值：
 第一种：获取RNA-seq实验建库方法，之后按照以下网址说明计算，RNA-seq差异表达分析工作流程。
 第二种：根据RNA-seq数据进行估算，具体步骤为：
- 使用TopHat默认参数先跑一遍。
- 使用MISO的pe_utils工具估算。
+  使用TopHat默认参数先跑一遍。
+  使用MISO的pe_utils工具估算。
   以下详细介绍pe_utils使用方法。
 第一步， 下载对应物种的基因注释文件GTF或者GFF，比如USCS Table Browser（output format选择GTF）或者使用MISO提供的Ensembl版本。如果GTF文件，使用Cufflinks的gffread工具进行转换。
 第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似chr1命名，而另外一些使用1。如果不一致，建议修改GFF文件。
@@ -570,8 +551,8 @@ gffFile &amp;lt;- read.table(&amp;#39;hg19USCS.gff&amp;#39;, stringsAsFactors = 
       <description>一个简单的Python包创建和上传PyPI流程。
 1. 打包 ## 安装相关工具 pip install --upgrade setuptools wheel twine 当Python包代码完成后，在根目录下创建setup.py文件，具体参考sampleproject。
 ## 进入Python包目录 ## 测试 python setup.py test ## 打包 python setup.py sdist bdist_wheel 2. 上传PyPI PyPI注册帐号。
-## 进入Python包目录 ## 上传 twine upload dist/* 参考网址  Packaging Python Projects
- twine package
+## 进入Python包目录 ## 上传 twine upload dist/* 参考网址   Packaging Python Projects
+  twine package
   更新记录 2018年6月23日</description>
     </item>
     
@@ -594,7 +575,7 @@ gffFile &amp;lt;- read.table(&amp;#39;hg19USCS.gff&amp;#39;, stringsAsFactors = 
       <description>本文是学习Django Tutorial的记录，目的为了帮助快速浏览和查找Django使用细节。
 1. 安装Django 本文使用Python 3.3.6和PostgreSQL 9.3.6学习Django。可以参考“使用Pyenv控制多个版本Python”和 “Fedora安装与使用PostgreSQL”，安装对应版本Python和PostgreSQL。
 # 安装Django $ pip install django # 安装PostgreSQL支持psycopg2 $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
-# Database # https://docs.djangoproject.com/en/1.8/ref/settings/#databases DATABASES = { &amp;#39;default&amp;#39;: { &amp;#39;ENGINE&amp;#39;: &amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;, &amp;#39;NAME&amp;#39;: &amp;#39;testdb&amp;#39;, &amp;#39;USER&amp;#39;: &amp;#39;userName&amp;#39;, &amp;#39;PASSWORD&amp;#39;: &amp;#39;passWord&amp;#39;, &amp;#39;HOST&amp;#39;: &amp;#39;/var/run/postgresql&amp;#39;, &amp;#39;PORT&amp;#39;: &amp;#39;5432&amp;#39;, } }# 配制好数据库后，链接数据库 $ python manage.py migrate 开启Django测试网络服务器
+# Database # https://docs.djangoproject.com/en/1.8/ref/settings/#databases DATABASES = { &amp;#39;default&amp;#39;: { &amp;#39;ENGINE&amp;#39;: &amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;, &amp;#39;NAME&amp;#39;: &amp;#39;testdb&amp;#39;, &amp;#39;USER&amp;#39;: &amp;#39;userName&amp;#39;, &amp;#39;PASSWORD&amp;#39;: &amp;#39;passWord&amp;#39;, &amp;#39;HOST&amp;#39;: &amp;#39;/var/run/postgresql&amp;#39;, &amp;#39;PORT&amp;#39;: &amp;#39;5432&amp;#39;, } } # 配制好数据库后，链接数据库 $ python manage.py migrate 开启Django测试网络服务器
 $ python manage.py runserver 3.</description>
     </item>
     
@@ -617,7 +598,7 @@ $ python manage.py runserver 3.</description>
       <description>1. 安装和开启postgresql Fedora直接使用dnf安装相关组件。
 # 安装PostgreSQL $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3 初始化（只需要执行一次）。如果出现类似Data directory is not empty!报错，可以尝试执行删除操作rm -f -r /usr/local/pgsql/data
 # 初始化 $ sudo postgresql-setup --initdb --unit postgresql # 开启服务 $ sudo service postgresql start # 查询工作状态 $ sudo service postgresql status # 关闭服务 $ sudo service postgresql stop # 开机启动 $ sudo chkconfig postgresql on 2. 创建用户和数据库 为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。
-# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.</description>
+# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.3$”。 $ sudo postgres # 创建用户 # -P：创建用户后立即创建密码 # -s：用户为superuser # -e：打印消息 bash-4.</description>
     </item>
     
     <item>
@@ -626,7 +607,7 @@ $ python manage.py runserver 3.</description>
       <pubDate>Sun, 07 Dec 2014 18:23:16 -0500</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</guid>
-      <description>1. 基本数据类型 1.1 算术类型   类型 解释 说明 注意事项 本地字节数     short 有符号短整数 完整形式signed short int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 2   unsigned short 无符号短整数 完整形式unsigned short int，int可以省略 全部位占满 2   int 有符号整数 完整形式signed int，singed可以省略 最左边一位表示符号，0为正数，1为负数 4   unsigned int 无符号整数  全部位占满 4   long 有符号长整数 完整形式为signed long int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 8   unsigned long 无符号长整数 完整形式为unsigned short int，int可以省略 全部位占满 8   long long 无符号长长整数 完整形式为signed long long int，singed和int可以省略 C99特有 8   unsigned long long 有符号长长整数 完整形式为unsigned long long int，int可以省略 C99特有 8   char 字符 实质是“小整数”（可能比短整数占用字节更少） 分为char、singed char和unsigned char。使用单引号标记常量，比如&#39;A&#39;（值为65） 1   _Bool 布尔型整数 实质是无符号整数 只能赋值0或1，赋值_Bool类型变量为非零值会导致赋值为1 1   float 单精度浮点数   4   double 双精度浮点数   8   long double 扩展精度浮点数   16     强制编辑器处理常量为长整数（十进制、八进制和十六进制），1135L；强制处理为无符号，1135U；混合使用，1135UL，U和L顺序和大小写不重要。 C99中增加了ll或者LL后缀，强制long long int型整数，可以与u或U连用。避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果。</description>
+      <description>1. 基本数据类型 1.1 算术类型   类型 解释 说明 注意事项 本地字节数     short 有符号短整数 完整形式signed short int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 2   unsigned short 无符号短整数 完整形式unsigned short int，int可以省略 全部位占满 2   int 有符号整数 完整形式signed int，singed可以省略 最左边一位表示符号，0为正数，1为负数 4   unsigned int 无符号整数  全部位占满 4   long 有符号长整数 完整形式为signed long int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 8   unsigned long 无符号长整数 完整形式为unsigned short int，int可以省略 全部位占满 8   long long 无符号长长整数 完整形式为signed long long int，singed和int可以省略 C99特有 8   unsigned long long  有符号长长整数 完整形式为unsigned long long int，int可以省略 C99特有 8   char 字符 实质是“小整数”（可能比短整数占用字节更少） 分为char、singed char和unsigned char。使用单引号标记常量，比如&#39;A&#39;（值为65） 1   _Bool 布尔型整数 实质是无符号整数 只能赋值0或1，赋值_Bool类型变量为非零值会导致赋值为1 1   float 单精度浮点数   4   double 双精度浮点数   8   long double 扩展精度浮点数   16      强制编辑器处理常量为长整数（十进制、八进制和十六进制），1135L；强制处理为无符号，1135U；混合使用，1135UL，U和L顺序和大小写不重要。 C99中增加了ll或者LL后缀，强制long long int型整数，可以与u或U连用。避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果。</description>
     </item>
     
     <item>
@@ -636,17 +617,16 @@ $ python manage.py runserver 3.</description>
       
       <guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid>
       <description>有很多优秀的C语言IDE用来实现高效的编程，比如CLion。目前，CLion还在处于公开测试阶段，可以下载试用。本文介绍在Emacs下配置C/C++编程环境。
-1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*   安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
-2. 文件操作 2.1. 查找  当前buffer查找函数、类的定义
- C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。  当前project查找定义
- M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。
- C-j（helm-gtags-select）：列出当前project所有定义，并且查找。
-  查找引用
- C-c g r（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。
- C-c g s（helm-gtags-find-symbol）：光标停留在变量时的查找。
-  查找当前函数引用的函数
- C-c g a（helm-gtags-tags-in-this-function）  查找文件
- C-c g P（elm-gtags-find-files）   2.2. 列出源码树  开启和关闭</description>
+1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*  安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
+2. 文件操作## 2.1. 查找   当前buffer查找函数、类的定义
+ C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。    当前project查找定义
+  M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。
+  C-j（helm-gtags-select）：列出当前project所有定义，并且查找。
+    查找引用
+  C-c g r（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。
+  C-c g s（helm-gtags-find-symbol）：光标停留在变量时的查找。
+    查找当前函数引用的函数
+ C-c g a（helm-gtags-tags-in-this-function）    查找文件</description>
     </item>
     
     <item>
@@ -658,8 +638,8 @@ $ python manage.py runserver 3.</description>
       <description>1. SAMtools 简介：SAMtools是用于处理SAM (Sequence Alignment/Map)格式文件的一系列工具，主要用来储存大容量的核酸测序结果。BAM是SAM文件的binary格式文件。SAMtools的主要作者是Heng Li，Heng Li在2012年因为对二代测序领域的贡献获得Benjamin Franklin Award。
 平台：Mac OS/Linux
 安装:
- 下载SAMtools
- 安装依赖的Ncurse库
+  下载SAMtools
+  安装依赖的Ncurse库
   $ sudo dnf install ncurses*  添加SAMtools到PATH（设置参考）  快速运行
 # sam格式文件转换为bam格式文件 # 新版本samtools不用使用-S $ samtools view -b samFile &amp;gt; bamFile # bam格式文件转换为sam格式文件 $ samtools view -h bamFile &amp;gt; samFile # bam格式文件转换为sorted bam格式文件，用于长期储存和后续分析 # 后一个‘sortedBamFilePrefix’是指需要存储文件名前缀，比如想存储“human_1.bam”，则输入“human_1” $ samtools sort bamFile sortedBamFilePrefix # bam文件按照reads名称排序 $ samtools sort -n bamFile sortedBamFilePrefix # 直接查看bam文件 $ samtools view bamFile | head -2 # 创建bam的index文件 $ samtools index bamFile # 输出alignment数目，配合-f和-F过滤reads $ samtools view -c bamFile # 统计bam文件map数量，可以用于评估mapping的质量。需要输入indexed的bam文件 # 输出结果每一列分别为参考序列名称、参考序列长度、map上的reads数目、未map上的reads数目 $ samtools idxstats sortedIndexedBamFile 重要参数解释：</description>
     </item>
@@ -687,19 +667,18 @@ $ python manage.py runserver 3.</description>
       <pubDate>Fri, 25 Jul 2014 14:04:25 -0400</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2014-07-25-short-sequence-alignment/</guid>
-      <description> 在二代测序数据分析中，非常重要的一步是将测得的短序列“对应”到基因组上。所使用的工具被称为“短序列比对工具（short sequence aligners）”。以下是一些常用工具的介绍。
+      <description>在二代测序数据分析中，非常重要的一步是将测得的短序列“对应”到基因组上。所使用的工具被称为“短序列比对工具（short sequence aligners）”。以下是一些常用工具的介绍。
 1. Bowtie 简介：Bowtie2是现在广泛使用的序列比对工具。
 运行方式：所有平台
 特点：
- 相比较Bowtie1，处理大于50bp的短序列，速度更快、也更敏感。Bowtie1在处理小于50bp的短序列上，效果更好。
- iGenomes提供一些事先编排（index）的基因组。
+  相比较Bowtie1，处理大于50bp的短序列，速度更快、也更敏感。Bowtie1在处理小于50bp的短序列上，效果更好。
+  iGenomes提供一些事先编排（index）的基因组。
   快速运行：
-# 建立一系列FASTA文件目录 $ bowtie2-build /filePath/genomeFastaFile indexName # 从已经index文件中提取原始基因组 $ bowtie2-inspect indexName &amp;gt; genomeFastaFile # unpaired序列比对 $ bowtie2 -p 4 -x indexName -U readFiles -S samFileName # paired序列比对 $ bowtie2 -p 4 -x indexName -1 readFiles1 -2 readFiles2 -S eg2.sam  -p：多线程
- -x：之后跟index名称
- -U：测序文件（比如Fasta，Fastq文件）
- -1/-2：标识paired文件
- -S：SAM格式输出文件
-  参考网址  Heng Li总结的工具列表  </description>
+# 建立一系列FASTA文件目录 $ bowtie2-build /filePath/genomeFastaFile indexName # 从已经index文件中提取原始基因组 $ bowtie2-inspect indexName &amp;gt; genomeFastaFile # unpaired序列比对 $ bowtie2 -p 4 -x indexName -U readFiles -S samFileName # paired序列比对 $ bowtie2 -p 4 -x indexName -1 readFiles1 -2 readFiles2 -S eg2.sam   -p：多线程
+  -x：之后跟index名称
+  -U：测序文件（比如Fasta，Fastq文件）
+  -1/-2：标识paired文件
+  -S：SAM格式输出文件</description>
     </item>
     
     <item>
@@ -742,14 +721,13 @@ $ rake new_post[&amp;#34;new post&amp;#34;] $ git add . $ git commit -m &amp;#34
 平台：Mac OS/Linux
 快速运行：
 # 双端测序 $ tophat2 -p 8 -o human_1 \  --mate-inner-dist 165 --mate-std-dev 45 --no-mixed \  hg19 human_1.fastq.gz human_2.fastq.gz # 单端测序 $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz 重要参数解释：
- -p：设置线程数，用于多核计算。
- -o：执行输入文件夹。
- -r/--mate-inner-dist：一对reads的间隔长度的期望平均值，默认值为50bp，建议添加。具体解释，参考RNA-seq差异表达分析工作流程和Tophat中-r/–mate-inner-dist参数。
- --mate-std-dev：一对reads的间隔长度分布的标准差，默认值为20bp，建议添加。-r/--mate-inner-dist和--mate-std-dev的估计方法参考确定TopHat中mate-inner-dist参数。
- --library-type：
- 测序仪器和方法，默认为标准Illumina平台的fr-unstranded。其他平台设置，详见TopHat说明文档、How to tell which library type to use (fr-firststrand or fr-secondstrand)?和链特异性转录组原理。
- 如果分不清楚fr-firststrand和fr-secondstrand，推荐两种方法：第一种用两个参数试运行一个有1M reads的小样本，之后比较junction.bed大小；第二种在两个双端测序文件（fastq.gz）中抽取一些reads，之后Blat到USCS genomes上观察。
-  --no-discordant：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考过滤TopHat分析双端测序的输出。</description>
+  -p：设置线程数，用于多核计算。
+  -o：执行输入文件夹。
+  -r/--mate-inner-dist：一对reads的间隔长度的期望平均值，默认值为50bp，建议添加。具体解释，参考RNA-seq差异表达分析工作流程和Tophat中-r/–mate-inner-dist参数。
+  --mate-std-dev：一对reads的间隔长度分布的标准差，默认值为20bp，建议添加。-r/--mate-inner-dist和--mate-std-dev的估计方法参考确定TopHat中mate-inner-dist参数。
+  --library-type：
+  测序仪器和方法，默认为标准Illumina平台的fr-unstranded。其他平台设置，详见TopHat说明文档、How to tell which library type to use (fr-firststrand or fr-secondstrand)?和链特异性转录组原理。
+  如果分不清楚fr-firststrand和fr-secondstrand，推荐两种方法：第一种用两个参数试运行一个有1M reads的小样本，之后比较junction.bed大小；第二种在两个双端测序文件（fastq.gz）中抽取一些reads，之后Blat到USCS genomes上观察。</description>
     </item>
     
     <item>
@@ -764,12 +742,12 @@ $ rake new_post[&amp;#34;new post&amp;#34;] $ git add . $ git commit -m &amp;#34
 export LD_LIBRARY_PATH=&amp;#34;${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}/usr/lib64/openmpi/lib/&amp;#34; 载入~/.bashrc
 $ source ~/.bashrc 1.2 安装Rmpi包 在启动的R窗口中输入：
 install.packages(&amp;#34;Rmpi&amp;#34;, configure.args = c(&amp;#34;--with-Rmpi-include=/usr/include/openmpi-x86_64/&amp;#34;, &amp;#34;--with-Rmpi-libpath=/usr/lib64/openmpi/lib/&amp;#34;, &amp;#34;--with-Rmpi-type=OPENMPI&amp;#34;)) 2. 使用parallel包 2.1 设定节点数 首先，需要设定cluster的节点（nodes）数目
-cl &amp;lt;- makeCluster(2, type = &amp;#34;MPI&amp;#34;) 这里对“节点数”设定做一些解释，如果使用cluster，可以直接设定cluster数据即可；如果是在小型服务器或者个人电脑上使用，最大节点数可以设定为“线程数（processor）-1”。比如一个双核四线程计算机，节点数目最大可以设定为3。这是因为snow包（parallel包的主要依赖包）在设计时，总是要保留一个“主线程”来处理和整合数据。
+cl &amp;lt;- makeCluster(2, type = &amp;#34;MPI&amp;#34;) 这里对“节点数”设定做一些解释，如果使用cluster，可以直接设定cluster数据即可；如果是在小型服务器或者个人电脑上使用，最大节点数可以设定为“线程数（processor）-1”。比如一个双核四线程计算机，节点数目最大可以设定为3。这是因为snow包（parallel包的主要依赖包）在设计时，总是要保留一个**“主线程”**来处理和整合数据。
 在linux系统下，线程数可以通过 $ nproc 查看。
 2.2 内置函数 使用parallel包中的内置并行运算函数 比如使用parApply()、parCapply()、parRapply()、parLapply()和parSapply()（如果返回矩阵，使用 cbind()）等函数。其中文档中指出，parApply()函数对于二维矩阵的每一个单元进行操作，因此要慢一些。如果可能，使用parCapply()和parRapply()对列和行进行操作，以加快运行速度。
 2.3 回收节点 stopCluster(cl) 3. 并行计算的包依赖问题 在并行计算过程中，不可避免地会用到其他包辅助。这里涉及到snow包的一个设计原理：并行运算多个R进程，只有一个主进程载入完整的依赖包环境。这就意味着其他并行的R进程中也要载入依赖的包环境。
 有两个思路，第一个思路是修改Rprofile.site文件，让任意R进程在启动时都载入依赖的包。但是，不推荐这种做法，因为这样会增加R载入的速度；并且如果不同的代码用了不同的依赖包，就要不停地修改Rprofile.site文件。
-第二个思路是在新开的R进程中“动态”加载需要的包。所谓“动态”，没有什么高深的意思，就是“需要的时候加载即可”。根据需要，可以选择以下两种方法。
+第二个思路是在新开的R进程中“动态”加载需要的包。所谓**“动态”**，没有什么高深的意思，就是“需要的时候加载即可”。根据需要，可以选择以下两种方法。
  第一种方法是在直接在启动的R进程中加载包。  这种方法非常直观，推荐。
 # 以下代码摘抄自Parallel R，其中packages # 是一个要选择加载的package列表， # 比如c(&amp;#39;bigmemory&amp;#39;, &amp;#39;foreach&amp;#39;, &amp;#39;doMC&amp;#39;) worker.</description>
     </item>
@@ -807,7 +785,7 @@ use_rcpp() 其次，在DESCRIPTION中添加依赖或者需要链接的包名称�
 Encoding: UTF-8 Imports: Rcpp LinkingTo: Rcpp, RcppArmadillo 之后，在包的R/目录下，添加一个文件RcppChk.R（文件名称自定），并写入：
 #&amp;#39; @useDynLib my-pkg-name, .registration = TRUE #&amp;#39; @importFrom Rcpp sourceCpp NULL 注意，修改my-pkg-name为自己的包名称。
 然后，在包的src/目录下，添加一个文件registerDynamicSymbol.c（文件名称自定），并写入：
-// RegisteringDynamic Symbols  #include &amp;lt;R.h&amp;gt;#include &amp;lt;Rinternals.h&amp;gt;#include &amp;lt;R_ext/Rdynload.h&amp;gt; void R_init_markovchain(DllInfo* info) { R_registerRoutines(info, NULL, NULL, NULL, NULL); R_useDynamicSymbols(info, TRUE); }  最后，可能需要在~/.R/Makevars文件下添加：
+// RegisteringDynamic Symbols  #include &amp;lt;R.h&amp;gt;#include &amp;lt;Rinternals.h&amp;gt;#include &amp;lt;R_ext/Rdynload.h&amp;gt; void R_init_markovchain(DllInfo* info) { R_registerRoutines(info, NULL, NULL, NULL, NULL); R_useDynamicSymbols(info, TRUE); } 最后，可能需要在~/.R/Makevars文件下添加：
 # Settings from /etc/R/Makeconf with &amp;#34;non-portable flag(s):&amp;#34; # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic # and without -fdebug-prefix-map=.</description>
     </item>
     
@@ -837,8 +815,8 @@ Mututal Information (MI) Introduction Mutual Information (MI) is used to measure
       <pubDate>Wed, 02 Oct 2013 02:47:11 -0400</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</guid>
-      <description>R Package ggplot2 Notes 1. Basic grammar 1.1 Plot types The R package ggplot2 is a famous plot tool for high quality scientific figures. The ggplot2 style figures are widely seen in papers published in high quality journals such as PNAS, Nature and Cell.
-The input data should be in data frame form, and it is easily to use the function as.data.frame(). &amp;ldquo;+&amp;rdquo; is used to connect different plot statement.</description>
+      <description>R Package ggplot2Notes 1. Basic grammar 1.1 Plot types The R package ggplot2is a famous plot tool for high quality scientific figures. The ggplot2style figures are widely seen in papers published in high quality journals such as PNAS, Nature and Cell.
+The input data should be in data frame form, and it is easily to use the function as.data.frame(). &amp;ldquo;+&amp;rdquo; is used to connect different plot statement. A typical ggplot2plot statement is like:</description>
     </item>
     
     <item>
@@ -848,10 +826,10 @@ The input data should be in data frame form, and it is easily to use the functio
       
       <guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid>
       <description>$$ \newcommand{\P}{\mathrm{P}} $$
-$$ \DeclareMathOperator*{\argmax}{arg\,max} $$
+$$ \DeclareMathOperator*{\argmax}{arg,max} $$
 EM算法的推出 考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：
 $$ \begin{align} \begin{split} L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) \end{split} \label{eq:1} \end{align} $$
-为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，否能找到一个方法，将求和放在对数外面？一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
+为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，**否能找到一个方法，将求和放在对数外面？**一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
 $$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})}\right) - L(\theta^{(n)}) \newline &amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log \left( \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})} \right) \newline &amp;amp;- \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log(\P(y_j|\theta^{n})) \newline &amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log\left(\frac{\P(y_j, z|\theta)}{\P(y_j, z|\theta^{(n)})} \right) \end{split} \label{eq:2} \end{align} $$</description>
     </item>
     
@@ -861,28 +839,21 @@ $$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}
       <pubDate>Tue, 18 Jun 2013 16:42:10 -0400</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2013-06-18-bioinfor-tools/</guid>
-      <description>1. 基因组注释信息  NCBI ftp 下载基因组
- Craig Venter Institute
- Ensembl
-  2. 进化树  进化树展示
- Wiki software list
- Biostats总结
- iTOL
- Dendroscope
-  进化树构建
- RAxML
- PhyML
- PHYLIP，在PHYLIP的介绍中，列出了六个高使用率的构建进化树的软件，MrBayes、PAUP*、RAxML、PhyML、MEGA和PHYLIP。
-  已知进化树
- Open Tree of Life  时间尺度进化树
- TimeTree   sRNA数据库
- 16S/23S数据库
- 细菌16S数据库
- 真核生物rRNA
-  数据格式转换
- fasta转换为Phylip
- 进化树newick和nexus格式转换
- R package ape，提供了函数read.tree()/write.tree()，read.nexus()/read.nexus()。  通用格式转换工具</description>
+      <description>1. 基因组注释信息   NCBI ftp 下载基因组
+  Craig Venter Institute
+  Ensembl
+  2. 进化树   进化树展示
+  Wiki software list
+  Biostats总结
+  iTOL
+  Dendroscope
+    进化树构建
+  RAxML
+  PhyML
+  PHYLIP，在PHYLIP的介绍中，列出了六个高使用率的构建进化树的软件，MrBayes、PAUP*、RAxML、PhyML、MEGA和PHYLIP。
+    已知进化树
+ Open Tree of Life    时间尺度进化树
+ TimeTree    sRNA数据库</description>
     </item>
     
     <item>
@@ -915,10 +886,10 @@ $ pip install rpy2 2. python调用R对象 2.1 使用rpy2.robjects 在rpy2中调�
 对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。
 调用方法：
 from rpy2.robjects import r 有三种方式可以选择：
- 使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
- 使用r[&#39;obj&#39;]，比如 r[&#39;c&#39;](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r[&#39;func&#39;](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r[&#39;func&#39;](value1, para2 = value, **{para.3: value3})。
- 使用r(&#39;obj&#39;)，比如 r(&#39;c(1, 3)&#39;)。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r(&#39;Rcode&#39;)调用执行。
-  # import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.f(3) [9.</description>
+  使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
+  使用r[&#39;obj&#39;]，比如 r[&#39;c&#39;](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r[&#39;func&#39;](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r[&#39;func&#39;](value1, para2 = value, **{para.3: value3})。
+  使用r(&#39;obj&#39;)，比如 r(&#39;c(1, 3)&#39;)。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r(&#39;Rcode&#39;)调用执行。
+  # import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.</description>
     </item>
     
     <item>
@@ -930,17 +901,17 @@ from rpy2.robjects import r 有三种方式可以选择：
       <description>以下所有Emacs mode都使用Emacs包安装系统。
 1. web-mode web-mode 提供了很好的wen配件（HTML、JavaScript、CSS、PHP等）的代码缩进、折叠和高亮等出色的功能。
 有用技巧：
- C-c C-n：放在HTML标签上，在标签间跳转。
- C-c C-f：放在HTML标签上，在标签折叠。
+  C-c C-n：放在HTML标签上，在标签间跳转。
+  C-c C-f：放在HTML标签上，在标签折叠。
   2. emmet-mode emmet-mode是emmet的Emacs扩展，取代了陈旧的ZenCoding。只需要输入制定的缩写，这个工具可以自动补全HTML标签。非常方便。
 有用技巧：
- M-x emmet-mode：打开emmet-mode。
- C-j：自动补全。
+  M-x emmet-mode：打开emmet-mode。
+  C-j：自动补全。
   补全缩写规律：
- a：a+href
- #q：div+id(q)
- .x：div+class(x)
- #q.x：div+id(q)+class(x)
+  a：a+href
+  #q：div+id(q)
+  .x：div+class(x)
+  #q.x：div+id(q)+class(x)
   附加内容 Emacs编程环境设置
 ;;;;;;;;;;;;;; ;emmet-mode ;;;;;;;;;;;;; (require &amp;#39;emmet-mode) (add-hook &amp;#39;sgml-mode-hook &amp;#39;emmet-mode) ;; Auto-start on any markup modes (add-hook &amp;#39;html-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;web-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;css-mode-hook &amp;#39;emmet-mode) ;;;;;;;;;;;;;; ;web-mode ;;;;;;;;;;;;;;; (require &amp;#39;web-mode) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.</description>
     </item>
@@ -957,11 +928,10 @@ from rpy2.robjects import r 有三种方式可以选择：
 (require &amp;#39;package) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;melpa&amp;#34; . &amp;#34;http://melpa.milkbox.net/packages/&amp;#34;)) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;gnu&amp;#34; . &amp;#34;http://elpa.gnu.org/packages/&amp;#34;)) (package-initialize) 这样设置之后，就不需要类似(add-to-list &#39;load-path &amp;quot;~/.emacs.d/elpa/popup-20140207.1702/&amp;quot;)的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上(require &#39;popup)之类的语句。
 3. 显示行号 使用M-x linum-mode添加行号。如果需要永久显示，在Emacs配置文件中添加一下内容。
 ;;;;;;;;;;;;;;;;;;;;;;;;; ;open linum mode ;;;;;;;;;;;;;;;;;;;;;;;;; (setq linum-format &amp;#34;%4d \u2502&amp;#34;) (add-hook &amp;#39;prog-mode-hook &amp;#39;linum-mode) (add-hook &amp;#39;ess-mode-hook &amp;#39;linum-mode) 4. 进入Shell 三种方法：
- M-x shell
- M-x ansi-term
- M-x eshell
-  5. root权限 C-x C-f 之后输入root密码/su:root@usrname password
-6. 移动整体代码块 选中代码块后： 向左移动2个字符：C-u -2 C-x TAB 向右移动4个字符：C-u 4 C-x TAB</description>
+  M-x shell
+  M-x ansi-term
+  M-x eshell
+  5. root权限 C-x C-f 之后输入root密码/su:root@usrname password</description>
     </item>
     
     <item>
@@ -971,20 +941,18 @@ from rpy2.robjects import r 有三种方式可以选择：
       
       <guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid>
       <description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
-1. 创建R包目录 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
+1. 创建R包目录## 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
 1.1 DESCRIPTION文件 一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的DESCRIPTION文件：
- Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
- Version：版本号，经典的命名方式比如0.1-0。
- License：GPL。
- Description：一段话描述包主要的功能。
- Title：包的一句话解释。
- Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数person()，其中变量role的选项aut表示author，cre表示creator（维护者），ctb表示contributor。一个例子：
-  c(person(&amp;#34;Hadley&amp;#34;, &amp;#34;Wickham&amp;#34;, email = &amp;#34;hadley@rice.edu&amp;#34;, role =&amp;#34;ctb&amp;#34;), person(&amp;#34;Yihui&amp;#34;, &amp;#34;Xie&amp;#34;, email = &amp;#34;xie@yihui.name&amp;#34;, role = c(&amp;#34;aut&amp;#34;, &amp;#34;cre&amp;#34;)))  Date（可选）：当前版本包日期，格式yyyy-mm-dd。
- Depends（可选）：依赖的R环境版本和包名称，比如 R (&amp;gt;= 2.14.1)。
-  注意：
-  加上版本号，没有版本号等于没用，因为版本之间可能差异很大；
- 对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.14.0之后完全没有必要写，因为从这个版本后，所有包都有NAMESPACE，直接使用Imports就可以了。
-    Imports（可选）：如果只是使用某些包中类、方法或者（一般）函数，而不用完全载入包，可以在此栏列出包的名称，最好加上版本号（在R CMD check会检查版本）。在代码中，引用其他包的namespace可以使用::或者:::操作符。与之对应的，需要在NAMESPACE文件中指明引用（见后）。</description>
+  Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
+  Version：版本号，经典的命名方式比如0.1-0。
+  License：GPL。
+  Description：一段话描述包主要的功能。
+  Title：包的一句话解释。
+  Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数person()，其中变量role的选项aut表示author，cre表示creator（维护者），ctb表示contributor。一个例子：
+  c(person(&amp;#34;Hadley&amp;#34;, &amp;#34;Wickham&amp;#34;, email = &amp;#34;hadley@rice.edu&amp;#34;, role =&amp;#34;ctb&amp;#34;), person(&amp;#34;Yihui&amp;#34;, &amp;#34;Xie&amp;#34;, email = &amp;#34;xie@yihui.name&amp;#34;, role = c(&amp;#34;aut&amp;#34;, &amp;#34;cre&amp;#34;)))   Date（可选）：当前版本包日期，格式yyyy-mm-dd。
+  Depends（可选）：依赖的R环境版本和包名称，比如 R (&amp;gt;= 2.14.1)。
+  注意：   加上版本号，没有版本号等于没用，因为版本之间可能差异很大；
+  对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.</description>
     </item>
     
     <item>
@@ -994,17 +962,7 @@ from rpy2.robjects import r 有三种方式可以选择：
       
       <guid>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</guid>
       <description>1. 一些S3的铺垫 在博文“Linux安装R语言包”描述了如何查看一个函数的源代码，其中涉及了例如methods()函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。
-library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) ## function is genetic or method ftype(method) 2. 类 2.1 建立新类 setClass(Class, representation, prototype, contains=character(), validity, access, where, version, sealed, package, S3methods = FALSE, slots)   Class：类名。
- slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。
- contains：父类名，表示继承关系。
- prototype：带名setGroupGeneric字的列表或prototype()，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合validity定义，因为默认值不会被检查，因为即使不符合validity定义，也可以通过validObject()检查。
- validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用setValidity()后期添加。
- where：环境（少用）。
- sealed：是否封闭，如果设定为TRUE，其他setClass()不能调用该类。
- package：包名（少用）
- S3methods/representation/access/version：在3.0.0版本后不建议使用。
-   例子：
-## new class setClass(Class = &amp;#39;trick&amp;#39;, slots = c(id = &amp;#39;character&amp;#39;, time = &amp;#39;matrix&amp;#39;), validity = function(object) { if (length(object@id) !</description>
+library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) ## function is genetic or method ftype(method) 2. 类 2.1 建立新类 setClass(Class, representation, prototype, contains=character(), validity, access, where, version, sealed, package, S3methods = FALSE, slots)   Class：类名。     slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。     contains：父类名，表示继承关系。     prototype：带名setGroupGeneric字的列表或prototype()，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合validity定义，因为默认值不会被检查，因为即使不符合validity定义，也可以通过validObject()检查。     validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用setValidity()后期添加。     where：环境（少用）。     sealed：是否封闭，如果设定为TRUE，其他setClass()不能调用该类。     package：包名（少用）     S3methods/representation/access/version：在3.</description>
     </item>
     
     <item>
@@ -1017,7 +975,7 @@ library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) 
 1. if爱你，else就要和你在一起，又要给你一些距离 if (con){ expr } else{ expr2 } if...else..结构中，}与else必须在同一行。
 简易形式（不推荐）：
 # else不能与expr在同一行 if (con) expr else expr2 建议将所有if ... else ...结构写成第一种形式，如果没有else，用else {}代替。
-2. NULL是空，NULL是气，NULL在R中就是空气。 如果表达式（expression）或者函数（function）的值没有定义，那么将返回NULL。在R中，NULL与很多对象合并在一起时，都被忽略掉。比如以下例子：
+2. NULL是空，NULL是气，NULL在R中就是空气。## 如果表达式（expression）或者函数（function）的值没有定义，那么将返回NULL。在R中，NULL与很多对象合并在一起时，都被忽略掉。比如以下例子：
 # NULL is neglected in vector &amp;gt; c(1, NA, NULL, FALSE) [1] 1 NA 0 # also in matrix &amp;gt; matrix(c(1, NA, NULL, 2), c(2, 2)) [,1] [,2] [1,] 1 2 [2,] NA 1 警告信息： In matrix(c(1, NA, NULL, 2), c(2, 2)) : 数据长度[3]不是矩阵行数[2]的整倍 # also in list &amp;gt; tmp &amp;lt;- list(1, 2) &amp;gt; tmp[1] &amp;lt;- NULL &amp;gt; tmp [[1]] [1] 2 &amp;gt; tmp[[1]] &amp;lt;- NULL &amp;gt; tmp list() 如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</description>
     </item>
     
@@ -1030,18 +988,16 @@ library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) 
       <description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
 $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法参考，安装ess包。
 2. 使用ESS 进入GNU Emacs界面之后，输入M-X R 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。
- M-x R：   启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
- C-u M-x R RET --no-save RET：启动R并且不保存。
- M-x ess-transcript-clean-region：清理R界面。
- C-c C-z：强制停止运行的R进程。
-   C-c C-x：   代替ls()函数。
- C-c C-s：代替search()函数。
- C-c C-d：修改已经建立的对象，非常实用。
-   C-c C-n：   把当前行送到R。
- C-c C-c：把当前段送到R。
- C-c C-b：把当前整个文件送到R。
-   C-c tab：自动补全R代码。
- C-x o：滚动屏幕。</description>
+ M-x R：    启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
+  C-u M-x R RET --no-save RET：启动R并且不保存。
+  M-x ess-transcript-clean-region：清理R界面。
+  C-c C-z：强制停止运行的R进程。
+   C-c C-x：    代替ls()函数。
+  C-c C-s：代替search()函数。
+  C-c C-d：修改已经建立的对象，非常实用。
+   C-c C-n：    把当前行送到R。
+  C-c C-c：把当前段送到R。
+  C-c C-b：把当前整个文件送到R。</description>
     </item>
     
     <item>
@@ -1050,19 +1006,17 @@ $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以
       <pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid>
-      <description>1. 安装 ## 安装Emacs $ sudo dnf install emacs  2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
- C-x 2或C-x 3：   将窗口分割成两个或者三个。
- C-x 1：只保留一个窗口。
- C-x n：开n个窗口
-   C-x C-f：   读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。
- 对于Emacs minibuffer的路径，在Emacs中可以使用~/表示当前登录的用户，可以替代/home/usr。同时，可以在当前路径下直接输入/home//median/TOOL或者/home//~/进入需要的目录，因为Emacs会自动忽略//或者/~之前的内容（不能在终端使用它）。
- 输入/su:root@localhost Mypassword：用以打开root权限文件。
- M-x ffap（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。
- 一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：M-x ido-mode。
-   补充Dired文件操作（Directory Editor）   在Dired buffer下，光标所在处+新建文件夹。
- f或e或者RET在当前buffer下打开文件。o在另一个buffer中打开文件，并且光标跳转到另一个buffer。C-o在另一个buffer下打开文件，光标保留在Dired buffer中。v在新的buffer打开文件，只读权限。^在新的buffer打开上层目录的Dired buffer。i在Dired buffer下打开文件夹。g更新状态。
- m标记文件。%m标记文件名符合正则规则的文件。%g标记内容符合正则规则的文件。u删除当前光标所在文件的标记。M-DEL删除所有标记的文件。t标记所有文件。
- 以下操作针对标记的文件；如果没有标记的文件，将操作光标所在处文件。C拷贝文件，R移动或者重命名文件，H创建硬链接，C创建软链接，M更改文件执行权限（比如777），D删除文件，Q正则匹配（所有标记文件）。</description>
+      <description>1. 安装  ## 安装Emacs $ sudo dnf install emacs 2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
+ C-x 2或C-x 3：    将窗口分割成两个或者三个。
+  C-x 1：只保留一个窗口。
+  C-x n：开n个窗口
+   C-x C-f：    读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。
+  对于Emacs minibuffer的路径，在Emacs中可以使用~/表示当前登录的用户，可以替代/home/usr。同时，可以在当前路径下直接输入/home//median/TOOL或者/home//~/进入需要的目录，因为Emacs会自动忽略//或者/~之前的内容（不能在终端使用它）。
+  输入/su:root@localhost Mypassword：用以打开root权限文件。
+  M-x ffap（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。
+  一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：M-x ido-mode。
+   补充Dired文件操作（Directory Editor）    在Dired buffer下，光标所在处+新建文件夹。
+  f或e或者RET在当前buffer下打开文件。o在另一个buffer中打开文件，并且光标跳转到另一个buffer。C-o在另一个buffer下打开文件，光标保留在Dired buffer中。v在新的buffer打开文件，只读权限。^在新的buffer打开上层目录的Dired buffer。i在Dired buffer下打开文件夹。g更新状态。</description>
     </item>
     
     <item>
@@ -1075,7 +1029,7 @@ $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以
 # 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
 # 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
 需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .</description>
+# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .zip格式文件</description>
     </item>
     
     <item>
@@ -1085,15 +1039,15 @@ $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以
       
       <guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid>
       <description>1. R包介绍 R的包（package）通常有两种:
- 二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
- 源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
+  二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
+  源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
   2. R包安装 2.1 源代码安装 $ sudo R CMD INSTALL /.../myPackage.tar.gz 使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。
-2.2 内置install.packages()函数安装 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
+2.2 内置install.packages()函数安装### 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
 install.packages(&amp;#39;myPackage&amp;#39;) 同时，可以使用install.packages()安装本地下载的包，尤其适用于在服务器上安装包
-install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;))  3. R包版本查询和更新 R和R包版本查询
+install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;)) 3. R包版本查询和更新 R和R包版本查询
 # 在启动的R中执行 R.version # R包版本 packageVersion(&amp;#39;myPackage&amp;#39;) # 查询当前R的详细信息，包括R版本、R包版本、命名空间等 sessionInfo() CRAN包更新
-# 可以定期执行以下 update.packages()  Bioconductor的安装和更新方法
-source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包 remove.packages(&amp;#39;myPackage&amp;#39;) 5. R包相关函数 # 查看包的安装目录 .</description>
+# 可以定期执行以下 update.packages() Bioconductor的安装和更新方法
+source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包## remove.packages(&amp;#39;myPackage&amp;#39;) 5. R包相关函数 # 查看包的安装目录 .</description>
     </item>
     
     <item>
@@ -1103,13 +1057,12 @@ source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;m
       
       <guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid>
       <description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
-1. 添加常用源  添加rpmfusion的free和nonfree源。
- 添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
-  2. 辅助安装工具  Fedy  Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
+1. 添加常用源   添加rpmfusion的free和nonfree源。
+  添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
+  2. 辅助安装工具   Fedy  Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
 3. 影音  VLC  $ sudo dnf install vlc  Mplayer  $ sudo dnf install mplayer-gui xine smplayer  录音工具Audacity  $ sudo dnf install audacity  屏幕录制RecordMyDesktop  Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。
 # 安装方法 $ sudo dnf install recordmydesktop # 使用方法 $ qt-recordMyDesktop 4. 办公  字典GoldenDict  Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人GoldenDict 。GoldenDict的主要特点有：
- 字典库丰富;
- 直接查询维基百科和其他网络字典;</description>
+  字典库丰富;</description>
     </item>
     
   </channel>

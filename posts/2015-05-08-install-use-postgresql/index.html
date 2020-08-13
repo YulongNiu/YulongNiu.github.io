@@ -67,14 +67,11 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-安装和开启postgresql">1. 安装和开启postgresql</h2>
-
+			<h2 id="1-安装和开启postgresql-">1. 安装和开启postgresql</h2>
 <p>Fedora直接使用<code>dnf</code>安装相关组件。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装PostgreSQL</span>
-$ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3</code></pre></div>
-<p>初始化（只需要执行一次）。如果出现类似<code>Data directory is not empty!</code>报错，可以尝试执行删除操作<code>rm -f -r /usr/local/pgsql/data</code></p>
+$ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3
+</code></pre></div><p>初始化（只需要执行一次）。如果出现类似<code>Data directory is not empty!</code>报错，可以尝试执行删除操作<code>rm -f -r /usr/local/pgsql/data</code></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 初始化</span>
 $ sudo postgresql-setup --initdb --unit postgresql
 
@@ -88,9 +85,8 @@ $ sudo service postgresql status
 $ sudo service postgresql stop
 
 <span style="color:#008000"># 开机启动</span>
-$ sudo chkconfig postgresql on</code></pre></div>
-<h2 id="2-创建用户和数据库">2. 创建用户和数据库</h2>
-
+$ sudo chkconfig postgresql on
+</code></pre></div><h2 id="2-创建用户和数据库-">2. 创建用户和数据库</h2>
 <p>为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 进入home路径</span>
 $ cd /home/
@@ -119,8 +115,8 @@ bash-4.3$ exit
 $ creatdb testdb2
 
 <span style="color:#008000"># 删除数据库</span>
-$ dropdb testdb2</code></pre></div>
-<p>创建完用户和对应数据库后，可以登录数据库控制台。登录后，系统命令提示符会变成类似“testdb=#”。</p>
+$ dropdb testdb2
+</code></pre></div><p>创建完用户和对应数据库后，可以登录数据库控制台。登录后，系统命令提示符会变成类似“testdb=#”。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 登录testdb数据库控制台</span>
 $ psql testdb
 
@@ -144,19 +140,20 @@ testdb=<span style="color:#008000"># \dt</span>
 testdb=<span style="color:#008000"># \l</span>
 
 <span style="color:#008000"># 退出</span>
-testdb=<span style="color:#008000"># \q</span></code></pre></div>
-<h3 id="参考资料">参考资料</h3>
-
+testdb=<span style="color:#008000"># \q</span>
+</code></pre></div><h3 id="参考资料-">参考资料</h3>
 <ul>
-<li><p><a href="http://www.postgresql.org/docs/9.4/interactive/index.html">PostgreSQL 9.4 Manuals</a></p></li>
-
-<li><p><a href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">PostgreSQL新手入门</a></p></li>
-
-<li><p><a href="http://www.heatware.net/linux-unix/how-install-postgresql-8-4-centos-5/">初始化错误</a></p></li>
+<li>
+<p><a href="http://www.postgresql.org/docs/9.4/interactive/index.html">PostgreSQL 9.4 Manuals</a></p>
+</li>
+<li>
+<p><a href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">PostgreSQL新手入门</a></p>
+</li>
+<li>
+<p><a href="http://www.heatware.net/linux-unix/how-install-postgresql-8-4-centos-5/">初始化错误</a></p>
+</li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2015年7月29日</p>
 
 		</div>

@@ -67,108 +67,124 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p><a href="https://github.com/syl20bnr/spacemacs">Spacemacs</a>结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用<code>hybrid</code>模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。<code>hybrid</code>模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是<code>SPC</code>，在Emacs模式下是<code>M-m</code>。</p>
-
-<h2 id="1-vim快捷键记录">1. Vim快捷键记录</h2>
-
+			<p><a href="https://github.com/syl20bnr/spacemacs">Spacemacs</a>结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用<code>hybrid</code>模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。<code>hybrid</code>模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是<code>SPC</code>，在Emacs模式下是<code>M-m</code>。</p>
+<h2 id="1-vim快捷键记录-">1. Vim快捷键记录</h2>
 <p>在Spacemacs中<code>SPC-h-T</code>进入Emacs Evil快速入门。</p>
-
-<h3 id="1-1-移动">1.1 移动</h3>
-
+<h3 id="11-移动-">1.1 移动</h3>
 <ul>
-<li><p><code>h</code>：前</p></li>
-
-<li><p><code>j</code>：上</p></li>
-
-<li><p><code>k</code>：下</p></li>
-
-<li><p><code>l</code>：后</p></li>
-
-<li><p><code>gg</code>：</p>
-
+<li>
+<p><code>h</code>：前</p>
+</li>
+<li>
+<p><code>j</code>：上</p>
+</li>
+<li>
+<p><code>k</code>：下</p>
+</li>
+<li>
+<p><code>l</code>：后</p>
+</li>
+<li>
+<p><code>gg</code>：</p>
 <ul>
-<li><p>文档开始位置。</p></li>
-
-<li><p><code>G</code>：文档结束位置。</p></li>
-
-<li><p><code>:[number]</code>：跳转到制定行。</p></li>
-</ul></li>
+<li>
+<p>文档开始位置。</p>
+</li>
+<li>
+<p><code>G</code>：文档结束位置。</p>
+</li>
+<li>
+<p><code>:[number]</code>：跳转到制定行。</p>
+</li>
 </ul>
-
-<h3 id="1-2-插入和替换">1.2 插入和替换</h3>
-
-<ul>
-<li><p><code>i</code>：</p>
-
-<ul>
-<li><p>在<strong>光标前</strong>的位置，进入insert mode，进行编辑。</p></li>
-
-<li><p><code>ESC</code>或者<code>C-[</code>退出insert mode。</p></li>
-</ul></li>
-
-<li><p><code>r</code>：替换<strong>光标所在位置</strong>的单个字符。</p></li>
-
-<li><p><code>[number] d object</code>：</p>
-
-<ul>
-<li><p><code>cw</code>或<code>ce</code>：从光标处删除整个单词，并进入insert mode。</p></li>
-
-<li><p><code>c$</code>：从光标处删除整行，并进入insert mode。</p></li>
-</ul></li>
+</li>
 </ul>
-
-<h3 id="1-3-搜索和替换">1.3 搜索和替换</h3>
-
+<h3 id="12-插入和替换-">1.2 插入和替换</h3>
 <ul>
-<li><p><code>\</code>：</p>
-
+<li>
+<p><code>i</code>：</p>
 <ul>
-<li><p><code>\searchWord</code>：输入搜索内容，<code>n</code>向下搜索，<code>N</code>向上搜索。</p></li>
-
-<li><p><code>%</code>：在各种括号跳转。</p></li>
-
-<li><p><code>:s/old/new</code>：替换第一个匹配；<code>:s/old/new/g</code>：替换当前行匹配；<code>:#,#s/old/new/g</code>：替换行（<code>#</code>为行号）之间匹配；<code>:%s/old/new/g</code>：替换全文匹配。</p></li>
-
-<li><p><code>:%s/old/new/gc</code>：替换全文匹配，每一个匹配会提示是否匹配（输入<code>y</code>表示执行替换，<code>n</code>表示跳过匹配）。</p></li>
-</ul></li>
+<li>
+<p>在<strong>光标前</strong>的位置，进入insert mode，进行编辑。</p>
+</li>
+<li>
+<p><code>ESC</code>或者<code>C-[</code>退出insert mode。</p>
+</li>
 </ul>
-
-<h3 id="1-4-删除-剪切和粘贴">1.4 删除、剪切和粘贴</h3>
-
+</li>
+<li>
+<p><code>r</code>：替换<strong>光标所在位置</strong>的单个字符。</p>
+</li>
+<li>
+<p><code>[number] d object</code>：</p>
 <ul>
-<li><p><code>x</code>：删除<strong>光标所在位置</strong>的单个字符。</p></li>
-
-<li><p><code>[number] d object</code>：</p>
-
-<ul>
-<li><p><code>dw</code>：从光标处删除整个单词，包括单词后的空格。</p></li>
-
-<li><p><code>de</code>：从光标处删除整个单词，不包括空格。</p></li>
-
-<li><p><code>d$</code>：从光标处删除整行。</p></li>
-
-<li><p><code>dd</code>：删除光标所在的整行。</p></li>
-</ul></li>
-
-<li><p><code>p</code>：在<strong>光标后</strong>的位置粘贴剪切（<code>d</code>类和<code>x</code>操作）的内容。</p></li>
+<li>
+<p><code>cw</code>或<code>ce</code>：从光标处删除整个单词，并进入insert mode。</p>
+</li>
+<li>
+<p><code>c$</code>：从光标处删除整行，并进入insert mode。</p>
+</li>
 </ul>
-
-<h3 id="1-5-撤销">1.5 撤销</h3>
-
-<ul>
-<li><p><code>u</code>：撤销</p></li>
-
-<li><p><code>Ctr-R</code>：反撤销</p></li>
+</li>
 </ul>
-
-<h2 id="2-常用快捷键">2. 常用快捷键</h2>
-
+<h3 id="13-搜索和替换-">1.3 搜索和替换</h3>
+<ul>
+<li>
+<p><code>\</code>：</p>
+<ul>
+<li>
+<p><code>\searchWord</code>：输入搜索内容，<code>n</code>向下搜索，<code>N</code>向上搜索。</p>
+</li>
+<li>
+<p><code>%</code>：在各种括号跳转。</p>
+</li>
+<li>
+<p><code>:s/old/new</code>：替换第一个匹配；<code>:s/old/new/g</code>：替换当前行匹配；<code>:#,#s/old/new/g</code>：替换行（<code>#</code>为行号）之间匹配；<code>:%s/old/new/g </code>：替换全文匹配。</p>
+</li>
+<li>
+<p><code>:%s/old/new/gc</code>：替换全文匹配，每一个匹配会提示是否匹配（输入<code>y</code>表示执行替换，<code>n</code>表示跳过匹配）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="14-删除剪切和粘贴-">1.4 删除、剪切和粘贴</h3>
+<ul>
+<li>
+<p><code>x</code>：删除<strong>光标所在位置</strong>的单个字符。</p>
+</li>
+<li>
+<p><code>[number] d object</code>：</p>
+<ul>
+<li>
+<p><code>dw</code>：从光标处删除整个单词，包括单词后的空格。</p>
+</li>
+<li>
+<p><code>de</code>：从光标处删除整个单词，不包括空格。</p>
+</li>
+<li>
+<p><code>d$</code>：从光标处删除整行。</p>
+</li>
+<li>
+<p><code>dd</code>：删除光标所在的整行。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>p</code>：在<strong>光标后</strong>的位置粘贴剪切（<code>d</code>类和<code>x</code>操作）的内容。</p>
+</li>
+</ul>
+<h3 id="15-撤销-">1.5 撤销</h3>
+<ul>
+<li>
+<p><code>u</code>：撤销</p>
+</li>
+<li>
+<p><code>Ctr-R</code>：反撤销</p>
+</li>
+</ul>
+<h2 id="2-常用快捷键-">2. 常用快捷键</h2>
 <p>常用的快捷键参考使用layer的说明文档。</p>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2019年11月3日</p>
 
 		</div>

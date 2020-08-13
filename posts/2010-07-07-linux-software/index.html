@@ -67,68 +67,60 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。</p>
-
-<h2 id="1-添加常用源">1. 添加常用源</h2>
-
+			<p>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。</p>
+<h2 id="1-添加常用源-">1. 添加常用源</h2>
 <ul>
-<li><p>添加<a href="http://rpmfusion.org/Configuration">rpmfusion</a>的free和nonfree源。</p></li>
-
-<li><p>添加<a href="http://repo.fdzh.org/">FZUG</a>源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。</p></li>
+<li>
+<p>添加<a href="http://rpmfusion.org/Configuration">rpmfusion</a>的free和nonfree源。</p>
+</li>
+<li>
+<p>添加<a href="http://repo.fdzh.org/">FZUG</a>源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。</p>
+</li>
 </ul>
-
-<h2 id="2-辅助安装工具">2. 辅助安装工具</h2>
-
+<h2 id="2-辅助安装工具--">2. 辅助安装工具 </h2>
 <ul>
 <li>Fedy</li>
 </ul>
-
 <p><a href="https://github.com/rpmfusion-infra/fedy">Fedy</a>是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。</p>
-
-<h2 id="3-影音">3. 影音</h2>
-
+<h2 id="3-影音-">3. 影音</h2>
 <ul>
 <li>VLC</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install vlc</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install vlc
+</code></pre></div><ul>
 <li>Mplayer</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install mplayer-gui xine smplayer</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install mplayer-gui xine smplayer
+</code></pre></div><ul>
 <li>录音工具Audacity</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install audacity</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install audacity
+</code></pre></div><ul>
 <li>屏幕录制RecordMyDesktop</li>
 </ul>
-
 <p>Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装方法</span>
 $ sudo dnf install recordmydesktop
 
 <span style="color:#008000"># 使用方法</span>
-$ qt-recordMyDesktop</code></pre></div>
-<h2 id="4-办公">4. 办公</h2>
-
+$ qt-recordMyDesktop
+</code></pre></div><h2 id="4-办公-">4. 办公</h2>
 <ul>
 <li>字典GoldenDict</li>
 </ul>
-
 <p>Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人<a href="http://goldendict.org/">GoldenDict</a> 。GoldenDict的主要特点有：</p>
-
 <ol>
-<li><p>字典库丰富;</p></li>
-
-<li><p>直接查询维基百科和其他网络字典;</p></li>
-
-<li><p>支持字典分类、发音（字典库包括发音）、光标取词等。</p></li>
+<li>
+<p>字典库丰富;</p>
+</li>
+<li>
+<p>直接查询维基百科和其他网络字典;</p>
+</li>
+<li>
+<p>支持字典分类、发音（字典库包括发音）、光标取词等。</p>
+</li>
 </ol>
-
 <p><strong>安装方法：</strong></p>
-
 <p>参考GoldenDict的<a href="https://github.com/goldendict/goldendict">GitHub安装介绍</a>，字典发音需要安装Mplayer，Fedora安装可能依赖的库如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># dnf install bzip2-devel gcc-c++ git hunspell-devel \</span>
 libvorbis-devel libXtst-devel phonon-devel <span style="color:#a31515">\
@@ -140,69 +132,64 @@ libvorbis-devel libXtst-devel phonon-devel <span style="color:#a31515">\
 $ git clone git://github.com/goldendict/goldendict.git
 $ cd goldendict
 $ qmake-qt4 <span style="color:#a31515">&#34;CONFIG+=zim_support&#34;</span> <span style="color:#a31515">&#34;CONFIG+=chinese_conversion_support&#34;</span> &amp;&amp; make
-$ sudo make install</code></pre></div>
-<p><strong>添加离线字典</strong></p>
-
+$ sudo make install
+</code></pre></div><p><strong>添加离线字典</strong></p>
 <ul>
 <li>安装dictd-server</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install dictd-server</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install dictd-server
+</code></pre></div><ul>
 <li>dsl文件处理</li>
 </ul>
-
 <p>GoldenDict只能识别dsl格式的字典文件，所以先进行处理。一般得到dsl文件内容如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">mydict.dsl
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">mydict.dsl
 mydict.bmp
 mydict.ann
 mydict.images.rar
-mydict.sounds.rar</pre></div>
-<blockquote>
+mydict.sounds.rar
+</code></pre></div><blockquote>
 <p>压缩dsl文件：</p>
 </blockquote>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ dictzip mydict.dsl </code></pre></div>
-<blockquote>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ dictzip mydict.dsl 
+</code></pre></div><blockquote>
 <p>解压images和sounds的所有文件到同一个文件夹，之后将其<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=48&amp;t=316122&amp;start=0">全部压缩到一个文件夹中</a>：</p>
 </blockquote>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find . -name <span style="color:#a31515">&#34;*&#34;</span> -print | zip -9 ../mydict.dsl.dz.files.zip -@</code></pre></div>
-<blockquote>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ find . -name <span style="color:#a31515">&#34;*&#34;</span> -print | zip -9 ../mydict.dsl.dz.files.zip -@
+</code></pre></div><blockquote>
 <p>最后，得到如下文件，使用GoldenDict载入即可，注意文件的命名都统一为<code>mydict</code>：</p>
 </blockquote>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">mydict.dsl.dz
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">mydict.dsl.dz
 mydict.dsl.dz.files.zip
 mydict.ann
-mydict.bmp</pre></div>
-<p>以下是两张在GoldenDict中查询维基百科和大英百科的效果图。</p>
-
-<p><img src="/images/linux_software_goldendict1.png" alt="linux_software_goldendict1" /></p>
-
-<p><img src="/images/linux_software_goldendict2.png" alt="linux_software_goldendict2" /></p>
-
+mydict.bmp
+</code></pre></div><p>以下是两张在GoldenDict中查询维基百科和大英百科的效果图。</p>
+<p><img src="/images/linux_software_goldendict1.png" alt="linux_software_goldendict1"></p>
+<p><img src="/images/linux_software_goldendict2.png" alt="linux_software_goldendict2"></p>
 <ul>
 <li>chm阅读器</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install kchmviewer</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install kchmviewer
+</code></pre></div><ul>
 <li>文档注释工具Xournal</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install xournal</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install xournal
+</code></pre></div><ul>
 <li>ePub文件阅读器</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install fbreader</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install fbreader
+</code></pre></div><ul>
 <li>djvu文件阅读器</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install djvulibre</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install djvulibre
+</code></pre></div><ul>
 <li>unrar解压工具</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install unrar</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install unrar
+</code></pre></div><ul>
 <li>截屏工具KSnapshot</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ksnapshot</code></pre></div>
-<ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ksnapshot
+</code></pre></div><ul>
 <li>图片转换工具<a href="http://www.imagemagick.org/">ImageMagick</a></li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ImageMagick
@@ -211,56 +198,48 @@ mydict.bmp</pre></div>
 $ convert -quality 100 input.pdf output.jpg
 
 <span style="color:#008000"># 设置像素，比如转换的是500px</span>
-$ convert -density 500 input.pdf output.jpg</code></pre></div>
-<ul>
+$ convert -density 500 input.pdf output.jpg
+</code></pre></div><ul>
 <li>TeX文本编辑器</li>
 </ul>
-
 <p><a href="http://texstudio.sourceforge.net/">TeXstudio</a>支持自动补全、代码高亮、错误提示、文档预览、图片表格公式生成、LaTeX/PDFLaTeX/XeLaTeX。甚至还有一个“放大镜”，放大观察生成文档字体和公式细节。TeXstudio仍然保持持续更新的态势，以下是安装方法和一个阅览图。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install texstudio</code></pre></div>
-<p><img src="/images/linux_software_texstudio.jpg" alt="linux_software_texstudio" /></p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install texstudio
+</code></pre></div><p><img src="/images/linux_software_texstudio.jpg" alt="linux_software_texstudio"></p>
 <ul>
 <li>PDF文件编辑工具</li>
 </ul>
-
 <p><a href="http://community.coherentpdf.com/">cpdf</a>用于对PDF文件执行分割、合并和压缩等操作。下载预编译版本使用。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 选择第一页输出</span>
-$ cpdf pdfFile.pdf 1 -o outPdfFile.pdf</code></pre></div>
-<h2 id="5-模拟windows程序">5. 模拟Windows程序</h2>
-
+$ cpdf pdfFile.pdf 1 -o outPdfFile.pdf
+</code></pre></div><h2 id="5-模拟windows程序-">5. 模拟Windows程序</h2>
 <ul>
 <li>Wine</li>
 </ul>
-
 <p>Wine可以尽可能模拟Window软件</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install wine</code></pre></div>
-<p>同时可能需要Winetricks辅助</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install wine
+</code></pre></div><p>同时可能需要Winetricks辅助</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget http://www.kegel.com/wine/winetricks
 $ chmod +x winetricks
 $ sudo mv winetricks /usr/local/bin
-$ winetricks mfc42 </code></pre></div>
-<ul>
+$ winetricks mfc42 
+</code></pre></div><ul>
 <li>PlayOnLinux</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget http://rpm.playonlinux.com/playonlinux.repo
 $ sudo mv playonlinux.repo /etc/yum.repos.d/
 $ sudo dnf update
-$ sudo dnf install playonlinux</code></pre></div>
-<h2 id="6-驱动程序">6. 驱动程序</h2>
-
+$ sudo dnf install playonlinux
+</code></pre></div><h2 id="6-驱动程序-">6. 驱动程序</h2>
 <ul>
 <li>Fedora安装NVIDIA显卡驱动</li>
 </ul>
-
 <p>安装过程参考<a href="http://blog.csdn.net/icemango1209/article/details/18766353">Fedora 20安装Nvidia 显卡驱动</a>。需要注意关闭窗口界面，从而进入完全字符界面操作。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 进入字符界面</span>
 $ sudo init 3
 
 <span style="color:#008000"># 进入图形界面</span>
-$ sudo init 5</code></pre></div>
-<h2 id="7-samsung-ssd">7. Samsung SSD</h2>
-
+$ sudo init 5
+</code></pre></div><h2 id="7-samsung-ssd-">7. Samsung SSD</h2>
 <p>三星固态硬盘支持Linux版本的<a href="http://www.samsung.com/global/business/semiconductor/minisite/SSD/global/html/support/server_downloads.html">Magician DC</a>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 列出SSD</span>
 $ sudo magician -L
@@ -274,19 +253,14 @@ $ sudo magician -d 0 -S
 $ sudo magician -d 0 -S -t
 
 <span style="color:#008000"># trim</span>
-$ sudo magician -d 0 -T</code></pre></div>
-<h2 id="8-sd卡录入镜像">8. SD卡录入镜像</h2>
-
+$ sudo magician -d 0 -T
+</code></pre></div><h2 id="8-sd卡录入镜像-">8. SD卡录入镜像</h2>
 <p>推荐使用<a href="https://etcher.io/">Etcher</a>录入镜像至SD卡。</p>
-
-<h3 id="a-id-ref-参考网址-a"><a id="Ref">参考网址</a></h3>
-
+<h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="http://xmodulo.com/convert-pdf-files-to-jpg-format-on-linux.html">pdf转换jpg/jpeg文件</a></li>
 </ul>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2019年11月3日</p>
 
 		</div>

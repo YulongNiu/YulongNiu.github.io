@@ -106,28 +106,19 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<h2 id="1-shadowsocks客户端">1. Shadowsocks客户端</h2>
-
+			<h2 id="1-shadowsocks客户端-">1. Shadowsocks客户端</h2>
 <p>Shadowsocks在主流平台上都有<a href="https://shadowsocks.org/en/download/clients.html">客户端</a>，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装<a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en">SwitchyOmega</a>插件。</p>
-
-<h2 id="2-谷歌设置">2. 谷歌设置</h2>
-
+<h2 id="2-谷歌设置-">2. 谷歌设置</h2>
 <p>进入<a href="https://encrypted.google.com/preferences?hl=zh-CN#languages">网址</a>，设置自己喜欢的语言，之后重启即可。</p>
-
-<h2 id="3-自己配置shadowsocks">3. 自己配置Shadowsocks</h2>
-
-<h3 id="3-1-软件准备">3.1 软件准备</h3>
-
+<h2 id="3-自己配置shadowsocks-">3. 自己配置Shadowsocks</h2>
+<h3 id="31-软件准备-">3.1 软件准备</h3>
 <p>参考<a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks网站</a>安装。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf copr enable librehat/shadowsocks
 $ sudo dnf update
-$ sudo dnf install shadowsocks-libev</code></pre></div>
-<h3 id="3-2-配置文件">3.2 配置文件</h3>
-
+$ sudo dnf install shadowsocks-libev
+</code></pre></div><h3 id="32-配置文件-">3.2 配置文件</h3>
 <p>文件位置<code>/etc/shadowsocks-libev/config.json</code>，设置模板：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">{
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{
     &#34;server&#34;:&#34;0.0.0.0&#34;,
     &#34;port_password&#34;:{
      &#34;8381&#34;:&#34;******&#34;,
@@ -135,55 +126,54 @@ $ sudo dnf install shadowsocks-libev</code></pre></div>
     },
     &#34;timeout&#34;:600,
     &#34;method&#34;:&#34;aes-256-cfb&#34;
-}</pre></div>
-<h3 id="3-3-启动">3.3 启动</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json</code></pre></div>
-<h2 id="4-使用tcp-bbr加速">4. 使用TCP BBR加速</h2>
+}
+</code></pre></div><h3 id="33-启动-">3.3 启动</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
+</code></pre></div><h2 id="4-使用tcp-bbr加速-">4. 使用TCP BBR加速</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo echo <span style="color:#a31515">&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
 $ sudo echo <span style="color:#a31515">&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
 
 $ sudo sysctl -p
 
 $ sudo sysctl net.ipv4.tcp_available_congestion_control
-$ sudo sysctl net.ipv4.tcp_congestion_control</code></pre></div>
-<h2 id="5-全局配置">5. 全局配置</h2>
-
+$ sudo sysctl net.ipv4.tcp_congestion_control
+</code></pre></div><h2 id="5-全局配置-">5. 全局配置</h2>
 <p>使用proxychains全局调用Shadowsocks。</p>
-
 <p>首先，安装和配置<code>proxychains</code>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y proxychains-ng
 
-$ sudo echo <span style="color:#a31515">&#39;socks5    127.0.0.1    1080&#39;</span> &gt;&gt; /etc/proxychains.conf</code></pre></div>
-<p>之后，打开Shadowsocks后，在需要使用的命令行前加入<code>proxychains4</code>，例如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ proxychains4 git push origin master</code></pre></div>
-<h2 id="6-privoxy全局代理">6. privoxy全局代理</h2>
-
+$ sudo echo <span style="color:#a31515">&#39;socks5    127.0.0.1    1080&#39;</span> &gt;&gt; /etc/proxychains.conf
+</code></pre></div><p>之后，打开Shadowsocks后，在需要使用的命令行前加入<code>proxychains4</code>，例如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ proxychains4 git push origin master
+</code></pre></div><h2 id="6-privoxy全局代理-">6. privoxy全局代理</h2>
 <p>首先，安装和配置<code>privoxy</code>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y privoxy
 
 <span style="color:#008000"># /etc/privoxy/config修改</span>
 <span style="color:#008000"># listen-address 127.0.0.1:8118</span> 
-<span style="color:#008000"># forward-socks5t / 127.0.0.1:1080</span> </code></pre></div>
-<p>配置环境变量并启动：</p>
+<span style="color:#008000"># forward-socks5t / 127.0.0.1:1080</span> 
+</code></pre></div><p>配置环境变量并启动：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export http_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 $ export https_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 $ export ftp_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 
-$ sudo systemctl restart privoxy</code></pre></div>
-<h3 id="参考资料">参考资料</h3>
-
+$ sudo systemctl restart privoxy
+</code></pre></div><h3 id="参考资料-">参考资料</h3>
 <ol>
-<li><p><a href="http://nga.178.com/read.php?tid=8798506">更改谷歌语言偏好</a></p></li>
-
-<li><p><a href="https://dirtysalt.github.io/blogs/boost-shadowsocks-with-tcp-bbr.html">通过TCP BBR为ShadowSocks加速</a></p></li>
-
-<li><p><a href="https://github.com/shadowsocks/shadowsocks-libev/issues/1668">shadowsocks-libev多用户</a></p></li>
-
-<li><p><a href="https://blog.csdn.net/ypbsyy/article/details/81146866">linux下的ss+privoxy代理配置</a></p></li>
+<li>
+<p><a href="http://nga.178.com/read.php?tid=8798506">更改谷歌语言偏好</a></p>
+</li>
+<li>
+<p><a href="https://dirtysalt.github.io/blogs/boost-shadowsocks-with-tcp-bbr.html">通过TCP BBR为ShadowSocks加速</a></p>
+</li>
+<li>
+<p><a href="https://github.com/shadowsocks/shadowsocks-libev/issues/1668">shadowsocks-libev多用户</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/ypbsyy/article/details/81146866">linux下的ss+privoxy代理配置</a></p>
+</li>
 </ol>
-
-<h3 id="更新记录">更新记录</h3>
-
+<h3 id="更新记录-">更新记录</h3>
 <p>2017年12月19日</p>
 
 		</div>

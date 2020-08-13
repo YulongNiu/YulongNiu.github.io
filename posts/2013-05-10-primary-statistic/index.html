@@ -106,16 +106,11 @@
 		</div>
 
 		<div class="markdown">
-			
-
-<p>$$
+			<p>$$
 \newcommand{\P}{\mathrm{P}}
 $$</p>
-
-<h2 id="1-完备事件">1. 完备事件</h2>
-
+<h2 id="1-完备事件-">1. 完备事件</h2>
 <p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -124,13 +119,9 @@ $$</p>
 \label{eq:1}
 \end{align}
 $$</p>
-
 <p>常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$</p>
-
-<h2 id="2-全概率公式">2. 全概率公式</h2>
-
+<h2 id="2-全概率公式-">2. 全概率公式</h2>
 <p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -140,9 +131,7 @@ $$</p>
 \label{eq:2}
 \end{align}
 $$</p>
-
 <p>使用概率密度函数表示为：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -152,11 +141,8 @@ f(Y) &amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline
 \label{eq:3}
 \end{align}
 $$</p>
-
-<h2 id="3-独立事件">3. 独立事件</h2>
-
+<h2 id="3-独立事件-">3. 独立事件</h2>
 <p>$X$和$Y$为两事件独立，则：</p>
-
 <p>$$
 \begin{align}
 \begin{split}
@@ -167,13 +153,9 @@ $$</p>
 \label{eq:4}
 \end{align}
 $$</p>
-
 <p>在朴素贝叶斯分类的推到中，可以用到诸如等式$P(X|Y, \theta) = P(X|\theta)$。</p>
-
-<h2 id="4-贝叶斯公式">4. 贝叶斯公式</h2>
-
-<p>根据$\eqref{eq:3}$和$\eqref{eq:4}$得：</p>
-
+<h2 id="4-贝叶斯公式-">4. 贝叶斯公式</h2>
+<p>根据$\eqref{eq:2}$和$\eqref{eq:4}$得：</p>
 <p>$$
 \begin{align}
 \begin{split}
@@ -183,10 +165,28 @@ $$</p>
 \label{eq:5}
 \end{align}
 $$</p>
-
-<h3 id="更新记录">更新记录</h3>
-
-<p>2018年2月3日</p>
+<p>多元贝叶斯公式：</p>
+<p>$$
+\begin{align}
+\begin{split}
+\P(x_1|Y_1, Y_2) &amp;= \frac{\P(x_1, Y_1, Y_2)}{\P(Y_1, Y_2)} \newline
+&amp;= \frac{\P(Y_2|x_1, Y_1) \P(x_1, Y_1)}{\P(Y_1, Y_2)} \newline
+&amp;= \frac{\P(Y_2|x_1, Y_1) \P(Y_1|x_1) \P(x_1)}{\P(Y_1, Y_2)} \newline
+&amp;= \frac{\P(Y_2|x_1, Y_1) \P(Y_1|x_1) \P(x_1)}{\sum\limits_{i=1}^{n} \P(Y_2|x_i, Y_1) \P(Y_1|x_i) \P(x_i)}
+\end{split}
+\label{eq:6}
+\end{align}
+$$</p>
+<p>特别的，当$Y_1$和$Y_2$相互独立，则$\P(Y_2|x_1, Y_1)=\P(Y_2|x_1)$。所以，$\eqref{eq:6}$可以转换为：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+\P(x_1|Y_1, Y_2) &amp;= \frac{\P(Y_2|x_1) \P(Y_1|x_1) \P(x_1)}{\sum\limits_{i=1}^{n} \P(Y_2|x_i) \P(Y_1|x_i) \P(x_i)}
+\end{split}
+\end{align*}
+$$</p>
+<h3 id="更新记录-">更新记录</h3>
+<p>2020年08月23日</p>
 
 		</div>
 
