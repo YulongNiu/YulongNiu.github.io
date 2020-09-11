@@ -185,8 +185,18 @@ $$</p>
 \end{split}
 \end{align*}
 $$</p>
+<p>由于$Y_1$和$Y_2$相互独立，也可以理解为：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+\P(x_1|Y_1, Y_2) &amp;= \frac{\P(Y_1, Y_2|x_1) \P(x_1)}{\P(Y_1, Y_2)} \newline
+&amp;= \frac{\P(Y_2|x_1) \P(Y_1|x_1) \P(x_1)}{\P(Y_1, Y_2)} \newline
+&amp;= \frac{\P(Y_2|x_1) \P(Y_1|x_1) \P(x_1)}{\sum\limits_{i=1}^{n} \P(Y_2|x_i) \P(Y_1|x_i) \P(x_i)}
+\end{split}
+\end{align*}
+$$</p>
 <h3 id="更新记录-">更新记录</h3>
-<p>2020年08月23日</p>
+<p>2020年09月11日</p>
 
 		</div>
 

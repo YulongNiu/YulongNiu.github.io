@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Gibbs取样 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Gibbs取样" />
+<meta property="og:description" content="Gibbs取样举例。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/" />
+<meta property="article:published_time" content="2015-10-03T14:37:08+08:00" />
+<meta property="article:modified_time" content="2015-10-03T14:37:08+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gibbs取样"/>
+<meta name="twitter:description" content="Gibbs取样举例。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+     tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         displayMath: [['$$','$$'], ['\[\[','\]\]']],
+         processEscapes: true,
+         processEnvironments: true,
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+         TeX: { equationNumbers: { autoNumber: "AMS" },
+                extensions: ["AMSmath.js", "AMSsymbols.js"] }
+     }
+ });
+ MathJax.Hub.Queue(function() {
+     
+     
+     
+     var all = MathJax.Hub.getAllJax(), i;
+     for(i = 0; i < all.length; i += 1) {
+         all[i].SourceElement().parentNode.className += ' has-jax';
+     }
+ });
+
+ MathJax.Hub.Config({
+     
+     TeX: { equationNumbers: { autoNumber: "AMS" } }
+ });
+</script>
+
+<style>
+ code.has-jax {
+     font: inherit;
+     font-size: 100%;
+     background: inherit;
+     border: inherit;
+     color: #515151;
+ }
+</style>
+
+
+	
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://YulongNiu.github.io/js/main.js"></script>
+	<script src="https://YulongNiu.github.io/js/abc.js"></script>
+	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
+	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Gibbs取样</h1>
+			<div class="meta">Posted at &mdash; Oct 3, 2015</div>
+		</div>
+
+		<div class="markdown">
+			<p>$$
+\newcommand{\md}{\mathrm{d}}
+$$</p>
+<h2 id="1-gibbs取样简介-">1. Gibbs取样简介</h2>
+<p><a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs取样</a>的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline
+p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取x_1^{(n+1)} \newline
+p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取x_2^{(n+1)} \newline
+&amp; \vdots \newline
+p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取x_k^{(n+1)} \newline
+生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T
+\end{split}
+\end{align*}
+$$</p>
+<p>当抽取足够多次时，计算目标函数$f(x)$的均值：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)})
+\end{split}
+\end{align*}
+$$</p>
+<h2 id="2-举例-">2. 举例</h2>
+<h3 id="21-gamma核和高斯核-">2.1 gamma核和高斯核</h3>
+<p>一个有趣的<a href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/">例子</a>是双变量$x, y$分布：</p>
+<p>$$
+\begin{align}
+\begin{split}
+p(x, y) = k x^2 e^{-xy^2 - y^2 + 2y - 4x}, x &gt; 0, y \in \mathbb{R}
+\end{split}
+\label{eq:1}
+\end{align}
+$$</p>
+<p>其中$k$为常数，保证$p(x, y)$积分为1。各变量的条件分布为：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(y | x) &amp;= N(\frac{1}{x+1}, \frac{1}{2(x+1)}) \newline
+p(x | y) &amp;= Gamma(3, y^2+4)
+\end{split}
+\end{align*}
+$$</p>
+<h3 id="22-二元高斯分布-">2.2 二元高斯分布</h3>
+<p>《统计学习方法（第二版）》（李航 著）给出一个二元高斯分布的例子，</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(x_1, x_2) &amp;= N(0, \Sigma), \Sigma =
+\left[
+\begin{matrix}
+1 &amp; \rho \\\<br>
+\rho &amp; 1
+\end{matrix}
+\right]
+\end{split}
+\end{align*}
+$$</p>
+<p>各变量的条件分布为：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(x_1 | x_2) &amp;= N(\rho x_2, (1-\rho)^2) \newline
+p(x_2 | x_1) &amp;= N(\rho x_1, (1-\rho)^2)
+\end{split}
+\end{align*}
+$$</p>
+<p>当$\rho=0.5$时，模拟前$20$次取样如下（<a href="https://gist.github.com/YulongNiu/3b300680ac768e1293b5853b7d790ec7">代码</a>），第一个样本为$x_1 = -10, x_2 = -10$：</p>
+<p><img src="/images/bind_gibbs.jpg" alt="bind_gibbs.jpg"></p>
+<h2 id="3-一些积分-">3. 一些积分</h2>
+<p>对于$\eqref{eq:1}$：</p>
+<p>利用<a href="https://zh.wikipedia.org/zh-cn/%E9%AB%98%E6%96%AF%E7%A7%AF%E5%88%86">高斯积分</a></p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(x) &amp;= \int_{-\infty}^{+\infty } p(x, y) \md y \newline
+&amp;= k x^2 e^{-4x}\int_{-\infty}^{+\infty } e^{-(x+1)y^2 + 2y} \md y \newline
+&amp;= k x^2 e^{-4x} \sqrt{\frac{\pi}{x+1}} e^{\frac{1}{x+1}} \newline
+\end{split}
+\end{align*}
+$$</p>
+<p>因此，</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(y | x) &amp;= \frac{p(x, y)}{p(x)} \newline
+&amp;= \frac{k x^2 e^{-4x} e^{{-(x+1)y^2 + 2y}}}{k x^2 e^{-4x} \sqrt{\frac{\pi}{x+1}} e^{\frac{1}{x+1}}} \newline
+&amp;= \sqrt{\frac{x+1}{\pi}} e^{-(x+1)(y^2 - \frac{2y}{x+1} + \frac{1}{(x+1)^2})} \newline
+&amp;= \sqrt{\frac{x+1}{\pi}} e^{-(x+1)(y - \frac{1}{x+1})^2}
+\end{split}
+\end{align*}
+$$</p>
+<p>同理，</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(y) &amp;= \int_{0}^{+\infty} p(x, y) \md x \newline
+&amp;= k e^{-y^2+2y} \int_{0}^{+\infty} x^2 e^{-x(y^2+4)} \md x
+\end{split}
+\end{align*}
+$$</p>
+<p>对于不定积分：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+\int x^2 e^{-x(y^2+4)} \md x &amp;= \frac{x^2 e^{-x(y^2+4)}}{-y^2 - 4} - \frac{2x e^{-x(y^2+4)}}{(-y^2 - 4)^2} + \frac{2e^{-x(y^2+4)}}{(-y^2 - 4)^3} + C
+\end{split}
+\end{align*}
+$$</p>
+<p>因此，</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(y) &amp;= k e^{-y^2+2y} \left(0 - \frac{2}{(-y^2 - 4)^3} \right) \newline
+&amp;= k e^{-y^2+2y} \frac{2}{(y^2 + 4)^3}
+\end{split}
+\end{align*}
+$$</p>
+<p>$$
+\begin{align*}
+\begin{split}
+p(x | y) &amp;= \frac{p(x, y)}{p(y)} \newline
+&amp;= \frac{k e^{-y^2+2y} x^2 e^{-x(y^2+4)}}{ k e^{-y^2+2y} \frac{2}{(y^2 + 4)^3}} \newline
+&amp;=\frac{(y^2 + 4)^3}{2} x^2 e^{-x(y^2+4)}
+\end{split}
+\end{align*}
+$$</p>
+<h3 id="参考资料-">参考资料</h3>
+<ul>
+<li><a href="http://dirk.eddelbuettel.com/blog/2011/07/14/">MCMC and faster Gibbs Sampling using Rcpp</a></li>
+</ul>
+<h3 id="更新记录-">更新记录</h3>
+<p>2020年10月11日</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/statistics">statistics</a></li>
+								
+								<li><a href="/tags/bioinfo">bioinfo</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div></div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-53073828-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>
