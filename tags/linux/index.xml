@@ -47,7 +47,8 @@ $ git clone https://github.com/my/project.git $ git remote add upstream https://
       <pubDate>Fri, 21 Oct 2016 18:24:31 +0800</pubDate>
       
       <guid>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</guid>
-      <description>推荐使用更方便的ODrive。
+      <description>推荐使用更更方便的VGrive。
+推荐使用更方便的ODrive。
 本文简单介绍gdrive，它是一个跨多个平台软件，提供命令行操作Google Drive。同类软件还有drive和overGrive（Linux下Google Drive界面客户端）。
 基本思路：对每一个上传至Google Drive的文件或文件夹都分配一个Id，所以云端操作需要指定Id。
 突出优点：自动同步，比较云端和本地文件后，决定上传、删除或者替换；同步加入版本控制，可以下载和删除不同版本文件。

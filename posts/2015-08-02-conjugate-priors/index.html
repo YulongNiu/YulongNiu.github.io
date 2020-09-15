@@ -144,7 +144,7 @@ f(p|X_i) &amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} 
 \label{eq:3}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:3}$易得，$f(p \vert X_1, X_2, \dots, X_m) = \mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+m-\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{m+\alpha+\beta}$。特别，当$\alpha=1$和$\beta=1$时，即共轭先验为$0-1$之间的均匀分布，$\hat{p}=\frac{\sum_{i=1}^{m}k_i+1}{m+2}$。</p>
+<p>根据$\eqref{eq:3}$易得，$f(p \vert X_1, X_2, \dots, X_m) = \mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+m-\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{m+\alpha+\beta}$。$f(p \vert X_1, X_2, \dots, X_m)$也可以直接由分布$\mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+m-\sum_{i=1}^{m}k_i)$随机生成。特别，当$\alpha=1$和$\beta=1$时，即共轭先验为$0-1$之间的均匀分布，$\hat{p}=\frac{\sum_{i=1}^{m}k_i+1}{m+2}$。</p>
 <h3 id="12-二项分布-">1.2 二项分布</h3>
 <p>二项分布（binomial distribution）的概率质量函数为：</p>
 <p>$$
@@ -179,7 +179,7 @@ f(x_1, x_2,\dots,x_k;n,p_1,p_2,\dots,p_k) = \frac{n!}{x_1!x_2!\dots x_k!}p_1^{x_
 \label{eq:6}
 \end{align}
 $$</p>
-<p>对于随机变量$X_j \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}}$。</p>
+<p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}}$。</p>
 <p>该分布的共轭先验为Dirichlet分布$\mathrm{Dir}(\alpha_1,\alpha_2,\dots,\alpha_k)$，即对于随机变量$X_i$：</p>
 <p>$$
 \begin{align}
@@ -203,7 +203,7 @@ f(k;\lambda) = \frac{\lambda^k \mathrm{e}^{-\lambda}}{k!}
 \label{eq:8}
 \end{align}
 $$</p>
-<p>对于随机变量$X_j \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\lambda}=\frac{\sum_{i=1}^m k_i}{m}$。</p>
+<p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\lambda}=\frac{\sum_{i=1}^m k_i}{m}$。</p>
 <p>该分布的共轭先验为Gamma分布$\mathrm{Gamma}(\alpha, \beta)$，即对于随机变量$X_i$：</p>
 <p>$$
 \begin{align}
@@ -240,8 +240,8 @@ f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^
 \label{eq:11}
 \end{align}
 $$</p>
-<p>对于随机变量$X_j \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\sigma}^2=\frac{\sum_{i=1}^m(x_i-\mu)^2}{m}$。</p>
-<p>该分布的共轭先验为inverse Gamma分布$\mathrm{Inv-Gamma}(\alpha, \beta)$，即对于随机变量$X_i$：</p>
+<p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\sigma}^2=\frac{\sum_{i=1}^m(x_i-\mu)^2}{m}$。</p>
+<p>该情况的共轭先验为inverse Gamma分布$\mathrm{Inv-Gamma}(\alpha, \beta)$，即对于随机变量$X_i$：</p>
 <p>$$
 \begin{align}
 \begin{split}
@@ -254,6 +254,20 @@ f(\sigma^2|X_i) &amp;= \frac{\frac{1}{\sqrt{2\pi}} \frac{1}{\sigma} \mathrm{e}^{
 \end{align}
 $$</p>
 <p>根据$\eqref{eq:12}$易得，$f(\sigma^2 \vert X_1, X_2, \dots, X_m) = \mathrm{Inv-Gamma}(\alpha+\frac{m}{2}, \beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2})$，期望$\hat{\sigma}^2=\frac{\beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2}}{\alpha+\frac{m}{2}-1}$。</p>
+<h3 id="23-已知方差的正态分布-">2.3 已知方差的正态分布</h3>
+<p>根据$\eqref{eq:11}$, 对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\mu}=\frac{\sum_{i=1}^m x_i}{m}$。</p>
+<p>该情况的共轭先验为正态分布$\mathrm{N}(\alpha, \beta^2)$，即对于随机变量$X_i$：</p>
+<p>$$
+\begin{align}
+\begin{split}
+f(\mu|X_i) &amp;= \frac{\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} \frac{1}{\sqrt{2 \pi} \beta} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}}}{f(X_i)} \newline
+&amp;= \frac{e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}}}{\int_{-\infty}^{+\infty} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}} \md \mu} \newline
+&amp;= \mathrm{N}\left( \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}} \right)
+\end{split}
+\label{eq:13}
+\end{align}
+$$</p>
+<p>根据$\eqref{eq:13}$易得，$f(\mu \vert X_1, X_2, \dots, X_m) = \mathrm{N}\left( \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}} \right)$，期望$\hat{\mu}=\frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right)$。</p>
 <h2 id="3-一些积分证明-">3. 一些积分证明</h2>
 <h3 id="31-多元beta函数-">3.1 多元beta函数</h3>
 <p>$\int_0^1 \int_0^{1-p_1} \cdots \int_0^{1-\sum_{i=1}^{k-2} p_i}p_1^{\alpha_1-1} p_2^{\alpha_2-1} \dots (1-\sum_{i=1}^{k-1}p_i)^{\alpha_k-1} \md p_1 \md p_2 \dots \md p_{k-1} = \frac{\mathrm{\Gamma}\left(\sum_{i=1}^{k}(\alpha_i)\right)}{\prod_{i=1}^{k}\mathrm{\Gamma}(\alpha_i)} \quad \mathrm{for} \quad \sum_{i=1}^k p_i=1$</p>
@@ -273,8 +287,38 @@ $$</p>
 <p>$$
 \begin{align*}
 \begin{split}
-\int_0^\infty \frac{x^{\alpha-1}}{\mathrm{e}^{\lambda x}} \md x &amp;= \lambda^{-\alpha} \int_0^\infty \frac{u^{\alpha-1}}{\mathrm{e}^u} \md u \<br>
+\int_0^\infty \frac{x^{\alpha-1}}{\mathrm{e}^{\lambda x}} \md x &amp;= \lambda^{-\alpha} \int_0^\infty \frac{u^{\alpha-1}}{\mathrm{e}^u} \md u \newline
 &amp;= \frac{\mathrm{\Gamma}(\alpha)}{\lambda^\alpha}
+\end{split}
+\end{align*}
+$$</p>
+<h3 id="33-高斯积分应用-">3.3 高斯积分应用</h3>
+<p>$$
+\begin{align*}
+\begin{split}
+\frac{e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}}}{\int_{-\infty}^{+\infty} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}} \md \mu} &amp;= \frac{e^{- \frac{(\beta^2+\sigma^2)\mu^2 - 2(\beta^2x_i+\sigma^2 \alpha)\mu + (\beta^2 x_i^2 + \sigma^2 \alpha^2)}{2 \sigma^2 \beta^2}}}{\int_{-\infty}^{+\infty} e^{- \frac{(\beta^2+\sigma^2)\mu^2 - 2(\beta^2x_i+\sigma^2 \alpha)\mu + (\beta^2 x_i^2 + \sigma^2 \alpha^2)}{2 \sigma^2 \beta^2}} \md \mu}
+\end{split}
+\end{align*}
+$$</p>
+<p>令：</p>
+<p>$$
+\begin{align*}
+\begin{split}
+a &amp;= \frac{(\sigma^2 + \beta ^2)}{2 \sigma^2 \beta^2} \newline
+b &amp;= \frac{\beta^2x_i+\sigma^2 \alpha}{\sigma^2 \beta^2}\newline
+c &amp;= -\frac{\beta^2 x_i^2 + \sigma^2 \alpha^2}{2 \sigma^2 \beta^2}
+\end{split}
+\end{align*}
+$$</p>
+<p>$$
+\begin{align*}
+\begin{split}
+\frac{e^{-\frac{(X_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}}}{\int_{-\infty}^{+\infty} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}} \md \mu} &amp;= \frac{e^{-a \mu^2 + b \mu + c}}{\int_{-\infty}^{+\infty} e^{-a \mu^2 + b \mu + c} \md \mu} \newline
+&amp;= \frac{e^{-a \mu^2 + b \mu + c}}{\sqrt{\frac{\pi}{a}}e^{\frac{b^2}{4a} + c}} \newline
+&amp;= \frac{1}{\sqrt{2\pi} \sqrt{\frac{1}{2a}}} e^{-\frac{1}{4a}4a^2 \mu^2 - 4ab\mu + b^2} \newline
+&amp;= \frac{1}{\sqrt{2\pi} \sqrt{\frac{1}{2a}}} e^{-\frac{(2a\mu - b)^2}{4a}} \newline
+&amp;= \frac{1}{\sqrt{2\pi} \sqrt{\frac{1}{2a}}} e^{-\frac{\left( \mu - \frac{b}{2a} \right)^2}{\frac{1}{a}}} \newline
+&amp;= \mathrm{N}\left( \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{x_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}} \right)
 \end{split}
 \end{align*}
 $$</p>
@@ -283,7 +327,7 @@ $$</p>
 <li><a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter9.pdf">Chapter 9 The exponential family: Conjugate priors</a></li>
 </ul>
 <h3 id="更新记录-">更新记录</h3>
-<p>2017年11月09日</p>
+<p>2020年09月15日</p>
 
 		</div>
 
