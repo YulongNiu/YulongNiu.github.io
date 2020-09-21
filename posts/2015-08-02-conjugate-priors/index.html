@@ -267,7 +267,7 @@ f(\mu|X_i) &amp;= \frac{\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x_i - \mu)^2}{2
 \label{eq:13}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:13}$易得，$f(\mu \vert X_1, X_2, \dots, X_m) = \mathrm{N}\left( \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}} \right)$，期望$\hat{\mu}=\frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right)$。</p>
+<p>根据$\eqref{eq:13}$易得，$f(\mu \vert X_1, X_2, \dots, X_m) = \mathrm{N}\left( \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}} \right)$，期望$\hat{\mu}=\frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right)$。</p>
 <h2 id="3-一些积分证明-">3. 一些积分证明</h2>
 <h3 id="31-多元beta函数-">3.1 多元beta函数</h3>
 <p>$\int_0^1 \int_0^{1-p_1} \cdots \int_0^{1-\sum_{i=1}^{k-2} p_i}p_1^{\alpha_1-1} p_2^{\alpha_2-1} \dots (1-\sum_{i=1}^{k-1}p_i)^{\alpha_k-1} \md p_1 \md p_2 \dots \md p_{k-1} = \frac{\mathrm{\Gamma}\left(\sum_{i=1}^{k}(\alpha_i)\right)}{\prod_{i=1}^{k}\mathrm{\Gamma}(\alpha_i)} \quad \mathrm{for} \quad \sum_{i=1}^k p_i=1$</p>
@@ -324,10 +324,15 @@ $$</p>
 $$</p>
 <h3 id="参考资料-">参考资料</h3>
 <ul>
-<li><a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter9.pdf">Chapter 9 The exponential family: Conjugate priors</a></li>
+<li>
+<p><a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter9.pdf">Chapter 9 The exponential family: Conjugate priors</a></p>
+</li>
+<li>
+<p><a href="https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf">Conjugate Bayesian analysis of the Gaussian distribution</a></p>
+</li>
 </ul>
 <h3 id="更新记录-">更新记录</h3>
-<p>2020年09月15日</p>
+<p>2020年09月16日</p>
 
 		</div>
 
