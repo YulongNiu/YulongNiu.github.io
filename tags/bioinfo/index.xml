@@ -165,10 +165,10 @@ $$ F = \left[ \begin{array}{f} F_1 \newline F_2 \newline F_3 \end{array} \right]
       <guid>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</guid>
       <description>$$ \newcommand{\md}{\mathrm{d}} $$
 1. Gibbs取样简介 Gibbs取样的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：
-$$ \begin{align*} \begin{split} 第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取x_1^{(n+1)} \newline p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取x_2^{(n+1)} \newline &amp;amp; \vdots \newline p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取x_k^{(n+1)} \newline 生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T \end{split} \end{align*} $$
+$$ \begin{align*} \begin{split} 第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_1^{(n+1)} \newline p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_2^{(n+1)} \newline &amp;amp; \vdots \newline p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取变量即为x_k^{(n+1)} \newline 生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T \end{split} \end{align*} $$
 当抽取足够多次时，计算目标函数$f(x)$的均值：
 $$ \begin{align*} \begin{split} f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)}) \end{split} \end{align*} $$
-2. 举例 2.</description>
+2. 结合图模型提高抽样效率 在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：</description>
     </item>
     
     <item>
