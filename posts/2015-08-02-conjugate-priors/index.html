@@ -246,8 +246,8 @@ $$</p>
 \begin{align}
 \begin{split}
 f(\sigma^2|X_i) &amp;= \frac{\frac{1}{\sqrt{2\pi}} \frac{1}{\sigma} \mathrm{e}^{-\frac{(x_i-\mu)^2}{2\sigma^2}} \frac{\beta^\alpha}{\mathrm{\Gamma}(\alpha)} \sigma^{2(-\alpha-1)}\mathrm{e}^{-\frac{\beta}{\sigma^2}}}{f(X_i)} \newline
-&amp;=\frac{\sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}}}{\int_0^\infty \sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}} \md \sigma^2} \newline
-&amp;= \frac{\left(\beta+\frac{(x_i-\mu)^2}{2}\right)^{\left(-\alpha-\frac{1}{2}\right)}}{\mathrm{\Gamma}\left(\alpha+\frac{1}{2}\right)} \sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}}\newline
+&amp;=\frac{\sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{-\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}}}{\int_0^\infty \sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{-\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}} \md \sigma^2} \newline
+&amp;= \frac{\left(\beta+\frac{(x_i-\mu)^2}{2}\right)^{\left(\alpha+\frac{1}{2}\right)}}{\mathrm{\Gamma}\left(\alpha+\frac{1}{2}\right)} \sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{-\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}}\newline
 &amp;= \mathrm{Inv-Gamma}(\alpha+\frac{1}{2}, \beta+\frac{(x_i-\mu)^2}{2})
 \end{split}
 \label{eq:12}
