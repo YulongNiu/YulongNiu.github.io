@@ -67,20 +67,20 @@
 		</div>
 
 		<div class="markdown">
-			<h2 id="1-循环-">1. 循环</h2>
+			<h2 id="1-循环">1. 循环</h2>
 <p><code>for</code>循环体</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00f">for</span> i in *.zip
 <span style="color:#00f">do</span>
     echo <span style="color:#a31515">&#34;</span>$i<span style="color:#a31515">&#34;</span>
 <span style="color:#00f">done</span>
-</code></pre></div><h2 id="2-创建数组-">2. 创建数组</h2>
+</code></pre></div><h2 id="2-创建数组">2. 创建数组</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">declare -a testArray={<span style="color:#a31515">&#34;element1&#34;</span> <span style="color:#a31515">&#34;element2&#34;</span>}
 echo <span style="color:#a31515">${</span>testArray[0]<span style="color:#a31515">}</span>
 <span style="color:#00f">for</span> i in <span style="color:#a31515">&#34;</span><span style="color:#a31515">${</span>testArray[@]<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
 <span style="color:#00f">do</span>
     echo <span style="color:#a31515">&#34;</span>$i<span style="color:#a31515">&#34;</span>
 <span style="color:#00f">done</span>
-</code></pre></div><h2 id="3-字符串分割-">3. 字符串分割</h2>
+</code></pre></div><h2 id="3-字符串分割">3. 字符串分割</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># write in file &#34;testsplit.sh&#34;</span>
 IFS=<span style="color:#a31515">&#39;,&#39;</span> read -ra splitArray &lt;&lt;&lt; <span style="color:#a31515">&#34;This,is,a,test&#34;</span>
 <span style="color:#00f">for</span> i in <span style="color:#a31515">&#34;</span><span style="color:#a31515">${</span>splitArray[@]<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
@@ -93,18 +93,18 @@ This
 is
 a
 test
-</code></pre></div><h2 id="4-屏幕输出存入变量-">4. 屏幕输出存入变量</h2>
+</code></pre></div><h2 id="4-屏幕输出存入变量">4. 屏幕输出存入变量</h2>
 <p>某个bash命令，比如<code>ls -l</code>存入变量，之后引用变量。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 注意等号前后不能加空格</span>
 listOutput=<span style="color:#a31515">`</span>ls -l<span style="color:#a31515">`</span>
 echo <span style="color:#a31515">&#34;</span>$listOutput<span style="color:#a31515">&#34;</span>
-</code></pre></div><h2 id="5-文件末尾添加内容-">5. 文件末尾添加内容</h2>
+</code></pre></div><h2 id="5-文件末尾添加内容">5. 文件末尾添加内容</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch testfile
 printf <span style="color:#a31515">&#34;hello\n&#34;</span> &gt; testfile
 printf <span style="color:#a31515">&#34;world\n&#34;</span> &gt;&gt; testfile
-</code></pre></div><h2 id="6-传入sudo密码-">6. 传入sudo密码</h2>
+</code></pre></div><h2 id="6-传入sudo密码">6. 传入sudo密码</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#a31515">&#34;myPassword&#34;</span> | sudo -S myCommond
-</code></pre></div><h3 id="参考网址-">参考网址</h3>
+</code></pre></div><h3 id="参考网址">参考网址</h3>
 <ul>
 <li>
 <p><a href="http://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash">How do I split a string on a delimiter in Bash?</a></p>
@@ -113,7 +113,7 @@ printf <span style="color:#a31515">&#34;world\n&#34;</span> &gt;&gt; testfile
 <p><a href="http://stackoverflow.com/questions/4651437/how-to-set-a-bash-variable-equal-to-the-output-from-a-command">How to set a BASH variable equal to the output from a command?</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年4月7日</p>
 
 		</div>

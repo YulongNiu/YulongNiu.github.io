@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Wed, 14 Jun 2017 23:49:13 +0800</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 14 Jun 2017 23:49:13 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Shadowsocks设置推荐</title>
       <link>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</link>
@@ -118,10 +114,10 @@ raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_
       
       <guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid>
       <description>1. 压缩与解压缩 .tar.gz格式文件
-# 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
-# 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
+# 解压  $ tar -zxvf /filePath/filename.tar.gz # 压缩  $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件  $ gzip *.txt .tar.bz2格式文件
+# 解压  $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
 需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .zip格式文件</description>
+# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.</description>
     </item>
     
     <item>

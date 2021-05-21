@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Mon, 15 Apr 2019 14:58:58 +0200</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/tags/bioinfo/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 15 Apr 2019 14:58:58 +0200</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/bioinfo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DESeq2包的对比组设计</title>
       <link>https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/</link>
@@ -178,11 +174,11 @@ $$ \begin{align*} \begin{split} f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)
       
       <guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid>
       <description>$$ \newcommand{\md}{\mathrm{d}} $$
-共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验证。
+共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。
 贝叶斯公式：
 $$ \begin{align} \begin{split} f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline &amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta} \end{split} \label{eq:1} \end{align} $$
 1. 离散分布 1.1 伯努利分布 伯努利分布（Bernoulli distribution）的概率质量函数为：
-$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in {0, 1} \end{split} \label{eq:2} \end{align} $$
+$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1) \end{split} \label{eq:2} \end{align} $$
 对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。
 该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：
 $$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline &amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline &amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline &amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i) \end{split} \label{eq:3} \end{align} $$</description>
@@ -386,7 +382,7 @@ Mututal Information (MI) Introduction Mutual Information (MI) is used to measure
 $$ \DeclareMathOperator*{\argmax}{arg,max} $$
 EM算法的推出 考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：
 $$ \begin{align} \begin{split} L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) \end{split} \label{eq:1} \end{align} $$
-为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，**否能找到一个方法，将求和放在对数外面？**一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
+为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，否能找到一个方法，将求和放在对数外面？ 一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
 $$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})}\right) - L(\theta^{(n)}) \newline &amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log \left( \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})} \right) \newline &amp;amp;- \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log(\P(y_j|\theta^{n})) \newline &amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log\left(\frac{\P(y_j, z|\theta)}{\P(y_j, z|\theta^{(n)})} \right) \end{split} \label{eq:2} \end{align} $$</description>
     </item>
     

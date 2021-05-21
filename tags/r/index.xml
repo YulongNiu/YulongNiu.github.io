@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>R包dplyr使用集锦</title>
       <link>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</link>
@@ -179,7 +175,7 @@ from rpy2.robjects import r 有三种方式可以选择：
       
       <guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid>
       <description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
-1. 创建R包目录## 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
+1. 创建R包目录 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
 1.1 DESCRIPTION文件 一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的DESCRIPTION文件：
   Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
   Version：版本号，经典的命名方式比如0.1-0。

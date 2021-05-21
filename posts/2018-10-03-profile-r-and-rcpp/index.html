@@ -67,12 +67,12 @@
 		</div>
 
 		<div class="markdown">
-			<h2 id="1-r性能检测-">1. R性能检测</h2>
+			<h2 id="1-r性能检测">1. R性能检测</h2>
 <p>直接使用<!-- raw HTML omitted -->profvis<!-- raw HTML omitted -->包即可，例如<a href="https://rstudio.github.io/profvis/">示例</a>。</p>
-<h2 id="2-rcpp性能检测-">2. Rcpp性能检测</h2>
-<h3 id="21-安装依赖软件-">2.1 安装依赖软件</h3>
+<h2 id="2-rcpp性能检测">2. Rcpp性能检测</h2>
+<h3 id="21-安装依赖软件">2.1 安装依赖软件</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
-</code></pre></div><h3 id="22-编译-">2.2 编译</h3>
+</code></pre></div><h3 id="22-编译">2.2 编译</h3>
 <p>在包（包名称为<code>Mypkg</code>）目录<code>src</code>建立如下文件：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;gperftools/profiler.h&gt;</span><span style="color:#00f">
@@ -91,7 +91,7 @@
   <span style="color:#00f">return</span> R_NilValue;
 }
 </code></pre></div><p>包目录<code>src</code>的Makevars文件中添加<code>-lprofile</code>选项，例如<code>PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler</code>。之后，安装包，并重新载入。</p>
-<h3 id="23-调试-">2.3 调试</h3>
+<h3 id="23-调试">2.3 调试</h3>
 <p>使用方法为：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Mypkg:::start_profiler(<span style="color:#a31515">&#34;/tmp/profile.out&#34;</span>)
 run_cpp_codes()
@@ -105,7 +105,7 @@ pprof --pdf src/Mypkg.so /tmp/profile.out &gt; profile.pdf
 
 <span style="color:#008000">## kcachegrind</span>
 pprof --callgrind src/Mypkg.so R/profile.out &gt; profile.res
-</code></pre></div><h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p><a href="https://arxiv.org/abs/1104.3889">Introduction to High-Performance Computing with R by Dr. Dirk Eddelbuettel</a></p>
@@ -117,7 +117,7 @@ pprof --callgrind src/Mypkg.so R/profile.out &gt; profile.res
 <p><a href="https://airekans.github.io/cpp/2014/07/04/gperftools-profile">用gperftools对C/C++程序进行profile</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年10月4日</p>
 
 		</div>

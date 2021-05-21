@@ -67,7 +67,7 @@
 		</div>
 
 		<div class="markdown">
-			<h2 id="1-fastqc-">1. FastQC</h2>
+			<h2 id="1-fastqc">1. FastQC</h2>
 <p><strong>简介</strong>：<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看<a href="http://www.bioinformatics.nl/courses/RNAseq/FastQC_Manual.pdf">输出结果解释</a>。</p>
 <p><strong>平台</strong>：所有平台。</p>
 <p><strong>安装</strong>： 依赖Java，下载后直接安装使用。</p>
@@ -85,7 +85,7 @@ $ fastqc --help
 $ unzip -p accepted_filtered_fastqc.zip accepted_filtered_fastqc/fastqc_data.txt | <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>      sed -n <span style="color:#a31515">&#39;7 p&#39;</span> | <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>      awk <span style="color:#a31515">&#39;{print $3}&#39;</span>
-</code></pre></div><h2 id="2-trim-galore-">2. Trim Galore!</h2>
+</code></pre></div><h2 id="2-trim-galore">2. Trim Galore!</h2>
 <p><strong>简介</strong>：<a href="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/">Trim Galore!</a>是对<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>和<a href="https://cutadapt.readthedocs.org/en/stable/installation.html">Cutadapt</a>的包装。可以处理Illumina、Nextera 3和smallRNA测序平台的双端和单端数据，包括去除adapter和低质量reads。</p>
 <p><strong>平台</strong>：Linux</p>
 <p><strong>安装</strong>:</p>
@@ -129,7 +129,7 @@ $ trim_galore --quality 20 --phred33 --stringency 3 --length 20 --paired <span s
 <p><code>--output_dir</code>：输入目录。需要提前建立目录，否则运行会报错。</p>
 </li>
 </ul>
-<h2 id="3-trimmomatic-">3. Trimmomatic</h2>
+<h2 id="3-trimmomatic">3. Trimmomatic</h2>
 <p><strong>简介</strong>：<a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a>是针对Illumina高通量测序平台设计的接头去除和低质量reads清洗软件。软件中包括有Illumina平台常见接头序列，可以很方便处理单端和双端RNA-seq数据。Trimmomatic也支持自己设计要去除的接头序列文件。</p>
 <p><strong>平台</strong>：Java跨平台使用</p>
 <p><strong>快速运行</strong>：</p>
@@ -168,7 +168,7 @@ $ java -jar /path/trimmomatic-0.33.jar PE<span style="color:#a31515">\
 <p><code>MINLEN</code>：设置最短reads数目。需要根据下游alignment软件设定，比如<a href="http://bowtie-bio.sourceforge.net/index.shtml">Bowtie</a>适用于短序列，比如50bp以下；而<a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2</a>适用于50bp以上。<a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a> 则根据实际使用Bowtie或者Bowtie2选择。</p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2016年9月10日</p>
 
 		</div>

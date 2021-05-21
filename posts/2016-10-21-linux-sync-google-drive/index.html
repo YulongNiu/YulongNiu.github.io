@@ -111,9 +111,9 @@
 <p>本文简单介绍<a href="https://github.com/prasmussen/gdrive">gdrive</a>，它是一个跨多个平台软件，提供命令行操作Google Drive。同类软件还有<a href="https://github.com/odeke-em/drive">drive</a>和<a href="https://www.thefanclub.co.za/overgrive">overGrive</a>（Linux下Google Drive界面客户端）。</p>
 <p>基本思路：对每一个上传至Google Drive的文件或文件夹都分配一个Id，所以云端操作需要指定Id。</p>
 <p>突出优点：自动同步，比较云端和本地文件后，决定上传、删除或者替换；同步加入版本控制，可以下载和删除不同版本文件。</p>
-<h2 id="1-初始化-">1. 初始化</h2>
+<h2 id="1-初始化">1. 初始化</h2>
 <p><a href="https://github.com/prasmussen/gdrive">下载</a>系统对应版本，执行<code>gdrive about</code>，根据提示设置。</p>
-<h2 id="2-查找-">2. 查找</h2>
+<h2 id="2-查找">2. 查找</h2>
 <p><a href="https://developers.google.com/drive/v3/web/search-parameters">查找规则</a></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 查找所有文件夹，不包括垃圾箱，所有者为自己</span>
 $ gdrive list --query <span style="color:#a31515">&#34;mimeType = &#39;application/vnd.google-apps.folder&#39; and trashed = false and &#39;me&#39; in owners&#34;</span>
@@ -123,7 +123,7 @@ gdrive list --query <span style="color:#a31515">&#34;mimeType = &#39;application
 
 <span style="color:#008000">## 查询信息</span>
 gdrive info YUlPWWdLcy1mX2c
-</code></pre></div><h2 id="3-建立和删除-">3. 建立和删除</h2>
+</code></pre></div><h2 id="3-建立和删除">3. 建立和删除</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 建立文件夹</span>
 $ gdrive mkdir newFolder
 
@@ -135,13 +135,13 @@ $ gdrive delete 0BzTeuubJesi
 
 <span style="color:#008000">## 删除文件夹（文件Id，非名称）</span>
 $ gdrive delete -r 0BzTeuubJesi
-</code></pre></div><h2 id="4-普通上传和下载-">4. 普通上传和下载</h2>
+</code></pre></div><h2 id="4-普通上传和下载">4. 普通上传和下载</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 上传文件至制定文件夹</span>
 $ gdrive upload -p M1h4M1dGYUhpSFE myFile
 
 <span style="color:#008000">## 下载文件</span>
 $ gdrive download 0BzTeuubJesi
-</code></pre></div><h2 id="5-同步-">5. 同步</h2>
+</code></pre></div><h2 id="5-同步">5. 同步</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## gdrive sync会标记同步文件，因此不要在同步文件夹中使用gdrive upload或者网页上传文件。未标记文件会被忽略。</span>
 <span style="color:#008000">## 同步列表</span>
 $ gdrive sync list
@@ -163,7 +163,7 @@ gdrive revision download YUlPWWdLcy1mX2c Y3JBWEJ5a0gwZndlR3hzWlZubFlUMWFnaHVnPQ
 
 <span style="color:#008000">## 删除某一版本</span>
 gdrive revision delete YUlPWWdLcy1mX2c Y3JBWEJ5a0gwZndlR3hzWlZubFlUMWFnaHVnPQ
-</code></pre></div><h3 id="更新记录-">更新记录</h3>
+</code></pre></div><h3 id="更新记录">更新记录</h3>
 <p>2019年4月27日</p>
 
 		</div>

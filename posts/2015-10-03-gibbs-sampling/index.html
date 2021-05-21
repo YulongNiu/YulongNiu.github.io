@@ -109,7 +109,7 @@
 			<p>$$
 \newcommand{\md}{\mathrm{d}}
 $$</p>
-<h2 id="1-gibbs取样简介-">1. Gibbs取样简介</h2>
+<h2 id="1-gibbs取样简介">1. Gibbs取样简介</h2>
 <p><a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs取样</a>的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：</p>
 <p>$$
 \begin{align*}
@@ -131,7 +131,7 @@ f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)})
 \end{split}
 \end{align*}
 $$</p>
-<h2 id="2-结合图模型提高抽样效率-">2. 结合图模型提高抽样效率</h2>
+<h2 id="2-结合图模型提高抽样效率">2. 结合图模型提高抽样效率</h2>
 <p>在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：</p>
 <p>$$
 \begin{align}
@@ -144,7 +144,7 @@ p(x_i|x_{\neg x_i}) &amp;= p(x_i | x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) \ne
 \label{eq:1}
 \end{align}
 $$</p>
-<p>对于式$\eqref{eq:1}$：</p>
+<p>对于式$\eqref{eq:1}对于式$\eqref{eq:1}$：</p>
 <ul>
 <li>
 <p>分母可以看作常数。例如, $x_i$服从$k$个状态categorical分布，对于$\sum_{j=1}^{k} p(x_i = j | x_{\neg x_i}) = 1$，只需要求$p(x_1, \dots, x_i = j, \dots, x_n)$并标准化$\frac{p(x_1, \dots, x_i = j, \dots, x_n)}{\sum_{j = 1}^{k}p(x_1, \dots, x_i = j, \dots, x_n)}$即可。</p>
@@ -174,8 +174,8 @@ p(z_i|z_{\neg i}, \alpha, \theta, y) &amp; \propto p(\alpha, \theta, z, y) \prop
 \end{split}
 \end{align*}
 $$</p>
-<h2 id="3-举例-">3. 举例</h2>
-<h3 id="31-gamma核和高斯核-">3.1 gamma核和高斯核</h3>
+<h2 id="3-举例">3. 举例</h2>
+<h3 id="31-gamma核和高斯核">3.1 gamma核和高斯核</h3>
 <p>一个有趣的<a href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/">例子</a>是双变量$x, y$分布：</p>
 <p>$$
 \begin{align}
@@ -194,7 +194,7 @@ p(x | y) &amp;= Gamma(3, y^2+4)
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="32-二元高斯分布-">3.2 二元高斯分布</h3>
+<h3 id="32-二元高斯分布">3.2 二元高斯分布</h3>
 <p>《统计学习方法（第二版）》（李航 著）给出一个二元高斯分布的例子，</p>
 <p>$$
 \begin{align*}
@@ -220,7 +220,7 @@ p(x_2 | x_1) &amp;= N(\rho x_1, (1-\rho)^2)
 $$</p>
 <p>当$\rho=0.5$时，模拟前$20$次取样如下（<a href="https://gist.github.com/YulongNiu/3b300680ac768e1293b5853b7d790ec7">代码</a>），第一个样本为$x_1 = -10, x_2 = -10$：</p>
 <p><img src="/images/bind_gibbs.jpg" alt="bind_gibbs.jpg"></p>
-<h2 id="4-一些积分-">4. 一些积分</h2>
+<h2 id="4-一些积分">4. 一些积分</h2>
 <p>对于$\eqref{eq:2}$：</p>
 <p>利用<a href="https://zh.wikipedia.org/zh-cn/%E9%AB%98%E6%96%AF%E7%A7%AF%E5%88%86">高斯积分</a></p>
 <p>$$
@@ -278,11 +278,11 @@ p(x | y) &amp;= \frac{p(x, y)}{p(y)} \newline
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ul>
 <li><a href="http://dirk.eddelbuettel.com/blog/2011/07/14/">MCMC and faster Gibbs Sampling using Rcpp</a></li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2020年09月11日</p>
 
 		</div>

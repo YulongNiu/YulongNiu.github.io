@@ -110,7 +110,7 @@
 \newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1}
 $$</p>
 <p>本文尝试探索Normalized Google distance（简称NGD）的定义和拓展应用。</p>
-<h3 id="1-ngd原始定义-">1. NGD原始定义</h3>
+<h3 id="1-ngd原始定义">1. NGD原始定义</h3>
 <p><a href="https://en.wikipedia.org/wiki/Normalized_Google_distance">维基百科</a>的定义为：</p>
 <p>$$
 \begin{align}
@@ -121,7 +121,7 @@ NGD(x, y) = \frac{\max{\log f(x), \log f(y)} - \log f(x, y)}{\log N - \min{\log 
 \end{align}
 $$</p>
 <p>其中，$f(x)$和$f(y)$分别为关键词$x$和$y$出现的次数，$f(x,y)$为$x$和$y$同时出现的次数，$N$为全部搜索单词数目。根据$\eqref{eq:1}$可以得出：如果$x$和$y$几乎总是同时出现时，$NGD$趋近于$0$；如果$x$和$y$出现的次数很少，即$\log f(x,y)$趋近于负无穷，则$NGD$可能大于$1$。</p>
-<h3 id="2-ngd定义延伸-">2. NGD定义延伸</h3>
+<h3 id="2-ngd定义延伸">2. NGD定义延伸</h3>
 <p>Choi and Rashid在2008年的<a href="#Ref">文章</a>提出一种针对向量的$NGD$定义：</p>
 <p>$$
 \begin{align}
@@ -144,11 +144,11 @@ NGS(X, Y) &amp;= 1 - NGD(X, Y) \newline
 \end{align}
 $$</p>
 <p>一个例子：$X = (1, 2, 0, 3)$和$Y = (0, 2, 1, 1)$，则$NGD = 0.5$和$NGS = 0.5$。</p>
-<h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+<h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="http://ieeexplore.ieee.org/document/4631601/?reload=true">Adapting Normalized Google Similarity in Protein Sequence Comparison</a></li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2017年10月21日</p>
 
 		</div>

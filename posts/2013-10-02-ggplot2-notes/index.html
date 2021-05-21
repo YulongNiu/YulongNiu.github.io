@@ -67,9 +67,9 @@
 		</div>
 
 		<div class="markdown">
-			<h1 id="r-package-span-stylecolor-blueggplot2span-notes-">R Package <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> Notes</h1>
-<h2 id="1-basic-grammar-">1. Basic grammar</h2>
-<h3 id="11-plot-types-">1.1 Plot types</h3>
+			<h1 id="r-package-span-stylecolor-blueggplot2span-notes">R Package <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> Notes</h1>
+<h2 id="1-basic-grammar">1. Basic grammar</h2>
+<h3 id="11-plot-types">1.1 Plot types</h3>
 <p>The R package <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> is a famous plot tool for high quality scientific figures. The <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> style figures are widely seen in papers published in high quality journals such as <em>PNAS</em>, <em>Nature</em> and <em>Cell</em>.</p>
 <p>The input data should be in <strong>data frame</strong> form, and it is easily to use the function <code>as.data.frame()</code>. &ldquo;<!-- raw HTML omitted --><strong>+</strong><!-- raw HTML omitted -->&rdquo; is used to connect different plot statement. A typical <!-- raw HTML omitted -->ggplot2<!-- raw HTML omitted --> plot statement is like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">require(<span style="color:#a31515">&#39;ggplot2&#39;</span>)
@@ -97,10 +97,10 @@ In <code>aes()</code>, <code>xmin</code>, <code>xmax</code>, <code>ymin</code>, 
 ggplot(mtcars) +
   geom_density(aes(x=disp, group=cyl, fill=cyl), alpha=0.6, adjust=0.75) + 
   geom_rect(data=mtcars[1,], aes(xmin=100, xmax=200, ymin=0,ymax=<span style="color:#00f">Inf</span>), fill=<span style="color:#a31515">&#34;red&#34;</span>, alpha=0.2)
-</code></pre></div><h3 id="12-statistics-">1.2 Statistics</h3>
+</code></pre></div><h3 id="12-statistics">1.2 Statistics</h3>
 <p><code>geom_smooth()</code>: is used for the add smooth line with the <strong>method</strong> lm, glm, gam, loess and rlm. <code>se = TRUE</code> is to display the confident region. The following aesthetics <strong>x</strong>, <strong>y</strong>, alpha, colour, fill, linetype, size, weight could be added.</p>
 <p><code>stat_boxplot()</code>: plot error lines in boxplot.</p>
-<h3 id="13-add-elements-">1.3 Add elements</h3>
+<h3 id="13-add-elements">1.3 Add elements</h3>
 <p><code>xlab()</code>: change X axis label, set <code>xlab('')</code> to remove the X axis label; <code>ylab()</code>: change Y axis label; <code>ggtitle()</code>: add figure title; <code>scale_y_continuous(limits=c(0, 20))</code> and <code>scale_x_continuous(limits=c(0, 20))</code> to adjust range of X and Y axis.</p>
 <p><code>geom_abline(intercept = 37, slope = -5)</code>: to add line.</p>
 <p><code>geom_hline</code> and <code>geom_vline</code>: to add horizontal and vertical lines.</p>
@@ -122,26 +122,26 @@ ggplot() +
 . The default ggplot2 colors are generated from the &ldquo;<em>scales</em>&rdquo; package, for example the default &ldquo;hue pallet&rdquo; could be view as <code>show_col(hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1)(9))</code></p>
 <p><code>scale_fill_manual(..., alues)</code> to change filled colors.</p>
 <p><code>theme</code> is used for exact control. <code>legend.position='none'</code> to remove the side legend.</p>
-<h2 id="2-save-plot-">2. Save plot</h2>
+<h2 id="2-save-plot">2. Save plot</h2>
 <p>The function <code>ggsave()</code> is used to save the screen plot to file. <code>print()</code> is also applied like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pdf(<span style="color:#a31515">&#39;testfile.pdf&#39;</span>)
 q &lt;- ggplot()
 print(q)
 dev.off()
-</code></pre></div><h2 id="3-other-issues-">3. Other issues</h2>
-<h3 id="31-plot-mutiple-ggplot2-">3.1 Plot mutiple ggplot2</h3>
+</code></pre></div><h2 id="3-other-issues">3. Other issues</h2>
+<h3 id="31-plot-mutiple-ggplot2">3.1 Plot mutiple ggplot2</h3>
 <p>Use <!-- raw HTML omitted -->gridExtra<!-- raw HTML omitted --> package to plot multiple ggplot2 figures in the one figure.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000"># example</span>
 require(<span style="color:#a31515">&#39;gridExtra&#39;</span>)
 <span style="color:#008000"># save ggplot object into a list like &#34;plotList&#34;</span>
 do.call(grid.arrange, plotList)
-</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li><a href="http://directlabels.r-forge.r-project.org/examples.html">Better labels</a></li>
 <li><a href="http://docs.ggplot2.org/current/">ggplot2 doc</a></li>
 <li><a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/#working-with-colors">ggplot2 cheatsheet</a></li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2014年8月28日</p>
 
 		</div>

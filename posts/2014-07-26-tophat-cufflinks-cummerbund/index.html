@@ -68,7 +68,7 @@
 
 		<div class="markdown">
 			<p><a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a>、<a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks</a>和cummeRbund，被称为处理RNA-seq数据的“燕尾服（tuxedo）”。TopHat负责RNA-seq的reads映射比对到基因组，并且自动识别mRNA“内含子-外显子”剪切；Cufflinks擅长组装转录组和寻找差异表达基因（或转录起始位点TSS等）；cummeRbund主攻数据可视化。</p>
-<h2 id="1-tophat-">1. Tophat</h2>
+<h2 id="1-tophat">1. Tophat</h2>
 <p><strong>简介</strong>：<a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat</a>是快速将RNA测序片段“对应（mapping）”到基因组上的工具，优势在于处理外显子间的剪切。内部首先使用bowtie或bowtie2把RNA测序片段“比对（alignment）”到基因组，之后再分析和鉴定剪切连接区域。</p>
 <p><strong>平台</strong>：Mac OS/Linux</p>
 <p><strong>快速运行</strong>：</p>
@@ -135,10 +135,10 @@ $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
 <p><a href="http://www.acgt.me/blog/2015/4/27/the-dangers-of-default-parameters-in-bioinformatics-lessons-from-bowtie-and-tophat?utm_content=bufferb2c35&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">不加思考地使用默认参数的下场</a></p>
 </li>
 </ul>
-<h2 id="2-cufflinks-">2. Cufflinks</h2>
+<h2 id="2-cufflinks">2. Cufflinks</h2>
 <p><strong>简介</strong>：<a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks</a>是TopHat的下游工具，用于分析差异表达基因、差异转录起始位点、新基因和选择性剪切。一般可以分为三步：1. <code>cufflinks</code>对每个bam文件生成转录组；2. <code>cuffmerge</code>结合真实转录组和bam生成转录组，构建一个整合转录组；3. <code>cuffdiff</code>比较不同生物学样本，寻找差异表达基因。</p>
 <p><strong>平台</strong>：Mac OS/Linux</p>
-<h3 id="21-cufflinks-快速运行-">2.1 <code>cufflinks</code> 快速运行</h3>
+<h3 id="21-cufflinks-快速运行">2.1 <code>cufflinks</code> 快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cufflinks -p 8 -g hg19_ensembl.gtf -b hg19.fa -M hg19_rRNAtRNAchrM -u <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>            -o outPutLinks accepted_filtered.bam
 </code></pre></div><p><strong>重要参数解释</strong>：</p>
@@ -171,7 +171,7 @@ $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
 <p><code>--library-type</code>：设定测序方法，默认为<code>fr-unstranded</code>，可以用于典型的Illumina双端（paired-end）测序。</p>
 </li>
 </ul>
-<h3 id="22-cuffmerge-快速运行-">2.2 <code>cuffmerge</code> 快速运行</h3>
+<h3 id="22-cuffmerge-快速运行">2.2 <code>cuffmerge</code> 快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cuffmerge -p 8 -g hg19USCS_ensembl.gtf -s hg19.fa -o mergeFile assemblies.txt
 </code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
@@ -191,7 +191,7 @@ $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
 <p><code>assemblies.txt</code>：是一个文件，写入需要组装转录本的路径。</p>
 </li>
 </ul>
-<h3 id="23-cuffquant-快速运行-">2.3 <code>cuffquant</code> 快速运行</h3>
+<h3 id="23-cuffquant-快速运行">2.3 <code>cuffquant</code> 快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cuffquant -p 14 -o quantOut -b hg19.fa <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>            -M maskfile.gtf -u <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>            merged.gtf h1.bam
@@ -213,7 +213,7 @@ $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
 <p><code>-u/--multi-read-correct</code>：处理map到基因组多个位置的reads，<strong>建议添加</strong>。</p>
 </li>
 </ul>
-<h3 id="24-cuffdiff快速运行-">2.4 <code>cuffdiff</code>快速运行</h3>
+<h3 id="24-cuffdiff快速运行">2.4 <code>cuffdiff</code>快速运行</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># cuffdiff可以输入cuffquant生成的cxb文件或者原始的bam文件</span>
 $ cuffdiff -p 14 -o diffOut -b hg19.fa <span style="color:#a31515">\
 </span><span style="color:#a31515"></span>           -M maskfile.gtf -u <span style="color:#a31515">\
@@ -239,9 +239,9 @@ $ cuffdiff -p 14 -o diffOut -b hg19.fa <span style="color:#a31515">\
 <p><code>-L/--labels </code>：指定样品组名</p>
 </li>
 </ul>
-<h2 id="3-cummerbund-">3. CummeRbund</h2>
+<h2 id="3-cummerbund">3. CummeRbund</h2>
 <p>个人感觉CummeRbund不好用，不做介绍和讨论。</p>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ul>
 <li>
 <p><a href="http://www.chenlianfu.com/?p=623">一篇介绍cufflinks的中文博客</a></p>
@@ -256,7 +256,7 @@ $ cuffdiff -p 14 -o diffOut -b hg19.fa <span style="color:#a31515">\
 <p><a href="http://www.ebiotrade.com/newsf/2015-3/2015316173503298.htm">RNA-seq分析新三件套</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2015年6月10日</p>
 
 		</div>

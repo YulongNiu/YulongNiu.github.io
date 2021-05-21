@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Wed, 07 Oct 2015 22:09:31 -0500</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 07 Oct 2015 22:09:31 -0500</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spacemacs使用记录</title>
       <link>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</link>
@@ -45,7 +41,7 @@
       
       <guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid>
       <description>有很多优秀的C语言IDE用来实现高效的编程，比如CLion。目前，CLion还在处于公开测试阶段，可以下载试用。本文介绍在Emacs下配置C/C++编程环境。
-1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*  安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
+1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*   安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
 2. 文件操作## 2.1. 查找   当前buffer查找函数、类的定义
  C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。    当前project查找定义
   M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。

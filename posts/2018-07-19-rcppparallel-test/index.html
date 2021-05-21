@@ -71,7 +71,7 @@
 <pre><code>当循环数很大时（1万以上），`foreach`会变得非常慢。
 </code></pre>
 <p>这个问题在Florian Privé的<a href="https://privefl.github.io/blog/a-guide-to-parallelism-in-r/">A guide to parallelism in R</a>中也提到，解释是<code>foreach</code>每次只合并100个循环结果。</p>
-<h2 id="1-测试-">1. 测试</h2>
+<h2 id="1-测试">1. 测试</h2>
 <p>我尝试使用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包调用<code>C++</code>的并行方法。结论是：<strong>在循环数很大时，<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包提供的并行方法优于<code>foreach</code></strong>。</p>
 <p>一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在<a href="https://gist.github.com/YulongNiu/add0d9f066299613b64b8458fd5d741a">Gist1</a>和<a href="https://gist.github.com/YulongNiu/9331ea0d3ef46f0571c5f2dc061c3f8a">Gist2</a>中，分别实现了：</p>
 <ul>
@@ -149,10 +149,10 @@ microbenchmark(
 <span style="color:#008000">##      SqrtCpp(tmp1) 76.68263 78.55146 82.51442 79.48709 87.03026 100.56873   100</span>
 <span style="color:#008000">##         sqrt(tmp1) 52.19705 53.67441 58.16940 54.60512 66.67642  70.94672   100</span>
 <span style="color:#008000">##  SqrtCppPara(tmp1) 37.10116 38.34199 42.23896 39.17889 42.98785  61.94529   100</span>
-</code></pre></div><h2 id="2-使用vector代替list-">2. 使用<code>vector</code>代替<code>List</code></h2>
+</code></pre></div><h2 id="2-使用vector代替list">2. 使用<code>vector</code>代替<code>List</code></h2>
 <p>在使用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->并行计算时，不能在并行循环中调用<code>Rcpp::List</code>对象。一个解决办法是：使用<code>std::vector</code>替代<code>Rcpp:List</code>。例如，<code>List</code>中都是数值向量，那么可以建立<code>std::vector&lt;Rcpp::NumericVector&gt;</code>对象替代。
 <a href="https://gist.github.com/YulongNiu/0a11282216162b6e350c9575b68e91cc">Gist3</a>中提供了一个例子。这种方法的局限在于<code>List</code>中每一个元素的类型需要相同。</p>
-<h2 id="3-同步-">3. 同步</h2>
+<h2 id="3-同步">3. 同步</h2>
 <p>如果多个线程同时操作某一个共享内存对象，需要在<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包中使用“锁”。如<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>所示，多个线程都需要操作<code>estcount</code>对象。测试代码如下：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;Rcpp&#39;</span>)
 
@@ -167,7 +167,7 @@ ecin %&gt;% unlist %&gt;% table
 
 TestShare(ecin, 10)
 </code></pre></div><p>如果去掉<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>代码中的第<code>27</code>和<code>31</code>行，可以发现测试结果不正确。</p>
-<h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
+<h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p><a href="http://gallery.rcpp.org/articles/parallel-vector-sum/">Summing a Vector in Parallel with RcppParallel</a></p>
@@ -176,7 +176,7 @@ TestShare(ecin, 10)
 <p><a href="https://scc.ustc.edu.cn/zlsc/tc4600/intel/2017.0.098/advisor/help/GUID-D98B389E-61B9-414A-9450-D28EF9F61A95.htm">Intel TBB Simple Mutex - Example</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年10月5日</p>
 
 		</div>

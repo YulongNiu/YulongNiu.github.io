@@ -106,7 +106,7 @@
 		</div>
 
 		<div class="markdown">
-			<h3 id="1-贝叶斯定理-">1. 贝叶斯定理</h3>
+			<h3 id="1-贝叶斯定理">1. 贝叶斯定理</h3>
 <p>已知事件$A$和$B$，则条件概率为：</p>
 <p>$$
 \begin{align}
@@ -124,7 +124,7 @@ P(B|A) = \frac{P(A|B)P(B)}{P(A)}
 \label{eq:2}
 \end{align}
 $$</p>
-<h3 id="2-分类器简介-">2. 分类器简介</h3>
+<h3 id="2-分类器简介">2. 分类器简介</h3>
 <p>朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：</p>
 <p>$$
 \begin{align}
@@ -156,7 +156,7 @@ F_3
 \end{array}
 \right]
 $$</p>
-<h3 id="3-伯努利分布-">3. 伯努利分布</h3>
+<h3 id="3-伯努利分布">3. 伯努利分布</h3>
 <p>每一个特征量的取值都为$0$或$1$。分组$C_j$含有两个已知样本为：</p>
 <p>$$
 C_{j1} =
@@ -199,7 +199,7 @@ p(F3|C_j) &amp;= \frac{1+1}{2+2} &amp;= \frac{1}{2}
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="4-二项分布-">4. 二项分布</h3>
+<h3 id="4-二项分布">4. 二项分布</h3>
 <p>每一个特征量的取值都一个元素为$0$或$1$的向量（长度可不等）。分组$C_j$含有两个已知样本为：</p>
 <p>$$
 C_{j1} =
@@ -242,7 +242,7 @@ p(F3|C_j) &amp;= \left(\frac{4+1}{4+2}\right)^2
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="优化-">优化</h3>
+<h3 id="优化">优化</h3>
 <ol>
 <li>
 <p>当特征较多时，会面临多个小数（$p$值）相乘。可以取对数后再相加，即$\sum\log{p}$。</p>
@@ -251,7 +251,7 @@ $$</p>
 <p>虽然上文讨论的是二元数据，但是朴素贝叶斯分类器也适用于连续型或者其他离散型数据类型。</p>
 </li>
 </ol>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ul>
 <li>
 <p><a href="https://www.inf.ed.ac.uk/teaching/courses/inf2b/learnnotes/inf2b-learn-note07-2up.pdf">Text Classification using Naive Bayes</a></p>
@@ -260,7 +260,7 @@ $$</p>
 <p><a href="https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html">Naive Bayes text classification</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2017年7月15日</p>
 
 		</div>

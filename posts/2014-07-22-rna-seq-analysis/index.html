@@ -68,10 +68,10 @@
 
 		<div class="markdown">
 			<p>RNA-Seq相比较基因芯片，价格虽然昂贵一些，精度和灵敏度更高。同时，在测序深度足够时，也可以检测mRNA选择性剪切类型。</p>
-<h2 id="1-样品制备-">1. 样品制备</h2>
-<h2 id="2-测序-">2. 测序</h2>
+<h2 id="1-样品制备">1. 样品制备</h2>
+<h2 id="2-测序">2. 测序</h2>
 <p>Illumina双端测序<a href="http://www.illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html">动画</a>和<a href="http://onetipperday.blogspot.sg/2013/12/illumina-hiseq2000-adapter-and.html">图示</a>。</p>
-<h2 id="3-分析流程-">3. 分析流程</h2>
+<h2 id="3-分析流程">3. 分析流程</h2>
 <p>RNA-Seq<a href="http://blog.qiuworld.com:8080/archives/2343">主要分析流程</a>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">原始数据质量评估 --&gt;
 数据清洗（去除接头和低质量read） --&gt;
@@ -81,7 +81,7 @@ map数据质量评估 --&gt;
 差异表达基因/选择性剪切/新基因/融合基因选择 --&gt;
 GO和pathway分析 --&gt;
 共表达网络分析
-</code></pre></div><h3 id="31-序列清洗-">3.1 序列清洗</h3>
+</code></pre></div><h3 id="31-序列清洗">3.1 序列清洗</h3>
 <p>序列清洗主要是去除测序结果中的<a href="http://onetipperday.blogspot.sg/2013/06/illumina-hiseq2000-adapter.html">adapter</a>或通用引物等。</p>
 <p>以下使用Illumina HiSeq2000平台，对一个人类样本的RNA测序。统计各种序列清洗方法和选择后的reads数目。原始数据两端测序reads分别为54,492,228和54,492,228。</p>
 
@@ -163,7 +163,7 @@ GO和pathway分析 --&gt;
 </table>
 <p><strong>*</strong>：使用TopHat2把序列mapped到hs19基因组。TopHat2默认设置为，如果一个reads能mapped到多个位点，则都会报道。因此数目可能比原始数据多。 
 
-<h2 id="4-分析过程注意事项-">4. 分析过程注意事项</h2>
+<h2 id="4-分析过程注意事项">4. 分析过程注意事项</h2>
 <ol>
 <li>参考转录组注释文件（GFF/GTF）的染色体编号，与基因组信息一致。比如都用<code>chr1</code>，或者都用<code>1</code>标识1号染色体。可能出现问题地方：</li>
 </ol>
@@ -175,7 +175,7 @@ GO和pathway分析 --&gt;
 <p><a href="http://miso.readthedocs.org/en/fastmiso/#human-mouse-gene-models-for-isoform-centric-analyses">MISO</a>程序<code>pe_utils</code>的传入转录组注释文件。</p>
 </li>
 </ul>
-<h2 id="5-基本概念-">5. 基本概念</h2>
+<h2 id="5-基本概念">5. 基本概念</h2>
 <ul>
 <li>
 <p><strong>Read</strong>：是组成测序的结果的基本单位。</p>
@@ -241,7 +241,7 @@ GO和pathway分析 --&gt;
 <p><strong>chrN_xxx_hap1</strong>：转录组注释文件中会出现类似<code>chr6_apd_hap1</code>和<code>chr6_dbb_hap3</code>的基因组注释。根据<a href="http://genome.ucsc.edu/cgi-bin/hgGateway?org=Human&amp;db=hg19">UCSC解释</a>这些基因组是<a href="http://hapmap.ncbi.nlm.nih.gov/originhaplotype.html.en">单倍型(haplotype)基因组</a>。</p>
 </li>
 </ul>
-<h3 id="参考网址-">参考网址</h3>
+<h3 id="参考网址">参考网址</h3>
 <ul>
 <li>
 <p>推荐幻灯片<a href="http://www.slideshare.net/mikaelhuss/all-bio-rnaseqqc?from_action=save">RNA-Seq quality control and pre-processing</a></p>
@@ -277,7 +277,7 @@ GO和pathway分析 --&gt;
 <p><a href="http://barcwiki.wi.mit.edu/wiki/SOPs/rna-seq-diff-expressions">Using RNA-Seq to quantify gene levels and assay for differential expression</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2017年9月16日</p>
 
 		</div>

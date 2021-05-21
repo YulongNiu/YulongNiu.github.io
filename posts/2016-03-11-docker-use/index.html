@@ -68,12 +68,12 @@
 
 		<div class="markdown">
 			<p>关于Docker的安装和使用，有详细的<a href="https://docs.docker.com/">文档</a>可供参考。本文收集一些有趣和重要的记录。</p>
-<h2 id="1-普通用户权限执行docker-">1. 普通用户权限执行Docker</h2>
+<h2 id="1-普通用户权限执行docker">1. 普通用户权限执行Docker</h2>
 <p>创建<code>docker</code>用户组并添加普通用户。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo groupadd docker
 $ sudo usermod -aG docker myUserName
 </code></pre></div><p>注销后，再次登录即可。</p>
-<h2 id="2-docker命令集锦-">2. Docker命令集锦</h2>
+<h2 id="2-docker命令集锦">2. Docker命令集锦</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 测试Docker</span>
 $ docker run hello-world
 
@@ -99,12 +99,12 @@ $ docker image rm myImg@sha256:xxx
 $ docker ps -a | grep <span style="color:#a31515">&#34;Exited&#34;</span> | awk <span style="color:#a31515">&#39;{print $1 }&#39;</span>|xargs docker stop
 $ docker ps -a | grep <span style="color:#a31515">&#34;Exited&#34;</span> | awk <span style="color:#a31515">&#39;{print $1 }&#39;</span>|xargs docker rm
 $ docker images|grep none|awk <span style="color:#a31515">&#39;{print $3 }&#39;</span>|xargs docker rmi
-</code></pre></div><h2 id="3-运行镜象-">3. 运行镜象</h2>
+</code></pre></div><h2 id="3-运行镜象">3. 运行镜象</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm myDockerImage myCommand
-</code></pre></div><h2 id="4-挂载卷-">4. 挂载卷</h2>
+</code></pre></div><h2 id="4-挂载卷">4. 挂载卷</h2>
 <p>挂载文件目录至容器，可以挂载多个。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm -v /localpath/data:/data -v /localpath/file:/file myDockerImage myCommand
-</code></pre></div><h2 id="5-保存和本地载入镜像-">5. 保存和本地载入镜像</h2>
+</code></pre></div><h2 id="5-保存和本地载入镜像">5. 保存和本地载入镜像</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看镜像列表</span>
 $ docker images
 
@@ -113,13 +113,13 @@ $ docker save -o dockerImage.tar /example/dockerImage
 
 <span style="color:#008000"># 载入镜像</span>
 $ docker load --input dockerImage.tar
-</code></pre></div><h2 id="6-修改镜像和容器储存位置-">6. 修改镜像和容器储存位置</h2>
+</code></pre></div><h2 id="6-修改镜像和容器储存位置">6. 修改镜像和容器储存位置</h2>
 <p>查看镜像储存位置，例如<code>/var/lib/docker</code></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker info | grep <span style="color:#a31515">&#34;Docker Root Dir&#34;</span>
 </code></pre></div><p>移动镜像和容器存储位置</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv /var/lib/docker /localpath/docker
 $ ln -s /localpath/docker /var/lib/docker
-</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p><a href="https://docs.docker.com/">Docker官方文档</a></p>
@@ -131,7 +131,7 @@ $ ln -s /localpath/docker /var/lib/docker
 <p><a href="https://www.centos.bz/2017/08/docker-delete-none-images/">删除Docker镜像中为none的镜像</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年12月16日</p>
 
 		</div>

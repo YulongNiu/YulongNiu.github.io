@@ -109,7 +109,7 @@
 			<p>$$
 \newcommand{\P}{\mathrm{P}}
 $$</p>
-<h2 id="1-完备事件-">1. 完备事件</h2>
+<h2 id="1-完备事件">1. 完备事件</h2>
 <p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：</p>
 <p>$$
 \begin{align}
@@ -120,7 +120,7 @@ $$</p>
 \end{align}
 $$</p>
 <p>常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$</p>
-<h2 id="2-全概率公式-">2. 全概率公式</h2>
+<h2 id="2-全概率公式">2. 全概率公式</h2>
 <p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：</p>
 <p>$$
 \begin{align}
@@ -141,7 +141,7 @@ f(Y) &amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline
 \label{eq:3}
 \end{align}
 $$</p>
-<h2 id="3-独立事件-">3. 独立事件</h2>
+<h2 id="3-独立事件">3. 独立事件</h2>
 <p>$X$和$Y$为两事件独立，则：</p>
 <p>$$
 \begin{align}
@@ -154,7 +154,7 @@ $$</p>
 \end{align}
 $$</p>
 <p>在朴素贝叶斯分类的推到中，可以用到诸如等式$P(X|Y, \theta) = P(X|\theta)$。</p>
-<h2 id="4-贝叶斯公式-">4. 贝叶斯公式</h2>
+<h2 id="4-贝叶斯公式">4. 贝叶斯公式</h2>
 <p>根据$\eqref{eq:2}$和$\eqref{eq:4}$得：</p>
 <p>$$
 \begin{align}
@@ -199,7 +199,7 @@ $$</p>
 <ul>
 <li>使用$P(x_1|Y) \propto \P(x_1)\P(Y|x_1)$，式$\eqref{eq:5}$中的分母可以看作常数，求出每一个$P(x_i|Y)$后，标准化$P(x_i|Y)=\frac{P(x_i|Y)}{\sum_{i=1}^{N}P(x_i|Y)}$。</li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2020年09月11日</p>
 
 		</div>

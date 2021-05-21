@@ -70,11 +70,11 @@
 			<p>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。</p>
 <p>现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块<a href="http://rpy.sourceforge.net/">rpy2</a> ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是<a href="http://www.renjin.org/">renjin</a>，一个基于JVM的R语言解释器。</p>
 <p>本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以<a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/">官方文档</a>为准。</p>
-<h2 id="1-安装-">1. 安装</h2>
+<h2 id="1-安装">1. 安装</h2>
 <p>rpy2作为Python的一个模块，其<a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/overview.html#installation">安装</a>非常方便。需要做的准备工作是在本地安装好R。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip install rpy2
-</code></pre></div><h2 id="2-python调用r对象-">2. python调用R对象</h2>
-<h3 id="21-使用rpy2robjects-">2.1 使用<code>rpy2.robjects</code></h3>
+</code></pre></div><h2 id="2-python调用r对象">2. python调用R对象</h2>
+<h3 id="21-使用rpy2robjects">2.1 使用<code>rpy2.robjects</code></h3>
 <p>在rpy2中调用R对象，实际上是开启了一个R的交互进程。主要思路是将R的代码写入一个字符串内，之后执行即可。</p>
 <p>对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。</p>
 <p>调用方法：</p>
@@ -114,7 +114,7 @@
 &gt;&gt;&gt; len(l)
 26
 &gt;&gt;&gt; dir(l)
-</code></pre></div><h3 id="22-创建r对象和提取对象的数值-">2.2 创建R对象和提取对象的数值</h3>
+</code></pre></div><h3 id="22-创建r对象和提取对象的数值">2.2 创建R对象和提取对象的数值</h3>
 <p>创建向量，可以使用<code>rpy2.robjects.vectors</code>中提供的一系列函数，将一个Python的元组、列表或者字符串转换为R的向量。其中包括 <code>StrVector()</code>、<code>IntVector()</code>、<code>FloatVector()</code>、<code>FactorVector()</code>和<code>BoolVector()</code>，分别提供了转换字符、整数、浮点、因子和布尔向量。</p>
 <p>创建列表，可以使用<code>ListVector()</code>将Python的字典转换为R的列表。</p>
 <p>创建矩阵和数据框（data.frame）建议直接使用R函数<code>matrix()</code>和<code>data.frame()</code>。尽管如此，rpy2提供了 <code>DataFram()</code>将Python的字典转换成R的数据框（列顺序可能与输入不一致，Python字典特性造成），<!-- raw HTML omitted -->注意<!-- raw HTML omitted -->会把字符串自动转换成因子。</p>
@@ -232,7 +232,7 @@
 R object <span style="color:#00f">with</span> classes: (<span style="color:#a31515">&#39;integer&#39;</span>,) mapped to:
 &lt;IntVector - Python:0x7f304047b248 / R:0x4cffa08&gt;
 [       1,        2]
-</code></pre></div><h3 id="23-特殊对象-">2.3 特殊对象</h3>
+</code></pre></div><h3 id="23-特殊对象">2.3 特殊对象</h3>
 <ul>
 <li>
 <p>R中的<code>NA</code>通过<code>rpy2.robjects.NA_Integer</code>或<code>rpy2.robjects.NA_Character</code>等引用。</p>
@@ -253,7 +253,7 @@ R object <span style="color:#00f">with</span> classes: (<span style="color:#a315
 &gt;&gt;&gt; testGlobal = StrVector([<span style="color:#a31515">&#39;a&#39;</span>, <span style="color:#a31515">&#39;b&#39;</span>, <span style="color:#a31515">&#39;c&#39;</span>])
 &gt;&gt;&gt; globalenv[<span style="color:#a31515">&#39;testGlobal&#39;</span>] = testGlobal
 &gt;&gt;&gt; connectVec = r(<span style="color:#a31515">&#34;paste(testGlobal, collapse = &#39;-&#39;)&#34;</span>)
-</code></pre></div><h3 id="24-载入和使用包-">2.4 载入和使用包</h3>
+</code></pre></div><h3 id="24-载入和使用包">2.4 载入和使用包</h3>
 <p>使用<code>rpy2.robjects.packages.importr</code>调用R包：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; <span style="color:#00f">from</span> rpy2.robjects.packages <span style="color:#00f">import</span> importr
 
@@ -268,7 +268,7 @@ R object <span style="color:#00f">with</span> classes: (<span style="color:#a315
 &gt;&gt;&gt; a = r(<span style="color:#a31515">&#39;hwriter:::hwrite.table(matrix(1:10, 2))&#39;</span>)
 &gt;&gt;&gt; <span style="color:#00f">print</span>(a)
 [1] <span style="color:#a31515">&#34;&lt;table border=</span><span style="color:#a31515">\&#34;</span><span style="color:#a31515">1</span><span style="color:#a31515">\&#34;</span><span style="color:#a31515">&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&lt;tr&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&lt;td&gt;1&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&lt;tr&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;/tr&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&lt;/table&gt;</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>
-</code></pre></div><h2 id="3-r对象转换成python对象-">3. R对象转换成Python对象</h2>
+</code></pre></div><h2 id="3-r对象转换成python对象">3. R对象转换成Python对象</h2>
 <p>推荐使用<code>tuple()</code>或者<code>list()</code>函数，将R对象转换成Python的元组或者列表对象。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">&gt;&gt;&gt; a = r(<span style="color:#a31515">&#39;c(1, 2, 3)&#39;</span>)
 &gt;&gt;&gt; str(a)
@@ -286,7 +286,7 @@ R object <span style="color:#00f">with</span> classes: (<span style="color:#a315
 (1, 2, 3, 4, 5, 6)
 &gt;&gt;&gt; list(b)
 [1, 2, 3, 4, 5, 6]
-</code></pre></div><h2 id="5-注意事项-">5. 注意事项</h2>
+</code></pre></div><h2 id="5-注意事项">5. 注意事项</h2>
 <ul>
 <li>
 <p>分清楚需要调用的R还是Python的对象；</p>
@@ -309,11 +309,11 @@ R object <span style="color:#00f">with</span> classes: (<span style="color:#a315
 <ul>
 <li>rpy2不是万能药，它直接继承了R的所有好和不好。</li>
 </ul>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ul>
 <li><a href="http://stackoverflow.com/questions/2125218/python-and-rpy2-calling-plot-function-with-options-that-have-in-them">stackoverflow: Python and Rpy2: Calling plot function with options that have “.” in them</a></li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2016年6月16日</p>
 
 		</div>

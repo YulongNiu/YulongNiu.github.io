@@ -112,7 +112,7 @@ $$</p>
 <p>$$
 \DeclareMathOperator*{\argmax}{arg,max}
 $$</p>
-<h2 id="em算法的推出-">EM算法的推出</h2>
+<h2 id="em算法的推出">EM算法的推出</h2>
 <p>考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：</p>
 <p>$$
 \begin{align}
@@ -123,7 +123,7 @@ L(\theta) &amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline
 \label{eq:1}
 \end{align}
 $$</p>
-<p>为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，**否能找到一个方法，将求和放在对数外面？**一个常用的技巧是转化为不等式，<a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen&rsquo;s inequality</a>描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：</p>
+<p>为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，<strong>否能找到一个方法，将求和放在对数外面？</strong> 一个常用的技巧是转化为不等式，<a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen&rsquo;s inequality</a>描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：</p>
 <p>$$
 \begin{align}
 \begin{split}
@@ -156,7 +156,7 @@ $$</p>
 \end{align}
 $$</p>
 <p>EM算法的核心是通过迭代$L(\theta)$的下限极大化，进而逼近极值。EM算法每次迭代，都会靠近$L(\theta)$，但是最终可能得到局部最优。因此，EM算法对初始值敏感，可以多选几个初始值，对比结果。</p>
-<h2 id="双硬币模型-">双硬币模型</h2>
+<h2 id="双硬币模型">双硬币模型</h2>
 <p><a href="#Ref">参考资料2</a>中使用EM算法解决双硬币模型：</p>
 <p>$$
 \begin{align*}
@@ -195,7 +195,7 @@ _{j=1}^m \mu_{1j}} \newline
 \end{split}
 \end{align*}
 $$</p>
-<h2 id="混合高斯模型-">混合高斯模型</h2>
+<h2 id="混合高斯模型">混合高斯模型</h2>
 <p>混合高斯分布模型：</p>
 <p>$$
 \begin{align*}
@@ -237,7 +237,7 @@ $$</p>
 \end{align*}
 $$</p>
 <p>混合高斯模型在生物信息学中有广泛的应用，例如<a href="#Ref">参考资料4</a>用于家族拷贝数变异（copy number variations，CNV）检测。</p>
-<h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+<h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p>李航《统计学习方法》</p>
@@ -252,7 +252,7 @@ $$</p>
 <p>Chu JH, Rogers A, Ionita-Laza I, Darvishi K, Mills RE, Lee C, Raby BA: Copy number variation genotyping using family information. BMC Bioinformatics. 2013;14:157.</p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年2月4日</p>
 
 		</div>

@@ -67,8 +67,8 @@
 		</div>
 
 		<div class="markdown">
-			<h2 id="1-基本数据类型-">1. 基本数据类型</h2>
-<h3 id="11-算术类型-">1.1 算术类型</h3>
+			<h2 id="1-基本数据类型">1. 基本数据类型</h2>
+<h3 id="11-算术类型">1.1 算术类型</h3>
 
 
 
@@ -198,9 +198,9 @@
 <p><code>sizeof</code>运算符一般形式为：<code>sizeof(type)</code>，比如<code>sizeof(long int)</code>计算<code>int</code>类型占用多少个字节。<code>sizeof</code>表达式的类型是<code>size_t</code>（无符号整数），所以安全的方法是强制转换为<code>unsigned long</code>型，比如<code>(unsigned long) sizeof(int)</code>。括号不是强制需要，加上括号防止因为优先级不同而引起歧义。可以应用与常量、变量或者表达式。</p>
 </li>
 </ul>
-<h3 id="12-数组-">1.2 数组</h3>
+<h3 id="12-数组">1.2 数组</h3>
 <p>数组索引从0开始；数组按行存储。</p>
-<h4 id="121-一维数组-">1.2.1 一维数组</h4>
+<h4 id="121-一维数组">1.2.1 一维数组</h4>
 <p>数组长度：</p>
 <ul>
 <li>
@@ -225,7 +225,7 @@
 <p>声明全部元素为0，比如<code>int testArray[5] = {0}</code>;。</p>
 </li>
 </ul>
-<h4 id="122-多维数组-">1.2.2 多维数组</h4>
+<h4 id="122-多维数组">1.2.2 多维数组</h4>
 <p>初始化：</p>
 <ul>
 <li>
@@ -235,7 +235,7 @@
 <p>声明全部元素为0，比如<code>int testArray[5][10] = {0};</code>。</p>
 </li>
 </ul>
-<h4 id="123-span-stylecolor-greenc99span变长数组-">1.2.3 <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->变长数组</h4>
+<h4 id="123-span-stylecolor-greenc99span变长数组">1.2.3 <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->变长数组</h4>
 <p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许声明变长数组。但是，变长数组的声明和初始化不能在一条语句中。正确的做法是：先声明变长数组，之后初始化。比如：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">int</span> size;
 printf(<span style="color:#a31515">&#34;Enter size of array: &#34;</span>);
@@ -246,7 +246,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <span style="color:#00f">for</span> (<span style="color:#2b91af">int</span> i = 0; i &lt; size; i++) {
   square[i] = 0;
 }
-</code></pre></div><h4 id="124-字符串-">1.2.4 字符串</h4>
+</code></pre></div><h4 id="124-字符串">1.2.4 字符串</h4>
 <p>字符串长度：</p>
 <ul>
 <li>字符串的实现是使用数组储存字符，最后一个是空字符<code>\0</code>（对应ASCII码为0）。使用<code>&lt;string.h&gt;</code>头文件时，<code>str()</code>函数返回输入字符串中，第一个空字符之前的字符数。</li>
@@ -263,12 +263,12 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <p>字符数组可以修改元素，比如<code>a[0] = 'l';</code>；字符指针指向的字符串不能修改，应该杜绝<!-- raw HTML omitted -->*b = &lsquo;l&rsquo;;<!-- raw HTML omitted -->之类的字符指针赋值，除非保证<code>b</code>是一个字符数组；对于操作字符串的函数，如果形参为字符指针，允许修改其指向的内容，比如<code>*b = 'l';</code>，因为默认（也只允许）传入参数是一个字符数组，而不是一个字符串字面量。</p>
 </li>
 </ul>
-<h4 id="124-字符串数组-">1.2.4 字符串数组</h4>
+<h4 id="124-字符串数组">1.2.4 字符串数组</h4>
 <p>初始化：</p>
 <ul>
 <li>使用指针数组储存，比如<code>char *a[5] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;, &quot;!&quot;};</code>；省略长度，<code>char *a[] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;, &quot;!&quot;};</code>合法；<code>char *a[5] = {&quot;hello&quot;, &quot;it&quot;, &quot;is&quot;, &quot;me&quot;};</code>合法，最后一个是空指针（<code>NULL</code>）。</li>
 </ul>
-<h3 id="13-结构-">1.3 结构</h3>
+<h3 id="13-结构">1.3 结构</h3>
 <p>结构空间分配：</p>
 <ul>
 <li>
@@ -333,7 +333,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
   
   <span style="color:#00f">return</span> 0;
 }
-</code></pre></div><h3 id="14-联合-">1.4 联合</h3>
+</code></pre></div><h3 id="14-联合">1.4 联合</h3>
 <p>联合空间分配：</p>
 <ul>
 <li>只为最大的成员分配空间。</li>
@@ -377,7 +377,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 t1.b.b1 = 10;
 <span style="color:#008000">/* t.c.c1 is 10 */</span>
 printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, t1.c.c1);
-</code></pre></div><h3 id="15-枚举-">1.5 枚举</h3>
+</code></pre></div><h3 id="15-枚举">1.5 枚举</h3>
 <p>初始化：</p>
 <ul>
 <li>枚举元素如不指定，从0开始，依次增加1；可以指定具体数值，指定数值可以相同，允许尾逗号，例如<code>enum {THIS = 2, THAT = 10, THESE = 2,} test1</code>;。</li>
@@ -385,10 +385,10 @@ printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> {FIRST, SECOND} p1;
 <span style="color:#00f">enum</span> test1 {FIRST, SECOND};
 <span style="color:#00f">enum</span> test1 = SECOND;
-</code></pre></div><h3 id="16-指针-">1.6 指针</h3>
+</code></pre></div><h3 id="16-指针">1.6 指针</h3>
 <p>参考<a href="http://yulongniu.bionutshell.org/blog/2016/04/17/pointers-in-c/">C语言指针记录</a>。</p>
-<h3 id="17-函数-">1.7 函数</h3>
-<h4 id="171-函数定义-">1.7.1 函数定义</h4>
+<h3 id="17-函数">1.7 函数</h3>
+<h4 id="171-函数定义">1.7.1 函数定义</h4>
 <ul>
 <li>
 <p>函数不能返回数组，也不能返回两个数。</p>
@@ -409,7 +409,7 @@ printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n
 <p>函数声明的形式为<code>int thisFun(double para1, int para2);</code>。<!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->规定：函数在调用前，必须事先声明或者定义。调用前声明有很多好处，比如避免实际参数的默认转换等。</p>
 </li>
 </ul>
-<h4 id="172-数组型参数-">1.7.2 数组型参数</h4>
+<h4 id="172-数组型参数">1.7.2 数组型参数</h4>
 <ul>
 <li>定义形参为一维数组的函数，普遍形式为：</li>
 </ul>
@@ -529,7 +529,7 @@ oneArrayFun(testArry, testLen);
   <span style="color:#00f">return</span> sum;
 }
 
-</code></pre></div><h2 id="2-操作符类型和优先级-">2. 操作符类型和优先级</h2>
+</code></pre></div><h2 id="2-操作符类型和优先级">2. 操作符类型和优先级</h2>
 <!-- raw HTML omitted -->
 <p>图片取自<a href="#Ref">参考资料2</a>。</p>
 <ul>
@@ -543,7 +543,7 @@ oneArrayFun(testArry, testLen);
 <p>运算符<code>&amp;&amp;</code>和<code>||</code>（从左向右结合），两侧的两个表达式有运算顺序，先左后右。<strong>有可能右侧表达式没有计算，因此不要在右侧放入有副作用的表达式</strong>。</p>
 </li>
 </ul>
-<h2 id="3-表达式-">3. 表达式</h2>
+<h2 id="3-表达式">3. 表达式</h2>
 <ul>
 <li>
 <p>条件表达式<code>i &gt; 0 ? i : f;</code>，如果<code>i</code>和<code>f</code>是整数型和浮点型，即使条件判定为真，表达式的值为浮点型。</p>
@@ -555,7 +555,7 @@ oneArrayFun(testArry, testLen);
 <p>逗号表达式中，<code>表达式1, 表达式2</code>，<code>表达式1</code>先计算之后丢弃其值，之后计算<code>表达式2</code>。因此，<strong><code>表达式1</code>必须有副作用</strong>。</p>
 </li>
 </ul>
-<h2 id="4-语法注意事项-">4. 语法注意事项</h2>
+<h2 id="4-语法注意事项">4. 语法注意事项</h2>
 <ul>
 <li>
 <p><code>#define LOWER 0</code>定义常量的语句之后，没有分号<code>;</code>。</p>
@@ -659,8 +659,8 @@ a[i] = i++;
 
 <span style="color:#00f"># &#34;,&#34; is not comma operator
 </span><span style="color:#00f"></span>printf(<span style="color:#a31515">&#34;%d %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, ++i, i);
-</code></pre></div><h2 id="5-标准库-">5. 标准库</h2>
-<h3 id="51-include-stdioh-">5.1 <code>#include &lt;stdio.h&gt;</code></h3>
+</code></pre></div><h2 id="5-标准库">5. 标准库</h2>
+<h3 id="51-include-stdioh">5.1 <code>#include &lt;stdio.h&gt;</code></h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#a31515">&#34;%3.0f %6.1f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, fahr, celsius);
 </code></pre></div><p><code>%m.pX</code>：格式串模板，<code>m</code>表示要显示的最小字段宽度，<code>p</code>表示精度，<code>X</code>表示类型。</p>
 <p>对于 <code>printf()</code>函数：</p>
@@ -769,7 +769,7 @@ a[i] = i++;
 <p><strong>不要输把空白字符（比如<code>&quot;%d &quot;</code>）放入格式串的结尾</strong>。原因：<code>scanf()</code>会挂起，直到出现不能匹配的空白字符。</p>
 </li>
 </ul>
-<h2 id="6-span-stylecolor-greenc99span注意事项-">6. <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->注意事项</h2>
+<h2 id="6-span-stylecolor-greenc99span注意事项">6. <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->注意事项</h2>
 <ul>
 <li>
 <p>在<code>for</code>语句中声明的计数变量，只能在for循环中使用。比如 <code>for(int i = 0; i &lt; 10; i++){...}</code>，变量<code>i</code>只能在循环内起作用。</p>
@@ -801,7 +801,7 @@ a[i] = i++;
 
   <span style="color:#00f">return</span> 0;
 }
-</code></pre></div><h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p>BW Kernighan and DM Ritchie: <a href="http://www.amazon.com/The-Programming-Language-2nd-Edition/dp/0131103628">The C Programming Language (2nd Edition)</a>, 1988.</p>
@@ -819,7 +819,7 @@ a[i] = i++;
 <p><a href="http://ganquan.info/standard-c/">C头快速查询</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2015年4月30日</p>
 
 		</div>

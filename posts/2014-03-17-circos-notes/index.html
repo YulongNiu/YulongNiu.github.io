@@ -68,7 +68,7 @@
 
 		<div class="markdown">
 			<p>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&rsquo;t afford to miss it. If it doesn&rsquo;t exist, you can&rsquo;t afford to be fooled into thinking that it&rsquo;s there, or left wondering whether it&rsquo;s occluded by other data.</p>
-<h2 id="1-run-circos-">1. Run circos</h2>
+<h2 id="1-run-circos">1. Run circos</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bin/circos
 -png
 -svg
@@ -88,7 +88,7 @@
 <span style="color:#008000"># extract other debug reports</span>
 &gt; egrep <span style="color:#a31515">&#34;debuggroup rule&#34;</span> circos.debug.txt
 &gt; egrep <span style="color:#a31515">&#34;debuggroup (rule|scale)&#34;</span> circos.debug.txt
-</code></pre></div><h2 id="2-syntax-and-configure-files-">2. Syntax and configure files</h2>
+</code></pre></div><h2 id="2-syntax-and-configure-files">2. Syntax and configure files</h2>
 <p>Configuration syntax is like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;ideogram&gt;
  thickness = 30p
@@ -129,7 +129,7 @@ r1    = eval(conf(track_start) . &#34;r&#34; + conf(track_width) . &#34;p&#34;)
 &lt;/plots&gt;
 </code></pre></div><p>Color</p>
 <p>Use the color name given, like <code>red, </code>lred, <code>vlred, </code>vvlred, <code>dred, </code>vdred, <code>vvdred. If a pure color is need, use </code>pred. For the transparent color, <code>red_a1, </code>red_a2, and to <code>red_a5. </code>red_a1 has a 17% tansparency and `red_a5 have a 83% transparency.</p>
-<h2 id="3-ideogram-">3. Ideogram</h2>
+<h2 id="3-ideogram">3. Ideogram</h2>
 <p>One of the most common used ideogram is the karyotypes plot. The chromosome is marked as:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - id label start end color
 </code></pre></div><p>for example</p>
@@ -193,8 +193,8 @@ chr4* = blue
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - hsMT MT 0 16569 chrMT
 </code></pre></div><p>Add &ldquo;hsMT&rdquo; color in the file <code>etc/colors.ucsc.conf</code></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chrMT = 121,204,61
-</code></pre></div><h2 id="4-highlight-">4. Highlight</h2>
-<h3 id="41-data-type-">4.1 Data type</h3>
+</code></pre></div><h2 id="4-highlight">4. Highlight</h2>
+<h3 id="41-data-type">4.1 Data type</h3>
 <p>Data type of highlight is</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end
 </code></pre></div><p>for exmaple,</p>
@@ -202,7 +202,7 @@ chr4* = blue
 </code></pre></div><p>We can also add the highlight information into the data file, for example:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100433463 100487964 fill_color=red,r0=0.6r,r1=0.6r+50p
 hs1 232817594 240828534 fill_color=chr9,z=61,r0=0.4r-78.7058p,r1=0.4r+78.7058p
-</code></pre></div><h3 id="42-conf-format-">4.2 Conf format</h3>
+</code></pre></div><h3 id="42-conf-format">4.2 Conf format</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
 &lt;highlights&gt;
 
@@ -228,7 +228,7 @@ hs1 232817594 240828534 fill_color=chr9,z=61,r0=0.4r-78.7058p,r1=0.4r+78.7058p
 <p><code>stroke_thickness</code>: border thickness, if any, of the highlight slice</p>
 <p><code>z</code>: z-depth of the highlight, controlling the order in which highlights are drawn</p>
 <p><code>ideogram</code>: toggles the position of the highlight to be within the ideogram extent</p>
-<h3 id="44-plot-hightlight-">4.4 Plot hightlight</h3>
+<h3 id="44-plot-hightlight">4.4 Plot hightlight</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
 &lt;plot&gt;
 type = highlight
@@ -238,8 +238,8 @@ r1   = 0.35r
 z    = 10
 &lt;/plot&gt;
 &lt;/plots&gt;
-</code></pre></div><h2 id="5-links-">5. Links</h2>
-<h3 id="51-data-type-">5.1 Data type</h3>
+</code></pre></div><h2 id="5-links">5. Links</h2>
+<h3 id="51-data-type">5.1 Data type</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300
 </code></pre></div><p>or</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">segdup00010 hs1 100 200
@@ -248,7 +248,7 @@ segdup00010 hs2 250 300
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300 color=blue
 hs1 400 550 hs3 500 750 color=red,thickness=5p
 hs1 600 800 hs4 150 350 color=black
-</code></pre></div><h3 id="52-conf-format-">5.2 Conf format</h3>
+</code></pre></div><h3 id="52-conf-format">5.2 Conf format</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;links&gt;
 &lt;link&gt;
 file          = data/5/segdup.txt
@@ -280,7 +280,7 @@ flow = goto special_rule if true
 tag = special_rule
 ...
 &lt;/rule&gt;
-</code></pre></div><h2 id="6-histograms-">6. Histograms</h2>
+</code></pre></div><h2 id="6-histograms">6. Histograms</h2>
 <p>Histogram, line plot, scatter plot, and heat map share the same data format</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value [options]
 </code></pre></div><p>for exmaple</p>
@@ -370,7 +370,7 @@ condition  = var(value) eq &#34;GeneName&#34;
 color = blue
 &lt;/rule&gt;
 &lt;/rules&gt;
-</code></pre></div><h2 id="reference-">Reference</h2>
+</code></pre></div><h2 id="reference">Reference</h2>
 <ul>
 <li><a href="http://circos.ca/images/scientific_literature/">Ciros grocery of published pictures</a></li>
 </ul>

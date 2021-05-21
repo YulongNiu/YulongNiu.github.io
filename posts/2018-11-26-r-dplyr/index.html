@@ -67,7 +67,7 @@
 		</div>
 
 		<div class="markdown">
-			<h2 id="1-使用span-stylecolor-bluedplyrspan包的好处-">1. 使用<!-- raw HTML omitted -->dplyr<!-- raw HTML omitted -->包的好处</h2>
+			<h2 id="1-使用span-stylecolor-bluedplyrspan包的好处">1. 使用<!-- raw HTML omitted -->dplyr<!-- raw HTML omitted -->包的好处</h2>
 <ol>
 <li>
 <p>大多数时间在操作<code>tbl_df</code>对象，而不是<code>data.frame</code>（特别是含有<code>factor</code>的<code>data.frame</code>）。</p>
@@ -79,7 +79,7 @@
 <p>更丰富的列操作，例如<code>mutate</code>、<code>select</code>。<code>group_by</code>会节省很多for循环。</p>
 </li>
 </ol>
-<h2 id="2-列操作-">2. 列操作</h2>
+<h2 id="2-列操作">2. 列操作</h2>
 <ul>
 <li>
 <p><code>filter()</code>：过滤列，需要输入一个逻辑向量。<code>xor(x, y)</code>x和y并集除去交集的部分。<code>between(x, left, right)</code>left &lt;= x &lt;= right。<code>near(x, y)</code>x和y在一定精度下相等，比<code>==</code>安全）。直接使用列名操作，例如<code>year == 2018</code>。多列操作相当于<code>&amp;</code>。受<code>group</code>操作影响。返回一个空的表格，只保留列名，<code>filter(x, FALSE)</code>。</p>
@@ -117,7 +117,7 @@
 <p><code>coalesce()</code>用于转换<code>NA</code>。</p>
 </li>
 </ul>
-<h2 id="3-行操作-">3. 行操作</h2>
+<h2 id="3-行操作">3. 行操作</h2>
 <ul>
 <li>
 <p><code>sample_n()</code>和<code>sample_frac()</code>：随机选择行。</p>
@@ -132,7 +132,7 @@
 <p><code>distinct()</code>：去除相同的行，也可以制定列。</p>
 </li>
 </ul>
-<h2 id="4-两个表的操作-">4. 两个表的操作</h2>
+<h2 id="4-两个表的操作">4. 两个表的操作</h2>
 <ul>
 <li>
 <p><code>inner_join(x, y)</code>：按照指定的列（可以多列），只返回x和y的共同内容。</p>
@@ -162,7 +162,7 @@
 <p><code>setequal(x, y)</code>：x和y的行是否相同（与行顺序无关）。</p>
 </li>
 </ul>
-<h2 id="5-行名操作-">5. 行名操作</h2>
+<h2 id="5-行名操作">5. 行名操作</h2>
 <ul>
 <li>
 <p><code>rownames_to_column()</code>：把行名变成某列。</p>
@@ -171,7 +171,7 @@
 <p><code>column_to_rownames()</code>：把某列变为行名。</p>
 </li>
 </ul>
-<h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+<h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p>Hadley Wickham, Garrett Grolemund: <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p>
@@ -186,7 +186,7 @@
 <p><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2020年01月15日</p>
 
 		</div>

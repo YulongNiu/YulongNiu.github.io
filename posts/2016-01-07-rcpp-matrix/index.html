@@ -68,11 +68,11 @@
 
 		<div class="markdown">
 			<p>收集和记录<!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted -->或者<!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted -->操作矩阵和向量。</p>
-<h2 id="1-span-stylecolor-bluercppspan-">1. <!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted --></h2>
+<h2 id="1-span-stylecolor-bluercppspan">1. <!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted --></h2>
 <ul>
 <li>可以使用逻辑下标（<code>LogicalVector</code>）对向量和列表<a href="http://gallery.rcpp.org/articles/subsetting/">取值</a>。</li>
 </ul>
-<h2 id="2-span-stylecolor-bluercpparmadillospan-">2. <!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted --></h2>
+<h2 id="2-span-stylecolor-bluercpparmadillospan">2. <!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted --></h2>
 <p>基本类型是<code>mat</code>、<code>vec</code>（<code>colvec</code>）和<code>rowvec</code>。</p>
 <ul>
 <li>
@@ -138,7 +138,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </code></pre></div><ul>
 <li>使用<code>sum(M, 0);</code>和<code>sum(M, 1);</code>分别替代<code>colSums(M)</code>和<code>rowSums(M)</code>。</li>
 </ul>
-<h2 id="3-span-stylecolor-bluebigmemoryspan-">3. <!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted --></h2>
+<h2 id="3-span-stylecolor-bluebigmemoryspan">3. <!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted --></h2>
 <p><!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted -->包提供了四种数据类型的矩阵，即<code>double</code>（默认）、<code>integer</code>、<code>short</code>和<code>char</code>。对于<code>big.matrix</code>对象<code>pMat</code>，四种类型通过通过<code>MatrixAccessor&lt;double&gt; macc(*pMat)</code>、<code>MatrixAccessor&lt;int&gt; macc(*pMat)</code>、<code>MatrixAccessor&lt;short&gt; macc(*pMat)</code>和<code>MatrixAccessor&lt;char&gt; macc(*pMat)</code>提取元素。<code>pMat</code>有三种属性<code>nrow()</code>、<code>ncol()</code>和<code>matrix_type()</code>可以使用。一下代码示例展示了将<code>big.matrix</code>转换为<code>matrix</code>：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span><span style="color:#008000">// [[Rcpp::depends(BH, bigmemory)]]
@@ -207,7 +207,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 
   <span style="color:#00f">return</span> resMat;
 }
-</code></pre></div><h3 id="a-idref参考网址a-"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p><a href="http://arma.sourceforge.net/docs.html#adv_constructors_mat">Armadillo矩阵</a></p>
@@ -231,7 +231,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 <p><a href="https://thecoatlessprofessor.com/programming/unofficial-rcpp-api-documentation/">Unofficial Rcpp API Documentation</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年9月17日</p>
 
 		</div>

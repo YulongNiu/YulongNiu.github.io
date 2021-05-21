@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Mon, 02 Dec 2019 13:46:11 +0100</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 03 Nov 2019 16:46:02 +0100</lastBuildDate><atom:link href="https://YulongNiu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://YulongNiu.github.io/about/</link>
@@ -49,7 +45,7 @@ A personal blog for sharing my wonderful life.</description>
   避免主观词汇。审稿人通常反感主观词汇，例如：unprecedented、 paradigm shift、 amazing、 dramatic、 interesting、 remarkable等。
   减少使用缩写。当文中出现5次或以上时，再考虑使用缩写。但一些熟知的专业名词，例如DNA、RNA等要使用缩写。
   避免使用无方向性词汇，influence。应该明确指出怎样影响（增加或减少），最好能有具体的数值表述。例如，改变×××倍提高了×××产量等。
-  避免在所有情况下都使用significant。应为signficant容易和统计检验混淆，应该使用具体数值描述影响。
+  避免在所有情况下都使用significant。因为signficant容易和统计检验混淆，应该使用具体数值描述影响。
   文章起一个陈述性的题目。避免使用暗示性、假设性的题目，而应该具体描述文章的发现。注意不要夸大结果或者模糊描述。“通过避免使用主观词汇、仔细描述文章真实而非潜在暗示的发现，应该能找到一个可读性高、信息量大、有趣的题目，从而不会夸大文章的发现”。
   摘要写法，Nature提供了一个模板。
     数据和图标
@@ -447,11 +443,11 @@ $$ \begin{align*} \begin{split} f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)
       
       <guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid>
       <description>$$ \newcommand{\md}{\mathrm{d}} $$
-共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验证。
+共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。
 贝叶斯公式：
 $$ \begin{align} \begin{split} f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline &amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta} \end{split} \label{eq:1} \end{align} $$
 1. 离散分布 1.1 伯努利分布 伯努利分布（Bernoulli distribution）的概率质量函数为：
-$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in {0, 1} \end{split} \label{eq:2} \end{align} $$
+$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1) \end{split} \label{eq:2} \end{align} $$
 对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。
 该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：
 $$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline &amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline &amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline &amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i) \end{split} \label{eq:3} \end{align} $$</description>
@@ -599,9 +595,9 @@ gffFile &amp;lt;- read.table(&amp;#39;hg19USCS.gff&amp;#39;, stringsAsFactors = 
       <guid>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</guid>
       <description>本文是学习Django Tutorial的记录，目的为了帮助快速浏览和查找Django使用细节。
 1. 安装Django 本文使用Python 3.3.6和PostgreSQL 9.3.6学习Django。可以参考“使用Pyenv控制多个版本Python”和 “Fedora安装与使用PostgreSQL”，安装对应版本Python和PostgreSQL。
-# 安装Django $ pip install django # 安装PostgreSQL支持psycopg2 $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
+# 安装Django $ pip install django # 安装PostgreSQL支持psycopg2  $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
 # Database # https://docs.djangoproject.com/en/1.8/ref/settings/#databases DATABASES = { &amp;#39;default&amp;#39;: { &amp;#39;ENGINE&amp;#39;: &amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;, &amp;#39;NAME&amp;#39;: &amp;#39;testdb&amp;#39;, &amp;#39;USER&amp;#39;: &amp;#39;userName&amp;#39;, &amp;#39;PASSWORD&amp;#39;: &amp;#39;passWord&amp;#39;, &amp;#39;HOST&amp;#39;: &amp;#39;/var/run/postgresql&amp;#39;, &amp;#39;PORT&amp;#39;: &amp;#39;5432&amp;#39;, } } # 配制好数据库后，链接数据库 $ python manage.py migrate 开启Django测试网络服务器
-$ python manage.py runserver 3.</description>
+$ python manage.</description>
     </item>
     
     <item>
@@ -642,7 +638,7 @@ $ python manage.py runserver 3.</description>
       
       <guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid>
       <description>有很多优秀的C语言IDE用来实现高效的编程，比如CLion。目前，CLion还在处于公开测试阶段，可以下载试用。本文介绍在Emacs下配置C/C++编程环境。
-1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*  安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
+1. 安装和基本配置 1.1. 安装需求  安装GNU Global  # dnf install global llvm llvm-devel clang*   安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。  1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
 2. 文件操作## 2.1. 查找   当前buffer查找函数、类的定义
  C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。    当前project查找定义
   M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。
@@ -854,7 +850,7 @@ The input data should be in data frame form, and it is easily to use the functio
 $$ \DeclareMathOperator*{\argmax}{arg,max} $$
 EM算法的推出 考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：
 $$ \begin{align} \begin{split} L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) \end{split} \label{eq:1} \end{align} $$
-为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，**否能找到一个方法，将求和放在对数外面？**一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
+为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，否能找到一个方法，将求和放在对数外面？ 一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
 $$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})}\right) - L(\theta^{(n)}) \newline &amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log \left( \frac{\P(y_j, z|\theta)}{\P(z|y_j, \theta^{(n)})} \right) \newline &amp;amp;- \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log(\P(y_j|\theta^{n})) \newline &amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \P(z|y_j, \theta^{(n)}) \log\left(\frac{\P(y_j, z|\theta)}{\P(y_j, z|\theta^{(n)})} \right) \end{split} \label{eq:2} \end{align} $$</description>
     </item>
     
@@ -966,7 +962,7 @@ from rpy2.robjects import r 有三种方式可以选择：
       
       <guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid>
       <description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
-1. 创建R包目录## 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
+1. 创建R包目录 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
 1.1 DESCRIPTION文件 一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的DESCRIPTION文件：
   Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
   Version：版本号，经典的命名方式比如0.1-0。
@@ -1051,10 +1047,10 @@ $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以
       
       <guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid>
       <description>1. 压缩与解压缩 .tar.gz格式文件
-# 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
-# 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
+# 解压  $ tar -zxvf /filePath/filename.tar.gz # 压缩  $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件  $ gzip *.txt .tar.bz2格式文件
+# 解压  $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
 需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .zip格式文件</description>
+# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.</description>
     </item>
     
     <item>

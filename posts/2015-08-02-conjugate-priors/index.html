@@ -109,7 +109,7 @@
 			<p>$$
 \newcommand{\md}{\mathrm{d}}
 $$</p>
-<p><a href="https://en.wikipedia.org/wiki/Conjugate_prior#cite_note-beta_rate-6">共轭先验（Conjugate prior）</a>在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验证。</p>
+<p><a href="https://en.wikipedia.org/wiki/Conjugate_prior#cite_note-beta_rate-6">共轭先验（Conjugate prior）</a>在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。</p>
 <p>贝叶斯公式：</p>
 <p>$$
 \begin{align}
@@ -120,13 +120,13 @@ f(\theta | x) &amp;= \frac{f(\theta, x)}{f(x)} \newline
 \label{eq:1}
 \end{align}
 $$</p>
-<h2 id="1-离散分布-">1. 离散分布</h2>
-<h3 id="11-伯努利分布-">1.1 伯努利分布</h3>
+<h2 id="1-离散分布">1. 离散分布</h2>
+<h3 id="11-伯努利分布">1.1 伯努利分布</h3>
 <p>伯努利分布（Bernoulli distribution）的概率质量函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
-f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in {0, 1}
+f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1)
 \end{split}
 \label{eq:2}
 \end{align}
@@ -145,38 +145,62 @@ f(p|X_i) &amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} 
 \end{align}
 $$</p>
 <p>根据$\eqref{eq:3}$易得，$f(p \vert X_1, X_2, \dots, X_m) = \mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+m-\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{m+\alpha+\beta}$。$f(p \vert X_1, X_2, \dots, X_m)$也可以直接由分布$\mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+m-\sum_{i=1}^{m}k_i)$随机生成。特别，当$\alpha=1$和$\beta=1$时，即共轭先验为$0-1$之间的均匀分布，$\hat{p}=\frac{\sum_{i=1}^{m}k_i+1}{m+2}$。</p>
-<h3 id="12-二项分布-">1.2 二项分布</h3>
+<h3 id="12-categorical分布">1.2 categorical分布</h3>
+<p>categorical分布（categorical distribution）的概率质量函数为：</p>
+<p>$$
+\begin{align}
+\begin{split}
+f(x_1, x_2,\dots,x_k;n,p_1,p_2,\dots,p_k) = p_1^{x_1}p_2^{x_2}\dots p_k^{x_k} \quad \mathrm{for} \quad \sum_{i=1}^k p_i=1 \quad \sum_{i=1}^k x_i=1 \quad x \in (0, 1)
+\end{split}
+\label{eq:4}
+\end{align}
+$$</p>
+<p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}}$。</p>
+<p>该分布的共轭先验为Dirichlet分布$\mathrm{Dir}(\alpha_1,\alpha_2,\dots,\alpha_k)$，即对于随机变量$X_i$：</p>
+<p>$$
+\begin{align}
+\begin{split}
+f(p_1,p_2,\dots,p_k|X_1) &amp;= \frac{p_1^{x_{11}}p_2^{x_{21}}\dots p_k^{x_{k1}} \frac{1}{\mathrm{B}(\boldsymbol{\alpha})} p_1^{\alpha_1-1} p_2^{\alpha_2-1} \dots p_k^{\alpha_k-1}}{f(X_i)} \newline
+&amp;= \frac{p_1^{\alpha_1+x_{11}-1} p_2^{\alpha_2+x_{21}-1} \dots p_k^{\alpha_k+x_{k1}-1}}{\int_0^1 \int_0^{1-p_1} \cdots \int_0^{1-\sum_{i=1}^{k-2} p_i}p_1^{\alpha_1+x_{11}-1} p_2^{\alpha_2+x_{21}-1} \dots (1-\sum_{i=1}^{k-1}p_i)^{\alpha_k+x_{k1}-1} \md p_1 \md p_2 \dots \md p_{k-1}} \newline
+&amp;=\frac{\mathrm{\Gamma}\left(\sum_{i=1}^{k}(\alpha_i+x_{i1})\right)}{\prod_{i=1}^{k}\mathrm{\Gamma}(\alpha_i+x_{i1})}p_1^{\alpha_1+x_{11}-1} p_2^{\alpha_2+x_{21}-1} \dots p_k^{\alpha_k+x_{k1}-1} \newline
+&amp;=\mathrm{Dir}(\alpha_1+x_{11},\alpha_2+x_{21},\dots,\alpha_k+x_{k1})
+\end{split}
+\label{eq:5}
+\end{align}
+$$</p>
+<p>根据$\eqref{eq:5}$易得，$f(p_1,p_2,\dots,p_k \vert X_1, X_2, \dots, X_m) = \mathrm{Dir}(\alpha_1+\sum_{j=1}^{m}x_{1j},\alpha_2+\sum_{j=1}^{m}x_{2j},\dots,\alpha_k+\sum_{j=1}^{m}x_{kj})$，期望为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+\alpha_i}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij} + \sum_{i=1}^{k}\alpha_i}$。特别，当$\alpha_1=\alpha_2=\dots=\alpha_k=1$时，$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+1}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}+k}$。</p>
+<h3 id="13-二项分布">1.3 二项分布</h3>
 <p>二项分布（binomial distribution）的概率质量函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(k;n,p) = \binom{n}{k} p^k (1-p)^{n-k}
 \end{split}
-\label{eq:4}
+\label{eq:6}
 \end{align}
 $$</p>
 <p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{nm}$。</p>
 <p>该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$。因此，类似于$\eqref{eq:3}$，$f(p \vert X_1, X_2, \dots, X_m) = \mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+nm-\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{nm+\alpha+\beta}$。</p>
-<h3 id="13-负二项分布-">1.3 负二项分布</h3>
+<h3 id="14-负二项分布">1.4 负二项分布</h3>
 <p>负二项（negative binomial distribution）的概率质量函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(k;r,p) = \binom{r+k-1}{k} p^k (1-p)^{r}
 \end{split}
-\label{eq:5}
+\label{eq:7}
 \end{align}
 $$</p>
 <p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{mr+\sum_{i=1}^{m}k_i}$。</p>
 <p>该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$。因此，类似于$\eqref{eq:3}$，$f(p \vert X_1, X_2, \dots, X_m) = \mathrm{Beta}(\sum_{i=1}^{m}k_i+\alpha, \beta+mr)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{mr+\sum_{i=1}^{m}k_i+\alpha+\beta}$。</p>
-<h3 id="14-多项分布-">1.4 多项分布</h3>
+<h3 id="14-多项分布">1.4 多项分布</h3>
 <p>多项二项（multinomial distribution）的概率质量函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(x_1, x_2,\dots,x_k;n,p_1,p_2,\dots,p_k) = \frac{n!}{x_1!x_2!\dots x_k!}p_1^{x_1}p_2^{x_2}\dots p_k^{x_k} \quad \mathrm{for} \quad \sum_{i=1}^k p_i=1 \quad \sum_{i=1}^k x_i=n
 \end{split}
-\label{eq:6}
+\label{eq:8}
 \end{align}
 $$</p>
 <p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}}$。</p>
@@ -189,18 +213,18 @@ f(p_1,p_2,\dots,p_k|X_1) &amp;= \frac{\frac{n!}{x_{11}!x_{21}!\dots x_{k1}!}p_1^
 &amp;=\frac{\mathrm{\Gamma}\left(\sum_{i=1}^{k}(\alpha_i+x_{i1})\right)}{\prod_{i=1}^{k}\mathrm{\Gamma}(\alpha_i+x_{i1})}p_1^{\alpha_1+x_{11}-1} p_2^{\alpha_2+x_{21}-1} \dots p_k^{\alpha_k+x_{k1}-1} \newline
 &amp;=\mathrm{Dir}(\alpha_1+x_{11},\alpha_2+x_{21},\dots,\alpha_k+x_{k1})
 \end{split}
-\label{eq:7}
+\label{eq:9}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:7}$易得，$f(p_1,p_2,\dots,p_k \vert X_1, X_2, \dots, X_m) = \mathrm{Dir}(\alpha_1+\sum_{j=1}^{m}x_{1j},\alpha_2+\sum_{j=1}^{m}x_{2j},\dots,\alpha_k+\sum_{j=1}^{m}x_{kj})$，期望为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+\alpha_i}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij} + \sum_{i=1}^{k}\alpha_i}$。特别，当$\alpha_1=\alpha_2=\dots=\alpha_k=1$时，$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+1}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}+k}$。</p>
-<h3 id="15-泊松分布-">1.5 泊松分布</h3>
+<p>根据$\eqref{eq:9}$易得，$f(p_1,p_2,\dots,p_k \vert X_1, X_2, \dots, X_m) = \mathrm{Dir}(\alpha_1+\sum_{j=1}^{m}x_{1j},\alpha_2+\sum_{j=1}^{m}x_{2j},\dots,\alpha_k+\sum_{j=1}^{m}x_{kj})$，期望为$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+\alpha_i}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij} + \sum_{i=1}^{k}\alpha_i}$。特别，当$\alpha_1=\alpha_2=\dots=\alpha_k=1$时，$\hat{p_i}=\frac{\sum_{j=1}^{m}x_{ij}+1}{\sum_{i=1}^{k}\sum_{j=1}^{m}x_{ij}+k}$。</p>
+<h3 id="15-泊松分布">1.5 泊松分布</h3>
 <p>泊松分布（Poisson distribution）的概率质量函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(k;\lambda) = \frac{\lambda^k \mathrm{e}^{-\lambda}}{k!}
 \end{split}
-\label{eq:8}
+\label{eq:10}
 \end{align}
 $$</p>
 <p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\lambda}=\frac{\sum_{i=1}^m k_i}{m}$。</p>
@@ -213,31 +237,31 @@ f(\lambda|X_i) &amp;= \frac{\frac{1}{k_i!}\lambda^{k_i} \mathrm{e}^{-\lambda}\fr
 &amp;= \frac{(\beta+1)^{k_i+\alpha} \lambda^{k_i+\alpha-1}\mathrm{e}^{-(\beta+1)\lambda}}{\mathrm{\Gamma}(k_i+\alpha)} \newline
 &amp;= \mathrm{Gamma}(k_i+\alpha, \beta+1)
 \end{split}
-\label{eq:9}
+\label{eq:11}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:9}$易得，$f(\lambda \vert X_1, X_2, \dots, X_m) = \mathrm{Gamma}(\sum_{i=1}^{m}k_i+\alpha, \beta+m)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{\beta+m}$。</p>
-<h2 id="2-连续分布-">2. 连续分布</h2>
-<h3 id="21-指数分布-">2.1 指数分布</h3>
+<p>根据$\eqref{eq:11}$易得，$f(\lambda \vert X_1, X_2, \dots, X_m) = \mathrm{Gamma}(\sum_{i=1}^{m}k_i+\alpha, \beta+m)$，期望$\hat{p}=\frac{\sum_{i=1}^{m}k_i+\alpha}{\beta+m}$。</p>
+<h2 id="2-连续分布">2. 连续分布</h2>
+<h3 id="21-指数分布">2.1 指数分布</h3>
 <p>指数分布（exponential distribution）的概率密度函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(x;\lambda) = \lambda \mathrm{e}^{-\lambda x} \quad \mathrm{for} \quad x\ge0
 \end{split}
-\label{eq:10}
+\label{eq:12}
 \end{align}
 $$</p>
 <p>对于随机变量$X_j \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\lambda}=\frac{m}{\sum_{i=1}^m k_i}$。</p>
-<p>该分布的共轭先验为Gamma分布$\mathrm{Gamma}(\alpha, \beta)$。因此，类似于$\eqref{eq:9}$，$f(\lambda \vert X_1, X_2, \dots, X_m) = \mathrm{Gamma}(\alpha+m, \beta+\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\alpha+m}{\beta+\sum_{i=1}^{m}k_i}$</p>
-<h3 id="22-已知均值的正态分布-">2.2 已知均值的正态分布</h3>
+<p>该分布的共轭先验为Gamma分布$\mathrm{Gamma}(\alpha, \beta)$。因此，类似于$\eqref{eq:10}$，$f(\lambda \vert X_1, X_2, \dots, X_m) = \mathrm{Gamma}(\alpha+m, \beta+\sum_{i=1}^{m}k_i)$，期望$\hat{p}=\frac{\alpha+m}{\beta+\sum_{i=1}^{m}k_i}$</p>
+<h3 id="22-已知均值的正态分布">2.2 已知均值的正态分布</h3>
 <p>正态分布的概率密度函数为：</p>
 <p>$$
 \begin{align}
 \begin{split}
 f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
 \end{split}
-\label{eq:11}
+\label{eq:13}
 \end{align}
 $$</p>
 <p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\sigma}^2=\frac{\sum_{i=1}^m(x_i-\mu)^2}{m}$。</p>
@@ -250,12 +274,12 @@ f(\sigma^2|X_i) &amp;= \frac{\frac{1}{\sqrt{2\pi}} \frac{1}{\sigma} \mathrm{e}^{
 &amp;= \frac{\left(\beta+\frac{(x_i-\mu)^2}{2}\right)^{\left(\alpha+\frac{1}{2}\right)}}{\mathrm{\Gamma}\left(\alpha+\frac{1}{2}\right)} \sigma^{2\left(-\alpha-\frac{3}{2}\right)} e^{-\frac{(x_i-\mu)^2+2\beta}{2\sigma^2}}\newline
 &amp;= \mathrm{Inv-Gamma}(\alpha+\frac{1}{2}, \beta+\frac{(x_i-\mu)^2}{2})
 \end{split}
-\label{eq:12}
+\label{eq:14}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:12}$易得，$f(\sigma^2 \vert X_1, X_2, \dots, X_m) = \mathrm{Inv-Gamma}(\alpha+\frac{m}{2}, \beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2})$，期望$\hat{\sigma}^2=\frac{\beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2}}{\alpha+\frac{m}{2}-1}$。</p>
-<h3 id="23-已知方差的正态分布-">2.3 已知方差的正态分布</h3>
-<p>根据$\eqref{eq:11}$, 对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\mu}=\frac{\sum_{i=1}^m x_i}{m}$。</p>
+<p>根据$\eqref{eq:14}$易得，$f(\sigma^2 \vert X_1, X_2, \dots, X_m) = \mathrm{Inv-Gamma}(\alpha+\frac{m}{2}, \beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2})$，期望$\hat{\sigma}^2=\frac{\beta+\frac{\sum_{i=1}^m(x_i-\mu)^2}{2}}{\alpha+\frac{m}{2}-1}$。</p>
+<h3 id="23-已知方差的正态分布">2.3 已知方差的正态分布</h3>
+<p>根据$\eqref{eq:13}$, 对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，MLE为$\hat{\mu}=\frac{\sum_{i=1}^m x_i}{m}$。</p>
 <p>该情况的共轭先验为正态分布$\mathrm{N}(\alpha, \beta^2)$，即对于随机变量$X_i$：</p>
 <p>$$
 \begin{align}
@@ -264,12 +288,12 @@ f(\mu|X_i) &amp;= \frac{\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x_i - \mu)^2}{2
 &amp;= \frac{e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}}}{\int_{-\infty}^{+\infty} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} e^{-\frac{(\mu - \alpha)^2}{2\beta^2}} \md \mu} \newline
 &amp;= \mathrm{N}\left( \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{1}{\sigma^2} + \frac{1}{\beta^2}} \right)
 \end{split}
-\label{eq:13}
+\label{eq:15}
 \end{align}
 $$</p>
-<p>根据$\eqref{eq:13}$易得，$f(\mu \vert X_1, X_2, \dots, X_m) = \mathrm{N}\left( \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}} \right)$，期望$\hat{\mu}=\frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right)$。</p>
-<h2 id="3-一些积分证明-">3. 一些积分证明</h2>
-<h3 id="31-多元beta函数-">3.1 多元beta函数</h3>
+<p>根据$\eqref{eq:15}$易得，$f(\mu \vert X_1, X_2, \dots, X_m) = \mathrm{N}\left( \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right),  \frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}} \right)$，期望$\hat{\mu}=\frac{1}{\frac{m}{\sigma^2} + \frac{1}{\beta^2}}\left( \frac{\sum_{i=1}^m X_i}{\sigma^2} + \frac{\alpha}{\beta^2} \right)$。</p>
+<h2 id="3-一些积分证明">3. 一些积分证明</h2>
+<h3 id="31-多元beta函数">3.1 多元beta函数</h3>
 <p>$\int_0^1 \int_0^{1-p_1} \cdots \int_0^{1-\sum_{i=1}^{k-2} p_i}p_1^{\alpha_1-1} p_2^{\alpha_2-1} \dots (1-\sum_{i=1}^{k-1}p_i)^{\alpha_k-1} \md p_1 \md p_2 \dots \md p_{k-1} = \frac{\mathrm{\Gamma}\left(\sum_{i=1}^{k}(\alpha_i)\right)}{\prod_{i=1}^{k}\mathrm{\Gamma}(\alpha_i)} \quad \mathrm{for} \quad \sum_{i=1}^k p_i=1$</p>
 <p>令$p_{k-1} = (1-\sum_{i=1}^{k-2}p_i)u$，考察积分：</p>
 <p>$$
@@ -281,7 +305,7 @@ $$</p>
 \end{align*}
 $$</p>
 <p>迭代相乘后即得。</p>
-<h3 id="32-gamma积分-">3.2 Gamma积分</h3>
+<h3 id="32-gamma积分">3.2 Gamma积分</h3>
 <p>$\int_0^\infty \frac{x^{\alpha-1}}{\mathrm{e}^{\lambda x}} \md x=\frac{\mathrm{\Gamma}(\alpha)}{\lambda^\alpha}$</p>
 <p>令$\lambda x=u$：</p>
 <p>$$
@@ -292,7 +316,7 @@ $$</p>
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="33-高斯积分应用-">3.3 高斯积分应用</h3>
+<h3 id="33-高斯积分应用">3.3 高斯积分应用</h3>
 <p>$$
 \begin{align*}
 \begin{split}
@@ -322,7 +346,7 @@ $$</p>
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ul>
 <li>
 <p><a href="https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/other-readings/chapter9.pdf">Chapter 9 The exponential family: Conjugate priors</a></p>
@@ -331,7 +355,7 @@ $$</p>
 <p><a href="https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf">Conjugate Bayesian analysis of the Gaussian distribution</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2020年09月16日</p>
 
 		</div>

@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Sat, 04 May 2019 16:03:35 +0200</lastBuildDate>
-    
-	<atom:link href="https://YulongNiu.github.io/tags/share/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 04 May 2019 16:03:35 +0200</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/share/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>小的改进能提升文章审稿速度</title>
       <link>https://YulongNiu.github.io/posts/2019-05-04-small-changes-smooth-review/</link>
@@ -27,7 +23,7 @@
   避免主观词汇。审稿人通常反感主观词汇，例如：unprecedented、 paradigm shift、 amazing、 dramatic、 interesting、 remarkable等。
   减少使用缩写。当文中出现5次或以上时，再考虑使用缩写。但一些熟知的专业名词，例如DNA、RNA等要使用缩写。
   避免使用无方向性词汇，influence。应该明确指出怎样影响（增加或减少），最好能有具体的数值表述。例如，改变×××倍提高了×××产量等。
-  避免在所有情况下都使用significant。应为signficant容易和统计检验混淆，应该使用具体数值描述影响。
+  避免在所有情况下都使用significant。因为signficant容易和统计检验混淆，应该使用具体数值描述影响。
   文章起一个陈述性的题目。避免使用暗示性、假设性的题目，而应该具体描述文章的发现。注意不要夸大结果或者模糊描述。“通过避免使用主观词汇、仔细描述文章真实而非潜在暗示的发现，应该能找到一个可读性高、信息量大、有趣的题目，从而不会夸大文章的发现”。
   摘要写法，Nature提供了一个模板。
     数据和图标

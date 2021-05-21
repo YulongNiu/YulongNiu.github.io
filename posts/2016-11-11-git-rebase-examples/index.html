@@ -107,7 +107,7 @@
 
 		<div class="markdown">
 			<p>介绍两个<code>git rebase</code>的应用场景，一个是合并commits记录，另一个是贡献代码。</p>
-<h2 id="1-合并commit记录-">1. 合并commit记录</h2>
+<h2 id="1-合并commit记录">1. 合并commit记录</h2>
 <p>假定有多条commits，按照离当前时间从近至远依次为：<code>c1</code>、<code>b2</code>、<code>b1</code>和<code>a1</code>。希望合并<code>c1</code>、<code>b2</code>和<code>b1</code>，即只保留<code>c1</code>和<code>a1</code>。操作流程如下：</p>
 <ul>
 <li>打开交互式rebase</li>
@@ -135,7 +135,7 @@ squash sha1id-of-b1 b1
 </ul>
 <p>由于本地和远程记录不一致，需要强制合并。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f origin mybranch
-</code></pre></div><h2 id="2-贡献代码-">2. 贡献代码</h2>
+</code></pre></div><h2 id="2-贡献代码">2. 贡献代码</h2>
 <ul>
 <li>Fork项目</li>
 </ul>
@@ -164,7 +164,7 @@ $ git push -f origin devbranch
 </code></pre></div><ul>
 <li>发起pull request。</li>
 </ul>
-<h3 id="参考资料-">参考资料</h3>
+<h3 id="参考资料">参考资料</h3>
 <ol>
 <li>
 <p><a href="http://itspg.logdown.com/posts/1731-git-squash-master-commits">合并分支</a></p>
@@ -173,7 +173,7 @@ $ git push -f origin devbranch
 <p><a href="https://segmentfault.com/a/1190000000736629">贡献代码</a></p>
 </li>
 </ol>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2016年11月11日</p>
 
 		</div>

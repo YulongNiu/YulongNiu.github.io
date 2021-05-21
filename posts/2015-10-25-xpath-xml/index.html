@@ -68,9 +68,9 @@
 
 		<div class="markdown">
 			<p><a href="http://www.w3.org/TR/xpath-30/">XPath</a>提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的<a href="http://www.xmlsoft.org/">libxml2</a>和对应的R包 <a href="https://cran.r-project.org/web/packages/xml2/index.html">xml2</a>。</p>
-<h2 id="1-查询规则-">1. 查询规则</h2>
+<h2 id="1-查询规则">1. 查询规则</h2>
 <p>XPath查询集中在三个对象：节点、节点属性和节点内容。</p>
-<h3 id="11-选择节点-">1.1 选择节点</h3>
+<h3 id="11-选择节点">1.1 选择节点</h3>
 <ul>
 <li>
 <p><code>/nodeA/nodeB</code>：nodeA为根节点，nodeA下的所有nodeB节点；等价于<code>nodeB</code>。</p>
@@ -94,7 +94,7 @@
 <p><code>//nodeA | //nodeB</code>：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。</p>
 </li>
 </ul>
-<h3 id="12-选择节点属性-">1.2 选择节点属性</h3>
+<h3 id="12-选择节点属性">1.2 选择节点属性</h3>
 <ul>
 <li>
 <p><code>//@attr1</code>：所有拥有attr1的<strong>属性</strong>，注意：返回的不是节点，而是类此<code>attr1=text1</code>的属性；<code>//node1/@attr1</code>：所有node1带有的attr1属性；<code>//nodeB[@attr1]</code>：所有拥有“attr1”属性的nodeB节点；<code>//nodeB[@attr1='test1']</code>：所有拥有“attr1”属性为“test1”的nodeB节点；<code>//nodeB[normalize-space(@attr1)='test1']</code>：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。</p>
@@ -106,7 +106,7 @@
 <p><code>//node1[TEST1][TEST2]</code>：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。<code>//nodeA[nodeB/@attr1='test1']</code>：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。<code>//nodeC[@attr1='test1'][../nodeB/@attr2='test2']</code>：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。</p>
 </li>
 </ul>
-<h3 id="13-选择节点内容-">1.3 选择节点内容</h3>
+<h3 id="13-选择节点内容">1.3 选择节点内容</h3>
 <ul>
 <li>
 <p><code>/nodeA/nodeB[nodeC&gt;5]</code>：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。</p>
@@ -124,11 +124,11 @@
 <p><code>//nodeC/text()</code>：选择所有nodeC节点下的内容。</p>
 </li>
 </ul>
-<h3 id="14-函数使用-">1.4 函数使用</h3>
+<h3 id="14-函数使用">1.4 函数使用</h3>
 <ul>
 <li><code>//nodeC[contains(text(), 'test1')]</code>：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。</li>
 </ul>
-<h2 id="2-轴-">2. 轴</h2>
+<h2 id="2-轴">2. 轴</h2>
 <ul>
 <li>
 <p><code>child::</code>：默认轴，可以省略。比如<code>/child::nodeA</code>等价于<code>/AAA</code>。</p>
@@ -164,7 +164,7 @@
 <p><code>//nodeC/ancestor::* | //nodeC/descendant::* | //nodeC/following::* | //nodeC/preceding::* | //nodeC/self::*</code>：所有节点，等价于<code>//*</code>或者等价于<code>/descendant::*</code>。</p>
 </li>
 </ul>
-<h2 id="参考网址-">参考网址</h2>
+<h2 id="参考网址">参考网址</h2>
 <ul>
 <li>
 <p><a href="https://zh.wikipedia.org/wiki/XPath">维基百科对XPath介绍</a></p>
@@ -179,7 +179,7 @@
 <p><a href="http://xccds1977.blogspot.sg/2013/02/xmlxpath.html">博文《XML和XPath使用方法备忘》</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年12月25日</p>
 
 		</div>

@@ -116,10 +116,10 @@ $$</p>
 \DeclareMathOperator*{\argmax}{arg,max}
 $$</p>
 <p>本文基于<a href="#Ref">参考资料1</a>，展示RNA-Seq在评估基因表达量模型的细节。</p>
-<h2 id="1-符号表示-">1. 符号表示</h2>
+<h2 id="1-符号表示">1. 符号表示</h2>
 <p>$K$个长度为$l_i$的转录序列$t_i$，构成转录本的集合$T=\{t_1, t_2, \dots, t_K\}$。单个转录组中，每个转录序列$t_i$有$c_i$个拷贝数，全部转录序列的总拷贝数为$M$。单个转录序列的相对丰度为$\rho_k=\frac{c_k}{\sum\limits_{t \in T} c_t} = \frac{c_k}{M}$，易得$\sum\limits_{k=1}^K \rho_k=1$。</p>
 <p>单个转录组中，全部转录片段构成集合$F=\{f_1, f_2, \dots, f_N\}$，总转录片段数目为$N=|F|$。比对到的转录序列$t_i$上的转录片段，构成集合$F_t \in F$，对应的转录片段数目为$X_t=|F_t|$。</p>
-<h2 id="2-简单模型-">2. 简单模型</h2>
+<h2 id="2-简单模型">2. 简单模型</h2>
 <p>简单模型为：单端RNA-Seq，每一个read只比对到一个转录序列上，且每个read的长度都为定值$m$。对于转录序列$t_i$，从<code>5'</code>到<code>3'</code>一共可能比对上的read数目为$\tildel = l_i - m + 1$。建立模型的思路是：当给定一个read，它会被比对到某个转录序列的某个位置是一个随机事件。通过实际观测（即将read比对到转录序列），进而估计未知参数$\rho = \{\rho_1, \rho_2, \dots, \rho_K\}$。</p>
 <p>通过read序列比对，可得观测数据类似如下矩阵。每一行表示某个read是否比对到某个转录序列的某个位置，行和为1。$1$表示read比对到对应转录序列上，$0$表示没有比对到对应转录序列。</p>
 <p>$$
@@ -173,7 +173,7 @@ L &amp;= \prod_{f \in F_t} \prod_{t \in T} \frac{\alpha_t}{\tildel} \newline
 \end{align}
 $$</p>
 <p>在约束条件$\sum\limits_{t \in T} \alpha_t= 1$，求得极大似然估计为$\alpha_t = \frac{X_t}{N}$。有趣的是，在简单模型条件下，该极大似然估计可以来源于<a href="https://www.statlect.com/probability-distributions/multinoulli-distribution">multinoulli分布</a>。</p>
-<h2 id="2-异构体模型-">2. 异构体模型</h2>
+<h2 id="2-异构体模型">2. 异构体模型</h2>
 <p>在异构体模型中，某一个read可以比对到多个转录序列上，但每一个read的长度为定值$m$。因此，可得观测数据类似如下矩阵：</p>
 <p>$$
 \left[
@@ -245,7 +245,7 @@ $$</p>
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+<h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p>Lior Pachter: Models for transcript quantification from RNA-Seq. <a href="https://arxiv.org/abs/1104.3889">arXiv:1104.3889v2</a> [q-bio.GN], 2011.</p>
@@ -254,7 +254,7 @@ $$</p>
 <p>Wing-Kin Sung: Algorithms for Next-Generation Sequencing. <a href="https://www.crcpress.com/Algorithms-for-Next-Generation-Sequencing/Sung/p/book/9781466565500">Chapman and Hall/CRC</a>, 2017.</p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2019年04月19日</p>
 
 		</div>

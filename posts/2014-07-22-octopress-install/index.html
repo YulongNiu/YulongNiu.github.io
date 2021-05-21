@@ -68,23 +68,23 @@
 
 		<div class="markdown">
 			<p>安装和使用Octopress的一些注意事项，详细的内容可以<a href="#Ref">参考网址</a>。</p>
-<h2 id="1-安装-">1. 安装</h2>
+<h2 id="1-安装">1. 安装</h2>
 <p>请参考<a href="http://octopress.org/">官网</a>，其他的博客介绍的安装已经失效或者错误。
 常用命令:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 预览，可自动更新。使用Ctrl+c终止。</span>
 $ rake preview
-</code></pre></div><h2 id="2-ruby版本调整-">2. Ruby版本调整</h2>
+</code></pre></div><h2 id="2-ruby版本调整">2. Ruby版本调整</h2>
 <p>Octopress推荐使用<a href="https://rvm.io/">RVM</a>安装Ruby 2.2.10版本。在安转过程中可能会出现<code>&quot;gpg: Can't check signature: public key not found&quot;</code>的错误提示，需要执行一下类似命名，添加公用匙。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 </code></pre></div><p>使用以下操作设定ruby版本：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ source ~/.rvm/scripts/rvm
 $ rvm use ruby-2.2.10
-</code></pre></div><h2 id="3-预览错误-">3. 预览错误</h2>
+</code></pre></div><h2 id="3-预览错误">3. 预览错误</h2>
 <p>如果在预览博文时出现<code>TCPServer Error: Address already in use - bind(2)</code>的错误，表示端口（Octopress默认4000）被占，解决办法:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 获取占据4000端口程序的PID</span>
 $ lsof -wni tcp:4000
 $ kill -9 PID
-</code></pre></div><h2 id="4-更新博文-">4. 更新博文</h2>
+</code></pre></div><h2 id="4-更新博文">4. 更新博文</h2>
 <p>博文放置在<code>source/_posts</code>目录下。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rake new_post[<span style="color:#a31515">&#34;new post&#34;</span>]
 $ git add .
@@ -97,7 +97,7 @@ $ rake deploy
 $ rake gen_deploy
 </code></pre></div><p>如果需要在首页显示部分博文，在需要隔断的地方（博文markdown文件）加入：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#008000">&lt;!-- more --&gt;</span>
-</code></pre></div><h2 id="5-使用主题-">5. 使用主题</h2>
+</code></pre></div><h2 id="5-使用主题">5. 使用主题</h2>
 <p>当前博客使用的是<a href="http://kaworu.github.io/octopress/">octostrap</a>主题。</p>
 <ul>
 <li>
@@ -110,9 +110,9 @@ $ rake gen_deploy
 <p><a href="http://kaworu.github.io/octostrap3/setup/pick-a-theme/">选择Bootstrap主题</a></p>
 </li>
 </ul>
-<h2 id="6-修改标签图标记-">6. 修改标签图标记</h2>
+<h2 id="6-修改标签图标记">6. 修改标签图标记</h2>
 <p>可以使用<a href="http://converticon.com/">在线转换工具</a>，将png格式图片转换为ico格式（比如32*32），例如文件<code>favicon.ico</code>。之后，将<code>favicon.ico</code>移动到<code>source/</code>目录下。之后修改文件<code>source/_includes/head.html</code>，找到<code>favicon.png</code>将其改为<code>favicon.ico</code>。</p>
-<h2 id="7-404公益-">7. 404公益</h2>
+<h2 id="7-404公益">7. 404公益</h2>
 <p>在<code>source</code>文件夹下添加<em>404.markdown</em>文件，之后写入</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">---
 layout: page
@@ -124,12 +124,12 @@ footer: <span style="color:#00f">false</span>
 ---
 
 &lt;script type=<span style="color:#a31515">&#34;text/javascript&#34;</span> src=<span style="color:#a31515">&#34;http://www.qq.com/404/search_children.js?edition=small&#34;</span> charset=<span style="color:#a31515">&#34;utf-8&#34;</span>&gt;&lt;<span style="">/script&gt;</span>
-</code></pre></div><h2 id="8-私密博文-">8. 私密博文</h2>
+</code></pre></div><h2 id="8-私密博文">8. 私密博文</h2>
 <p>Octopress提供了隐藏博文的功能，即使文章已经推送到了github，也可以不在博客主页显示。具体方法是在每篇markdown文件头部添加：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#a31515">published</span>: <span style="color:#00f">false</span>
 </code></pre></div><p>如果需要公开发表，将其删除或者改为：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#a31515">published</span>: <span style="color:#00f">true</span>
-</code></pre></div><h2 id="9-代码高亮设置-">9. 代码高亮设置</h2>
+</code></pre></div><h2 id="9-代码高亮设置">9. 代码高亮设置</h2>
 <p>安装<code>coderay</code>和<code>kramdown</code></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gem install coderay
 $ gem install kramdown
@@ -162,28 +162,28 @@ kramdown:
   addBlankTargetForLinks();
   });
 &lt;/script&gt;
-</code></pre></div><h2 id="12-修改分页数-">12. 修改分页数</h2>
+</code></pre></div><h2 id="12-修改分页数">12. 修改分页数</h2>
 <p>修改<code>_config.yml</code>文件</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 每页最多展示的博文数目</span>
 paginate: 5
 
 <span style="color:#008000"># 分页后博文地址</span>
 paginate_path: <span style="color:#a31515">&#34;posts/:num&#34;</span>
-</code></pre></div><h2 id="13-添加图片-">13. 添加图片</h2>
+</code></pre></div><h2 id="13-添加图片">13. 添加图片</h2>
 <p>将需要添加的图片移动到目录<code>source/images/</code>，之后在正文中添加：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">{% img [class names] /path/to/image [width] [height] [title text [alt text]] %}
 
 <span style="color:#008000"># 例子</span>
 {% img left /images/testimg.png 350 350 <span style="color:#a31515">&#39;image&#39;</span> <span style="color:#a31515">&#39;images&#39;</span> %}
 {% img right http://placekitten.com/300/500 150 250 Place Kitten <span style="color:#008000">#3 %}</span>
-</code></pre></div><h2 id="14-添加新页面-">14. 添加新页面</h2>
+</code></pre></div><h2 id="14-添加新页面">14. 添加新页面</h2>
 <p>首先，添加新的页面：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rake new_page[ANewPage]
 </code></pre></div><p>这会生成一个新的文件<code>source/anewpage/index.markdown</code>。之后，修改<code>source/_includes/custom/navigation.html</code>文件，根据自己主题，添加如下类似内容</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&lt;li {% if page.navbar == &#39;ANewPage&#39; %}class=&#34;active&#34;{% endif %}&gt;
   &lt;a href=&#34;{{ root_url }}/anewpage&#34;&gt;ANewPage&lt;/a&gt;
 &lt;/li&gt;
-</code></pre></div><h2 id="15-添加表格-">15. 添加表格</h2>
+</code></pre></div><h2 id="15-添加表格">15. 添加表格</h2>
 <p>建立新文件<code>source/stylesheets/data-table.css</code>，写入以下内容，其中<code>#00B9E3</code>是表头的背景颜色，可以更改为自己喜欢的颜色：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">* + table {
   <span style="color:#00f">border-style</span>:<span style="color:#00f">solid</span>;
@@ -269,7 +269,7 @@ paginate_path: <span style="color:#a31515">&#34;posts/:num&#34;</span>
 |**Sum**        |a+c            |b+d           |n=a+b+c+d|
 |---------------|---------------|--------------|---------|
 </code></pre></div><p>如果使用Emacs，可以使用Emacs的<a href="http://orgmode.org/">org模式</a>快速建立和编辑表格。</p>
-<h2 id="16-设置mathjax-">16. 设置MathJax</h2>
+<h2 id="16-设置mathjax">16. 设置MathJax</h2>
 <p>在<code>source/_includes/custom/head.html</code>设置：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#008000">&lt;!-- mathjax config similar to math.stackexchange --&gt;</span>
 &lt;script type=<span style="color:#a31515">&#34;text/x-mathjax-config&#34;</span>&gt;
@@ -305,7 +305,7 @@ paginate_path: <span style="color:#a31515">&#34;posts/:num&#34;</span>
 &lt;/script&gt;
 
 &lt;meta http-equiv=<span style="color:#a31515">&#34;Content-Security-Policy&#34;</span> content=<span style="color:#a31515">&#34;default-src &#39;self&#39; https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/ ; script-src &#39;self&#39; https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/ &#39;unsafe-eval&#39;;style-src &#39;self&#39; &#39;unsafe-inline&#39;; font-src &#39;self&#39;; img-src &#39;self&#39;;&#34;</span>&gt;
-</code></pre></div><h2 id="17-重新克隆github上的博文和设置-">17. 重新克隆github上的博文和设置</h2>
+</code></pre></div><h2 id="17-重新克隆github上的博文和设置">17. 重新克隆github上的博文和设置</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 注意切换到指定ruby版本</span>
 <span style="color:#008000"># 克隆source分支到本地，注意替换“YulongNiu”为自己的GitHub名称</span>
 $ git clone -b source git@github.com:YulongNiu/YulongNiu.github.io.git octopress
@@ -324,13 +324,13 @@ $ git remote add origin git@github.com:YulongNiu/YulongNiu.github.io.git
 $ git pull origin master
 $ cd ..
 $ rake gen_deploy
-</code></pre></div><h2 id="18-多台电脑共同编写博客-">18. 多台电脑共同编写博客</h2>
+</code></pre></div><h2 id="18-多台电脑共同编写博客">18. 多台电脑共同编写博客</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 设定好Octopress，假定Octopress目录为octopress</span>
 $ cd octopress
 $ git pull origin source
 $ cd ./_deploy
 $ git pull origin master
-</code></pre></div><h3 id="a-idref参考资料a-"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
 <ul>
 <li>
 <p>Octopress安装和域名设置：<a href="http://tchen.me/posts/2012-12-16-first-blog.html">1</a>, <a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">2</a></p>
@@ -363,7 +363,7 @@ $ git pull origin master
 <p><a href="http://swalsh.org/blog/2014/09/07/migrating-octopress-to-a-new-computer/">Octopress重装或者多台电脑上并行写作同步</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2018年10月21日</p>
 
 		</div>

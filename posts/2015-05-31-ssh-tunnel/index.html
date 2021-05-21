@@ -68,12 +68,12 @@
 
 		<div class="markdown">
 			<p>SSH建立端口转发分为两步：</p>
-<h2 id="1-连接远程主机-">1. 连接远程主机</h2>
+<h2 id="1-连接远程主机">1. 连接远程主机</h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh -NT -D 8080 usrname@host
 </code></pre></div><p>其中，<code>-N</code>表示只连接远程主机，不打开远程shell；<code>-T</code>表示不分配TTY；<code>-D</code>表示某端口数据都通过SSH传向远程主机；<code>8080</code>可以设置为其他端口。</p>
-<h2 id="2-添加chrome浏览器支持-">2. 添加Chrome浏览器支持</h2>
+<h2 id="2-添加chrome浏览器支持">2. 添加Chrome浏览器支持</h2>
 <p>添加<a href="https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm?hl=en">Proxy SwitchySharp插件</a>，之后在SOCKS host栏目中填入地址<code>127.0.0.1</code>，端口<code>8080</code>并启用即可。</p>
-<h3 id="参考网址-">参考网址</h3>
+<h3 id="参考网址">参考网址</h3>
 <ul>
 <li>
 <p><a href="http://www.pchou.info/linux/2015/11/01/ssh-tunnel.html">SSH隧道翻墙的原理和实现</a></p>
@@ -82,7 +82,7 @@
 <p><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html">SSH原理与运用（二）：远程操作与端口转发</a></p>
 </li>
 </ul>
-<h3 id="更新记录-">更新记录</h3>
+<h3 id="更新记录">更新记录</h3>
 <p>2017年5月31日</p>
 
 		</div>
