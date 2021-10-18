@@ -6,9 +6,10 @@
 	<meta property="og:title" content="C语言学习记录" />
 <meta property="og:description" content="C语言记录。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-12-07-c-program-note/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-12-07-c-program-note/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-12-07T18:23:16-05:00" />
 <meta property="article:modified_time" content="2014-12-07T18:23:16-05:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C语言学习记录"/>
 <meta name="twitter:description" content="C语言记录。"/>
@@ -238,7 +239,7 @@
 </ul>
 <h4 id="123-span-stylecolor-greenc99span变长数组">1.2.3 <!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->变长数组</h4>
 <p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许声明变长数组。但是，变长数组的声明和初始化不能在一条语句中。正确的做法是：先声明变长数组，之后初始化。比如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">int</span> size;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#2b91af">int</span> size;
 printf(<span style="color:#a31515">&#34;Enter size of array: &#34;</span>);
 scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <span style="color:#2b91af">int</span> square[size];
@@ -291,7 +292,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <p><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->使用符合字面量，比如<code>(struct test1) {.b = &quot;test that&quot;, .c = 1};</code>。</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">struct</span> test1 {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">struct</span> test1 {
   <span style="color:#2b91af">int</span> a;
   <span style="color:#2b91af">char</span> b[10];
   <span style="color:#2b91af">int</span> c;
@@ -314,7 +315,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 </code></pre></div><ul>
 <li>结构、联合和枚举都可以使用<code>typedef</code>定义，总结如下：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">typedef</span> <span style="color:#00f">struct</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">typedef</span> <span style="color:#00f">struct</span> {
    <span style="color:#2b91af">int</span> ele1;
    <span style="color:#2b91af">char</span> ele2;
  } Test1;
@@ -343,7 +344,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 <ul>
 <li>初始化与结构类似。</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">union</span> test1 {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">union</span> test1 {
   <span style="color:#2b91af">int</span> a;
   <span style="color:#2b91af">char</span> b[10];
 };
@@ -363,7 +364,7 @@ scanf(<span style="color:#a31515">&#34;%d&#34;</span>, &amp;size);
 </code></pre></div><ul>
 <li>如果联合包括两个及两个以上结构成员，而且这些结构中最初一个或多个成员类型匹配，那么这些匹配成员会同步。</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">union</span> test {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">union</span> test {
   <span style="color:#2b91af">int</span> a;
   <span style="color:#00f">struct</span> test1 {
     <span style="color:#2b91af">int</span> b1;
@@ -383,7 +384,7 @@ printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n
 <ul>
 <li>枚举元素如不指定，从0开始，依次增加1；可以指定具体数值，指定数值可以相同，允许尾逗号，例如<code>enum {THIS = 2, THAT = 10, THESE = 2,} test1</code>;。</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> {FIRST, SECOND} p1;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> {FIRST, SECOND} p1;
 <span style="color:#00f">enum</span> test1 {FIRST, SECOND};
 <span style="color:#00f">enum</span> test1 = SECOND;
 </code></pre></div><h3 id="16-指针">1.6 指针</h3>
@@ -414,7 +415,7 @@ printf(<span style="color:#a31515">&#34;%d </span><span style="color:#a31515">\n
 <ul>
 <li>定义形参为一维数组的函数，普遍形式为：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维数组长度不是必须 */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维数组长度不是必须 */</span>
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> a[], <span style="color:#2b91af">int</span> len) {
 ...
 }
@@ -437,7 +438,7 @@ oneArrayFun(testArry, testLen);
 <p><strong>C89</strong>定义形参为多维数组的函数，只能省略第一维长度，其余维度必须声明（即常量），普遍形式为：</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 比如二维数组，行不是必须，但必须制定列 */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 比如二维数组，行不是必须，但必须制定列 */</span>
 <span style="color:#00f">#define COL 10
 </span><span style="color:#00f"></span>
 <span style="color:#2b91af">int</span> twoArrayFun(<span style="color:#2b91af">int</span> a[][COL], <span style="color:#2b91af">int</span> row) {
@@ -454,7 +455,7 @@ twoArrayFun(testArry, testRow);
 </code></pre></div><ul>
 <li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->可以声明任意变长数组作为函数参数，普遍形式为：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维VLA */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维VLA */</span>
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> len, <span style="color:#2b91af">int</span> a[len]) {
 ...
 }
@@ -482,14 +483,14 @@ oneArrayFun(testArry, testLen);
 </code></pre></div><ul>
 <li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许在数组参数中使用关键字<code>static</code>，但只能用于第一维。好处是编译器更快访问数组，比如：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维数组长度至少为5 */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">/* 一维数组长度至少为5 */</span>
 <span style="color:#2b91af">int</span> oneArrayFun(<span style="color:#2b91af">int</span> a[<span style="color:#00f">static</span> 5], <span style="color:#2b91af">int</span> len) {
 ...
 }
 </code></pre></div><ul>
 <li><!-- raw HTML omitted --><strong>C99</strong><!-- raw HTML omitted -->允许使用<strong>复合字面量</strong>。复合字面量是“左值”，可以包括常量或者常量表达式，形式与数组初始化类似；也可以使用<code>const</code>修饰。</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdio.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
 <span style="color:#2b91af">int</span> oneArray(<span style="color:#2b91af">int</span> a[], <span style="color:#2b91af">int</span> len);
 
@@ -571,7 +572,7 @@ oneArrayFun(testArry, testLen);
 <p><code>EOF</code>是文档结束的标志（End of File），在<code>&lt;stdio.h&gt;</code>定义为一个整数<code>-1</code>，代码如下：</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#ifndef EOF
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#ifndef EOF
 </span><span style="color:#00f"># define EOF (-1)
 </span><span style="color:#00f">#endif
 </span></code></pre></div><ul>
@@ -653,7 +654,7 @@ oneArrayFun(testArry, testLen);
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f"># can not decide whether &#34;++&#34;, &#34;=&#34;, or &#34;+&#34; is the first
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f"># can not decide whether &#34;++&#34;, &#34;=&#34;, or &#34;+&#34; is the first
 </span><span style="color:#00f"></span>a = i + i++;
 i = i++;
 a[i] = i++;
@@ -662,7 +663,7 @@ a[i] = i++;
 </span><span style="color:#00f"></span>printf(<span style="color:#a31515">&#34;%d %d</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, ++i, i);
 </code></pre></div><h2 id="5-标准库">5. 标准库</h2>
 <h3 id="51-include-stdioh">5.1 <code>#include &lt;stdio.h&gt;</code></h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#a31515">&#34;%3.0f %6.1f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, fahr, celsius);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#a31515">&#34;%3.0f %6.1f</span><span style="color:#a31515">\n</span><span style="color:#a31515">&#34;</span>, fahr, celsius);
 </code></pre></div><p><code>%m.pX</code>：格式串模板，<code>m</code>表示要显示的最小字段宽度，<code>p</code>表示精度，<code>X</code>表示类型。</p>
 <p>对于 <code>printf()</code>函数：</p>
 <ul>
@@ -779,7 +780,7 @@ a[i] = i++;
 <p>新增加表示布尔数值的头文件<code>&lt;stdbool.h&gt;</code>，使用方法：</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdbool.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdbool.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
 <span style="color:#2b91af">int</span> main(<span style="color:#2b91af">void</span>)
 {
@@ -794,11 +795,11 @@ a[i] = i++;
 </code></pre></div><ul>
 <li>允许使用<code>typedef</code>定义占用特定位数（是“比特数”，不是“字节数”）的整数，比如：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdint.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;stdint.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
 <span style="color:#2b91af">int</span> main(<span style="color:#2b91af">void</span>)
 {
-  <span style="color:#00f">typedef</span> int32_t Int32;
+  <span style="color:#00f">typedef</span> <span style="color:#2b91af">int32_t</span> Int32;
 
   <span style="color:#00f">return</span> 0;
 }

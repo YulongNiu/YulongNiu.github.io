@@ -6,9 +6,10 @@
 	<meta property="og:title" content="估计RNA-seq转录本表达量和寻找差异表达基因" />
 <meta property="og:description" content="RNA转录本计数。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-06-03T16:58:01+08:00" />
 <meta property="article:modified_time" content="2015-06-03T16:58:01+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="估计RNA-seq转录本表达量和寻找差异表达基因"/>
 <meta name="twitter:description" content="RNA转录本计数。"/>
@@ -73,7 +74,7 @@
 <p><strong>简介</strong>：<a href="http://www-huber.embl.de/users/anders/HTSeq/doc/index.html">HTseq</a> 是用于Python平台写成的处理高通量测序的平台。<code>htseq-count</code>可以用来对原始转录本计数，具体计数规则参考<a href="http://www-huber.embl.de/users/anders/HTSeq/doc/count.html">Counting reads in features with htseq-count</a>。</p>
 <p><strong>平台</strong>：Python跨平台使用。</p>
 <p><strong>快速运行</strong>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看帮助</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看帮助</span>
 $ htseq-count --help
 
 <span style="color:#008000"># 对bam文件按照reads名称排序</span>
@@ -104,7 +105,7 @@ $ htseq-count --mode=union --stranded=no --type=exon --idattr=gene_id <span styl
 <ul>
 <li>如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为：</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ samtools sort -n accepted_filerted.bam acceted_sortname
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ samtools sort -n accepted_filerted.bam acceted_sortname
 </code></pre></div><h3 id="12--span-stylecolorbluegenomicalignmentsspan">1.2  <!-- raw HTML omitted -->GenomicAlignments<!-- raw HTML omitted --></h3>
 <p><a href="http://bioconductor.org/packages/release/bioc/html/GenomicAlignments.html">GenomicAlignments</a>是R/Bioconductor的一个包，其中<code>summarizeOverlaps</code>函数用于对alignment数据进行计数。</p>
 <h3 id="13-kallisto">1.3 Kallisto</h3>
@@ -112,7 +113,7 @@ $ htseq-count --mode=union --stranded=no --type=exon --idattr=gene_id <span styl
 <p><strong>平台</strong>：Linux和Mac</p>
 <p><strong>快速运行</strong>：</p>
 <p>首先，建立索引。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看帮助</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看帮助</span>
 $ kallisto index 
 
 <span style="color:#008000"># 建立索引</span>
@@ -129,7 +130,7 @@ $ kallisto index -i hg19.idx hg19UCSC_ensembl.fa
 </li>
 </ul>
 <p>之后，根据原始RNA-seq数据和转录组注释，测量表达量。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kallisto quant -i hg19.idx -o kallOut -b 1000 human1.fq.gz human2.fq.gz
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kallisto quant -i hg19.idx -o kallOut -b 1000 human1.fq.gz human2.fq.gz
 </code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
 <li>
@@ -161,7 +162,7 @@ $ kallisto index -i hg19.idx hg19UCSC_ensembl.fa
 </ul>
 <p><strong>平台</strong>：R跨平台使用。</p>
 <p><strong>运行流程</strong>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#008000"># 载入包并且注册多核</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#008000"># 载入包并且注册多核</span>
 library(DESeq2)
 library(BiocParallel)
 register(MulticoreParam(4))

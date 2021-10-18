@@ -6,9 +6,10 @@
 	<meta property="og:title" content="二代测序中的常用工具介绍" />
 <meta property="og:description" content="二代测序工具。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-07-28-next-seqence-tools/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-07-28-next-seqence-tools/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-07-28T12:23:42-04:00" />
 <meta property="article:modified_time" content="2014-07-28T12:23:42-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="二代测序中的常用工具介绍"/>
 <meta name="twitter:description" content="二代测序工具。"/>
@@ -80,12 +81,12 @@
 <p>安装依赖的Ncurse库</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ncurses*
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ncurses*
 </code></pre></div><ul>
 <li>添加SAMtools到PATH（<a href="http://yulongniu.bionutshell.org/blog/2010/11/08/linux-command/">设置参考</a>）</li>
 </ul>
 <p><strong>快速运行</strong></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># sam格式文件转换为bam格式文件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># sam格式文件转换为bam格式文件</span>
 <span style="color:#008000"># 新版本samtools不用使用-S</span>
 $ samtools view -b samFile &gt; bamFile
 
@@ -119,7 +120,7 @@ $ samtools idxstats sortedIndexedBamFile
 <ul>
 <li>一个sam文件式例子</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ head samFile
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ head samFile
 HD      VN:1.0          SO:coordinate
 @SQ     SN:chr1         LN:249250621
 @SQ     SN:chr10        LN:135534747
@@ -154,7 +155,7 @@ HISEQ2000-06:325:C2RC0ACXX:5:2304:4393:52082    163     chr1    11579   3       
 <h2 id="7-小工具集锦">7. 小工具集锦</h2>
 <h3 id="71-操作fastq文件">7.1 操作fastq文件</h3>
 <p>在Linux机器上配以一系列命令，操作fastq或者fastq.gz文件，比如<code>mySeq_1_1.fastq</code>测序文件。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># Fastq文件前几行</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># Fastq文件前几行</span>
 $ head mySeq_1_1.fastq
 @HISEQ2000-06:325:C2RC0ACXX:5:1101:1217:2215 1:N:0:TGCCGGCT
 GGCACAGTCCATGCTTTTAACCAGATTTGAACAGAAGAATGGCCACTTGNNNNNNGTAGNNNNNNANNNNGNNNTNNNTNNCATGTGTCACATAACTACC
@@ -184,7 +185,7 @@ $ zgrep -c <span style="color:#a31515">&#39;@HISEQ200&#39;</span> mySeq_1_1.fast
 <span style="color:#008000"># 统计fastq文件reads长度分布</span>
 $ zcat mySeq_1_1.fastq.gz | awk <span style="color:#a31515">&#39;{if(NR%4==2) print length($1)}&#39;</span> | sort -n | uniq -c
 </code></pre></div><h3 id="72-操作fasta文件">7.2 操作fasta文件</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 序列数目</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 序列数目</span>
 $ grep -c <span style="color:#a31515">&#39;&gt;@&#39;</span> mySeq.fa
 
 <span style="color:#008000"># 序列名称</span>
@@ -207,14 +208,14 @@ samtools faidx mySeq.fa chr1 chr2 chr3
 </ul>
 <h3 id="81-gtf和gff文件互转">8.1 GTF和GFF文件互转</h3>
 <p>使用<a href="http://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># GTF转换为GFF/GFF3</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># GTF转换为GFF/GFF3</span>
 $ gffreads myGtfFile.gtf -o myGffFile.gff3
 
 <span style="color:#008000"># GFF/GFF3转换为GTF</span>
 $ gffread myGffFile.gff3 -T -o myGtfFile.gtf
 </code></pre></div><h3 id="82-gtf文件提取序列信息">8.2 GTF文件提取序列信息</h3>
 <p>使用<a href="http://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 从GTF文件中提取序列信息</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 从GTF文件中提取序列信息</span>
 $ gffread -w myFastaFile.fa -g myGenome.fa myGtfFile.gtf
 </code></pre></div><h3 id="参考资料">参考资料</h3>
 <ul>

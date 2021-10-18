@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Shadowsocks设置推荐" />
 <meta property="og:description" content="shadowsocks。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2017-06-14T23:49:13+08:00" />
 <meta property="article:modified_time" content="2017-06-14T23:49:13+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Shadowsocks设置推荐"/>
 <meta name="twitter:description" content="shadowsocks。"/>
@@ -114,12 +115,12 @@
 <h2 id="3-自己配置shadowsocks">3. 自己配置Shadowsocks</h2>
 <h3 id="31-软件准备">3.1 软件准备</h3>
 <p>参考<a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks网站</a>安装。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf copr enable librehat/shadowsocks
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf copr enable librehat/shadowsocks
 $ sudo dnf update
 $ sudo dnf install shadowsocks-libev
 </code></pre></div><h3 id="32-配置文件">3.2 配置文件</h3>
 <p>文件位置<code>/etc/shadowsocks-libev/config.json</code>，设置模板：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{
     &#34;server&#34;:&#34;0.0.0.0&#34;,
     &#34;port_password&#34;:{
      &#34;8381&#34;:&#34;******&#34;,
@@ -129,9 +130,9 @@ $ sudo dnf install shadowsocks-libev
     &#34;method&#34;:&#34;aes-256-cfb&#34;
 }
 </code></pre></div><h3 id="33-启动">3.3 启动</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
 </code></pre></div><h2 id="4-使用tcp-bbr加速">4. 使用TCP BBR加速</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo echo <span style="color:#a31515">&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo echo <span style="color:#a31515">&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
 $ sudo echo <span style="color:#a31515">&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
 
 $ sudo sysctl -p
@@ -141,20 +142,20 @@ $ sudo sysctl net.ipv4.tcp_congestion_control
 </code></pre></div><h2 id="5-全局配置">5. 全局配置</h2>
 <p>使用proxychains全局调用Shadowsocks。</p>
 <p>首先，安装和配置<code>proxychains</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y proxychains-ng
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y proxychains-ng
 
 $ sudo echo <span style="color:#a31515">&#39;socks5    127.0.0.1    1080&#39;</span> &gt;&gt; /etc/proxychains.conf
 </code></pre></div><p>之后，打开Shadowsocks后，在需要使用的命令行前加入<code>proxychains4</code>，例如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ proxychains4 git push origin master
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ proxychains4 git push origin master
 </code></pre></div><h2 id="6-privoxy全局代理">6. privoxy全局代理</h2>
 <p>首先，安装和配置<code>privoxy</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y privoxy
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install -y privoxy
 
 <span style="color:#008000"># /etc/privoxy/config修改</span>
 <span style="color:#008000"># listen-address 127.0.0.1:8118 </span>
 <span style="color:#008000"># forward-socks5t / 127.0.0.1:1080 </span>
 </code></pre></div><p>配置环境变量并启动：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export http_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export http_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 $ export https_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 $ export ftp_proxy=<span style="color:#a31515">&#34;127.0.0.1:8118&#34;</span>
 

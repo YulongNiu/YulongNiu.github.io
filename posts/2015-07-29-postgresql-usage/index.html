@@ -6,9 +6,10 @@
 	<meta property="og:title" content="PostgreSQL使用指南" />
 <meta property="og:description" content="PostgreSQL介绍。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-07-29T18:24:10+08:00" />
 <meta property="article:modified_time" content="2015-07-29T18:24:10+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PostgreSQL使用指南"/>
 <meta name="twitter:description" content="PostgreSQL介绍。"/>
@@ -108,7 +109,7 @@
 
 		<div class="markdown">
 			<h2 id="1-查询">1. 查询</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 选取特定的一列或者多列
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 选取特定的一列或者多列
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
 <span style="color:#00f">FROM</span> dataset
 
@@ -135,7 +136,7 @@
 </li>
 </ul>
 <h2 id="2-排序">2. 排序</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 按照一列或者多列升序排序
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 按照一列或者多列升序排序
 </span><span style="color:#008000">-- 可以按照“不查询”的列排序
 </span><span style="color:#008000">-- 先按照column2排，再按照column5排
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, column3
@@ -167,7 +168,7 @@
 </li>
 </ul>
 <h2 id="3-筛选">3. 筛选</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- ORDER BY语句需要在WHERE之后
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- ORDER BY语句需要在WHERE之后
 </span><span style="color:#008000">-- AND表示“且”， OR表示“或”，第一个条件满足即终止
 </span><span style="color:#008000">-- AND和OR可有任意多个
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
@@ -215,7 +216,7 @@
 </li>
 </ul>
 <h2 id="4-模式匹配">4. 模式匹配</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- LIKE和NOT LIKE支持对字符串的模式匹配
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- LIKE和NOT LIKE支持对字符串的模式匹配
 </span><span style="color:#008000">-- “_”匹配单一一个字符
 </span><span style="color:#008000">-- “%”匹配0个或多个字符
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
@@ -242,7 +243,7 @@
 </li>
 </ul>
 <h2 id="5-函数">5. 函数</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">--数学计算
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">--数学计算
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2 * column3 <span style="color:#00f">AS</span> newName
 <span style="color:#00f">FROM</span> dataset
 
@@ -279,7 +280,7 @@
 </li>
 </ul>
 <h2 id="6-分组">6. 分组</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 分组的意思是对一列或者多列数据归总
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 分组的意思是对一列或者多列数据归总
 </span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, <span style="color:#00f">COUNT</span>(*) <span style="color:#00f">AS</span> newName 
 <span style="color:#00f">FROM</span> dataset
 <span style="color:#00f">WHERE</span> column4 &gt; 3

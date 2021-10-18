@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Bash简易编程" />
 <meta property="og:description" content="Bash编程汇总。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-28-bash-program/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-28-bash-program/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-28T21:24:32+08:00" />
 <meta property="article:modified_time" content="2015-05-28T21:24:32+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Bash简易编程"/>
 <meta name="twitter:description" content="Bash编程汇总。"/>
@@ -70,19 +71,19 @@
 		<div class="markdown">
 			<h2 id="1-循环">1. 循环</h2>
 <p><code>for</code>循环体</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00f">for</span> i in *.zip
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00f">for</span> i in *.zip
 <span style="color:#00f">do</span>
     echo <span style="color:#a31515">&#34;</span>$i<span style="color:#a31515">&#34;</span>
 <span style="color:#00f">done</span>
 </code></pre></div><h2 id="2-创建数组">2. 创建数组</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">declare -a testArray={<span style="color:#a31515">&#34;element1&#34;</span> <span style="color:#a31515">&#34;element2&#34;</span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">declare -a testArray={<span style="color:#a31515">&#34;element1&#34;</span> <span style="color:#a31515">&#34;element2&#34;</span>}
 echo <span style="color:#a31515">${</span>testArray[0]<span style="color:#a31515">}</span>
 <span style="color:#00f">for</span> i in <span style="color:#a31515">&#34;</span><span style="color:#a31515">${</span>testArray[@]<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
 <span style="color:#00f">do</span>
     echo <span style="color:#a31515">&#34;</span>$i<span style="color:#a31515">&#34;</span>
 <span style="color:#00f">done</span>
 </code></pre></div><h2 id="3-字符串分割">3. 字符串分割</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># write in file &#34;testsplit.sh&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># write in file &#34;testsplit.sh&#34;</span>
 IFS=<span style="color:#a31515">&#39;,&#39;</span> read -ra splitArray &lt;&lt;&lt; <span style="color:#a31515">&#34;This,is,a,test&#34;</span>
 <span style="color:#00f">for</span> i in <span style="color:#a31515">&#34;</span><span style="color:#a31515">${</span>splitArray[@]<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
 <span style="color:#00f">do</span>
@@ -96,15 +97,15 @@ a
 test
 </code></pre></div><h2 id="4-屏幕输出存入变量">4. 屏幕输出存入变量</h2>
 <p>某个bash命令，比如<code>ls -l</code>存入变量，之后引用变量。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 注意等号前后不能加空格</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 注意等号前后不能加空格</span>
 listOutput=<span style="color:#a31515">`</span>ls -l<span style="color:#a31515">`</span>
 echo <span style="color:#a31515">&#34;</span>$listOutput<span style="color:#a31515">&#34;</span>
 </code></pre></div><h2 id="5-文件末尾添加内容">5. 文件末尾添加内容</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch testfile
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch testfile
 printf <span style="color:#a31515">&#34;hello\n&#34;</span> &gt; testfile
 printf <span style="color:#a31515">&#34;world\n&#34;</span> &gt;&gt; testfile
 </code></pre></div><h2 id="6-传入sudo密码">6. 传入sudo密码</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#a31515">&#34;myPassword&#34;</span> | sudo -S myCommond
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#a31515">&#34;myPassword&#34;</span> | sudo -S myCommond
 </code></pre></div><h3 id="参考网址">参考网址</h3>
 <ul>
 <li>

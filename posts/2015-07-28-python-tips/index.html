@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Python使用小技巧" />
 <meta property="og:description" content="Python技巧。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-28-python-tips/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-28-python-tips/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-07-28T14:37:38+08:00" />
 <meta property="article:modified_time" content="2015-07-28T14:37:38+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python使用小技巧"/>
 <meta name="twitter:description" content="Python技巧。"/>
@@ -110,24 +111,24 @@
 			<p>收集了一些使用Python过程中的小技巧或者常见错误。</p>
 <h2 id="1-while--if--break">1. While&ndash;if&ndash;break</h2>
 <p>适用情况：<strong>当需要执行一个循环，但是不能事先判断何时终止。</strong> 可以在循环内部加入判断，符合要求时跳出。比如，使用程序在某个目录下新建一个文件夹，如果文件名已经存在，需要重新生成文件名；否则，创建文件夹。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">import</span> random, os
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00f">import</span> random, os
 
-<span style="color:#00f">while</span> True:
+<span style="color:#00f">while</span> <span style="color:#00f">True</span>:
     letter = [chr(i) <span style="color:#00f">for</span> i <span style="color:#00f">in</span> range(97, 123)]
     folderName = [random.choice(letter) <span style="color:#00f">for</span> i <span style="color:#00f">in</span> range(5)]
     fn = <span style="color:#a31515">&#39;&#39;</span>.join(folderName)
-    <span style="color:#00f">if</span> os.path.exists(fn) <span style="color:#00f">is</span> <span style="color:#00f">not</span> True:
+    <span style="color:#00f">if</span> os.path.exists(fn) <span style="color:#00f">is</span> <span style="color:#00f">not</span> <span style="color:#00f">True</span>:
         <span style="color:#008000"># get an unique name </span>
         os.mkdir(fn)
         <span style="color:#00f">break</span>
 </code></pre></div><h2 id="2-链式比较操作">2. 链式比较操作</h2>
 <p>Python支持一个链式的比较操作。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">testNum = 10
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">testNum = 10
 
 <span style="color:#008000"># 链式比较操作</span>
 <span style="color:#008000"># 区别if not和if a is not None</span>
 <span style="color:#00f">if</span> (<span style="color:#00f">not</span> 0 &lt; testNum &lt; 5):
-    <span style="color:#00f">print</span>(<span style="color:#a31515">&#39;It passed!&#39;</span>)
+    print(<span style="color:#a31515">&#39;It passed!&#39;</span>)
 </code></pre></div><h3 id="参考网址">参考网址</h3>
 <ul>
 <li>

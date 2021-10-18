@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Linux常用命令集锦" />
 <meta property="og:description" content="好用或者好玩的Linux命令。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2010-11-08-linux-command/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2010-11-08-linux-command/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2010-11-08T18:00:40-04:00" />
 <meta property="article:modified_time" content="2010-11-08T18:00:40-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux常用命令集锦"/>
 <meta name="twitter:description" content="好用或者好玩的Linux命令。"/>
@@ -70,7 +71,7 @@
 		<div class="markdown">
 			<h2 id="1-压缩与解压缩">1. 压缩与解压缩</h2>
 <p><code>.tar.gz</code>格式文件</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压 </span>
 $ tar -zxvf /filePath/filename.tar.gz
 
 <span style="color:#008000"># 压缩 </span>
@@ -85,23 +86,23 @@ $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename
 <span style="color:#008000"># 压缩所有txt类型文件 </span>
 $ gzip *.txt
 </code></pre></div><p><code>.tar.bz2</code>格式文件</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压 </span>
 $ tar -jxvf /filePath/filename.taz.bz2
 
 <span style="color:#008000"># 压缩</span>
 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename
 </code></pre></div><p><code>.rar</code>格式文件</p>
 <p>需要安装<a href="http://www.rarsoft.com/download.html">rar工具</a>, 下载对应的linux版本，解压，<code>make</code>即可。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压</span>
 $ rar e /filePath/filename.rar /filePath/filename
 
 <span style="color:#008000"># 压缩</span>
 $ rar a -m5 /filePath/filename.rar /filePath/filename
 </code></pre></div><p><code>.zip</code>格式文件</p>
 <p>需要安装zip和unzip工具</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install zip
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install zip
 $ sudo dnf install unzip
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 解压</span>
 $ unzip filename.zip
 
 <span style="color:#008000"># 只打印最简短解压信息，并不解压</span>
@@ -119,13 +120,13 @@ $ zip filename *
 <span style="color:#008000"># 压缩当前目录包括所有子目录</span>
 $ zip -r filename *
 </code></pre></div><p><code>gzip</code>使用方法:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 保留源文件压缩</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 保留源文件压缩</span>
 $ gzip -c filename &gt; filename.gz
 
 <span style="color:#008000"># 保留源文件解压</span>
 $ gunzip -c filename.gz &gt; filename
 </code></pre></div><h2 id="2-文件夹操作">2. 文件夹操作</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 创建 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 创建 </span>
 $ mkdir
 
 <span style="color:#008000"># 删除 </span>
@@ -140,7 +141,7 @@ $ cp
 <span style="color:#008000"># 复制文件夹  </span>
 $ cp -r
 </code></pre></div><h2 id="3-目录">3. 目录</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 显示 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 显示 </span>
 $ ls
 
 <span style="color:#008000"># 列表显示文件和相关权限 </span>
@@ -161,17 +162,17 @@ $ ls -lhs
 <span style="color:#008000"># 查看目录树 </span>
 $ tree
 </code></pre></div><h2 id="4-运行-sh文件">4. 运行 *.sh文件</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 将sh文件赋予可执行权限</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 将sh文件赋予可执行权限</span>
 $ chomd 777 filename.sh
 $ sh /filePath/filename.sh
 </code></pre></div><h2 id="5-更改文件名">5. 更改文件名</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv oldfile newfile
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv oldfile newfile
 </code></pre></div><h2 id="6-md5报文摘要算法">6. md5报文摘要算法</h2>
 <p>md5（Message-Digest Algorithm 5）报文摘要，可以用来验证网络文件传输的完整性。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ md5sum file
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ md5sum file
 </code></pre></div><h2 id="7-java类型文件">7. java类型文件</h2>
 <p>Java Control Panel位置<code>/usr/java/jdk1.7.0_45/bin/ControlPanel</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 执行.jar格式文件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 执行.jar格式文件</span>
 $ java -jar filename.jar
 
 <span style="color:#008000"># 指定内存运行.jar格式文件</span>
@@ -180,27 +181,27 @@ $ java -Xmx2000M -jar filename.jar
 <span style="color:#008000"># 执行.jnlp格式文件</span>
 $ javaws filename.jnlp
 </code></pre></div><h2 id="8-查看文件">8. 查看文件</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 将文件直接打印在屏幕上</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 将文件直接打印在屏幕上</span>
 $ cat filename
 </code></pre></div><h2 id="9-查看系统">9. 查看系统</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 32位还是64位</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 32位还是64位</span>
 $ uname -a
 
 <span style="color:#008000"># 查询操作系统发行版本</span>
 $ sudo lsb_release -a
 </code></pre></div><h2 id="10-查看当前路径">10. 查看当前路径</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd
 </code></pre></div><h2 id="11-查看某个程序库的安装路径">11. 查看某个程序/库的安装路径</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如查看R的安装位置</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如查看R的安装位置</span>
 $ which R
 
 <span style="color:#008000"># 查看某个文件的位置</span>
 $ whereis filename
 </code></pre></div><h2 id="12-查看一个命令的文档帮助">12. 查看一个命令的文档帮助</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如man R</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如man R</span>
 $ man commandname
 </code></pre></div><h2 id="13-批量处理文件">13. 批量处理文件</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 删除满足条件的数据</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 删除满足条件的数据</span>
 $ find ./ -name <span style="color:#a31515">&#39;*&#39;</span> | xargs rm -rf 
 
 <span style="color:#008000"># 移动大数据量的文件.</span>
@@ -211,15 +212,15 @@ $ find ./ -name <span style="color:#a31515">&#34;*.gif&#34;</span> | xargs -i mv
 <ul>
 <li>直接命令行运行</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># export PATH=$PATH:/opt/arbtest</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># export PATH=$PATH:/opt/arbtest</span>
 </code></pre></div><p>这种方法当前有效，重启之后就失效了。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看修改该好的PATH</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看修改该好的PATH</span>
 $ export
 </code></pre></div><ul>
 <li>修改<code>/etc/profile</code>（系统设置，任何用户都可使用）或者<code>~/.bashrc</code>（当前用户）文件。
 向这两个文件中添加<code>export PATH=$PATH:/opt/arbtest</code>或者<code>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/arbtest</code>。</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 载入修改好的文件 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 载入修改好的文件 </span>
 
 <span style="color:#008000"># 载入root权限profile</span>
 $ sudo source /etc/profile
@@ -231,11 +232,11 @@ $ source ~/.bashrc
 $ echo $PATH
 </code></pre></div><h2 id="15-定向输入输出">15. 定向输入输出</h2>
 <p>禁止屏幕输出，即将屏幕输出导入Linux的无底洞 <code>/dev/null</code>，比如</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat myFile &gt; /dev/null
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat myFile &gt; /dev/null
 </code></pre></div><p>此时，导入的是标准屏幕输出（标号为1）stdout。如果要导入标准错误输出（标号为2）stderr，执行</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat myFile 2 &gt; /dev/null
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat myFile 2 &gt; /dev/null
 </code></pre></div><p>如果将两种输出全部导入<code>/dev/null</code>，执行</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 最后的&#34;2&gt;$1&#34;表示2的操作等同于1</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 最后的&#34;2&gt;$1&#34;表示2的操作等同于1</span>
 $ cat myFile &gt; /dev/null 2&gt;$1
 </code></pre></div><h2 id="16-更改文件权限和所有者">16. 更改文件权限和所有者</h2>
 <p>使用命令<code>chmod</code>更改文件权限。</p>
@@ -265,20 +266,20 @@ $ cat myFile &gt; /dev/null 2&gt;$1
 <p><code>-</code>：表示什么操作都不行，对应数值0</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如rw-rw-r--对应664</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 比如rw-rw-r--对应664</span>
 $ chomd 664 filename
 </code></pre></div><p>使用命令<code>chown</code>更改文件所有者：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo chown -R myOwner:myGroup fileName
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo chown -R myOwner:myGroup fileName
 </code></pre></div><h2 id="17更改文件时间戳">17.更改文件时间戳</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 更新myfile的存取和修改时间；如果myfile不存在，则创建该文件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 更新myfile的存取和修改时间；如果myfile不存在，则创建该文件</span>
 $ touch filename
 </code></pre></div><h2 id="18-挂载ntfs分区">18. 挂载NTFS分区</h2>
 <p>CentOS需要手动挂在NTFS分区，下载并安装<a href="http://www.tuxera.com/community/ntfs-3g-download/">NTFS-3G</a>，安装方法：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ./configure 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd ./configure 
 $ make
 $ sudo make install 
 </code></pre></div><p>查找NTFS分区路径，此处假定为<code>/dev/sta1</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看硬盘分区</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看硬盘分区</span>
 $ sudo fdisk -l
 
 <span style="color:#008000"># 挂载NTFS分区</span>
@@ -288,12 +289,12 @@ $ sudo mount -t ntfs-3g /dev/sta1 /mnt/NTFStest
 <span style="color:#008000"># 卸载分区</span>
 $ sudo umount /mnt/NTFStest
 </code></pre></div><p>如果需要自动挂载ntfs分区，首先要查看分区信息，比如uuid</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo blkid
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo blkid
 </code></pre></div><p>之后修改<code>/etc/fstab</code>，添加需要挂载的分区</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">UUID=12D345251F34 /media/D ntfs defaults 0 0
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">UUID=12D345251F34 /media/D ntfs defaults 0 0
 </code></pre></div><h2 id="19-dnf服务相关">19. dnf服务相关</h2>
 <p>以下命令都可以配合<code>grep</code>使用</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装最快源插件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装最快源插件</span>
 $ sudo dnf install dnf-plugin-fastestmirror
 
 <span style="color:#008000"># 安装并行下载工具</span>
@@ -327,11 +328,11 @@ $ sudo dnf list installed
 $ sudo dnf whatprovides MyCommand
 </code></pre></div><h2 id="20-修改配置文件">20. 修改配置文件</h2>
 <p>可以使用多种文本编辑器，最常用的是<a href="http://www.gnu.org/software/emacs/">Emacs</a>和<a href="http://www.vim.org/">Vim</a>，使用方法直<code>emacs</code>或者<code>vim</code>和文件名即可。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 修改Apache服务器配制文件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 修改Apache服务器配制文件</span>
 $ vim httpd.conf
 $ emacs httpd.conf
 </code></pre></div><h2 id="21-用户管理">21. 用户管理</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看用户 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看用户 </span>
 $ w 
 $ who
 <span style="color:#008000"># 超过500为后建用户</span>
@@ -356,7 +357,7 @@ $ top
 <ul>
 <li>第一种方法是使用<a href="http://joeyh.name/code/alien/">alien</a></li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># deb转换为rpm</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># deb转换为rpm</span>
 $ alien -r filename.deb
 
 <span style="color:#008000"># rpm转换成deb</span>
@@ -364,11 +365,11 @@ $ alien -d filename.rpm
 </code></pre></div><ul>
 <li>第二种方法是直接使用<code>apt</code>，非常方便，配置方法如下</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install apt
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install apt
 $ sudo apt-get update
 $ sudo apt-get pkg
 </code></pre></div><h2 id="23-查看和终止进程">23. 查看和终止进程</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看进程树</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看进程树</span>
 $ pstree -p
 
 <span style="color:#008000"># 看全部进程</span>
@@ -380,24 +381,24 @@ $ kill -9 7473
 <span style="color:#008000"># 释放内存</span>
 $ free -m
 </code></pre></div><h2 id="24-查看网络有监听的端口">24. 查看网络有监听的端口</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ netstat -lntp
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ netstat -lntp
 </code></pre></div><h2 id="25-ssh服务">25. SSH服务</h2>
 <ul>
 <li>断开SSH终端，仍需要程序后台执，则使用<code>nohup</code>命令</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nohup /filepath/testScript.py 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nohup /filepath/testScript.py 
 </code></pre></div><ul>
 <li>解决SSH终端链接一段时间后自动断开，修改文件<code>/etc/ssh/sshd_config</code>，找到<code>ServerAliveInterval</code>语句，将其注释去掉，改为</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ServerAliveInterval 60
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ServerAliveInterval 60
 </code></pre></div><ul>
 <li>免密码登录</li>
 </ul>
 <p>两步操作。首先，<code>ssh-keygen -t rsa</code>生成密钥和公钥。之后，<code>ssh-copy-id usrname@remote-server</code>上传公钥。</p>
 <h2 id="26-查看某一个库文件的位置">26. 查看某一个库文件的位置</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ locate libGLU.so
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ locate libGLU.so
 </code></pre></div><h2 id="27-rpm包">27. rpm包</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装rpm包 </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装rpm包 </span>
 $ sudo rpm -ivh pkg.rpm
 
 <span style="color:#008000"># 更新rpm包</span>
@@ -411,7 +412,7 @@ $ sudo rpm -e pkg
 </code></pre></div><h2 id="28-centos-6-升级-python-27">28. Centos 6 升级 python 2.7</h2>
 <p>参考网址 <a href="https://github.com/0xdata/h2o/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only">1</a>, <a href="http://toomuchdata.com/2012/06/25/how-to-install-python-2-7-3-on-centos-6-2/">2</a></p>
 <h2 id="29-cpu信息">29. CPU信息</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查询CPU信息</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查询CPU信息</span>
 $ lscpu
 
 <span style="color:#008000"># 物理CPU个数</span>
@@ -424,26 +425,26 @@ $ grep <span style="color:#a31515">&#39;core id&#39;</span> /proc/cpuinfo | sort
 $ grep <span style="color:#a31515">&#39;processor&#39;</span> /proc/cpuinfo | sort -u | wc -l
 $ nproc
 </code></pre></div><p>查看CPU温度</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装lm_sensors工具</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装lm_sensors工具</span>
 $ sudo dnf install lm_sensors
 $ sensors
 </code></pre></div><h2 id="30-查询文件和文件夹大小">30. 查询文件和文件夹大小</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ du -h myfile
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ du -h myfile
 $ du -h filepath
 </code></pre></div><h2 id="31-查看内存情况">31. 查看内存情况</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看内存使用情况</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看内存使用情况</span>
 $ free
 
 <span style="color:#008000"># 物理内存</span>
 <span style="color:#008000"># dmidecode -t memory | grep Size</span>
 </code></pre></div><h2 id="32-查看文件头部和尾部">32. 查看文件头部和尾部</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 头部</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 头部</span>
 $ head -5 file
 
 <span style="color:#008000"># 尾部</span>
 $ tail -7 file
-</code></pre></div><h2 id="33-下载命令">33. 下载命令##</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget -c -t 0 -w 30 httplink
+</code></pre></div><h2 id="33-下载命令">33. 下载命令</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget -c -t 0 -w 30 httplink
 </code></pre></div><ul>
 <li>
 <p><code>-c</code>：表示接着下载没下载的文件</p>
@@ -458,7 +459,7 @@ $ tail -7 file
 <p><code>-w</code>：表示每两次尝试的时间间隔</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ axel -n 8 -a -S5 httplink -o folder
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ axel -n 8 -a -S5 httplink -o folder
 </code></pre></div><ul>
 <li>
 <p><code>-n</code>：设定下载线程数</p>
@@ -474,16 +475,16 @@ $ tail -7 file
 </li>
 </ul>
 <h2 id="34-开机启动">34. 开机启动</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 开机启动httpd</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 开机启动httpd</span>
 $ sudo chkconfig httpd on
 <span style="color:#008000"># 关闭httpd</span>
 $ sudo chkconfig httpd off
 <span style="color:#008000"># 开启启动列表</span>
 $ sudo chkconfig --list
 </code></pre></div><h2 id="35-系统运行日志">35. 系统运行日志</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># cat /var/log/messages</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># cat /var/log/messages</span>
 </code></pre></div><h2 id="36-获取系统时间">36. 获取系统时间</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 获取文件时间
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 获取文件时间
 $ stat filename | grep Modify | awk &#39;{print $2, $3}
 
 # 获取当前时间
@@ -497,15 +498,15 @@ $ date -d tomorrow +%s
 $ cal
 </code></pre></div><h2 id="37-定时执行程序">37. 定时执行程序</h2>
 <p>使用cron，首先开启：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 开启
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 开启
 $ sudo service crond start
 # 重启
 $ sudo service crond restart
 </code></pre></div><p>建立描述文件，比如<code>testCron</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 每半个小时执行command
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 每半个小时执行command
 0,30 * * * * commmand
 </code></pre></div><p>提交</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 提交</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 提交</span>
 $ crontab testCron
 <span style="color:#008000"># 查看</span>
 $ crontab -l
@@ -514,10 +515,10 @@ $ crontab -r
 <span style="color:#008000"># 编辑</span>
 $ crontab -e
 </code></pre></div><h2 id="38-添加大于2t的硬盘">38. 添加大于2T的硬盘</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 确定添加硬盘，比如/dev/sda</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 确定添加硬盘，比如/dev/sda</span>
 $ sudo fdisk -l
 </code></pre></div><p>使用<code>parted</code>分区</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo parted /dev/sda
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo parted /dev/sda
 GNU Parted 3.2
 Using /dev/sda
 Welcome to GNU Parted! Type <span style="color:#a31515">&#39;help&#39;</span> to view a list of commands.
@@ -543,15 +544,15 @@ Number  Start   End     Size    File system  Name  Flags
 (parted)
 Information: You may need to update /etc/fstab.
 </code></pre></div><p>格式化硬盘</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mkfs.ext4 /dev/sda1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mkfs.ext4 /dev/sda1
 </code></pre></div><p>查看硬盘供应商信息</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo lshw -C disk
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo lshw -C disk
 </code></pre></div><h2 id="39-安装perl模块">39. 安装Perl模块</h2>
 <p>使用<code>cpanm</code>安装Perl模块。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ sudo dnf install cpanm
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ sudo dnf install cpanm
 $ sudo cpanm My::Module
 </code></pre></div><h2 id="40-rsync同步文件">40. rsync同步文件</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rsync -rlptDP testFolder romateMachine:/home/test
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rsync -rlptDP testFolder romateMachine:/home/test
 
 <span style="color:#008000">## 保持文件group和owner</span>
 <span style="color:#008000">## -a相当于-rlptgoD</span>

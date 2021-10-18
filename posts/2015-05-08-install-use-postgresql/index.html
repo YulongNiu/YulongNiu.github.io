@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Fedora安装与使用PostgreSQL" />
 <meta property="og:description" content="安装PostgreSQL。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-08T18:30:54+08:00" />
 <meta property="article:modified_time" content="2015-05-08T18:30:54+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Fedora安装与使用PostgreSQL"/>
 <meta name="twitter:description" content="安装PostgreSQL。"/>
@@ -70,10 +71,10 @@
 		<div class="markdown">
 			<h2 id="1-安装和开启postgresql">1. 安装和开启postgresql</h2>
 <p>Fedora直接使用<code>dnf</code>安装相关组件。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装PostgreSQL</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装PostgreSQL</span>
 $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3
 </code></pre></div><p>初始化（只需要执行一次）。如果出现类似<code>Data directory is not empty!</code>报错，可以尝试执行删除操作<code>rm -f -r /usr/local/pgsql/data</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 初始化</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 初始化</span>
 $ sudo postgresql-setup --initdb --unit postgresql
 
 <span style="color:#008000"># 开启服务</span>
@@ -89,7 +90,7 @@ $ sudo service postgresql stop
 $ sudo chkconfig postgresql on
 </code></pre></div><h2 id="2-创建用户和数据库">2. 创建用户和数据库</h2>
 <p>为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 进入home路径</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 进入home路径</span>
 $ cd /home/
 
 
@@ -118,7 +119,7 @@ $ creatdb testdb2
 <span style="color:#008000"># 删除数据库</span>
 $ dropdb testdb2
 </code></pre></div><p>创建完用户和对应数据库后，可以登录数据库控制台。登录后，系统命令提示符会变成类似“testdb=#”。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 登录testdb数据库控制台</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 登录testdb数据库控制台</span>
 $ psql testdb
 
 <span style="color:#008000"># 完整登录命令</span>

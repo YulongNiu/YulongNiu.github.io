@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Rcpp操作矩阵和向量集锦" />
 <meta property="og:description" content="Rcpp处理矩阵和向量。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2016-01-07T20:50:41+08:00" />
 <meta property="article:modified_time" content="2016-01-07T20:50:41+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rcpp操作矩阵和向量集锦"/>
 <meta name="twitter:description" content="Rcpp处理矩阵和向量。"/>
@@ -108,7 +109,7 @@
 <p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，<code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)</code>{:.language-cpp}。同样道理，可以转化向量。例如：</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) {
     mat tx(x.begin(), x.nrow(), x.ncol(), false);
     vec ty(y.begin(), y.size(), false);
     <span style="color:#00f">return</span> tx;
@@ -124,7 +125,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </code></pre></div><ul>
 <li>使用<code>.each_col()</code>/<code>.each_row()</code>/<code>.for_each()</code>替代<code>apply()</code></li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">arma::mat TestMat(arma::mat M, <span style="color:#2b91af">double</span> a) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">arma::mat TestMat(arma::mat M, <span style="color:#2b91af">double</span> a) {
 
   M.for_each([a](mat::elem_type&amp; val) {
       val = val &gt; 0 ? val : a;
@@ -141,7 +142,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </ul>
 <h2 id="3-span-stylecolor-bluebigmemoryspan">3. <!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted --></h2>
 <p><!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted -->包提供了四种数据类型的矩阵，即<code>double</code>（默认）、<code>integer</code>、<code>short</code>和<code>char</code>。对于<code>big.matrix</code>对象<code>pMat</code>，四种类型通过通过<code>MatrixAccessor&lt;double&gt; macc(*pMat)</code>、<code>MatrixAccessor&lt;int&gt; macc(*pMat)</code>、<code>MatrixAccessor&lt;short&gt; macc(*pMat)</code>和<code>MatrixAccessor&lt;char&gt; macc(*pMat)</code>提取元素。<code>pMat</code>有三种属性<code>nrow()</code>、<code>ncol()</code>和<code>matrix_type()</code>可以使用。一下代码示例展示了将<code>big.matrix</code>转换为<code>matrix</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span><span style="color:#008000">// [[Rcpp::depends(BH, bigmemory)]]
 </span><span style="color:#008000"></span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
@@ -178,7 +179,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </li>
 </ul>
 <p>同样，<!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted -->也能与<!-- raw HTML omitted -->bigmemory<!-- raw HTML omitted -->结合，例如：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;RcppArmadillo.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;RcppArmadillo.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
 <span style="color:#00f">#include</span> <span style="color:#00f">&lt;numeric&gt;</span><span style="color:#00f">

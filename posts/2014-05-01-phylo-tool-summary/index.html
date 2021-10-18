@@ -6,9 +6,10 @@
 	<meta property="og:title" content="构建和展示进化树软件使用心得" />
 <meta property="og:description" content="进化树，转至PhySpeTree。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-05-01T17:13:59-04:00" />
 <meta property="article:modified_time" content="2014-05-01T17:13:59-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="构建和展示进化树软件使用心得"/>
 <meta name="twitter:description" content="进化树，转至PhySpeTree。"/>
@@ -75,7 +76,7 @@
 <p><strong>运行方式</strong>：所有平台和<a href="http://atgc.lirmm.fr/phyml/">网页</a></p>
 <p><strong>心得</strong>：理论上支持4000条序列，小于2000000个字符。但是，对于个人电脑，通常100-200条序列比较合适。命令行运行时，可以选择非常简介的默认模式运行。在默认模式下，bootstrap需要手动开启。安装和使用非常方便，直接下载后可以直接使用。同时，bootstrap可以通过MPI分布计算，但是需要从源代码安装。</p>
 <p><strong>快速运行</strong>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">phyml -i align_file.phy --no_memory_check
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">phyml -i align_file.phy --no_memory_check
 </code></pre></div><ul>
 <li><code>-i</code>：后跟需要Phylip格式文件</li>
 <li><code>--no_memory_check</code>：不用检查内存，防止程序运行时跳出</li>
@@ -85,7 +86,7 @@
 <p><strong>运行方式</strong>：所有<a href="http://www.exelixis-lab.org/">平台</a>和网页。</p>
 <p><strong>心得</strong>：推荐<a href="http://www.phylo.org/portal2/login!input.action">网页运行</a>，支持数据的存放和其他构建进化树的方法。本地安装支持MPI和PThreads的分布计算，但是安装有些复杂，需要仔细阅读文档。</p>
 <p><strong>快速运行1</strong>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST
 </code></pre></div><ul>
 <li><code>-x</code>：bootstrap运行时设定随机数，用于结果重现</li>
 <li><code>-p</code>：parsimony推断时设定随机数，用于结果重现</li>
@@ -96,7 +97,7 @@
 <li><code>-n</code>：输入文件记号</li>
 </ul>
 <p><strong>快速运行2</strong>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST
 </code></pre></div><ul>
 <li><code>-f a</code>：选定算法，快速bootstrap</li>
 </ul>

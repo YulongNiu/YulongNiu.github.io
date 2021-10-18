@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Emacs和ESS的使用技巧" />
 <meta property="og:description" content="ESS基本操作。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2011-08-12T17:20:57-04:00" />
 <meta property="article:modified_time" content="2011-08-12T17:20:57-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Emacs和ESS的使用技巧"/>
 <meta name="twitter:description" content="ESS基本操作。"/>
@@ -70,7 +71,7 @@
 		<div class="markdown">
 			<h2 id="1-安装ess">1. 安装ESS</h2>
 <p>有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如<code>yum</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install emacs-ess
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install emacs-ess
 </code></pre></div><p>但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法<a href="http://yulongniu.bionutshell.org/blog/2012/06/24/emacs-extend-skills/">参考</a>，安装<code>ess</code>包。</p>
 <h2 id="2-使用ess">2. 使用ESS</h2>
 <p>进入GNU Emacs界面之后，输入<code>M-X R</code> 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。</p>
@@ -189,7 +190,7 @@
 <p><img src="/images/emacs_ess_tipes_parent.png" alt="emacs_ess_tipes_parent"></p>
 <h2 id="附加内容">附加内容</h2>
 <p><!-- raw HTML omitted -->ESS的Emacs编程环境设置<!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
 <span style="color:#008000">; auto-completion</span>
 <span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
 (require <span style="color:#a31515">&#39;auto-complete</span>)

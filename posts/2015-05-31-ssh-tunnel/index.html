@@ -6,9 +6,10 @@
 	<meta property="og:title" content="SSH建立端口转发" />
 <meta property="og:description" content="ssh端口转发。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-31T21:14:02+08:00" />
 <meta property="article:modified_time" content="2015-05-31T21:14:02+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSH建立端口转发"/>
 <meta name="twitter:description" content="ssh端口转发。"/>
@@ -70,7 +71,7 @@
 		<div class="markdown">
 			<p>SSH建立端口转发分为两步：</p>
 <h2 id="1-连接远程主机">1. 连接远程主机</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh -NT -D 8080 usrname@host
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh -NT -D 8080 usrname@host
 </code></pre></div><p>其中，<code>-N</code>表示只连接远程主机，不打开远程shell；<code>-T</code>表示不分配TTY；<code>-D</code>表示某端口数据都通过SSH传向远程主机；<code>8080</code>可以设置为其他端口。</p>
 <h2 id="2-添加chrome浏览器支持">2. 添加Chrome浏览器支持</h2>
 <p>添加<a href="https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm?hl=en">Proxy SwitchySharp插件</a>，之后在SOCKS host栏目中填入地址<code>127.0.0.1</code>，端口<code>8080</code>并启用即可。</p>

@@ -6,9 +6,10 @@
 	<meta property="og:title" content="R和Rcpp的性能监测" />
 <meta property="og:description" content="监测R的性能。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2018-10-03T19:38:37+08:00" />
 <meta property="article:modified_time" content="2018-10-03T19:38:37+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="R和Rcpp的性能监测"/>
 <meta name="twitter:description" content="监测R的性能。"/>
@@ -72,10 +73,10 @@
 <p>直接使用<!-- raw HTML omitted -->profvis<!-- raw HTML omitted -->包即可，例如<a href="https://rstudio.github.io/profvis/">示例</a>。</p>
 <h2 id="2-rcpp性能检测">2. Rcpp性能检测</h2>
 <h3 id="21-安装依赖软件">2.1 安装依赖软件</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
 </code></pre></div><h3 id="22-编译">2.2 编译</h3>
 <p>在包（包名称为<code>Mypkg</code>）目录<code>src</code>建立如下文件：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;gperftools/profiler.h&gt;</span><span style="color:#00f">
 </span><span style="color:#00f"></span>
 <span style="color:#00f">using</span> <span style="color:#00f">namespace</span> Rcpp;
@@ -94,11 +95,11 @@
 </code></pre></div><p>包目录<code>src</code>的Makevars文件中添加<code>-lprofile</code>选项，例如<code>PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler</code>。之后，安装包，并重新载入。</p>
 <h3 id="23-调试">2.3 调试</h3>
 <p>使用方法为：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Mypkg:::start_profiler(<span style="color:#a31515">&#34;/tmp/profile.out&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Mypkg:::start_profiler(<span style="color:#a31515">&#34;/tmp/profile.out&#34;</span>)
 run_cpp_codes()
 Mypkg:::stop_profiler()
 </code></pre></div><p>查看profile结果：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## text</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## text</span>
 pprof --text src/Mypkg.so /tmp/profile.out
 
 <span style="color:#008000">## pdf</span>

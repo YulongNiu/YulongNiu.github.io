@@ -6,9 +6,10 @@
 	<meta property="og:title" content="过滤TopHat分析双端测序的输出" />
 <meta property="og:description" content="跳转至HISAT2或kallisto。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-16T04:33:10+08:00" />
 <meta property="article:modified_time" content="2015-05-16T04:33:10+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="过滤TopHat分析双端测序的输出"/>
 <meta name="twitter:description" content="跳转至HISAT2或kallisto。"/>
@@ -109,7 +110,7 @@
 		<div class="markdown">
 			<h2 id="0-结论">0. 结论</h2>
 <p>在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成<code>accepted_hits.bam</code>文件，处理方法如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 首先查看bam文件头部有多少行</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 首先查看bam文件头部有多少行</span>
 $ samtools view -H accepted_hits.bam | wc -l
 86
 
@@ -129,7 +130,7 @@ MAPQ = -10 \times log_{10}(pvalue)
 \end{align}
 $$</p>
 <p>MAPQ值越大，表示对应的read的alignment质量越高。然而，在TopHat输出结果中，MAPQ所代表意义略有不同。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 查看accepted_hits.bam文件的MAPQ数值，并统计出现频数</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 查看accepted_hits.bam文件的MAPQ数值，并统计出现频数</span>
 $ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print $5}&#39;</span> | sort --parallel=4 -n | uniq -c
 5057430 0
 3117731 1
@@ -215,7 +216,7 @@ $ samtools view accepted_hits.bam | awk <span style="color:#a31515">&#39;{print 
  
 
 <p>展示一个<code>NH:i:1</code>的例子，注意Illumina双端测序平台<code>fr-unstranded</code>：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   163     chr1    637224  50      100M    =       637339  215     AAATGATCTGTACAATAACCCCCTGTGACACCAGTCTACCTATGTAACAAATGCCCCTAAACTTAAAATAAAAGTTAAAAAAAAAGAAAATTAAAATCTC  &lt;@@BDABBDFBCDGEGHIGIIGIABAFHBGDFGGGHIIIFIEIGGGGIIIFFDHIGIIIIIIIICEHIIIIIIHEHHDHFFCBCCB@BCAACCCCCECCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   163     chr1    637224  50      100M    =       637339  215     AAATGATCTGTACAATAACCCCCTGTGACACCAGTCTACCTATGTAACAAATGCCCCTAAACTTAAAATAAAAGTTAAAAAAAAAGAAAATTAAAATCTC  &lt;@@BDABBDFBCDGEGHIGIIGIABAFHBGDFGGGHIIIFIEIGGGGIIIFFDHIGIIIIIIIICEHIIIIIIHEHHDHFFCBCCB@BCAACCCCCECCC    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
 HISEQ2000-02:436:C2PG3ACXX:3:2313:10972:95322   83      chr1    637339  50      100M    =       637224  -215    GTAATATGAAAAACACAAATCTTTCATTCATTCCTTTCAACTGATGAGGAAAATGAGGCATCGGGAGTTAGTAAAAGTCCACATTGAGATATGAGACCCA  CCADDDCCCCCCCDEEEECAEHEEGGIIHGFAAGGGHEF=IGGGIIGGHGCGIEIIIGIIIIIIIFIHIIIIIIGIIHFEAIGGIIGFFDFHDDDAD@@@    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
 
 HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    99      chr1    643662  50      100M    =       643707  145     CCTATCAAAATCTTAGCATTCCTCTTAGCCCTCAACAAAGCATTTCTAAAATGTGTATAGAAGACCAAAGGGCCAAAAGAGTCAACTTCTGAAGAAGCGC  CCCFFFFFHHHHHJJJJIJJHJJJJJJJIIJJJJJJJJJJJJIJJJJJIIIJJIIIJJJJJJJJJIJJJJIJJJIHHHHFFEFFFEEEEEEEDDCDDCDD    AS:i:0  XN:i:0  XM:i:0  XO:i:0  XG:i:0  NM:i:0  MD:Z:100     YT:Z:UU  NH:i:1
@@ -340,7 +341,7 @@ HISEQ2000-06:325:C2RC0ACXX:5:2205:6961:88285    147     chr1    643707  50      
  
 
 <p>之后，我们需要筛选含有这些flags的reads。由于我们通常需要操作bam文件，也希望输出是bam文件，中间过程不希望再重新生成sam文件。那么，就需要结合使用<code>awk</code>进行筛选，具体方法见本篇文章开头所示。当然，如果是只是查看，可以使用下面例子中的 <code>samtools view -f 0x2</code>。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># map到基因组上唯一位置的reads数目</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># map到基因组上唯一位置的reads数目</span>
 $ samtools view -q 50 accepted_hits.bam | wc -l
 93044727
 <span style="color:#008000"># 成对reads都map到基因组对应位置的reads数目</span>
@@ -350,7 +351,7 @@ $ samtools view -f 0x2 accepted_hits.bam | wc -l
 $ samtools view -q 50 -f 0x2 accepted_hits.bam | wc -l
 79143942
 </code></pre></div><h2 id="3-操作tophat输出的文件命令集锦">3. 操作TopHat输出的文件命令集锦</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># samtools的view -c命令，其实就是输出sam文件有多少行</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># samtools的view -c命令，其实就是输出sam文件有多少行</span>
 $ samtools view accepted_hits.bam | wc -l
 109278388
 $ samtools view -c accepted_hits.bam
@@ -370,7 +371,7 @@ $ awk <span style="color:#a31515">&#39;END {print NR}&#39;</span> junctions.bed
 220648
 </code></pre></div><h2 id="4-dna链和mrna链的称呼总结">4. DNA链和mRNA链的称呼总结</h2>
 <p>双链DNA和单链mRNA，对每条链都有特定的称呼。总结如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">3&#39;~~~~~UCUGAU~~~~~ 5&#39; mRNA的对应基因信息在reverse strand
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">3&#39;~~~~~UCUGAU~~~~~ 5&#39; mRNA的对应基因信息在reverse strand
 
 5&#39;-----AGACTA----------ATTGTT----- 3&#39;
 3&#39;-----TCTGAT----------TAACAA----- 5&#39;

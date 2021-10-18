@@ -6,9 +6,10 @@
 	<meta property="og:title" content="DESeq2包的对比组设计" />
 <meta property="og:description" content="DESeq2分组。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-04-15T14:58:58+02:00" />
 <meta property="article:modified_time" content="2019-04-15T14:58:58+02:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DESeq2包的对比组设计"/>
 <meta name="twitter:description" content="DESeq2分组。"/>
@@ -69,7 +70,7 @@
 
 		<div class="markdown">
 			<h2 id="1-两两比对">1. 两两比对</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">DataFrame with 12 rows and 2 columns
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">DataFrame with 12 rows and 2 columns
          condition genotype
           &lt;factor&gt; &lt;factor&gt;
 sample1          A        I
@@ -84,7 +85,7 @@ sample10         B       II
 sample11         B       II
 sample12         B       II
 </code></pre></div><p>组A <em>vs.</em> 组B。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
 dds$genotype &lt;- factor(rep(rep(c(<span style="color:#a31515">&#39;I&#39;</span>, <span style="color:#a31515">&#39;II&#39;</span>), each=3), 2))
 
 <span style="color:#008000">## condition: A vs. B</span>
@@ -103,7 +104,7 @@ design(dds) &lt;- ~ group
 ddres &lt;- DESeq(dds)
 results(ddres, contrast = c(<span style="color:#a31515">&#39;group&#39;</span>, <span style="color:#a31515">&#39;IIB&#39;</span>, <span style="color:#a31515">&#39;IIA&#39;</span>))
 </code></pre></div><h2 id="2-交叉项">2. 交叉项</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dds &lt;- makeExampleDESeqDataSet(n = 100, m = 12)
 dds$genotype &lt;- factor(rep(rep(c(<span style="color:#a31515">&#39;I&#39;</span>, <span style="color:#a31515">&#39;II&#39;</span>), each=3), 2))
 design(dds) &lt;- ~ genotype + condition + genotype:condition
 ddres &lt;- DESeq(dds) 
@@ -118,7 +119,7 @@ res &lt;- results(ddres, list(c(<span style="color:#a31515">&#39;condition_B_vs_
 res &lt;- results(ddres, name = <span style="color:#a31515">&#39;genotypeII.conditionB&#39;</span>) 
 </code></pre></div><p>其中，第二例子中的<code>A vs. B at genotype II</code>与第一个的区别是，考虑了交叉项的影响。如果只是为了两两比对，可以考虑使用第一个例子的处理方法。</p>
 <h2 id="补充技巧">补充技巧</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#008000">## 查看设计</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#008000">## 查看设计</span>
 colData(dds)
 
 <span style="color:#008000">## 查看对比</span>

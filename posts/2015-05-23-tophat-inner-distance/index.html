@@ -6,9 +6,10 @@
 	<meta property="og:title" content="确定TopHat中mate-inner-dist参数" />
 <meta property="og:description" content="跳转至HISAT2或kallisto。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-23T19:08:19+08:00" />
 <meta property="article:modified_time" content="2015-05-23T19:08:19+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="确定TopHat中mate-inner-dist参数"/>
 <meta name="twitter:description" content="跳转至HISAT2或kallisto。"/>
@@ -83,13 +84,13 @@
 <p>以下详细介绍<code>pe_utils</code>使用方法。</p>
 <p>第一步， 下载对应物种的基因注释文件GTF或者GFF，比如<a href="http://genome.ucsc.edu/cgi-bin/hgTables?command=start">USCS Table Browser</a>（<code>output format</code>选择<code>GTF</code>）或者使用MISO提供的<a href="http://miso.readthedocs.org/en/fastmiso/#human-mouse-gene-models-for-isoform-centric-analyses">Ensembl版本</a>。如果GTF文件，使用<a href="https://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>工具进行转换。</p>
 <p>第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似<code>chr1</code>命名，而另外一些使用<code>1</code>。如果不一致，建议修改GFF文件。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看GFF文件中基因组命名</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看GFF文件中基因组命名</span>
 $ awk <span style="color:#a31515">&#39;{print $1}&#39;</span> hg19USCS.gff | sort -n | uniq -c
 
 <span style="color:#008000"># 查看bam文件中基因组命名</span>
 samtools view accepted_hits.bam | head -1000 | awk <span style="color:#a31515">&#39;{print $3}&#39;</span> | sort -n | uniq -c
 </code></pre></div><p>第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了<code>exon_utils</code>工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为<code>hg19USCS.gff</code>，输出筛选的文件名为<code>hg19USCS_selected.gff</code>。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gffFile &lt;- read.table(<span style="color:#a31515">&#39;hg19USCS.gff&#39;</span>, stringsAsFactors = FALSE)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gffFile &lt;- read.table(<span style="color:#a31515">&#39;hg19USCS.gff&#39;</span>, stringsAsFactors = FALSE)
 
 gffExon &lt;- gffFile[gffFile[, 3] == <span style="color:#a31515">&#39;exon&#39;</span>, ]
 
@@ -101,7 +102,7 @@ write.table(gffExonSelect, <span style="color:#a31515">&#39;hg19USCS_selected.gf
             row.names = FALSE, col.names = FALSE,
             quote = FALSE, sep = <span style="color:#a31515">&#39;\t&#39;</span>)
 </code></pre></div><p>第四步，使用<code>pe_utils</code>，实例如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 输入bam文件和GFF文件</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 输入bam文件和GFF文件</span>
 $ pe_utils --compute-insert-len accepted_hits.bam hg19USCS_selected.gff --output-dir insert-dist/
 
 <span style="color:#008000">## 在insert-dist会出现类似accepted_filtered.bam.insert_len文件</span>

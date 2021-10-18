@@ -6,9 +6,10 @@
 	<meta property="og:title" content="R包制作和roxygen2使用说明" />
 <meta property="og:description" content="制作R包的记录。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2012-05-29T19:46:59-04:00" />
 <meta property="article:modified_time" content="2012-05-29T19:46:59-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="R包制作和roxygen2使用说明"/>
 <meta name="twitter:description" content="制作R包的记录。"/>
@@ -94,7 +95,7 @@
 <p>Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数<code>person()</code>，其中变量<code>role</code>的选项<code>aut</code>表示author，<code>cre</code>表示creator（维护者），<code>ctb</code>表示contributor。一个例子：</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">c(person(<span style="color:#a31515">&#34;Hadley&#34;</span>, <span style="color:#a31515">&#34;Wickham&#34;</span>, email = <span style="color:#a31515">&#34;hadley@rice.edu&#34;</span>, role =<span style="color:#a31515">&#34;ctb&#34;</span>),  
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">c(person(<span style="color:#a31515">&#34;Hadley&#34;</span>, <span style="color:#a31515">&#34;Wickham&#34;</span>, email = <span style="color:#a31515">&#34;hadley@rice.edu&#34;</span>, role =<span style="color:#a31515">&#34;ctb&#34;</span>),  
 person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a31515">&#34;Xie&#34;</span>, email = <span style="color:#a31515">&#34;xie@yihui.name&#34;</span>, role = c(<span style="color:#a31515">&#34;aut&#34;</span>, <span style="color:#a31515">&#34;cre&#34;</span>)))
 </code></pre></div><ul>
 <li>
@@ -189,7 +190,7 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 </blockquote>
 <p><strong>“输入”格式</strong>：输入某个包的全部类或者特定的类，<code>ImportClasses(pkg)</code>或者<code>ImportClassesFrom(pkg, class1)</code>；输入某个包全部方法或者特定方法，<code>ImportMethods(pkg)</code>或者<code>ImportMethodsFrom(pkg, method1)</code>。</p>
 <p><!-- raw HTML omitted -->stats4<!-- raw HTML omitted -->给出的例子非常好，R 2.15.0之后，对隐式泛函要求严格，必须先输入显示函数：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  export(mle) 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  export(mle) 
   importFrom(<span style="color:#a31515">&#34;graphics&#34;</span>, plot) 
   importFrom(<span style="color:#a31515">&#34;stats&#34;</span>, optim, qchisq) 
   <span style="color:#008000">## For these, we define methods or (AIC, BIC, nobs) an implicit generic: </span>
@@ -298,7 +299,7 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <h2 id="5-其他辅助文件">5. 其他辅助文件</h2>
 <h3 id="51-news文件">5.1 NEWS文件</h3>
 <p>在包根目录下，可以添加<code>NEWS</code>文件，简要说明版本更新特征。参考<a href="https://github.com/hadley/ggplot2/blob/master/NEWS">ggplot2</a>的格式：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">pkgName version
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">pkgName version
 -------------------------
 NEW FEATURES
 
@@ -316,17 +317,17 @@ BUG FIXES
 </code></pre></div><p>也可以在NEWS的最开头加入自己的TODO列表，提示将来需要作的更新。</p>
 <h2 id="6-检查和压缩包">6. 检查和压缩包</h2>
 <p>在提交代码之前，首先需要检查自己的代码，运行命名</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD check Mypkg
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD check Mypkg
 
 </code></pre></div><p>之后，因为R源码包（source package）的发布都是采用压缩文件（<code>*.tar.gz</code>）形式，所以需要将源代码打包，方法是运行命令</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
 
 </code></pre></div><p>当然，有时我们需要发布二进制包（binary packages）,操作方法是</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD INSTALL --build Mypkg
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD INSTALL --build Mypkg
 </code></pre></div><p>具体执行过程是：首先，在默认目录树下安装包；之后，将成功安装的包转化成（平台依赖的）二进制代码，再将二进制代码打包输出。所以，默认安装目录要有“可写”权限，如果没有，执行<code>R CMD INSTALL -l location --build Mypkg</code>，指定一个“可写”权限目录（location）安装。</p>
 <p>CRAN很体贴地考虑了Window以外平台的作者，通过<a href="http://win-builder.r-project.org/">网站</a>上传源码包，之后编译成window平台二进制包。</p>
 <p>最后是提交代码，依次执行以下命名或者操作:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
 <span style="color:#008000"># 检查例子（example）、检查（test）和文档输出，如果有报错或者警告，需要仔细阅读提示，原则上消除所有报错和警告</span>
 R CMD check --as-cran
 </code></pre></div><p>使用 <a href="ftp://CRAN.R-project.org/incoming/">ftp://CRAN.R-project.org/incoming/</a> （用户名： anonymous；密码：自己邮箱地址）上传自己的包，并向CRAN@R-project.org发邮件通知自己上传了包（名称、版本等）。</p>

@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Circos Notes" />
 <meta property="og:description" content="Circos." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-03-17-circos-notes/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-03-17-circos-notes/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-03-17T15:37:45-04:00" />
 <meta property="article:modified_time" content="2014-03-17T15:37:45-04:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Circos Notes"/>
 <meta name="twitter:description" content="Circos."/>
@@ -70,7 +71,7 @@
 		<div class="markdown">
 			<p>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&rsquo;t afford to miss it. If it doesn&rsquo;t exist, you can&rsquo;t afford to be fooled into thinking that it&rsquo;s there, or left wondering whether it&rsquo;s occluded by other data.</p>
 <h2 id="1-run-circos">1. Run circos</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bin/circos
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bin/circos
 -png
 -svg
 -conf etc/circos.conf
@@ -84,21 +85,21 @@
 <p><code>-cdump</code> is used for check the parsing file.</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># store all debug output in circos.debug.txt and display only karyotype</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># store all debug output in circos.debug.txt and display only karyotype</span>
 &gt; circos ... -group_debug _all | tee circos.debug.txt | egrep <span style="color:#a31515">&#34;debuggroup karyotype&#34;</span>
 <span style="color:#008000"># extract other debug reports</span>
 &gt; egrep <span style="color:#a31515">&#34;debuggroup rule&#34;</span> circos.debug.txt
 &gt; egrep <span style="color:#a31515">&#34;debuggroup (rule|scale)&#34;</span> circos.debug.txt
 </code></pre></div><h2 id="2-syntax-and-configure-files">2. Syntax and configure files</h2>
 <p>Configuration syntax is like:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;ideogram&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;ideogram&gt;
  thickness = 30p
  fill      = yes
  ...
 &lt;/ideogram&gt;
 </code></pre></div><p>Usefule syntax: hierarchical structure <code>&lt;ideogram&gt;; all data points in all plot tracks </code><!-- raw HTML omitted --> and <code>&lt;plots&gt;; local data points in a given track </code><!-- raw HTML omitted --> and <code>&lt;plot&gt;; rules </code><!-- raw HTML omitted --> and <code>&lt;rule&gt;; highlight</code><!-- raw HTML omitted -->.</p>
 <p>Extermal imports</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;image&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;image&gt;
 # Included from Circos distribution.
 <span style="">&lt;</span>&lt;include etc<span style="">/</span>image<span style="">.</span>conf&gt;&gt;
 &lt;/image&gt;
@@ -108,13 +109,13 @@
 # system and debug parameters
 <span style="">&lt;</span>&lt;include etc<span style="">/</span>housekeeping<span style="">.</span>conf&gt;&gt;
 </code></pre></div><p>Accessing configuration values<code>parameter2 = conf(parameter1) or </code>parameter2 = conf(block1,block2,parameter1) for:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;block1&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;block1&gt;
 &lt;block2&gt;
 parameter1 = ...
 &lt;/block2&gt;
 &lt;/block1&gt;
 </code></pre></div><p>Eval</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">track_color = blue
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">track_color = blue
 track_width = 100
 track_start = 0.5
 
@@ -132,15 +133,15 @@ r1    = eval(conf(track_start) . &#34;r&#34; + conf(track_width) . &#34;p&#34;)
 <p>Use the color name given, like <code>red, </code>lred, <code>vlred, </code>vvlred, <code>dred, </code>vdred, <code>vvdred. If a pure color is need, use </code>pred. For the transparent color, <code>red_a1, </code>red_a2, and to <code>red_a5. </code>red_a1 has a 17% tansparency and `red_a5 have a 83% transparency.</p>
 <h2 id="3-ideogram">3. Ideogram</h2>
 <p>One of the most common used ideogram is the karyotypes plot. The chromosome is marked as:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - id label start end color
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - id label start end color
 </code></pre></div><p>for example</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - hs1 1 0 249250621 chr1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - hs1 1 0 249250621 chr1
 </code></pre></div><p>The cytogenetic bands data is like:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">band hs1 p36.33 p36.33 0 2300000 gneg
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">band hs1 p36.33 p36.33 0 2300000 gneg
 </code></pre></div><ul>
 <li>Choose a subset of chromosomes</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_display_default = <span style="color:#00f">no</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_display_default = <span style="color:#00f">no</span>
 
 chromosomes = hs1;hs2;hs3;h4
 chromosomes = <span style="color:#a31515">/hs[1-4]$/</span>
@@ -150,11 +151,11 @@ chromosomes = hs1:(-100,120-);hs2;hs3;h4
 </code></pre></div><ul>
 <li>Order</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_order = hs2,hs3,hs1,hs5,hs4,hs8,hs7,hs6
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_order = hs2,hs3,hs1,hs5,hs4,hs8,hs7,hs6
 </code></pre></div><ul>
 <li>Scale</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_scale = hs1=0.25,hs2=2.0
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_scale = hs1=0.25,hs2=2.0
 <span style="color:#008000"># 25% and 50%</span>
 chromosomes_scale = hs1=0.25r,hs2=0.50r
 <span style="color:#008000"># each is 25%</span>
@@ -164,47 +165,47 @@ chromosomes_scale   = <span style="color:#a31515">/./</span>=1rn
 </code></pre></div><ul>
 <li>Rotation</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;image&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;image&gt;
 angle_orientation* = counterclockwise
 <span style="">&lt;</span>&lt;include etc<span style="">/</span>image&gt;&gt;
 &lt;/image&gt;
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_reverse = <span style="color:#a31515">/hs[234]/</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_reverse = <span style="color:#a31515">/hs[234]/</span>
 </code></pre></div><ul>
 <li>Chromosome color</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_color = hs1=red,hs2=orange,hs3=green,hs4=blue
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_color = hs1=red,hs2=orange,hs3=green,hs4=blue
 </code></pre></div><p>Also, the color could be redefined as</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr1* = red
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr1* = red
 chr2* = orange
 chr3* = green
 chr4* = blue
 </code></pre></div><ul>
 <li>Position</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_radius = hs4:0.9r
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chromosomes_radius = hs4:0.9r
 </code></pre></div><ul>
 <li>Show bands</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">band_transparency = 0
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">band_transparency = 0
 </code></pre></div><ul>
 <li>Add chromosome</li>
 </ul>
 <p>For example, add the human mitochondria chromosome.</p>
 <p>Add the following to the file <code>data/karyotype/karyotype.human.txt</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - hsMT MT 0 16569 chrMT
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr - hsMT MT 0 16569 chrMT
 </code></pre></div><p>Add &ldquo;hsMT&rdquo; color in the file <code>etc/colors.ucsc.conf</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chrMT = 121,204,61
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chrMT = 121,204,61
 </code></pre></div><h2 id="4-highlight">4. Highlight</h2>
 <h3 id="41-data-type">4.1 Data type</h3>
 <p>Data type of highlight is</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end
 </code></pre></div><p>for exmaple,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 1298972 1300443
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 1298972 1300443
 </code></pre></div><p>We can also add the highlight information into the data file, for example:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100433463 100487964 fill_color=red,r0=0.6r,r1=0.6r+50p
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100433463 100487964 fill_color=red,r0=0.6r,r1=0.6r+50p
 hs1 232817594 240828534 fill_color=chr9,z=61,r0=0.4r-78.7058p,r1=0.4r+78.7058p
 </code></pre></div><h3 id="42-conf-format">4.2 Conf format</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
 &lt;highlights&gt;
 
 &lt;highlight&gt;
@@ -230,7 +231,7 @@ hs1 232817594 240828534 fill_color=chr9,z=61,r0=0.4r-78.7058p,r1=0.4r+78.7058p
 <p><code>z</code>: z-depth of the highlight, controlling the order in which highlights are drawn</p>
 <p><code>ideogram</code>: toggles the position of the highlight to be within the ideogram extent</p>
 <h3 id="44-plot-hightlight">4.4 Plot hightlight</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
 &lt;plot&gt;
 type = highlight
 file = data/3/chr.highlights.txt
@@ -241,16 +242,16 @@ z    = 10
 &lt;/plots&gt;
 </code></pre></div><h2 id="5-links">5. Links</h2>
 <h3 id="51-data-type">5.1 Data type</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300
 </code></pre></div><p>or</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">segdup00010 hs1 100 200
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">segdup00010 hs1 100 200
 segdup00010 hs2 250 300
 </code></pre></div><p>with link options</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300 color=blue
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100 200 hs2 250 300 color=blue
 hs1 400 550 hs3 500 750 color=red,thickness=5p
 hs1 600 800 hs4 150 350 color=black
 </code></pre></div><h3 id="52-conf-format">5.2 Conf format</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;links&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;links&gt;
 &lt;link&gt;
 file          = data/5/segdup.txt
 radius        = 0.8r
@@ -267,12 +268,12 @@ thickness     = 2
 <p><code>record_limit</code>: if this is defined, the number of records read from the file is capped; coordinate records are sampled from the start of the file; useful for debugging</p>
 <p>In each <code>&lt;link&gt;, </code><!-- raw HTML omitted --> and <code>&lt;rule&gt; can be applied to special ruls. Each </code><!-- raw HTML omitted --> contains three parts: <em>a condition</em>, <em>formatting statements</em> and <em>an optional &lsquo;flow&rsquo; statement</em>.</p>
 <p>Marker the priority of rules</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rule&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rule&gt;
 # 1st
 importance = 10
 &lt;/rule&gt;
 </code></pre></div><p>Add a tag</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rule&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rule&gt;
 flow = goto special_rule if true
 ...
 &lt;/rule&gt;
@@ -283,10 +284,10 @@ tag = special_rule
 &lt;/rule&gt;
 </code></pre></div><h2 id="6-histograms">6. Histograms</h2>
 <p>Histogram, line plot, scatter plot, and heat map share the same data format</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value [options]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value [options]
 </code></pre></div><p>for exmaple</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs3 196000000 197999999 71.0000 fill_color=blue
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#008000"># in data file</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs3 196000000 197999999 71.0000 fill_color=blue
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#008000"># in data file</span>
 hs3 196000000 197999999 71.0000 id=abc
 
 <span style="color:#008000"># in rule block</span>
@@ -295,13 +296,13 @@ condition  = var(id) <span style="color:#00f">eq</span> <span style="color:#a315
 fill_color = blue
 <span style="color:#a31515">&lt;/rule&gt;</span>
 </code></pre></div><p>Another data format has multiple values</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value,value,value,... [options]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value,value,value,... [options]
 </code></pre></div><p>for example</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs3 196000000 197999999 0.0000,7.0000,64.0000,0.0000
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs3 196000000 197999999 0.0000,7.0000,64.0000,0.0000
 </code></pre></div><ul>
 <li>Plot histogram</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
 &lt;plot&gt;
 type = histogram
 file = data/5/segdup.hs1234.hist.txt
@@ -315,17 +316,17 @@ extend_bin = no
 <ul>
 <li>Orientation</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">orientation = in
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">orientation = in
 </code></pre></div><ul>
 <li>Rules</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rules&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rules&gt;
 <span style="">&lt;</span>&lt;include exclude<span style="">.</span>hs1<span style="">.</span>rule&gt;&gt;
 &lt;/rules&gt;
 </code></pre></div><ul>
 <li>Backgrounds and axes</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plot&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plot&gt;
 ...
 
 &lt;axes&gt;
@@ -353,10 +354,10 @@ extend_bin = no
 <li>text</li>
 </ul>
 <p>text data format is</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">chr start end value
 </code></pre></div><p>for exmaple</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100425066 100487997 DBT
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">hs1 100425066 100487997 DBT
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;plots&gt;
 &lt;plot&gt;
 type             = text
 color            = black
@@ -364,7 +365,7 @@ file             = data/phylo/labelGene.txt
 &lt;/plot&gt;
 &lt;/plots&gt;
 </code></pre></div><p>apply rules</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rules&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;rules&gt;
 &lt;rule&gt;
 importance = 90
 condition  = var(value) eq &#34;GeneName&#34;

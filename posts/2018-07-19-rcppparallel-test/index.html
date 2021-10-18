@@ -6,9 +6,10 @@
 	<meta property="og:title" content="使用RcppParallel并行计算" />
 <meta property="og:description" content="RcppParallel记录。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2018-07-19T22:19:24+08:00" />
 <meta property="article:modified_time" content="2018-07-19T22:19:24+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用RcppParallel并行计算"/>
 <meta name="twitter:description" content="RcppParallel记录。"/>
@@ -96,7 +97,7 @@
 </li>
 </ul>
 <p>首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 <a href="mailto:CPU@3.6GHz">CPU@3.6GHz</a>）。测试结果显示<code>SqrtRPara</code>（使用<code>foreach</code>）和非向量化的R版本<code>SqrtR</code>效率较低。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e3)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e3)
 
 all.equal(SqrtCpp(tmp1),
           sqrt(tmp1),
@@ -132,7 +133,7 @@ microbenchmark(
 <span style="color:#008000">##     111.9160    1331.442   100</span>
 
 </code></pre></div><p>然后，增加循环数，比较效率较高的前三种方法。测试结果显示调用<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包的<code>C++</code>并行版本<code>SqrtCppPara</code>胜出。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e6)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tmp1 &lt;- runif(10e6)
 
 all.equal(SqrtCpp(tmp1),
           sqrt(tmp1),
@@ -155,7 +156,7 @@ microbenchmark(
 <a href="https://gist.github.com/YulongNiu/0a11282216162b6e350c9575b68e91cc">Gist3</a>中提供了一个例子。这种方法的局限在于<code>List</code>中每一个元素的类型需要相同。</p>
 <h2 id="3-同步">3. 同步</h2>
 <p>如果多个线程同时操作某一个共享内存对象，需要在<!-- raw HTML omitted -->RcppParallel<!-- raw HTML omitted -->包中使用“锁”。如<a href="https://gist.github.com/YulongNiu/5af268df461c8890c73c9640ae9ac754">Gist4</a>所示，多个线程都需要操作<code>estcount</code>对象。测试代码如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;Rcpp&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;Rcpp&#39;</span>)
 
 sourceCpp(<span style="color:#a31515">&#39;TestSynchron.cpp&#39;</span>)
 

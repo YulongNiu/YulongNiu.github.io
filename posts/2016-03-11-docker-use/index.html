@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Docker使用记录" />
 <meta property="og:description" content="Docker介绍。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-03-11-docker-use/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-03-11-docker-use/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2016-03-11T16:53:51+08:00" />
 <meta property="article:modified_time" content="2016-03-11T16:53:51+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Docker使用记录"/>
 <meta name="twitter:description" content="Docker介绍。"/>
@@ -71,11 +72,11 @@
 			<p>关于Docker的安装和使用，有详细的<a href="https://docs.docker.com/">文档</a>可供参考。本文收集一些有趣和重要的记录。</p>
 <h2 id="1-普通用户权限执行docker">1. 普通用户权限执行Docker</h2>
 <p>创建<code>docker</code>用户组并添加普通用户。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo groupadd docker
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo groupadd docker
 $ sudo usermod -aG docker myUserName
 </code></pre></div><p>注销后，再次登录即可。</p>
 <h2 id="2-docker命令集锦">2. Docker命令集锦</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 测试Docker</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 测试Docker</span>
 $ docker run hello-world
 
 <span style="color:#008000"># Docker镜象列表</span>
@@ -101,12 +102,12 @@ $ docker ps -a | grep <span style="color:#a31515">&#34;Exited&#34;</span> | awk 
 $ docker ps -a | grep <span style="color:#a31515">&#34;Exited&#34;</span> | awk <span style="color:#a31515">&#39;{print $1 }&#39;</span>|xargs docker rm
 $ docker images|grep none|awk <span style="color:#a31515">&#39;{print $3 }&#39;</span>|xargs docker rmi
 </code></pre></div><h2 id="3-运行镜象">3. 运行镜象</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm myDockerImage myCommand
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm myDockerImage myCommand
 </code></pre></div><h2 id="4-挂载卷">4. 挂载卷</h2>
 <p>挂载文件目录至容器，可以挂载多个。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm -v /localpath/data:/data -v /localpath/file:/file myDockerImage myCommand
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm -v /localpath/data:/data -v /localpath/file:/file myDockerImage myCommand
 </code></pre></div><h2 id="5-保存和本地载入镜像">5. 保存和本地载入镜像</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看镜像列表</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 查看镜像列表</span>
 $ docker images
 
 <span style="color:#008000"># 保存镜像</span>
@@ -116,9 +117,9 @@ $ docker save -o dockerImage.tar /example/dockerImage
 $ docker load --input dockerImage.tar
 </code></pre></div><h2 id="6-修改镜像和容器储存位置">6. 修改镜像和容器储存位置</h2>
 <p>查看镜像储存位置，例如<code>/var/lib/docker</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker info | grep <span style="color:#a31515">&#34;Docker Root Dir&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker info | grep <span style="color:#a31515">&#34;Docker Root Dir&#34;</span>
 </code></pre></div><p>移动镜像和容器存储位置</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv /var/lib/docker /localpath/docker
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv /var/lib/docker /localpath/docker
 $ ln -s /localpath/docker /var/lib/docker
 </code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
 <ul>

@@ -6,9 +6,10 @@
 	<meta property="og:title" content="Python打包和上传PyPI" />
 <meta property="og:description" content="Python打包。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-23-python-pkg/" />
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-23-python-pkg/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-05-23T01:03:26+08:00" />
 <meta property="article:modified_time" content="2015-05-23T01:03:26+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python打包和上传PyPI"/>
 <meta name="twitter:description" content="Python打包。"/>
@@ -70,10 +71,10 @@
 		<div class="markdown">
 			<p>一个简单的Python包创建和上传PyPI流程。</p>
 <h2 id="1-打包">1. 打包</h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 安装相关工具</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 安装相关工具</span>
 pip install --upgrade setuptools wheel twine
 </code></pre></div><p>当Python包代码完成后，在根目录下创建<code>setup.py</code>文件，具体参考<a href="https://github.com/pypa/sampleproject/blob/master/setup.py">sampleproject</a>。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
 <span style="color:#008000">## 测试</span>
 python setup.py test
 
@@ -81,7 +82,7 @@ python setup.py test
 python setup.py sdist bdist_wheel
 </code></pre></div><h2 id="2-上传pypi">2. 上传PyPI</h2>
 <p><a href="https://pypi.org/">PyPI</a>注册帐号。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## 进入Python包目录</span>
 <span style="color:#008000">## 上传</span>
 twine upload dist/*
 </code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
