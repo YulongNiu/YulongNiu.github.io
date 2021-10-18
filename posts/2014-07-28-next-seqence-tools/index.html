@@ -1,116 +1,101 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>二代测序中的常用工具介绍 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="二代测序中的常用工具介绍" />
-<meta property="og:description" content="二代测序工具。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-07-28-next-seqence-tools/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2014-07-28T12:23:42-04:00" />
-<meta property="article:modified_time" content="2014-07-28T12:23:42-04:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="二代测序中的常用工具介绍"/>
-<meta name="twitter:description" content="二代测序工具。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>二代测序中的常用工具介绍 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="二代测序中的常用工具介绍">
+<meta property="og:description" content="二代测序工具。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-07-28-next-seqence-tools/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2014-07-28T12:23:42-04:00">
+<meta property="article:modified_time" content="2014-07-28T12:23:42-04:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="二代测序中的常用工具介绍">
+<meta name=twitter:description content="二代测序工具。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">二代测序中的常用工具介绍</h1>
-			<div class="meta">Posted at &mdash; Jul 28, 2014</div>
-		</div>
-
-		<div class="markdown">
-			<h2 id="1-samtools">1. SAMtools</h2>
-<p><strong>简介</strong>：<a href="http://www.htslib.org/">SAMtools</a>是用于处理SAM (Sequence Alignment/Map)格式文件的一系列工具，主要用来储存大容量的核酸测序结果。BAM是SAM文件的binary格式文件。SAMtools的主要作者是<a href="http://lh3lh3.users.sourceforge.net/">Heng Li</a>，Heng Li在2012年因为对二代测序领域的贡献获得<a href="http://en.wikipedia.org/wiki/Benjamin_Franklin_Award_(Bioinformatics)">Benjamin Franklin Award</a>。</p>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>二代测序中的常用工具介绍</h1>
+<div class=meta>Posted at &mdash; Jul 28, 2014</div>
+</div>
+<div class=markdown>
+<h2 id=1-samtools>1. SAMtools</h2>
+<p><strong>简介</strong>：<a href=http://www.htslib.org/>SAMtools</a>是用于处理SAM (Sequence Alignment/Map)格式文件的一系列工具，主要用来储存大容量的核酸测序结果。BAM是SAM文件的binary格式文件。SAMtools的主要作者是<a href=http://lh3lh3.users.sourceforge.net/>Heng Li</a>，Heng Li在2012年因为对二代测序领域的贡献获得<a href=http://en.wikipedia.org/wiki/Benjamin_Franklin_Award_(Bioinformatics)>Benjamin Franklin Award</a>。</p>
 <p><strong>平台</strong>：Mac OS/Linux</p>
 <p><strong>安装</strong>:</p>
 <ul>
 <li>
-<p><a href="http://www.htslib.org/download/">下载</a>SAMtools</p>
+<p><a href=http://www.htslib.org/download/>下载</a>SAMtools</p>
 </li>
 <li>
 <p>安装依赖的Ncurse库</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install ncurses*
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf install ncurses*
 </code></pre></div><ul>
-<li>添加SAMtools到PATH（<a href="http://yulongniu.bionutshell.org/blog/2010/11/08/linux-command/">设置参考</a>）</li>
+<li>添加SAMtools到PATH（<a href=http://yulongniu.bionutshell.org/blog/2010/11/08/linux-command/>设置参考</a>）</li>
 </ul>
 <p><strong>快速运行</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># sam格式文件转换为bam格式文件</span>
-<span style="color:#008000"># 新版本samtools不用使用-S</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># sam格式文件转换为bam格式文件</span>
+<span style=color:green># 新版本samtools不用使用-S</span>
 $ samtools view -b samFile &gt; bamFile
 
-<span style="color:#008000"># bam格式文件转换为sam格式文件</span>
+<span style=color:green># bam格式文件转换为sam格式文件</span>
 $ samtools view -h bamFile &gt; samFile
 
-<span style="color:#008000"># bam格式文件转换为sorted bam格式文件，用于长期储存和后续分析</span>
-<span style="color:#008000"># 后一个‘sortedBamFilePrefix’是指需要存储文件名前缀，比如想存储“human_1.bam”，则输入“human_1”</span>
+<span style=color:green># bam格式文件转换为sorted bam格式文件，用于长期储存和后续分析</span>
+<span style=color:green># 后一个‘sortedBamFilePrefix’是指需要存储文件名前缀，比如想存储“human_1.bam”，则输入“human_1”</span>
 $ samtools sort bamFile sortedBamFilePrefix
 
-<span style="color:#008000"># bam文件按照reads名称排序</span>
+<span style=color:green># bam文件按照reads名称排序</span>
 $ samtools sort -n bamFile sortedBamFilePrefix
 
-<span style="color:#008000"># 直接查看bam文件</span>
+<span style=color:green># 直接查看bam文件</span>
 $ samtools view bamFile | head -2
 
-<span style="color:#008000"># 创建bam的index文件</span>
+<span style=color:green># 创建bam的index文件</span>
 $ samtools index bamFile
 
-<span style="color:#008000"># 输出alignment数目，配合-f和-F过滤reads</span>
+<span style=color:green># 输出alignment数目，配合-f和-F过滤reads</span>
 $ samtools view -c bamFile
 
-<span style="color:#008000"># 统计bam文件map数量，可以用于评估mapping的质量。需要输入indexed的bam文件</span>
-<span style="color:#008000"># 输出结果每一列分别为参考序列名称、参考序列长度、map上的reads数目、未map上的reads数目</span>
+<span style=color:green># 统计bam文件map数量，可以用于评估mapping的质量。需要输入indexed的bam文件</span>
+<span style=color:green># 输出结果每一列分别为参考序列名称、参考序列长度、map上的reads数目、未map上的reads数目</span>
 $ samtools idxstats sortedIndexedBamFile
 </code></pre></div><p><strong>重要参数解释</strong>：</p>
 <ul>
@@ -120,7 +105,7 @@ $ samtools idxstats sortedIndexedBamFile
 <ul>
 <li>一个sam文件式例子</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ head samFile
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ head samFile
 HD      VN:1.0          SO:coordinate
 @SQ     SN:chr1         LN:249250621
 @SQ     SN:chr10        LN:135534747
@@ -133,126 +118,111 @@ HISEQ2000-06:325:C2RC0ACXX:5:1101:16521:147635  355     chr1    11554   0       
 HISEQ2000-06:325:C2RC0ACXX:5:2304:4393:52082    163     chr1    11579   3       100M    =       11643   164     CAGAATTGTACTGTTCTGTATCCCACCAGCAATGTCTAGGAATACCTGTTTCTCCACAAAGTGTTTACTTTTGGATTTTTGCCAGTCTAACAGGTGAAGC  CCCFFFFFHHHHHIJJJJJJJJJJJJJJJJJJJJIJJJJJJJJJJJJJJJGIJJJIJJJJJFHFHHHIJJJJJIEHIJHHHHFFFFFFEEEEEDDDDDDD    AS:i:-6 XN:i:0  XM:i:1  XO:i:0  XG:i:0  NM:i:1  MD:Z:43G56   YT:Z:UU  NH:i:2  CC:Z:chr15      CP:i:102519492  HI:i:0
 </code></pre></div><ul>
 <li>
-<p>sam文件内容各行解释，参考<a href="http://samtools.github.io/hts-specs/">SAM/BAM and related specifications</a>和<a href="http://blog.qiuworld.com:8080/archives/3050">NGS分析入门：操作SAM/BAM文件</a>。</p>
+<p>sam文件内容各行解释，参考<a href=http://samtools.github.io/hts-specs/>SAM/BAM and related specifications</a>和<a href=http://blog.qiuworld.com:8080/archives/3050>NGS分析入门：操作SAM/BAM文件</a>。</p>
 </li>
 <li>
-<p>bam文件过滤，参考<a href="http://blog.qiuworld.com:8080/archives/3419">如何统计BAM文件中的reads数</a></p>
+<p>bam文件过滤，参考<a href=http://blog.qiuworld.com:8080/archives/3419>如何统计BAM文件中的reads数</a></p>
 </li>
 </ul>
-<h2 id="2-bowtie2">2. Bowtie2</h2>
-<p>Bowtie使用介绍，详见<a href="http://yulongniu.bionutshell.org/blog/2014/07/26/short-sequence-alignment/">二代测序中的短序列比对</a> 。</p>
-<h2 id="3-trinity">3. Trinity</h2>
-<p><a href="http://trinityrnaseq.github.io/">Trinity</a>是<a href="http://www.broadinstitute.org/">Broad Institute</a>开发的根据RNA-seq数据从头（<em>de novo</em>）组装转录组的工具。</p>
-<h2 id="4-mirdeep2">4. miRDeep2</h2>
-<p><a href="https://www.mdc-berlin.de/36105849/en/research/research_teams/systems_biology_of_gene_regulatory_elements/projects/miRDeep/documentation#mapper">miRDeep2</a> 是用于高通量测序中检测<a href="http://en.wikipedia.org/wiki/MicroRNA">miRNA</a> 的工具。</p>
-<h2 id="5-miso">5. MISO</h2>
-<p><a href="http://genes.mit.edu/burgelab/miso/">MISO</a>（Mixture-of-Isoforms）是用来计算和探测RNA-seq数据中不同样本的基因选择剪切。</p>
-<h2 id="6-质量检测">6. 质量检测</h2>
-<h3 id="61-rna-seqc">6.1 RNA-SeQC</h3>
-<p><a href="http://www.broadinstitute.org/cancer/cga/rna-seqc">RNA-SeQC</a>是用于检测RNA-seq测序质量。</p>
-<h3 id="62-rseqc">6.2 RSeQC</h3>
-<p><a href="http://rseqc.sourceforge.net/">RSeQC</a>用于对RNA-seq数据质量控制。</p>
-<h2 id="7-小工具集锦">7. 小工具集锦</h2>
-<h3 id="71-操作fastq文件">7.1 操作fastq文件</h3>
+<h2 id=2-bowtie2>2. Bowtie2</h2>
+<p>Bowtie使用介绍，详见<a href=http://yulongniu.bionutshell.org/blog/2014/07/26/short-sequence-alignment/>二代测序中的短序列比对</a> 。</p>
+<h2 id=3-trinity>3. Trinity</h2>
+<p><a href=http://trinityrnaseq.github.io/>Trinity</a>是<a href=http://www.broadinstitute.org/>Broad Institute</a>开发的根据RNA-seq数据从头（<em>de novo</em>）组装转录组的工具。</p>
+<h2 id=4-mirdeep2>4. miRDeep2</h2>
+<p><a href=https://www.mdc-berlin.de/36105849/en/research/research_teams/systems_biology_of_gene_regulatory_elements/projects/miRDeep/documentation#mapper>miRDeep2</a> 是用于高通量测序中检测<a href=http://en.wikipedia.org/wiki/MicroRNA>miRNA</a> 的工具。</p>
+<h2 id=5-miso>5. MISO</h2>
+<p><a href=http://genes.mit.edu/burgelab/miso/>MISO</a>（Mixture-of-Isoforms）是用来计算和探测RNA-seq数据中不同样本的基因选择剪切。</p>
+<h2 id=6-质量检测>6. 质量检测</h2>
+<h3 id=61-rna-seqc>6.1 RNA-SeQC</h3>
+<p><a href=http://www.broadinstitute.org/cancer/cga/rna-seqc>RNA-SeQC</a>是用于检测RNA-seq测序质量。</p>
+<h3 id=62-rseqc>6.2 RSeQC</h3>
+<p><a href=http://rseqc.sourceforge.net/>RSeQC</a>用于对RNA-seq数据质量控制。</p>
+<h2 id=7-小工具集锦>7. 小工具集锦</h2>
+<h3 id=71-操作fastq文件>7.1 操作fastq文件</h3>
 <p>在Linux机器上配以一系列命令，操作fastq或者fastq.gz文件，比如<code>mySeq_1_1.fastq</code>测序文件。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># Fastq文件前几行</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># Fastq文件前几行</span>
 $ head mySeq_1_1.fastq
 @HISEQ2000-06:325:C2RC0ACXX:5:1101:1217:2215 1:N:0:TGCCGGCT
 GGCACAGTCCATGCTTTTAACCAGATTTGAACAGAAGAATGGCCACTTGNNNNNNGTAGNNNNNNANNNNGNNNTNNNTNNCATGTGTCACATAACTACC
 +
-@C@FFFFDFFHHHGFFIIBEGHJIFHIIGCGIJJIJIJJIJIJJIIIGI######-.&lt;B######-####,###,###(<span style="color:#008000">##,,5&lt;?CDDDDCCDDDCDDD</span>
+@C@FFFFDFFHHHGFFIIBEGHJIFHIIGCGIJJIJIJJIJIJJIIIGI######-.&lt;B######-####,###,###(<span style=color:green>##,,5&lt;?CDDDDCCDDDCDDD</span>
 @HISEQ2000-06:325:C2RC0ACXX:5:1101:1621:2040 1:N:0:TGCCGGCT
 NGGTGACCTTCTCCCGCCAGAAGCCAAAAACTGCAGCCTACTTTTCTGAAGTGGTTATCTTGGGACTGAGGTATGGGCTATCTTGGGCTGTTTCCTATTT
 +
-<span style="color:#008000">#1==D;ADBHDFDHFHGGIIB;FFHIIGGGIGADEGEIIAHEEHIGHH==C8BGC;=FCDHICHCAAC&gt;CE..;A&gt;AC?9@CCCCCBBCB?CCCCCCCCC</span>
+<span style=color:green>#1==D;ADBHDFDHFHGGIIB;FFHIIGGGIGADEGEIIAHEEHIGHH==C8BGC;=FCDHICHCAAC&gt;CE..;A&gt;AC?9@CCCCCBBCB?CCCCCCCCC</span>
 @HISEQ2000-06:325:C2RC0ACXX:5:1101:1663:2146 1:N:0:TGCCGGCT
 AGAGCCAAATATTTCAACAAAACTGCAGTTTAATTTCAGAAAATGTTAAAATATATATTTATACATCAATTTCTGACATACACTTAATGTGTTAGTATAC
 
-<span style="color:#008000"># 统计fastq文件中的reads数量</span>
-$ awk <span style="color:#a31515">&#39;END{print NR/4}&#39;</span> mySeq_1_1.fastq
+<span style=color:green># 统计fastq文件中的reads数量</span>
+$ awk <span style=color:#a31515>&#39;END{print NR/4}&#39;</span> mySeq_1_1.fastq
 
-<span style="color:#008000"># 查看fastq.gz文件</span>
+<span style=color:green># 查看fastq.gz文件</span>
 $ zcat mySeq_1_1.fastq.gz
 
-<span style="color:#008000"># 统计fastq.gz文件reads数量</span>
-<span style="color:#008000"># 以下两种方法等价</span>
-$ zcat mySeq_1_1.fastq.gz | awk <span style="color:#a31515">&#39;END{print NR/4}&#39;</span>
-$ zcat mySeq_1_1.fastq.gz | echo <span style="color:#00f">$((</span><span style="color:#a31515">`</span>wc -l<span style="color:#a31515">`</span>/4<span style="color:#00f">))</span>
-<span style="color:#008000"># 同时，由于一些测序文件会对read做特殊标记，比如“@HISEQ2000”。所以，可以使用正则匹配。</span>
-<span style="color:#008000"># 注意：这种方法有潜在错误，慎重使用。</span>
-$ zgrep -c <span style="color:#a31515">&#39;@HISEQ200&#39;</span> mySeq_1_1.fastq
+<span style=color:green># 统计fastq.gz文件reads数量</span>
+<span style=color:green># 以下两种方法等价</span>
+$ zcat mySeq_1_1.fastq.gz | awk <span style=color:#a31515>&#39;END{print NR/4}&#39;</span>
+$ zcat mySeq_1_1.fastq.gz | echo <span style=color:#00f>$((</span><span style=color:#a31515>`</span>wc -l<span style=color:#a31515>`</span>/4<span style=color:#00f>))</span>
+<span style=color:green># 同时，由于一些测序文件会对read做特殊标记，比如“@HISEQ2000”。所以，可以使用正则匹配。</span>
+<span style=color:green># 注意：这种方法有潜在错误，慎重使用。</span>
+$ zgrep -c <span style=color:#a31515>&#39;@HISEQ200&#39;</span> mySeq_1_1.fastq
 
-<span style="color:#008000"># 统计fastq文件reads长度分布</span>
-$ zcat mySeq_1_1.fastq.gz | awk <span style="color:#a31515">&#39;{if(NR%4==2) print length($1)}&#39;</span> | sort -n | uniq -c
-</code></pre></div><h3 id="72-操作fasta文件">7.2 操作fasta文件</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 序列数目</span>
-$ grep -c <span style="color:#a31515">&#39;&gt;@&#39;</span> mySeq.fa
+<span style=color:green># 统计fastq文件reads长度分布</span>
+$ zcat mySeq_1_1.fastq.gz | awk <span style=color:#a31515>&#39;{if(NR%4==2) print length($1)}&#39;</span> | sort -n | uniq -c
+</code></pre></div><h3 id=72-操作fasta文件>7.2 操作fasta文件</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 序列数目</span>
+$ grep -c <span style=color:#a31515>&#39;&gt;@&#39;</span> mySeq.fa
 
-<span style="color:#008000"># 序列名称</span>
-$ grep -c <span style="color:#a31515">&#39;&gt;@&#39;</span> mySeq.fa
+<span style=color:green># 序列名称</span>
+$ grep -c <span style=color:#a31515>&#39;&gt;@&#39;</span> mySeq.fa
 
-<span style="color:#008000"># 同时合并fa.gz和fa文件</span>
+<span style=color:green># 同时合并fa.gz和fa文件</span>
 $ zless mySeq1.fa.gz mySeq.fa | gzip &gt; merge.fa.gz
 
-<span style="color:#008000"># 提取特定序列</span>
+<span style=color:green># 提取特定序列</span>
 samtools faidx mySeq.fa
 samtools faidx mySeq.fa chr1 chr2 chr3
-</code></pre></div><h3 id="73-picard">7.3 Picard</h3>
-<p><a href="http://broadinstitute.github.io/picard/">Picard</a>是一个Java平台的工具包，包括一系列处理高通量测序的命令行工具。</p>
-<h3 id="74-fastx-toolkit">7.4 FASTX-Toolkit</h3>
-<p><a href="http://hannonlab.cshl.edu/fastx_toolkit/">FASTX-Toolkit</a>是一系列用于处理大量短序列FASTA和FASTQ文件的工具。</p>
-<h2 id="8-各种数据类型">8. 各种数据类型</h2>
+</code></pre></div><h3 id=73-picard>7.3 Picard</h3>
+<p><a href=http://broadinstitute.github.io/picard/>Picard</a>是一个Java平台的工具包，包括一系列处理高通量测序的命令行工具。</p>
+<h3 id=74-fastx-toolkit>7.4 FASTX-Toolkit</h3>
+<p><a href=http://hannonlab.cshl.edu/fastx_toolkit/>FASTX-Toolkit</a>是一系列用于处理大量短序列FASTA和FASTQ文件的工具。</p>
+<h2 id=8-各种数据类型>8. 各种数据类型</h2>
 <p>为了下游分析，高通量测序结果往往使用多种数据格式储存，详细参考<a href="http://www.broadinstitute.org/igv/?q=book/export/html/16">File Formats</a>。</p>
 <ul>
-<li>GTF格式文件，比如<a href="http://mblab.wustl.edu/GTF22.html">Ensembl类型</a>的GTF文件，每一列<a href="http://www.gencodegenes.org/gencodeformat.html">说明</a>、生物学序列分类<a href="http://www.gencodegenes.org/gencode_biotypes.html">GENCODE解释</a>和<a href="http://vega.sanger.ac.uk/info/about/gene_and_transcript_types.html">VEGA解释</a>。GTF文件的第二行中，有<a href="http://en.wikipedia.org/wiki/Coding_region">CDS（Coding DNA Sequence）</a>也有<a href="http://en.wikipedia.org/wiki/Exon">exon</a>，这两者概念不同：CDS只包括翻译成蛋白质的序列；exon也包括<a href="http://en.wikipedia.org/wiki/Untranslated_region">UTR</a>区域和ployA区域；exon也可以用来指示非编码RNA。</li>
+<li>GTF格式文件，比如<a href=http://mblab.wustl.edu/GTF22.html>Ensembl类型</a>的GTF文件，每一列<a href=http://www.gencodegenes.org/gencodeformat.html>说明</a>、生物学序列分类<a href=http://www.gencodegenes.org/gencode_biotypes.html>GENCODE解释</a>和<a href=http://vega.sanger.ac.uk/info/about/gene_and_transcript_types.html>VEGA解释</a>。GTF文件的第二行中，有<a href=http://en.wikipedia.org/wiki/Coding_region>CDS（Coding DNA Sequence）</a>也有<a href=http://en.wikipedia.org/wiki/Exon>exon</a>，这两者概念不同：CDS只包括翻译成蛋白质的序列；exon也包括<a href=http://en.wikipedia.org/wiki/Untranslated_region>UTR</a>区域和ployA区域；exon也可以用来指示非编码RNA。</li>
 </ul>
-<h3 id="81-gtf和gff文件互转">8.1 GTF和GFF文件互转</h3>
-<p>使用<a href="http://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># GTF转换为GFF/GFF3</span>
+<h3 id=81-gtf和gff文件互转>8.1 GTF和GFF文件互转</h3>
+<p>使用<a href=http://cole-trapnell-lab.github.io/cufflinks/file_formats/>Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># GTF转换为GFF/GFF3</span>
 $ gffreads myGtfFile.gtf -o myGffFile.gff3
 
-<span style="color:#008000"># GFF/GFF3转换为GTF</span>
+<span style=color:green># GFF/GFF3转换为GTF</span>
 $ gffread myGffFile.gff3 -T -o myGtfFile.gtf
-</code></pre></div><h3 id="82-gtf文件提取序列信息">8.2 GTF文件提取序列信息</h3>
-<p>使用<a href="http://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 从GTF文件中提取序列信息</span>
+</code></pre></div><h3 id=82-gtf文件提取序列信息>8.2 GTF文件提取序列信息</h3>
+<p>使用<a href=http://cole-trapnell-lab.github.io/cufflinks/file_formats/>Cufflinks</a>的<code>gffread</code>直接进行转换。</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 从GTF文件中提取序列信息</span>
 $ gffread -w myFastaFile.fa -g myGenome.fa myGtfFile.gtf
-</code></pre></div><h3 id="参考资料">参考资料</h3>
+</code></pre></div><h3 id=参考资料>参考资料</h3>
 <ul>
 <li>
-<p><a href="http://blog.qiuworld.com:8080/archives/3050">NGS分析入门：操作SAM/BAM文件</a></p>
+<p><a href=http://blog.qiuworld.com:8080/archives/3050>NGS分析入门：操作SAM/BAM文件</a></p>
 </li>
 <li>
-<p><a href="http://bioinformatics.cvr.ac.uk/blog/essential-awk-commands-for-next-generation-sequence-analysis/">Essential AWK Commands for Next Generation Sequence Analysis</a></p>
+<p><a href=http://bioinformatics.cvr.ac.uk/blog/essential-awk-commands-for-next-generation-sequence-analysis/>Essential AWK Commands for Next Generation Sequence Analysis</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2019年05月04日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

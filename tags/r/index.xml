@@ -1,110 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>R on Yulong Niu</title>
-    <link>https://YulongNiu.github.io/tags/r/</link>
-    <description>Recent content in R on Yulong Niu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>R包dplyr使用集锦</title>
-      <link>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</link>
-      <pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</guid>
-      <description>1. 使用dplyr包的好处   大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
-  与magrittr包的管道更好地结合。
-  更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
-  2. 列操作   filter()：过滤列，需要输入一个逻辑向量。xor(x, y)x和y并集除去交集的部分。between(x, left, right)left &amp;lt;= x &amp;lt;= right。near(x, y)x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。受group操作影响。返回一个空的表格，只保留列名，filter(x, FALSE)。
-  arrange()：列排序（默认升序）。多列操作时，先排序第一个，再对第一个相等的排第二个。desc()降序排列。.by_group = FALSE控制是否需要按照group进行组内操作。
-  select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
-  rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
-  mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
-  summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
-  filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
-   _at()使用contains()等函数时，.var参数需要处理为.var = vars(contains())的形式。
-  参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, .</description>
-    </item>
-    
-    <item>
-      <title>R和Rcpp的性能监测</title>
-      <link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link>
-      <pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid>
-      <description>1. R性能检测 直接使用profvis包即可，例如示例。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R on Yulong Niu</title><link>https://YulongNiu.github.io/tags/r/</link><description>Recent content in R on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml"/><item><title>R包dplyr使用集锦</title><link>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</link><pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-11-26-r-dplyr/</guid><description>1. 使用dplyr包的好处 大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
+与magrittr包的管道更好地结合。
+更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
+2. 列操作 filter()：过滤列，需要输入一个逻辑向量。xor(x, y)x和y并集除去交集的部分。between(x, left, right)left &amp;lt;= x &amp;lt;= right。near(x, y)x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。受group操作影响。返回一个空的表格，只保留列名，filter(x, FALSE)。
+arrange()：列排序（默认升序）。多列操作时，先排序第一个，再对第一个相等的排第二个。desc()降序排列。.by_group = FALSE控制是否需要按照group进行组内操作。
+select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
+rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
+mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
+summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
+filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
+_at()使用contains()等函数时，.var参数需要处理为.var = vars(contains())的形式。
+参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, .</description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>1. R性能检测 直接使用profvis包即可，例如示例。
 2. Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
 #include &amp;lt;Rcpp.h&amp;gt;#include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; } 包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
 2.3 调试 使用方法为：
 Mypkg:::start_profiler(&amp;#34;/tmp/profile.out&amp;#34;) run_cpp_codes() Mypkg:::stop_profiler() 查看profile结果：
-## text pprof --text src/Mypkg.so /tmp/profile.out ## pdf pprof --pdf src/Mypkg.so /tmp/profile.out &amp;gt; profile.</description>
-    </item>
-    
-    <item>
-      <title>使用RcppParallel并行计算</title>
-      <link>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</link>
-      <pubDate>Thu, 19 Jul 2018 22:19:24 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</guid>
-      <description>在之前的博文中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：
-当循环数很大时（1万以上），`foreach`会变得非常慢。  这个问题在Florian Privé的A guide to parallelism in R中也提到，解释是foreach每次只合并100个循环结果。
+## text pprof --text src/Mypkg.so /tmp/profile.out ## pdf pprof --pdf src/Mypkg.so /tmp/profile.out &amp;gt; profile.</description></item><item><title>使用RcppParallel并行计算</title><link>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</link><pubDate>Thu, 19 Jul 2018 22:19:24 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</guid><description>在之前的博文中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：
+当循环数很大时（1万以上），`foreach`会变得非常慢。 这个问题在Florian Privé的A guide to parallelism in R中也提到，解释是foreach每次只合并100个循环结果。
 1. 测试 我尝试使用RcppParallel包调用C++的并行方法。结论是：在循环数很大时，RcppParallel包提供的并行方法优于foreach。
 一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在Gist1和Gist2中，分别实现了：
-  SqrtR：用循环非并行操作每个元素。这种方法在R语言编程中不推荐，而应该尽量“向量化”操作。
-  SqrtRforeach：foreach并行版本。
-  SqrtRParSapply: parSapply并行版本。
-  SqrtCpp：C++非并行版本。
-  SqrtCppPara：RcppParallel包的C++并行版本。
-  sqrt：R内置的向量化方法，C非并行版本。
-  首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 CPU@3.6GHz）。测试结果显示SqrtRPara（使用foreach）和非向量化的R版本SqrtR效率较低。
-tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## TRUE microbenchmark( SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## Unit: microseconds ## expr min lq mean median ## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.</description>
-    </item>
-    
-    <item>
-      <title>为什么不推荐在R语言中随意按照下标操作矩阵</title>
-      <link>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</link>
-      <pubDate>Thu, 21 Jul 2016 19:35:29 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</guid>
-      <description>这篇博文的目的是展示R语言中下标操作矩阵的潜在问题。R语言提供了多种方法提取一个矩阵的单个或者部分元素，不同方法对应的效率在Hadley Wickham的Advance R中已有讨论。这些方法中，使用最广泛的是通过下标（行或者列）取值，即操作符[。然而，这种方法存在潜在问题，即内存中会拷贝原始对象。
+SqrtR：用循环非并行操作每个元素。这种方法在R语言编程中不推荐，而应该尽量“向量化”操作。
+SqrtRforeach：foreach并行版本。
+SqrtRParSapply: parSapply并行版本。
+SqrtCpp：C++非并行版本。
+SqrtCppPara：RcppParallel包的C++并行版本。
+sqrt：R内置的向量化方法，C非并行版本。
+首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 CPU@3.6GHz）。测试结果显示SqrtRPara（使用foreach）和非向量化的R版本SqrtR效率较低。
+tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## TRUE microbenchmark( SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## Unit: microseconds ## expr min lq mean median ## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.</description></item><item><title>为什么不推荐在R语言中随意按照下标操作矩阵</title><link>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</link><pubDate>Thu, 21 Jul 2016 19:35:29 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</guid><description>这篇博文的目的是展示R语言中下标操作矩阵的潜在问题。R语言提供了多种方法提取一个矩阵的单个或者部分元素，不同方法对应的效率在Hadley Wickham的Advance R中已有讨论。这些方法中，使用最广泛的是通过下标（行或者列）取值，即操作符[。然而，这种方法存在潜在问题，即内存中会拷贝原始对象。
 举例：首先建立一个矩阵，之后取这个矩阵除了第一行之外的部分，接下来操作这个部分矩阵。
 ## step1: build matrix n &amp;lt;- 8000 tmp1 &amp;lt;- matrix(rnorm(n * n), nrow = n, ncol = n) gc() ## step2: manipulate a subset of matrix sink(&amp;#39;/dev/null&amp;#39;) apply(tmp1[2:n, ], 1, function(x) x[1]) sink() ## step3: garbage collection gc() 内存使用情况如下：
-  标记1内存上升，因为建立了tmp1的矩阵；
-  标记2内存再次上升，主要因为使用下标取矩阵操作，tmp1[2:n, ]；
-  标记3内存下降，因为手动执行垃圾回收。
-  可以明显看到内存中多余的垃圾对象。如果使用for循环形式，就可以有效避免内存对象拷贝。虽然，R在内存空间不足时，会自动执行gc()。但是，执行程序时，不能全指望自动垃圾回收，毕竟有时回收得并不及时，而新的对象又相继生成。这种情况下，内存空间不足就成为很严重的问题。
+标记1内存上升，因为建立了tmp1的矩阵；
+标记2内存再次上升，主要因为使用下标取矩阵操作，tmp1[2:n, ]；
+标记3内存下降，因为手动执行垃圾回收。
+可以明显看到内存中多余的垃圾对象。如果使用for循环形式，就可以有效避免内存对象拷贝。虽然，R在内存空间不足时，会自动执行gc()。但是，执行程序时，不能全指望自动垃圾回收，毕竟有时回收得并不及时，而新的对象又相继生成。这种情况下，内存空间不足就成为很严重的问题。
 R版本3.3.1。
-更新记录 2016年7月21日</description>
-    </item>
-    
-    <item>
-      <title>Rcpp操作矩阵和向量集锦</title>
-      <link>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</link>
-      <pubDate>Thu, 07 Jan 2016 20:50:41 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</guid>
-      <description>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。
-1. Rcpp  可以使用逻辑下标（LogicalVector）对向量和列表取值。  2. RcppArmadillo 基本类型是mat、vec（colvec）和rowvec。
-  属性
- 对于矩阵，行数：m.n_rows;；列数：m.n_cols;；维度：m.size();或size(m);。对于向量，元素数：v.n_elem;。    特殊向量或矩阵
-  全是1ones&amp;lt;mat&amp;gt;(3, 4);/vec(10, fill::ones);/；全是0zeros&amp;lt;vec&amp;gt;(10);/mat(3, 4, fill::zeros);；全是某个数mat a(4, 5); a.fill(123.4);。
-  连续向量，规定长度linspace&amp;lt;vec&amp;gt;(0, 5, 6);；连续向量，规定间距regspace&amp;lt;vec&amp;gt;(0, 2, 9);。
-    取值
-  对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
-  对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
-    Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
-  arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.</description>
-    </item>
-    
-    <item>
-      <title>R使用parallel包并行计算</title>
-      <link>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</link>
-      <pubDate>Tue, 24 Jun 2014 22:10:20 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</guid>
-      <description>最新版本的R已经内置parallel包，parallel包是从snow包和multicore包继承而来，包含了很多非常好用的函数。parallel包可以通过PVM（rpvm包）、MPI（Rmpi包）、NetWorkSpaces（nws包）和raw sockets（如果以上3种都不能使用）平台进行分布计算，支持cluster和多核个人/服务器计算机。在Linux系统上，通常使用openMPI。
+更新记录 2016年7月21日</description></item><item><title>Rcpp操作矩阵和向量集锦</title><link>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</link><pubDate>Thu, 07 Jan 2016 20:50:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</guid><description>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。
+1. Rcpp 可以使用逻辑下标（LogicalVector）对向量和列表取值。 2. RcppArmadillo 基本类型是mat、vec（colvec）和rowvec。
+属性
+对于矩阵，行数：m.n_rows;；列数：m.n_cols;；维度：m.size();或size(m);。对于向量，元素数：v.n_elem;。 特殊向量或矩阵
+全是1ones&amp;lt;mat&amp;gt;(3, 4);/vec(10, fill::ones);/；全是0zeros&amp;lt;vec&amp;gt;(10);/mat(3, 4, fill::zeros);；全是某个数mat a(4, 5); a.fill(123.4);。
+连续向量，规定长度linspace&amp;lt;vec&amp;gt;(0, 5, 6);；连续向量，规定间距regspace&amp;lt;vec&amp;gt;(0, 2, 9);。
+取值
+对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
+对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
+Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
+arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.</description></item><item><title>R使用parallel包并行计算</title><link>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</link><pubDate>Tue, 24 Jun 2014 22:10:20 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</guid><description>最新版本的R已经内置parallel包，parallel包是从snow包和multicore包继承而来，包含了很多非常好用的函数。parallel包可以通过PVM（rpvm包）、MPI（Rmpi包）、NetWorkSpaces（nws包）和raw sockets（如果以上3种都不能使用）平台进行分布计算，支持cluster和多核个人/服务器计算机。在Linux系统上，通常使用openMPI。
 1. 安装Rmpi包 因为使用openMPI，所以parallel包需要Rmpi包来设定节点，所以首先需要在计算机上安装openMPI。
 1.1 Linux系统下安装openMPI环境 # 安装openmpi环境 # yum install openmpi openmpi-devel # 配置环境（安装时执行，可能之后运行也要执行） # ldconfig /usr/lib64/openmpi/lib/ 在~/.bashrc下写入
 export LD_LIBRARY_PATH=&amp;#34;${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}/usr/lib64/openmpi/lib/&amp;#34; 载入~/.bashrc
@@ -116,17 +55,8 @@ cl &amp;lt;- makeCluster(2, type = &amp;#34;MPI&amp;#34;) 这里对“节点数�
 2.3 回收节点 stopCluster(cl) 3. 并行计算的包依赖问题 在并行计算过程中，不可避免地会用到其他包辅助。这里涉及到snow包的一个设计原理：并行运算多个R进程，只有一个主进程载入完整的依赖包环境。这就意味着其他并行的R进程中也要载入依赖的包环境。
 有两个思路，第一个思路是修改Rprofile.site文件，让任意R进程在启动时都载入依赖的包。但是，不推荐这种做法，因为这样会增加R载入的速度；并且如果不同的代码用了不同的依赖包，就要不停地修改Rprofile.site文件。
 第二个思路是在新开的R进程中“动态”加载需要的包。所谓**“动态”**，没有什么高深的意思，就是“需要的时候加载即可”。根据需要，可以选择以下两种方法。
- 第一种方法是在直接在启动的R进程中加载包。  这种方法非常直观，推荐。
-# 以下代码摘抄自Parallel R，其中packages # 是一个要选择加载的package列表， # 比如c(&amp;#39;bigmemory&amp;#39;, &amp;#39;foreach&amp;#39;, &amp;#39;doMC&amp;#39;) worker.</description>
-    </item>
-    
-    <item>
-      <title>创建R包的最简流程</title>
-      <link>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</link>
-      <pubDate>Thu, 27 Mar 2014 14:53:05 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</guid>
-      <description>一个最简单创建R包的流程。
+第一种方法是在直接在启动的R进程中加载包。 这种方法非常直观，推荐。
+# 以下代码摘抄自Parallel R，其中packages # 是一个要选择加载的package列表， # 比如c(&amp;#39;bigmemory&amp;#39;, &amp;#39;foreach&amp;#39;, &amp;#39;doMC&amp;#39;) worker.</description></item><item><title>创建R包的最简流程</title><link>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</link><pubDate>Thu, 27 Mar 2014 14:53:05 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</guid><description>一个最简单创建R包的流程。
 1. 载入工具包 安装并载入devtools包和roxygen2包。devtools包提供了一些包的检查、安装和打包的基本工具。roxygen2包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合ESS建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用Rstudio。
 library(&amp;#39;devtools&amp;#39;) library(&amp;#39;roxygen2&amp;#39;) 2. Rcpp和相关的包 如果使用了Rcpp或者相关的包，比如RcppArmadillo，需要格外设置。所有cpp代码都写在src文件夹下。
 首先，执行：
@@ -134,27 +64,9 @@ use_rcpp() 其次，在DESCRIPTION中添加依赖或者需要链接的包名称�
 Encoding: UTF-8 Imports: Rcpp LinkingTo: Rcpp, RcppArmadillo 之后，在包的R/目录下，添加一个文件RcppChk.R（文件名称自定），并写入：
 #&amp;#39; @useDynLib my-pkg-name, .registration = TRUE #&amp;#39; @importFrom Rcpp sourceCpp NULL 注意，修改my-pkg-name为自己的包名称。
 然后，在包的src/目录下，添加一个文件registerDynamicSymbol.c（文件名称自定），并写入：
-// RegisteringDynamic Symbols  #include &amp;lt;R.h&amp;gt;#include &amp;lt;Rinternals.h&amp;gt;#include &amp;lt;R_ext/Rdynload.h&amp;gt; void R_init_markovchain(DllInfo* info) { R_registerRoutines(info, NULL, NULL, NULL, NULL); R_useDynamicSymbols(info, TRUE); } 最后，可能需要在~/.R/Makevars文件下添加：
-# Settings from /etc/R/Makeconf with &amp;#34;non-portable flag(s):&amp;#34; # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic # and without -fdebug-prefix-map=.</description>
-    </item>
-    
-    <item>
-      <title>R ggplot2 notes</title>
-      <link>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</link>
-      <pubDate>Wed, 02 Oct 2013 02:47:11 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</guid>
-      <description>R Package ggplot2Notes 1. Basic grammar 1.1 Plot types The R package ggplot2is a famous plot tool for high quality scientific figures. The ggplot2style figures are widely seen in papers published in high quality journals such as PNAS, Nature and Cell.
-The input data should be in data frame form, and it is easily to use the function as.data.frame(). &amp;ldquo;+&amp;rdquo; is used to connect different plot statement. A typical ggplot2plot statement is like:</description>
-    </item>
-    
-    <item>
-      <title>Python中使用rpy2模块调用R</title>
-      <link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link>
-      <pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid>
-      <description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
+// RegisteringDynamic Symbols #include &amp;lt;R.h&amp;gt;#include &amp;lt;Rinternals.h&amp;gt;#include &amp;lt;R_ext/Rdynload.h&amp;gt; void R_init_markovchain(DllInfo* info) { R_registerRoutines(info, NULL, NULL, NULL, NULL); R_useDynamicSymbols(info, TRUE); } 最后，可能需要在~/.R/Makevars文件下添加：
+# Settings from /etc/R/Makeconf with &amp;#34;non-portable flag(s):&amp;#34; # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic # and without -fdebug-prefix-map=.</description></item><item><title>R ggplot2 notes</title><link>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</link><pubDate>Wed, 02 Oct 2013 02:47:11 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</guid><description>R Package ggplot2Notes 1. Basic grammar 1.1 Plot types The R package ggplot2is a famous plot tool for high quality scientific figures. The ggplot2style figures are widely seen in papers published in high quality journals such as PNAS, Nature and Cell.
+The input data should be in data frame form, and it is easily to use the function as.data.frame(). &amp;ldquo;+&amp;rdquo; is used to connect different plot statement. A typical ggplot2plot statement is like:</description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
 现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块rpy2 ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是renjin，一个基于JVM的R语言解释器。
 本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以官方文档为准。
 1. 安装 rpy2作为Python的一个模块，其安装非常方便。需要做的准备工作是在本地安装好R。
@@ -162,95 +74,46 @@ $ pip install rpy2 2. python调用R对象 2.1 使用rpy2.robjects 在rpy2中调�
 对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。
 调用方法：
 from rpy2.robjects import r 有三种方式可以选择：
-  使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
-  使用r[&#39;obj&#39;]，比如 r[&#39;c&#39;](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r[&#39;func&#39;](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r[&#39;func&#39;](value1, para2 = value, **{para.3: value3})。
-  使用r(&#39;obj&#39;)，比如 r(&#39;c(1, 3)&#39;)。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r(&#39;Rcode&#39;)调用执行。
-  # import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.</description>
-    </item>
-    
-    <item>
-      <title>R包制作和roxygen2使用说明</title>
-      <link>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</link>
-      <pubDate>Tue, 29 May 2012 19:46:59 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid>
-      <description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
+使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
+使用r['obj']，比如 r['c'](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r['func'](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r['func'](value1, para2 = value, **{para.3: value3})。
+使用r('obj')，比如 r('c(1, 3)')。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r('Rcode')调用执行。
+# import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.</description></item><item><title>R包制作和roxygen2使用说明</title><link>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</link><pubDate>Tue, 29 May 2012 19:46:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid><description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
 1. 创建R包目录 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
 1.1 DESCRIPTION文件 一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的DESCRIPTION文件：
-  Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
-  Version：版本号，经典的命名方式比如0.1-0。
-  License：GPL。
-  Description：一段话描述包主要的功能。
-  Title：包的一句话解释。
-  Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数person()，其中变量role的选项aut表示author，cre表示creator（维护者），ctb表示contributor。一个例子：
-  c(person(&amp;#34;Hadley&amp;#34;, &amp;#34;Wickham&amp;#34;, email = &amp;#34;hadley@rice.edu&amp;#34;, role =&amp;#34;ctb&amp;#34;), person(&amp;#34;Yihui&amp;#34;, &amp;#34;Xie&amp;#34;, email = &amp;#34;xie@yihui.name&amp;#34;, role = c(&amp;#34;aut&amp;#34;, &amp;#34;cre&amp;#34;)))   Date（可选）：当前版本包日期，格式yyyy-mm-dd。
-  Depends（可选）：依赖的R环境版本和包名称，比如 R (&amp;gt;= 2.14.1)。
-  注意：   加上版本号，没有版本号等于没用，因为版本之间可能差异很大；
-  对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.</description>
-    </item>
-    
-    <item>
-      <title>R面向对象编程S4</title>
-      <link>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</link>
-      <pubDate>Sat, 05 May 2012 15:19:36 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</guid>
-      <description>1. 一些S3的铺垫 在博文“Linux安装R语言包”描述了如何查看一个函数的源代码，其中涉及了例如methods()函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。
-library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) ## function is genetic or method ftype(method) 2. 类 2.1 建立新类 setClass(Class, representation, prototype, contains=character(), validity, access, where, version, sealed, package, S3methods = FALSE, slots)   Class：类名。     slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。     contains：父类名，表示继承关系。     prototype：带名setGroupGeneric字的列表或prototype()，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合validity定义，因为默认值不会被检查，因为即使不符合validity定义，也可以通过validObject()检查。     validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用setValidity()后期添加。     where：环境（少用）。     sealed：是否封闭，如果设定为TRUE，其他setClass()不能调用该类。     package：包名（少用）     S3methods/representation/access/version：在3.</description>
-    </item>
-    
-    <item>
-      <title>R小技巧集锦</title>
-      <link>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</link>
-      <pubDate>Wed, 02 May 2012 22:17:02 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</guid>
-      <description>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。
+Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
+Version：版本号，经典的命名方式比如0.1-0。
+License：GPL。
+Description：一段话描述包主要的功能。
+Title：包的一句话解释。
+Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数person()，其中变量role的选项aut表示author，cre表示creator（维护者），ctb表示contributor。一个例子：
+c(person(&amp;#34;Hadley&amp;#34;, &amp;#34;Wickham&amp;#34;, email = &amp;#34;hadley@rice.edu&amp;#34;, role =&amp;#34;ctb&amp;#34;), person(&amp;#34;Yihui&amp;#34;, &amp;#34;Xie&amp;#34;, email = &amp;#34;xie@yihui.name&amp;#34;, role = c(&amp;#34;aut&amp;#34;, &amp;#34;cre&amp;#34;))) Date（可选）：当前版本包日期，格式yyyy-mm-dd。
+Depends（可选）：依赖的R环境版本和包名称，比如 R (&amp;gt;= 2.14.1)。
+注意： 加上版本号，没有版本号等于没用，因为版本之间可能差异很大；
+对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.</description></item><item><title>R面向对象编程S4</title><link>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</link><pubDate>Sat, 05 May 2012 15:19:36 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</guid><description>1. 一些S3的铺垫 在博文“Linux安装R语言包”描述了如何查看一个函数的源代码，其中涉及了例如methods()函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。
+library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) ## function is genetic or method ftype(method) 2. 类 2.1 建立新类 setClass(Class, representation, prototype, contains=character(), validity, access, where, version, sealed, package, S3methods = FALSE, slots) Class：类名。 slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。 contains：父类名，表示继承关系。 prototype：带名setGroupGeneric字的列表或prototype()，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合validity定义，因为默认值不会被检查，因为即使不符合validity定义，也可以通过validObject()检查。 validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用setValidity()后期添加。 where：环境（少用）。 sealed：是否封闭，如果设定为TRUE，其他setClass()不能调用该类。 package：包名（少用） S3methods/representation/access/version：在3.</description></item><item><title>R小技巧集锦</title><link>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</link><pubDate>Wed, 02 May 2012 22:17:02 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</guid><description>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。
 1. if爱你，else就要和你在一起，又要给你一些距离 if (con){ expr } else{ expr2 } if...else..结构中，}与else必须在同一行。
 简易形式（不推荐）：
 # else不能与expr在同一行 if (con) expr else expr2 建议将所有if ... else ...结构写成第一种形式，如果没有else，用else {}代替。
 2. NULL是空，NULL是气，NULL在R中就是空气。## 如果表达式（expression）或者函数（function）的值没有定义，那么将返回NULL。在R中，NULL与很多对象合并在一起时，都被忽略掉。比如以下例子：
-# NULL is neglected in vector &amp;gt; c(1, NA, NULL, FALSE) [1] 1 NA 0 # also in matrix &amp;gt; matrix(c(1, NA, NULL, 2), c(2, 2)) [,1] [,2] [1,] 1 2 [2,] NA 1 警告信息： In matrix(c(1, NA, NULL, 2), c(2, 2)) : 数据长度[3]不是矩阵行数[2]的整倍 # also in list &amp;gt; tmp &amp;lt;- list(1, 2) &amp;gt; tmp[1] &amp;lt;- NULL &amp;gt; tmp [[1]] [1] 2 &amp;gt; tmp[[1]] &amp;lt;- NULL &amp;gt; tmp list() 如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</description>
-    </item>
-    
-    <item>
-      <title>Emacs和ESS的使用技巧</title>
-      <link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link>
-      <pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid>
-      <description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
+# NULL is neglected in vector &amp;gt; c(1, NA, NULL, FALSE) [1] 1 NA 0 # also in matrix &amp;gt; matrix(c(1, NA, NULL, 2), c(2, 2)) [,1] [,2] [1,] 1 2 [2,] NA 1 警告信息： In matrix(c(1, NA, NULL, 2), c(2, 2)) : 数据长度[3]不是矩阵行数[2]的整倍 # also in list &amp;gt; tmp &amp;lt;- list(1, 2) &amp;gt; tmp[1] &amp;lt;- NULL &amp;gt; tmp [[1]] [1] 2 &amp;gt; tmp[[1]] &amp;lt;- NULL &amp;gt; tmp list() 如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</description></item><item><title>Emacs和ESS的使用技巧</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link><pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid><description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
 $ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法参考，安装ess包。
 2. 使用ESS 进入GNU Emacs界面之后，输入M-X R 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。
- M-x R：    启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
-  C-u M-x R RET --no-save RET：启动R并且不保存。
-  M-x ess-transcript-clean-region：清理R界面。
-  C-c C-z：强制停止运行的R进程。
-   C-c C-x：    代替ls()函数。
-  C-c C-s：代替search()函数。
-  C-c C-d：修改已经建立的对象，非常实用。
-   C-c C-n：    把当前行送到R。
-  C-c C-c：把当前段送到R。
-  C-c C-b：把当前整个文件送到R。</description>
-    </item>
-    
-    <item>
-      <title>Linux安装R语言包</title>
-      <link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link>
-      <pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid>
-      <description>1. R包介绍 R的包（package）通常有两种:
-  二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
-  源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
-  2. R包安装 2.1 源代码安装 $ sudo R CMD INSTALL /.../myPackage.tar.gz 使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。
-2.2 内置install.packages()函数安装### 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
+M-x R： 启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
+C-u M-x R RET --no-save RET：启动R并且不保存。
+M-x ess-transcript-clean-region：清理R界面。
+C-c C-z：强制停止运行的R进程。
+C-c C-x： 代替ls()函数。
+C-c C-s：代替search()函数。
+C-c C-d：修改已经建立的对象，非常实用。
+C-c C-n： 把当前行送到R。
+C-c C-c：把当前段送到R。
+C-c C-b：把当前整个文件送到R。</description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>1. R包介绍 R的包（package）通常有两种:
+二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
+源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
+2. R包安装 2.1 源代码安装 $ sudo R CMD INSTALL /.../myPackage.tar.gz 使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。
+2.2 内置install.packages()函数安装 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
 install.packages(&amp;#39;myPackage&amp;#39;) 同时，可以使用install.packages()安装本地下载的包，尤其适用于在服务器上安装包
 install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;)) 3. R包版本查询和更新 R和R包版本查询
 # 在启动的R中执行 R.version # R包版本 packageVersion(&amp;#39;myPackage&amp;#39;) # 查询当前R的详细信息，包括R版本、R包版本、命名空间等 sessionInfo() CRAN包更新
 # 可以定期执行以下 update.packages() Bioconductor的安装和更新方法
-source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包## remove.packages(&amp;#39;myPackage&amp;#39;) 5. R包相关函数 # 查看包的安装目录 .</description>
-    </item>
-    
-  </channel>
-</rss>
+source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包 remove.packages(&amp;#39;myPackage&amp;#39;) 5. R包相关函数 # 查看包的安装目录 .</description></item></channel></rss>

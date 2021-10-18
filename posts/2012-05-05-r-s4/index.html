@@ -1,86 +1,71 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>R面向对象编程S4 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="R面向对象编程S4" />
-<meta property="og:description" content="R S4简介。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-05-r-s4/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2012-05-05T15:19:36+08:00" />
-<meta property="article:modified_time" content="2012-05-05T15:19:36+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="R面向对象编程S4"/>
-<meta name="twitter:description" content="R S4简介。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>R面向对象编程S4 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="R面向对象编程S4">
+<meta property="og:description" content="R S4简介。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-05-r-s4/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2012-05-05T15:19:36+08:00">
+<meta property="article:modified_time" content="2012-05-05T15:19:36+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="R面向对象编程S4">
+<meta name=twitter:description content="R S4简介。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>R面向对象编程S4</h1>
+<div class=meta>Posted at &mdash; May 5, 2012</div>
+</div>
+<div class=markdown>
+<h2 id=1-一些s3的铺垫>1. 一些S3的铺垫</h2>
+<p>在博文“<a href=http://yulongniu.bionutshell.org/blog/2010/09/04/linux-install-r/>Linux安装R语言包</a>”描述了如何查看一个函数的源代码，其中涉及了例如<code>methods()</code>函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>library(<span style=color:#a31515>&#39;pryr&#39;</span>)
 
-
-		<div class="post-header">
-			<h1 class="title">R面向对象编程S4</h1>
-			<div class="meta">Posted at &mdash; May 5, 2012</div>
-		</div>
-
-		<div class="markdown">
-			<h2 id="1-一些s3的铺垫">1. 一些S3的铺垫</h2>
-<p>在博文“<a href="http://yulongniu.bionutshell.org/blog/2010/09/04/linux-install-r/">Linux安装R语言包</a>”描述了如何查看一个函数的源代码，其中涉及了例如<code>methods()</code>函数，用来查看一个S3泛函（S3 generic）的方法。在<!-- raw HTML omitted -->pryr<!-- raw HTML omitted -->包中，提供了更加便捷的查看方法。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;pryr&#39;</span>)
-
-<span style="color:#008000">## object is base type, S3, S4 or RC</span>
+<span style=color:green>## object is base type, S3, S4 or RC</span>
 otype(obj)
 
-<span style="color:#008000">## function is genetic or method</span>
+<span style=color:green>## function is genetic or method</span>
 ftype(method)
-</code></pre></div><h2 id="2-类">2. 类</h2>
-<h3 id="21-建立新类">2.1 建立新类</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setClass(Class, representation, prototype, contains=character(),
+</code></pre></div><h2 id=2-类>2. 类</h2>
+<h3 id=21-建立新类>2.1 建立新类</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setClass(Class, representation, prototype, contains=character(),
          validity, access, where, version, sealed, package,
          S3methods = FALSE, slots)
 </code></pre></div><blockquote>
@@ -129,46 +114,46 @@ ftype(method)
 </ul>
 </blockquote>
 <p>例子：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">## new class</span>
-setClass(Class = <span style="color:#a31515">&#39;trick&#39;</span>,
-         slots = c(id = <span style="color:#a31515">&#39;character&#39;</span>, time = <span style="color:#a31515">&#39;matrix&#39;</span>),
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>## new class</span>
+setClass(Class = <span style=color:#a31515>&#39;trick&#39;</span>,
+         slots = c(id = <span style=color:#a31515>&#39;character&#39;</span>, time = <span style=color:#a31515>&#39;matrix&#39;</span>),
          validity = function(object) {
            if (length(object@id) != nrow(object@time)) {
-             warns &lt;- paste(<span style="color:#a31515">&#39;length of id is&#39;</span>, length(object@id), <span style="color:#a31515">&#39;is not equal to row number of time&#39;</span>, nrow(object@time))
+             warns &lt;- paste(<span style=color:#a31515>&#39;length of id is&#39;</span>, length(object@id), <span style=color:#a31515>&#39;is not equal to row number of time&#39;</span>, nrow(object@time))
              return(warns)
            } else {
-             return(<span style="color:#00f">TRUE</span>)
+             return(<span style=color:#00f>TRUE</span>)
            }},
          prototype = list(id = character(), time = matrix(0, 0, 0)))
 
-setClass(Class = <span style="color:#a31515">&#39;trickNum&#39;</span>,
-         slots = c(number = <span style="color:#a31515">&#39;numeric&#39;</span>),
-         contains = <span style="color:#a31515">&#39;trick&#39;</span>)
+setClass(Class = <span style=color:#a31515>&#39;trickNum&#39;</span>,
+         slots = c(number = <span style=color:#a31515>&#39;numeric&#39;</span>),
+         contains = <span style=color:#a31515>&#39;trick&#39;</span>)
 
-setClass(Class = <span style="color:#a31515">&#39;trickMult&#39;</span>,
-         slots = c(trick1 = <span style="color:#a31515">&#39;trick&#39;</span>, trick2 = <span style="color:#a31515">&#39;trick&#39;</span>))
+setClass(Class = <span style=color:#a31515>&#39;trickMult&#39;</span>,
+         slots = c(trick1 = <span style=color:#a31515>&#39;trick&#39;</span>, trick2 = <span style=color:#a31515>&#39;trick&#39;</span>))
 
-<span style="color:#008000">## from setClass() help document, extend from built-in data type</span>
-setClass(<span style="color:#a31515">&#34;numWithId&#34;</span>, 
-         slots = c(id = <span style="color:#a31515">&#34;character&#34;</span>),
-         contains = <span style="color:#a31515">&#34;numeric&#34;</span>)
+<span style=color:green>## from setClass() help document, extend from built-in data type</span>
+setClass(<span style=color:#a31515>&#34;numWithId&#34;</span>, 
+         slots = c(id = <span style=color:#a31515>&#34;character&#34;</span>),
+         contains = <span style=color:#a31515>&#34;numeric&#34;</span>)
 
-numWI1 &lt;- new(<span style="color:#a31515">&#39;numWithId&#39;</span>, 1:10, id = <span style="color:#00f">letters</span>[1:10])
-<span style="color:#008000">## retrieve data of numWI1</span>
+numWI1 &lt;- new(<span style=color:#a31515>&#39;numWithId&#39;</span>, 1:10, id = <span style=color:#00f>letters</span>[1:10])
+<span style=color:green>## retrieve data of numWI1</span>
 numWI1@.Data
 
-<span style="color:#008000">## without slots</span>
-numNoSlot &lt;- setClass(<span style="color:#a31515">&#34;num&#34;</span>, contains = <span style="color:#a31515">&#34;numeric&#34;</span>)
+<span style=color:green>## without slots</span>
+numNoSlot &lt;- setClass(<span style=color:#a31515>&#34;num&#34;</span>, contains = <span style=color:#a31515>&#34;numeric&#34;</span>)
 
-<span style="color:#008000">## simplest class</span>
-setClass(Class = <span style="color:#a31515">&#39;simpleClass&#39;</span>)
+<span style=color:green>## simplest class</span>
+setClass(Class = <span style=color:#a31515>&#39;simpleClass&#39;</span>)
 </code></pre></div><p>使用<code>setOldClass()</code>转换S3类型对象，使用<code>getClass('oldClass')</code>查询oldClass。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">structure(list(), class = <span style="color:#a31515">&#39;TestS3Class&#39;</span>)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>structure(list(), class = <span style=color:#a31515>&#39;TestS3Class&#39;</span>)
 
-setOldClass(<span style="color:#a31515">&#39;TestS3Class&#39;</span>)
-</code></pre></div><h3 id="22-创建查看和删除对象">2.2 创建、查看和删除对象</h3>
+setOldClass(<span style=color:#a31515>&#39;TestS3Class&#39;</span>)
+</code></pre></div><h3 id=22-创建查看和删除对象>2.2 创建、查看和删除对象</h3>
 <p>创建对象：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">new(Class, ...)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>new(Class, ...)
 </code></pre></div><blockquote>
 <ul>
 <li>Class：类名。</li>
@@ -176,18 +161,18 @@ setOldClass(<span style="color:#a31515">&#39;TestS3Class&#39;</span>)
 </blockquote>
 <blockquote>
 <ul>
-<li>&hellip;：各个slot赋值。如果没有赋值，则使用初始化值。</li>
+<li>&mldr;：各个slot赋值。如果没有赋值，则使用初始化值。</li>
 </ul>
 </blockquote>
 <p>在使用<code>new()</code>建立新的对象之前，会经历“初始化”。初始化可以对新建对象做一些事先固定的操作，比如给某一个slot添加名字等。这需要使用<code>setMethod()</code>重新定义<code>initialize()</code>泛函，考虑使用<code>callNextMethod()</code>，以保证子类也能够继承初始化，同时需要考虑“空对象”问题。由于<code>callNextMethod()</code>是向父类搜索，在有很多继承关系时，搜索结果会变得难以预测，因此尽量减少使用。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">## first initialize can not be correctly inherited</span>
-setMethod(f = <span style="color:#a31515">&#39;initialize&#39;</span>,
-          signature = <span style="color:#a31515">&#39;trick&#39;</span>,
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>## first initialize can not be correctly inherited</span>
+setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
+          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
           definition = function(.Object, id = character(), time = matrix(0, 0, 0)) {
 
             colNum &lt;- ncol(time)
             if (colNum &gt; 0) {
-              colnames(time) &lt;- paste0(<span style="color:#00f">letters</span>[1:colNum], 1:colNum)
+              colnames(time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
             } else {}
 
             .Object@id &lt;- id
@@ -195,41 +180,41 @@ setMethod(f = <span style="color:#a31515">&#39;initialize&#39;</span>,
 
             return(.Object)
           })
-t1 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3))
-try(new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6))
+t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
+try(new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6))
 
-<span style="color:#008000">## second initialize can not be correctly inherited</span>
-setMethod(f = <span style="color:#a31515">&#39;initialize&#39;</span>,
-          signature = <span style="color:#a31515">&#39;trick&#39;</span>,
-          definition = function(.Object, <span style="color:#00f">...</span>) {
+<span style=color:green>## second initialize can not be correctly inherited</span>
+setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
+          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
+          definition = function(.Object, <span style=color:#00f>...</span>) {
 
             colNum &lt;- ncol(.Object@time)
             if (colNum &gt; 0) {
-              colnames(.Object@time) &lt;- paste0(<span style="color:#00f">letters</span>[1:colNum], 1:colNum)
+              colnames(.Object@time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
             } else {}
 
             return(.Object)
           })
-try(new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3)))
-<span style="color:#008000">## not as expected, all slots are empty</span>
-try(new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6))
+try(new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3)))
+<span style=color:green>## not as expected, all slots are empty</span>
+try(new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6))
 
-<span style="color:#008000">## third initialize using callNextMethod() works well</span>
-setMethod(f = <span style="color:#a31515">&#39;initialize&#39;</span>,
-          signature = <span style="color:#a31515">&#39;trick&#39;</span>,
-          definition = function(.Object, <span style="color:#00f">...</span>) {
+<span style=color:green>## third initialize using callNextMethod() works well</span>
+setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
+          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
+          definition = function(.Object, <span style=color:#00f>...</span>) {
 
             .Object &lt;- callNextMethod()
 
             colNum &lt;- ncol(.Object@time)
             if (colNum &gt; 0) {
-              colnames(.Object@time) &lt;- paste0(<span style="color:#00f">letters</span>[1:colNum], 1:colNum)
+              colnames(.Object@time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
             } else {}
 
             return(.Object)
           })
-t1 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3))
-tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6)
+t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
+tn1 &lt;- new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6)
 </code></pre></div><p>查看对象和类：</p>
 <ul>
 <li>
@@ -242,7 +227,7 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 <p><code>slotNames(objName)</code>：查询一个对象的slots名称。</p>
 </li>
 <li>
-<p><code>@</code>和<code>slot(objName, 'slotName')</code>：查询一个对象的slot的值。也可以使用<code>objName@slotName &lt;- somVal</code>和<code>slot(objName, 'slotName') &lt;- someVal</code>赋值，只会检查slot对应的类型，不会检查<code>validity</code>设定。一定不要执行<code>slot(objName, 'slotName', check = FALSE) &lt;- someVal</code>，否则连类型都不检查。<code>@</code>定义在<!-- raw HTML omitted -->base<!-- raw HTML omitted -->包，<code>slot()</code>在<!-- raw HTML omitted -->methods<!-- raw HTML omitted -->包。</p>
+<p><code>@</code>和<code>slot(objName, 'slotName')</code>：查询一个对象的slot的值。也可以使用<code>objName@slotName &lt;- somVal</code>和<code>slot(objName, 'slotName') &lt;- someVal</code>赋值，只会检查slot对应的类型，不会检查<code>validity</code>设定。一定不要执行<code>slot(objName, 'slotName', check = FALSE) &lt;- someVal</code>，否则连类型都不检查。<code>@</code>定义在base包，<code>slot()</code>在methods包。</p>
 </li>
 <li>
 <p><code>.hasSlot(objName, 'slotName')</code>：查询一个对象是否有某个slot。</p>
@@ -255,8 +240,8 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 <ul>
 <li><code>removeClass('className')</code>：删除类，但是会保留这个类的方法和子类。</li>
 </ul>
-<h2 id="3-方法">3. 方法</h2>
-<h3 id="31-建立方法">3.1 建立方法</h3>
+<h2 id=3-方法>3. 方法</h2>
+<h3 id=31-建立方法>3.1 建立方法</h3>
 <p>方法和泛函的关系非常密切，某一个方法必须建立在一个特定泛函下。因此，建立方法时，首先确定该方法是否存在泛函：</p>
 <ul>
 <li>
@@ -266,7 +251,7 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 <p>如果存在，使用<code>setMethod()</code>建立具体方法。</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setGeneric(name, def= , group=list(), valueClass=character(),
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setGeneric(name, def= , group=list(), valueClass=character(),
            where= , package= , signature= , useAsDefault= ,
            genericFunction= , simpleInheritanceOnly = )
 </code></pre></div><blockquote>
@@ -303,7 +288,7 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 </li>
 </ul>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setMethod(f, signature=character(), definition,
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setMethod(f, signature=character(), definition,
           where = topenv(parent.frame()),
           valueClass = NULL, sealed = FALSE)
 </code></pre></div><blockquote>
@@ -312,7 +297,7 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 <p>f：字符串，泛函名称。</p>
 </li>
 <li>
-<p>signature：字符向量，指定<code>definition</code>中函数变量对应的类名。两个特殊类<code>&quot;missing&quot;</code>和<code>&quot;ANY&quot;</code>，分别表示对应的变量“不能出现在方法调用中”和“可以是任何类”。如果一个变量没有被指定，则默认为<code>&quot;ANY&quot;</code>。</p>
+<p>signature：字符向量，指定<code>definition</code>中函数变量对应的类名。两个特殊类<code>"missing"</code>和<code>"ANY"</code>，分别表示对应的变量“不能出现在方法调用中”和“可以是任何类”。如果一个变量没有被指定，则默认为<code>"ANY"</code>。</p>
 </li>
 <li>
 <p>definition：函数，定义方法。在创建函数时，特别是扩展已有泛函，<code>f(para)</code>中的变量与原始泛函的数量和名称一致。比如在<code>print(x, ...)</code>，变量是<code>x</code>和<code>...</code>。而在<code>show(object)</code>中，变量是<code>x</code>。可以使用<code>args()</code>查看泛函的参数。同时，函数中可以含有未被定义的变量<code>...</code>，后面<code>setMethod()</code>方法可以添加泛函声明变量之外的变量；如果没有<code>...</code>，后续方法只能操作泛函申明的变量。</p>
@@ -328,99 +313,99 @@ tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span 
 </li>
 </ul>
 </blockquote>
-<p>对于一个对象，可以用一个泛函处理多个不同情况，比如不同的类（包括<code>&quot;missing&quot;</code>和<code>&quot;ANY&quot;</code>）、父类/子类。同时，子类会自动继承父类的方法。但是，如果子类定义了与父类名称相同的方法，则父类方法不再起作用。需要强制“回溯”父类方法，使用<code>callNextMethod()</code>。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">## plot() is initially not a S4 generic function, </span>
-<span style="color:#008000">## but was automatically created.</span>
-<span style="color:#008000">## it is equalt to setGeneric(&#39;plot&#39;)</span>
-setMethod(f = <span style="color:#a31515">&#39;plot&#39;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trick&#39;</span>),
-          definition = function(x, y, <span style="color:#00f">...</span>) {
-            matplot(x = slot(x, <span style="color:#a31515">&#39;time&#39;</span>), pch = slot(x, <span style="color:#a31515">&#39;id&#39;</span>))
+<p>对于一个对象，可以用一个泛函处理多个不同情况，比如不同的类（包括<code>"missing"</code>和<code>"ANY"</code>）、父类/子类。同时，子类会自动继承父类的方法。但是，如果子类定义了与父类名称相同的方法，则父类方法不再起作用。需要强制“回溯”父类方法，使用<code>callNextMethod()</code>。</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>## plot() is initially not a S4 generic function, </span>
+<span style=color:green>## but was automatically created.</span>
+<span style=color:green>## it is equalt to setGeneric(&#39;plot&#39;)</span>
+setMethod(f = <span style=color:#a31515>&#39;plot&#39;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>),
+          definition = function(x, y, <span style=color:#00f>...</span>) {
+            matplot(x = slot(x, <span style=color:#a31515>&#39;time&#39;</span>), pch = slot(x, <span style=color:#a31515>&#39;id&#39;</span>))
           })
 
-<span style="color:#008000">## set new generic function</span>
-setGeneric(name = <span style="color:#a31515">&#39;Add&#39;</span>, def = function(x, y, <span style="color:#00f">...</span>){standardGeneric(<span style="color:#a31515">&#39;Add&#39;</span>)})
+<span style=color:green>## set new generic function</span>
+setGeneric(name = <span style=color:#a31515>&#39;Add&#39;</span>, def = function(x, y, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;Add&#39;</span>)})
 
-<span style="color:#008000">## test &#34;missing&#34; class</span>
-setMethod(f = <span style="color:#a31515">&#39;Add&#39;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trick&#39;</span>, y = <span style="color:#a31515">&#39;missing&#39;</span>),
-          definition = function(x, y, <span style="color:#00f">...</span>) {
-            slot(x, <span style="color:#a31515">&#39;time&#39;</span>) &lt;- slot(x, <span style="color:#a31515">&#39;time&#39;</span>) + 1
+<span style=color:green>## test &#34;missing&#34; class</span>
+setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;missing&#39;</span>),
+          definition = function(x, y, <span style=color:#00f>...</span>) {
+            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + 1
             return(x)
           })
 
-<span style="color:#008000">## another function</span>
-setMethod(f = <span style="color:#a31515">&#39;Add&#39;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trick&#39;</span>, y = <span style="color:#a31515">&#39;numeric&#39;</span>),
-          definition = function(x, y, <span style="color:#00f">...</span>) {
-            slot(x, <span style="color:#a31515">&#39;time&#39;</span>) &lt;- slot(x, <span style="color:#a31515">&#39;time&#39;</span>) + y
+<span style=color:green>## another function</span>
+setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
+          definition = function(x, y, <span style=color:#00f>...</span>) {
+            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + y
             return(x)
           })
 
-<span style="color:#008000">## with one more parameter &#34;isabs&#34;</span>
-<span style="color:#008000">## which is not defined in the generic function</span>
-<span style="color:#008000">## thank for &#34;...&#34;</span>
-setMethod(f = <span style="color:#a31515">&#39;Add&#39;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trick&#39;</span>, y = <span style="color:#a31515">&#39;numeric&#39;</span>),
-          definition = function(x, y, isabs = <span style="color:#00f">FALSE</span>, <span style="color:#00f">...</span>) {
-            slot(x, <span style="color:#a31515">&#39;time&#39;</span>) &lt;- slot(x, <span style="color:#a31515">&#39;time&#39;</span>) + ifelse(isabs, abs(y), y)
+<span style=color:green>## with one more parameter &#34;isabs&#34;</span>
+<span style=color:green>## which is not defined in the generic function</span>
+<span style=color:green>## thank for &#34;...&#34;</span>
+setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
+          definition = function(x, y, isabs = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
+            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + ifelse(isabs, abs(y), y)
             return(x)
           })
-<span style="color:#008000">## getMethod</span>
-getMethod(<span style="color:#a31515">&#39;Add&#39;</span>, c(<span style="color:#a31515">&#39;trick&#39;</span>, <span style="color:#a31515">&#39;numeric&#39;</span>))
+<span style=color:green>## getMethod</span>
+getMethod(<span style=color:#a31515>&#39;Add&#39;</span>, c(<span style=color:#a31515>&#39;trick&#39;</span>, <span style=color:#a31515>&#39;numeric&#39;</span>))
 
 Add(t1)
 Add(t1, -1)
-Add(t1, -1, isabs = <span style="color:#00f">TRUE</span>)
-Add(tn1, -1, isabs = <span style="color:#00f">TRUE</span>)
+Add(t1, -1, isabs = <span style=color:#00f>TRUE</span>)
+Add(tn1, -1, isabs = <span style=color:#00f>TRUE</span>)
 
-<span style="color:#008000">## test callNextMethod()</span>
-setMethod(f = <span style="color:#a31515">&#39;Add&#39;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trickNum&#39;</span>, y = <span style="color:#a31515">&#39;numeric&#39;</span>),
-          definition = function(x, y, callNext = <span style="color:#00f">FALSE</span>, <span style="color:#00f">...</span>) {
+<span style=color:green>## test callNextMethod()</span>
+setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trickNum&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
+          definition = function(x, y, callNext = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
             if (callNext) {
               x &lt;- callNextMethod()
             } else {}
-            slot(x, <span style="color:#a31515">&#39;number&#39;</span>) &lt;- slot(x, <span style="color:#a31515">&#39;number&#39;</span>) + y
+            slot(x, <span style=color:#a31515>&#39;number&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;number&#39;</span>) + y
             return(x)
           })
 Add(tn1, -1)
-Add(tn1, -1, callNext = <span style="color:#00f">TRUE</span>, isabs = <span style="color:#00f">TRUE</span>)
-</code></pre></div><h3 id="32-获取和修改对象">3.2 获取和修改对象</h3>
+Add(tn1, -1, callNext = <span style=color:#00f>TRUE</span>, isabs = <span style=color:#00f>TRUE</span>)
+</code></pre></div><h3 id=32-获取和修改对象>3.2 获取和修改对象</h3>
 <p>重置<code>[</code>、<code>[[</code>和<code>$</code>获取对象。重置<code>[&lt;-</code>、<code>[[&lt;-</code>和<code>$&lt;-</code>修改对象（改变原始对象），建议使用<code>validObject()</code>检查修改后的对象。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">## set &#34;[&#34; and &#34;[&lt;-&#34;</span>
-setMethod(f = <span style="color:#a31515">&#34;[&#34;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;trickNum&#39;</span>),
-          definition = function(x, i, j, <span style="color:#00f">...</span>, drop) {
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>## set &#34;[&#34; and &#34;[&lt;-&#34;</span>
+setMethod(f = <span style=color:#a31515>&#34;[&#34;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;trickNum&#39;</span>),
+          definition = function(x, i, j, <span style=color:#00f>...</span>, drop) {
             return(slot(x, i))
           })
 
-setMethod(f = <span style="color:#a31515">&#34;[&lt;-&#34;</span>,
-          signature = <span style="color:#a31515">&#39;trickNum&#39;</span>,
-          definition = function(x, i, j, <span style="color:#00f">...</span>, value) {
+setMethod(f = <span style=color:#a31515>&#34;[&lt;-&#34;</span>,
+          signature = <span style=color:#a31515>&#39;trickNum&#39;</span>,
+          definition = function(x, i, j, <span style=color:#00f>...</span>, value) {
             slot(x, i) &lt;- value
             validObject(x)
             return(x)
           })
 
-tn1[<span style="color:#a31515">&#39;time&#39;</span>]
-try(tn1[<span style="color:#a31515">&#39;joke&#39;</span>])
-tn1[<span style="color:#a31515">&#39;id&#39;</span>] &lt;- <span style="color:#00f">LETTERS</span>[1:3]
-try(tn1[<span style="color:#a31515">&#39;id&#39;</span>] &lt;- <span style="color:#00f">LETTERS</span>[1:4])
+tn1[<span style=color:#a31515>&#39;time&#39;</span>]
+try(tn1[<span style=color:#a31515>&#39;joke&#39;</span>])
+tn1[<span style=color:#a31515>&#39;id&#39;</span>] &lt;- <span style=color:#00f>LETTERS</span>[1:3]
+try(tn1[<span style=color:#a31515>&#39;id&#39;</span>] &lt;- <span style=color:#00f>LETTERS</span>[1:4])
 
-<span style="color:#008000">## define &#34;numData&#34; and &#34;numData&lt;-&#34;</span>
-setGeneric(name = <span style="color:#a31515">&#39;numData&#39;</span>, def = function(x, <span style="color:#00f">...</span>){standardGeneric(<span style="color:#a31515">&#39;numData&#39;</span>)})
-setGeneric(name = <span style="color:#a31515">&#39;numData&lt;-&#39;</span>, def = function(x, value, <span style="color:#00f">...</span>){standardGeneric(<span style="color:#a31515">&#39;numData&lt;-&#39;</span>)})
+<span style=color:green>## define &#34;numData&#34; and &#34;numData&lt;-&#34;</span>
+setGeneric(name = <span style=color:#a31515>&#39;numData&#39;</span>, def = function(x, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&#39;</span>)})
+setGeneric(name = <span style=color:#a31515>&#39;numData&lt;-&#39;</span>, def = function(x, value, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&lt;-&#39;</span>)})
 
-setMethod(f = <span style="color:#a31515">&#34;numData&#34;</span>,
-          signature = <span style="color:#a31515">&#39;numWithId&#39;</span>,
-          definition = function(x, <span style="color:#00f">...</span>) {
+setMethod(f = <span style=color:#a31515>&#34;numData&#34;</span>,
+          signature = <span style=color:#a31515>&#39;numWithId&#39;</span>,
+          definition = function(x, <span style=color:#00f>...</span>) {
             return(x@.Data)
           })
 
-setMethod(f = <span style="color:#a31515">&#34;numData&lt;-&#34;</span>,
-          signature = c(x = <span style="color:#a31515">&#39;numWithId&#39;</span>, value = <span style="color:#a31515">&#39;numeric&#39;</span>),
-          definition = function(x, value, <span style="color:#00f">...</span>) {
+setMethod(f = <span style=color:#a31515>&#34;numData&lt;-&#34;</span>,
+          signature = c(x = <span style=color:#a31515>&#39;numWithId&#39;</span>, value = <span style=color:#a31515>&#39;numeric&#39;</span>),
+          definition = function(x, value, <span style=color:#00f>...</span>) {
             x@.Data = value
             validObject(x)
             return(x)
@@ -428,20 +413,20 @@ setMethod(f = <span style="color:#a31515">&#34;numData&lt;-&#34;</span>,
 
 numData(numWI1)
 numData(numWI1) &lt;- 10:1
-</code></pre></div><h3 id="33-泛函组">3.3 泛函组</h3>
+</code></pre></div><h3 id=33-泛函组>3.3 泛函组</h3>
 <p>S4允许将一类方法定义为“泛函组（group generic functions）”。已经定义的泛函组，比如<code>ops</code>，通过<code>?S4groupGeneric</code>查看。使用<code>setGroupGeneric()</code>定义新的泛函组，使用<code>callGeneric()</code>调用泛函组，比如：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">setMethod(<span style="color:#a31515">&#39;Ops&#39;</span>,
-          signature(e1=<span style="color:#a31515">&#39;trick&#39;</span>, e2=<span style="color:#a31515">&#39;trick&#39;</span>),
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>setMethod(<span style=color:#a31515>&#39;Ops&#39;</span>,
+          signature(e1=<span style=color:#a31515>&#39;trick&#39;</span>, e2=<span style=color:#a31515>&#39;trick&#39;</span>),
           function(e1, e2) {
-            e1@time &lt;- callGeneric(slot(e1, <span style="color:#a31515">&#39;time&#39;</span>), slot(e2, <span style="color:#a31515">&#39;time&#39;</span>))
+            e1@time &lt;- callGeneric(slot(e1, <span style=color:#a31515>&#39;time&#39;</span>), slot(e2, <span style=color:#a31515>&#39;time&#39;</span>))
             validObject(e1)
             return(e1)
           })
 
-t1 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3))
-t2 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(9:1, ncol = 3))
+t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
+t2 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(9:1, ncol = 3))
 t1 + t2
-</code></pre></div><h3 id="34-查看和删除方法">3.4 查看和删除方法</h3>
+</code></pre></div><h3 id=34-查看和删除方法>3.4 查看和删除方法</h3>
 <p>查看方法：</p>
 <ul>
 <li>
@@ -472,7 +457,7 @@ t1 + t2
 <p><code>removeMethods('myMethod')</code>：删除方法。</p>
 </li>
 </ul>
-<h2 id="4-确认检查">4. 确认检查</h2>
+<h2 id=4-确认检查>4. 确认检查</h2>
 <p>创建对象时：</p>
 <ol>
 <li>
@@ -488,34 +473,34 @@ t1 + t2
 <p>修改slot时：</p>
 <p>使用<code>slot()</code>和<code>@</code>，只会检查slot类型是否正确，不会检查<code>validity</code>设定。不建议用户直接使用<code>@</code>。</p>
 <p>推荐在<code>setClass()</code>建立类时，同时设定好<code>validity</code>，而不是使用<code>setValidity(Class, method, where = topenv(parent.frame()))</code>后续设定。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">## correct &#34;trick&#34; obj</span>
-t1 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3))
-<span style="color:#008000">## not validated &#34;trick&#34; obj</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>## correct &#34;trick&#34; obj</span>
+t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
+<span style=color:green>## not validated &#34;trick&#34; obj</span>
 t2 &lt;- t1
-t2@id &lt;- <span style="color:#00f">letters</span>[1:4]
-<span style="color:#008000">## return FALSE</span>
+t2@id &lt;- <span style=color:#00f>letters</span>[1:4]
+<span style=color:green>## return FALSE</span>
 validObject(t2)
-<span style="color:#008000">## error</span>
-try(new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = 1:4))
-try(new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:8, ncol = 4)))
+<span style=color:green>## error</span>
+try(new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = 1:4))
+try(new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:8, ncol = 4)))
 
-<span style="color:#008000">## correct &#34;trickNum&#34; obj</span>
-tn1 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6)
-<span style="color:#008000">## error because can not pass &#34;trick&#34; validate</span>
-try(new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = 1:4, number = 5:6))
-try(new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:8, ncol = 4), number = 5:6))
+<span style=color:green>## correct &#34;trickNum&#34; obj</span>
+tn1 &lt;- new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6)
+<span style=color:green>## error because can not pass &#34;trick&#34; validate</span>
+try(new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = 1:4, number = 5:6))
+try(new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:8, ncol = 4), number = 5:6))
 
-<span style="color:#008000">## error</span>
-try(new(<span style="color:#a31515">&#39;trickMult&#39;</span>, trick1 = new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = 1:4)))
-try(new(<span style="color:#a31515">&#39;trickMult&#39;</span>, trick1 = new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">letters</span>[1:3], time = matrix(1:8, ncol = 4))))
+<span style=color:green>## error</span>
+try(new(<span style=color:#a31515>&#39;trickMult&#39;</span>, trick1 = new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = 1:4)))
+try(new(<span style=color:#a31515>&#39;trickMult&#39;</span>, trick1 = new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:8, ncol = 4))))
 
-tm1 &lt;- new(<span style="color:#a31515">&#39;trickMult&#39;</span>, trick1 = t2)
-<span style="color:#008000">## return TRUE</span>
+tm1 &lt;- new(<span style=color:#a31515>&#39;trickMult&#39;</span>, trick1 = t2)
+<span style=color:green>## return TRUE</span>
 validObject(tm1)
-<span style="color:#008000">## return FALSE</span>
-validObject(tm1, complete = <span style="color:#00f">TRUE</span>)
-</code></pre></div><h2 id="5-继承">5. 继承</h2>
-<h3 id="51-类转换">5.1 类转换</h3>
+<span style=color:green>## return FALSE</span>
+validObject(tm1, complete = <span style=color:#00f>TRUE</span>)
+</code></pre></div><h2 id=5-继承>5. 继承</h2>
+<h3 id=51-类转换>5.1 类转换</h3>
 <p><code>setClass()</code>的<code>contains</code>参数规定了继承的父类，很直接的继承关系（simple inheritance）。使用<code>as()</code>（不改变原始对象的值）和<code>as() &lt;- value</code>进行转换。</p>
 <p><code>as(myObj, 'myClass')</code>分为三种情况：</p>
 <ul>
@@ -545,7 +530,7 @@ validObject(tm1, complete = <span style="color:#00f">TRUE</span>)
 </li>
 </ul>
 <p>使用<code>setIs()</code>显示继承（explicit inheritance），尽量少用或使用<code>setAs()</code>代替。但是，<code>setIs()</code>使得<code>class1</code>变成<code>class2</code>的子类，<code>class2</code>的一些方法可能失效。因为，两个类的slots可能有很大的不同。因此，使用<code>as()</code>将<code>class1</code>转换成<code>class2</code>，再使<code>class2</code>的方法。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setIs(class1, class2, test=NULL, coerce=NULL, replace=NULL,
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setIs(class1, class2, test=NULL, coerce=NULL, replace=NULL,
       by = character(), where = topenv(parent.frame()), classDef =,
       extensionObject = NULL, doComplete = TRUE)
 </code></pre></div><blockquote>
@@ -563,7 +548,7 @@ validObject(tm1, complete = <span style="color:#00f">TRUE</span>)
 <p>coerce：函数，一个参数，例如<code>from</code>。目的是从<code>from</code>中提取和处理一些slots，之后用这些处理后的slot建立一个<code>class2</code>的对象并返回。coerce对应的函数就是将<code>class1</code>转化成<code>class2</code>，因此要返回一个<code>class2</code>的对象。这也意味着<code>class1</code>将成为<code>class2</code>的一个子类。使用showMethods(&ldquo;coerce&rdquo;)查询内建的coerce函数。</p>
 </li>
 <li>
-<p>replace：函数，目的是实现类似<code>as(obj,&quot;class2&quot;) &lt;- value</code>。变量可以设为两个，例如<code>from</code>和<code>value</code>，最后返回处理好的<code>from</code>。</p>
+<p>replace：函数，目的是实现类似<code>as(obj,"class2") &lt;- value</code>。变量可以设为两个，例如<code>from</code>和<code>value</code>，最后返回处理好的<code>from</code>。</p>
 </li>
 <li>
 <p>by：不建议使用。</p>
@@ -582,7 +567,7 @@ validObject(tm1, complete = <span style="color:#00f">TRUE</span>)
 </li>
 </ul>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setAs(from, to, def, replace, where = topenv(parent.frame()))
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setAs(from, to, def, replace, where = topenv(parent.frame()))
 </code></pre></div><blockquote>
 <ul>
 <li>
@@ -595,32 +580,32 @@ validObject(tm1, complete = <span style="color:#00f">TRUE</span>)
 <p>def：函数，参数<code>from</code>（<code>from</code>或<code>to</code>），目的是将<code>from</code>转化成<code>to</code>。</p>
 </li>
 <li>
-<p>replace：函数，参数<code>from</code>和<code>value</code>，目的是实现类似<code>as(obj,&quot;to&quot;) &lt;- value</code>。</p>
+<p>replace：函数，参数<code>from</code>和<code>value</code>，目的是实现类似<code>as(obj,"to") &lt;- value</code>。</p>
 </li>
 <li>
 <p>where：设定环境。</p>
 </li>
 </ul>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">t2 &lt;- new(<span style="color:#a31515">&#39;trick&#39;</span>, id = <span style="color:#00f">LETTERS</span>[3:1], time = matrix(9:1, ncol = 3))
-tn2 &lt;- new(<span style="color:#a31515">&#39;trickNum&#39;</span>, id = <span style="color:#00f">LETTERS</span>[3:1], time = matrix(10:2, ncol = 3), number = 5:6)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>t2 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>LETTERS</span>[3:1], time = matrix(9:1, ncol = 3))
+tn2 &lt;- new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>LETTERS</span>[3:1], time = matrix(10:2, ncol = 3), number = 5:6)
 
-as(tn2, <span style="color:#a31515">&#39;trick&#39;</span>)
-as(t2, <span style="color:#a31515">&#39;trickNum&#39;</span>)
+as(tn2, <span style=color:#a31515>&#39;trick&#39;</span>)
+as(t2, <span style=color:#a31515>&#39;trickNum&#39;</span>)
 
-as(tn2, <span style="color:#a31515">&#39;trick&#39;</span>) &lt;- tn1
-as(tn2, <span style="color:#a31515">&#39;trick&#39;</span>) &lt;- t2
-try(as(t2, <span style="color:#a31515">&#39;trickNum&#39;</span>) &lt;- tn1)
-try(as(t2, <span style="color:#a31515">&#39;trickNum&#39;</span>) &lt;- t1)
+as(tn2, <span style=color:#a31515>&#39;trick&#39;</span>) &lt;- tn1
+as(tn2, <span style=color:#a31515>&#39;trick&#39;</span>) &lt;- t2
+try(as(t2, <span style=color:#a31515>&#39;trickNum&#39;</span>) &lt;- tn1)
+try(as(t2, <span style=color:#a31515>&#39;trickNum&#39;</span>) &lt;- t1)
 
-setClass(Class = <span style="color:#a31515">&#39;trickNumMat&#39;</span>,
-         slots = c(number = <span style="color:#a31515">&#39;matrix&#39;</span>,
-                   id = <span style="color:#a31515">&#39;character&#39;</span>,
-                   time = <span style="color:#a31515">&#39;matrix&#39;</span>))
-setIs(class1 = <span style="color:#a31515">&#39;trickNum&#39;</span>,
-      class2 = <span style="color:#a31515">&#39;trickNumMat&#39;</span>,
+setClass(Class = <span style=color:#a31515>&#39;trickNumMat&#39;</span>,
+         slots = c(number = <span style=color:#a31515>&#39;matrix&#39;</span>,
+                   id = <span style=color:#a31515>&#39;character&#39;</span>,
+                   time = <span style=color:#a31515>&#39;matrix&#39;</span>))
+setIs(class1 = <span style=color:#a31515>&#39;trickNum&#39;</span>,
+      class2 = <span style=color:#a31515>&#39;trickNumMat&#39;</span>,
       coerce = function(from) {
-        toObj &lt;- new(<span style="color:#a31515">&#39;trickNumMat&#39;</span>,
+        toObj &lt;- new(<span style=color:#a31515>&#39;trickNumMat&#39;</span>,
                      number = as.matrix(from@number),
                      id = from@id,
                      time = from@time)
@@ -633,29 +618,29 @@ setIs(class1 = <span style="color:#a31515">&#39;trickNum&#39;</span>,
 
         return(from)
       })
-as(tn1, <span style="color:#a31515">&#39;trickNumMat&#39;</span>)
-tnm1 &lt;- new(<span style="color:#a31515">&#39;trickNumMat&#39;</span>,
+as(tn1, <span style=color:#a31515>&#39;trickNumMat&#39;</span>)
+tnm1 &lt;- new(<span style=color:#a31515>&#39;trickNumMat&#39;</span>,
             number = matrix(rnorm(1:9), nrow = 3),
-            id = <span style="color:#00f">LETTERS</span>[1:3],
+            id = <span style=color:#00f>LETTERS</span>[1:3],
             time = matrix(1:9, ncol = 3))
-as(tn1, <span style="color:#a31515">&#39;trickNumMat&#39;</span>) &lt;- tnm1
-</code></pre></div><h3 id="52-虚类">5.2 虚类</h3>
+as(tn1, <span style=color:#a31515>&#39;trickNumMat&#39;</span>) &lt;- tnm1
+</code></pre></div><h3 id=52-虚类>5.2 虚类</h3>
 <p>S4允许创建一个称为“虚类”的类。对于虚类，可以构建方法，可以创建子类，但是不能创造一个属于虚类的对象。虚类是为了解决“交集”的问题，即创建的多个新类中可能含有共同的slots。因此，将这些共同的slots处理成虚类，之后建立属于虚类的方法。这样，虚类下属的子类就能顺利继承。创建方法：第一种，<code>setClass()</code>函数的变量<code>contains</code>中加入<code>VIRTUAL</code>；第二种，<code>setClass()</code>函数只含有变量<code>Class</code>。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">setClass(Class = <span style="color:#a31515">&#39;trickVirtual&#39;</span>,
-         contains = c(id = <span style="color:#a31515">&#39;character&#39;</span>, <span style="color:#a31515">&#39;VIRTUAL&#39;</span>))
-setClass(Class = <span style="color:#a31515">&#39;trickA&#39;</span>,
-         contains = <span style="color:#a31515">&#39;trickVirtual&#39;</span>,
-         slots = c(number = <span style="color:#a31515">&#39;numeric&#39;</span>))
-setClass(Class = <span style="color:#a31515">&#39;trickB&#39;</span>,
-         contains = <span style="color:#a31515">&#39;trickVirtual&#39;</span>,
-         slots = c(log = <span style="color:#a31515">&#39;logical&#39;</span>))
-getClass(<span style="color:#a31515">&#39;trickVirtual&#39;</span>)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>setClass(Class = <span style=color:#a31515>&#39;trickVirtual&#39;</span>,
+         contains = c(id = <span style=color:#a31515>&#39;character&#39;</span>, <span style=color:#a31515>&#39;VIRTUAL&#39;</span>))
+setClass(Class = <span style=color:#a31515>&#39;trickA&#39;</span>,
+         contains = <span style=color:#a31515>&#39;trickVirtual&#39;</span>,
+         slots = c(number = <span style=color:#a31515>&#39;numeric&#39;</span>))
+setClass(Class = <span style=color:#a31515>&#39;trickB&#39;</span>,
+         contains = <span style=color:#a31515>&#39;trickVirtual&#39;</span>,
+         slots = c(log = <span style=color:#a31515>&#39;logical&#39;</span>))
+getClass(<span style=color:#a31515>&#39;trickVirtual&#39;</span>)
 
-setClass(Class = <span style="color:#a31515">&#39;testVirtual&#39;</span>)
-getClass(<span style="color:#a31515">&#39;testVirtual&#39;</span>)
-</code></pre></div><h3 id="53-类群">5.3 类群</h3>
+setClass(Class = <span style=color:#a31515>&#39;testVirtual&#39;</span>)
+getClass(<span style=color:#a31515>&#39;testVirtual&#39;</span>)
+</code></pre></div><h3 id=53-类群>5.3 类群</h3>
 <p>类群是为了解决“并集”的问题，即把功能相似的类合成一个“类群”，每次使用时只用其中的一个。因此，创建的“类群”是一个父类。使用<code>isClassUnion(Class)</code>检验某个类是否为类群，使用<code>setClassUnion(name, members, where)</code>创建类群。在使用类群时，默认使用的是第一个定义的类。每一个类群是一个虚类。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">setClassUnion(name, members, where)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>setClassUnion(name, members, where)
 </code></pre></div><blockquote>
 <ul>
 <li>
@@ -669,11 +654,11 @@ getClass(<span style="color:#a31515">&#39;testVirtual&#39;</span>)
 </li>
 </ul>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">setClassUnion(<span style="color:#a31515">&#34;trickUnion&#34;</span>, c(<span style="color:#a31515">&#34;logical&#34;</span>, <span style="color:#a31515">&#34;numeric&#34;</span>))
-setClass(<span style="color:#a31515">&#34;trickUA&#34;</span>, contains = <span style="color:#a31515">&#39;trickUnion&#39;</span>, slots = c(id = <span style="color:#a31515">&#39;numeric&#39;</span>))
-new(<span style="color:#a31515">&#39;trickUA&#39;</span>, 1:10, id = 1)
-getClass(<span style="color:#a31515">&#39;trickUnion&#39;</span>)
-</code></pre></div><h2 id="6-建立对象注意事项">6. 建立对象注意事项</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>setClassUnion(<span style=color:#a31515>&#34;trickUnion&#34;</span>, c(<span style=color:#a31515>&#34;logical&#34;</span>, <span style=color:#a31515>&#34;numeric&#34;</span>))
+setClass(<span style=color:#a31515>&#34;trickUA&#34;</span>, contains = <span style=color:#a31515>&#39;trickUnion&#39;</span>, slots = c(id = <span style=color:#a31515>&#39;numeric&#39;</span>))
+new(<span style=color:#a31515>&#39;trickUA&#39;</span>, 1:10, id = 1)
+getClass(<span style=color:#a31515>&#39;trickUnion&#39;</span>)
+</code></pre></div><h2 id=6-建立对象注意事项>6. 建立对象注意事项</h2>
 <ol>
 <li>
 <p>把所有对象写入一个文件<code>AllClass.R</code>，所有泛函写入<code>AllGeneric.R</code>。</p>
@@ -694,56 +679,38 @@ getClass(<span style="color:#a31515">&#39;trickUnion&#39;</span>)
 <p>修改slot后，对返回的对象进行<code>validObject()</code>检查。</p>
 </li>
 </ol>
-<h3 id="参考资料">参考资料</h3>
+<h3 id=参考资料>参考资料</h3>
 <ol>
 <li>
-<p><a href="https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf">A (Not So) Short Introduction to S4</a>：详细的S4介绍。</p>
+<p><a href=https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf>A (Not So) Short Introduction to S4</a>：详细的S4介绍。</p>
 </li>
 <li>
-<p><a href="http://adv-r.had.co.nz/S4.html">Advance R &ndash; S4</a></p>
+<p><a href=http://adv-r.had.co.nz/S4.html>Advance R &ndash; S4</a></p>
 </li>
 <li>
-<p><a href="https://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf">S4 System Development in Bioconductor</a></p>
+<p><a href=https://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf>S4 System Development in Bioconductor</a></p>
 </li>
 <li>
-<p><a href="https://www.crcpress.com/R-Programming-for-Bioinformatics/Gentleman/p/book/9781420063677">R Programming for Bioinformatics</a></p>
+<p><a href=https://www.crcpress.com/R-Programming-for-Bioinformatics/Gentleman/p/book/9781420063677>R Programming for Bioinformatics</a></p>
 </li>
 </ol>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2017年9月7日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/r">R</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/r>R</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

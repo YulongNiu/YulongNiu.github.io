@@ -1,132 +1,80 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PostgreSQL使用指南 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="PostgreSQL使用指南" />
-<meta property="og:description" content="PostgreSQL介绍。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2015-07-29T18:24:10+08:00" />
-<meta property="article:modified_time" content="2015-07-29T18:24:10+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="PostgreSQL使用指南"/>
-<meta name="twitter:description" content="PostgreSQL介绍。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	<script type="text/javascript" async
-        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
- MathJax.Hub.Config({
-     tex2jax: {
-         inlineMath: [['$','$'], ['\\(','\\)']],
-         displayMath: [['$$','$$'], ['\[\[','\]\]']],
-         processEscapes: true,
-         processEnvironments: true,
-         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-         TeX: { equationNumbers: { autoNumber: "AMS" },
-                extensions: ["AMSmath.js", "AMSsymbols.js"] }
-     }
- });
- MathJax.Hub.Queue(function() {
-     
-     
-     
-     var all = MathJax.Hub.getAllJax(), i;
-     for(i = 0; i < all.length; i += 1) {
-         all[i].SourceElement().parentNode.className += ' has-jax';
-     }
- });
-
- MathJax.Hub.Config({
-     
-     TeX: { equationNumbers: { autoNumber: "AMS" } }
- });
-</script>
-
-<style>
- code.has-jax {
-     font: inherit;
-     font-size: 100%;
-     background: inherit;
-     border: inherit;
-     color: #515151;
- }
-</style>
-
-
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>PostgreSQL使用指南 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="PostgreSQL使用指南">
+<meta property="og:description" content="PostgreSQL介绍。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2015-07-29T18:24:10+08:00">
+<meta property="article:modified_time" content="2015-07-29T18:24:10+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="PostgreSQL使用指南">
+<meta name=twitter:description content="PostgreSQL介绍。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['[[',']]']],processEscapes:!0,processEnvironments:!0,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var b=MathJax.Hub.getAllJax(),a;for(a=0;a<b.length;a+=1)b[a].SourceElement().parentNode.className+=' has-jax'}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script>
+<style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style>
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>PostgreSQL使用指南</h1>
+<div class=meta>Posted at &mdash; Jul 29, 2015</div>
+</div>
+<div class=markdown>
+<h2 id=1-查询>1. 查询</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>-- 选取特定的一列或者多列
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
 
+<span style=color:green>-- 选取全部列
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> *
+<span style=color:#00f>FROM</span> dataset
 
-		<div class="post-header">
-			<h1 class="title">PostgreSQL使用指南</h1>
-			<div class="meta">Posted at &mdash; Jul 29, 2015</div>
-		</div>
+<span style=color:green>-- 去除重复，选取一列或多列中唯一元素
+</span><span style=color:green>-- 如输入多列，则去除多列组合后的重复
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> <span style=color:#00f>DISTINCT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
 
-		<div class="markdown">
-			<h2 id="1-查询">1. 查询</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 选取特定的一列或者多列
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-
-<span style="color:#008000">-- 选取全部列
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> *
-<span style="color:#00f">FROM</span> dataset
-
-<span style="color:#008000">-- 去除重复，选取一列或多列中唯一元素
-</span><span style="color:#008000">-- 如输入多列，则去除多列组合后的重复
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> <span style="color:#00f">DISTINCT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-
-<span style="color:#008000">-- 指定输出列数
-</span><span style="color:#008000">-- a是输出行数，b是输出起始行（第一行计为0）
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> <span style="color:#00f">column</span>
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">LIMIT</span> a <span style="color:#00f">OFFSET</span> b
+<span style=color:green>-- 指定输出列数
+</span><span style=color:green>-- a是输出行数，b是输出起始行（第一行计为0）
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> <span style=color:#00f>column</span>
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>LIMIT</span> a <span style=color:#00f>OFFSET</span> b
 </code></pre></div><ul>
 <li>
 <p>使用<code>;</code>结束一条SQL语句，本文中省略；</p>
@@ -135,24 +83,24 @@
 <p>返回未排序数据；</p>
 </li>
 </ul>
-<h2 id="2-排序">2. 排序</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 按照一列或者多列升序排序
-</span><span style="color:#008000">-- 可以按照“不查询”的列排序
-</span><span style="color:#008000">-- 先按照column2排，再按照column5排
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, column3
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> column2, column5
+<h2 id=2-排序>2. 排序</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>-- 按照一列或者多列升序排序
+</span><span style=color:green>-- 可以按照“不查询”的列排序
+</span><span style=color:green>-- 先按照column2排，再按照column5排
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2, column3
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> column2, column5
 
-<span style="color:#008000">-- 降序
-</span><span style="color:#008000">-- DESC只作用于最靠近的唯一一列，即column2，不作用于column5
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, column3
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> column2 <span style="color:#00f">DESC</span>, column5
+<span style=color:green>-- 降序
+</span><span style=color:green>-- DESC只作用于最靠近的唯一一列，即column2，不作用于column5
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2, column3
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> column2 <span style=color:#00f>DESC</span>, column5
 
-<span style="color:#008000">--使用查询列相对编号
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, column3
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> 2, column5
+<span style=color:green>--使用查询列相对编号
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2, column3
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> 2, column5
 </code></pre></div><ul>
 <li>
 <p>使用相对列查询时，不查询的列，比如上述例子的column5，不能用数字代替。</p>
@@ -167,43 +115,43 @@
 <p><code>ORDER BY</code>{:.language-psql}必须在制定列和数据集后出现。</p>
 </li>
 </ul>
-<h2 id="3-筛选">3. 筛选</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- ORDER BY语句需要在WHERE之后
-</span><span style="color:#008000">-- AND表示“且”， OR表示“或”，第一个条件满足即终止
-</span><span style="color:#008000">-- AND和OR可有任意多个
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset 
-<span style="color:#00f">WHERE</span> (column3 = a <span style="color:#00f">OR</span> column3 = b) <span style="color:#00f">AND</span> column1 = <span style="color:#00f">c</span>
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> column3
+<h2 id=3-筛选>3. 筛选</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>-- ORDER BY语句需要在WHERE之后
+</span><span style=color:green>-- AND表示“且”， OR表示“或”，第一个条件满足即终止
+</span><span style=color:green>-- AND和OR可有任意多个
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset 
+<span style=color:#00f>WHERE</span> (column3 = a <span style=color:#00f>OR</span> column3 = b) <span style=color:#00f>AND</span> column1 = <span style=color:#00f>c</span>
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> column3
 
-<span style="color:#008000">-- 多个OR语句使用IN代替，比如上述例子为：
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset 
-<span style="color:#00f">WHERE</span> column3 <span style="color:#00f">IN</span> (a, b) <span style="color:#00f">AND</span> column1 = <span style="color:#00f">c</span>
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> column3
+<span style=color:green>-- 多个OR语句使用IN代替，比如上述例子为：
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset 
+<span style=color:#00f>WHERE</span> column3 <span style=color:#00f>IN</span> (a, b) <span style=color:#00f>AND</span> column1 = <span style=color:#00f>c</span>
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> column3
 
-<span style="color:#008000">-- NOT与IN连用
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset 
-<span style="color:#00f">WHERE</span> column3 <span style="color:#00f">NOT</span> <span style="color:#00f">IN</span> (a, b)
+<span style=color:green>-- NOT与IN连用
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset 
+<span style=color:#00f>WHERE</span> column3 <span style=color:#00f>NOT</span> <span style=color:#00f>IN</span> (a, b)
 
-<span style="color:#008000">-- BETWEEN a AND b语句，a必须小于等于b
-</span><span style="color:#008000">-- 如a等于b，则相当于筛选与a（或者b）相等数值
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> column1 <span style="color:#00f">BETWEEN</span> a <span style="color:#00f">AND</span> b
+<span style=color:green>-- BETWEEN a AND b语句，a必须小于等于b
+</span><span style=color:green>-- 如a等于b，则相当于筛选与a（或者b）相等数值
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> column1 <span style=color:#00f>BETWEEN</span> a <span style=color:#00f>AND</span> b
 
-<span style="color:#008000">--筛选NULL值使用IS NULL
-</span><span style="color:#008000">--筛选非NULL值使用IS NOT NULL
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> column1 <span style="color:#00f">IS</span> <span style="color:#00f">NULL</span>
+<span style=color:green>--筛选NULL值使用IS NULL
+</span><span style=color:green>--筛选非NULL值使用IS NOT NULL
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> column1 <span style=color:#00f>IS</span> <span style=color:#00f>NULL</span>
 </code></pre></div><ul>
 <li>
-<p><a href="http://www.postgresql.org/docs/9.4/static/functions-comparison.html#FUNCTIONS-COMPARISON-TABLE">PostgreSQL支持的比较符</a>：<code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code>、<code>=</code>和<code>!=</code>（“不等于”也可以表示为<code>&lt;&gt;</code>）。</p>
+<p><a href=http://www.postgresql.org/docs/9.4/static/functions-comparison.html#FUNCTIONS-COMPARISON-TABLE>PostgreSQL支持的比较符</a>：<code>&lt;</code>、<code>&lt;=</code>、<code>></code>、<code>>=</code>、<code>=</code>和<code>!=</code>（“不等于”也可以表示为<code>&lt;></code>）。</p>
 </li>
 <li>
-<p>筛选字符串条件，需要对筛选串加引号，比如例子中<code>a</code>为<code>&quot;testStr&quot;</code>。</p>
+<p>筛选字符串条件，需要对筛选串加引号，比如例子中<code>a</code>为<code>"testStr"</code>。</p>
 </li>
 <li>
 <p>合理使用括号，强制规定<code>AND</code>和<code>OR</code>先后顺序。</p>
@@ -215,19 +163,19 @@
 <p>尽量在数据库查询过程，而非自己后续手写，完成数据筛选，因为：1. SQL数据库操作通常比自己手写效率高；2. 便于后续扩展。</p>
 </li>
 </ul>
-<h2 id="4-模式匹配">4. 模式匹配</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- LIKE和NOT LIKE支持对字符串的模式匹配
-</span><span style="color:#008000">-- “_”匹配单一一个字符
-</span><span style="color:#008000">-- “%”匹配0个或多个字符
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> column1 <span style="color:#00f">LIKE</span> <span style="color:#a31515">&#39;F_y%&#39;</span>
+<h2 id=4-模式匹配>4. 模式匹配</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>-- LIKE和NOT LIKE支持对字符串的模式匹配
+</span><span style=color:green>-- “_”匹配单一一个字符
+</span><span style=color:green>-- “%”匹配0个或多个字符
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> column1 <span style=color:#00f>LIKE</span> <span style=color:#a31515>&#39;F_y%&#39;</span>
 
-<span style="color:#008000">-- SIMILAR TO和NOT SIMILAR TO支持正则匹配
-</span><span style="color:#008000">-- 正则匹配中，仍然使用“_”和“%”
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> column1 <span style="color:#00f">SIMILAR</span> <span style="color:#00f">TO</span> <span style="color:#a31515">&#39;[^JM]%&#39;</span>
+<span style=color:green>-- SIMILAR TO和NOT SIMILAR TO支持正则匹配
+</span><span style=color:green>-- 正则匹配中，仍然使用“_”和“%”
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> column1 <span style=color:#00f>SIMILAR</span> <span style=color:#00f>TO</span> <span style=color:#a31515>&#39;[^JM]%&#39;</span>
 </code></pre></div><ul>
 <li>
 <p>PostgreSQL支持<code>ILIKE</code>和<code>NOT ILIKE</code>忽略大小写敏感搜索，这不是标准SQL语法。</p>
@@ -236,57 +184,57 @@
 <p>注意数据库自动补充的空格，比如 <code>'F_y'</code>只能匹配“F开头-间隔一个字符-y结尾”的字符串，如果字符串后跟有空格，则不能匹配。</p>
 </li>
 <li>
-<p><a href="http://www.postgresql.org/docs/9.4/static/functions-matching.html">PostgreSQL支持的通配符</a></p>
+<p><a href=http://www.postgresql.org/docs/9.4/static/functions-matching.html>PostgreSQL支持的通配符</a></p>
 </li>
 <li>
 <p>模式匹配效率不高，尽量后置，不要过度使用。</p>
 </li>
 </ul>
-<h2 id="5-函数">5. 函数</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">--数学计算
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2 * column3 <span style="color:#00f">AS</span> newName
-<span style="color:#00f">FROM</span> dataset
+<h2 id=5-函数>5. 函数</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>--数学计算
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2 * column3 <span style=color:#00f>AS</span> newName
+<span style=color:#00f>FROM</span> dataset
 
-<span style="color:#008000">-- 字符串连接
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> RTRIM(column1) || <span style="color:#a31515">&#39; (&#39;</span> || RTRIM(column1) || <span style="color:#a31515">&#39;)&#39;</span> <span style="color:#00f">AS</span> newName
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> column1
+<span style=color:green>-- 字符串连接
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> RTRIM(column1) || <span style=color:#a31515>&#39; (&#39;</span> || RTRIM(column1) || <span style=color:#a31515>&#39;)&#39;</span> <span style=color:#00f>AS</span> newName
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> column1
 
-<span style="color:#008000">-- 使用函数
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, <span style="color:#00f">UPPER</span>(column2) <span style="color:#00f">AS</span> newName
-<span style="color:#00f">FROM</span> dataset
+<span style=color:green>-- 使用函数
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, <span style=color:#00f>UPPER</span>(column2) <span style=color:#00f>AS</span> newName
+<span style=color:#00f>FROM</span> dataset
 
-<span style="color:#008000">-- 筛选日期
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, columnDate 
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> DATE_PART(<span style="color:#a31515">&#39;year&#39;</span>, columnDate) = 2015
+<span style=color:green>-- 筛选日期
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, columnDate 
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> DATE_PART(<span style=color:#a31515>&#39;year&#39;</span>, columnDate) = 2015
 
-<span style="color:#008000">-- 汇总数据
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> <span style="color:#00f">AVG</span>(<span style="color:#00f">DISTINCT</span> column1) <span style="color:#00f">AS</span> newName1,
-       <span style="color:#00f">SUM</span>(column2) <span style="color:#00f">AS</span> newName2,
-       <span style="color:#00f">MAX</span>(column3) <span style="color:#00f">AS</span> newName3,
-       <span style="color:#00f">MIN</span>(column4) <span style="color:#00f">AS</span> newName4
-<span style="color:#00f">FROM</span> Products 
-<span style="color:#00f">WHERE</span> vend_id = <span style="color:#a31515">&#39;DLL01&#39;</span>
+<span style=color:green>-- 汇总数据
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> <span style=color:#00f>AVG</span>(<span style=color:#00f>DISTINCT</span> column1) <span style=color:#00f>AS</span> newName1,
+       <span style=color:#00f>SUM</span>(column2) <span style=color:#00f>AS</span> newName2,
+       <span style=color:#00f>MAX</span>(column3) <span style=color:#00f>AS</span> newName3,
+       <span style=color:#00f>MIN</span>(column4) <span style=color:#00f>AS</span> newName4
+<span style=color:#00f>FROM</span> Products 
+<span style=color:#00f>WHERE</span> vend_id = <span style=color:#a31515>&#39;DLL01&#39;</span>
 </code></pre></div><ul>
 <li>
 <p>使用<code>AS</code>及时命名新列。</p>
 </li>
 <li>
-<p>支持数字列的运算有<code>+</code>、<code>-</code>、<code>*</code>和<code>/</code>，更多操作参考<a href="http://www.postgresql.org/docs/9.4/static/functions-math.html">PostgreSQL支持的数值操作</a>。</p>
+<p>支持数字列的运算有<code>+</code>、<code>-</code>、<code>*</code>和<code>/</code>，更多操作参考<a href=http://www.postgresql.org/docs/9.4/static/functions-math.html>PostgreSQL支持的数值操作</a>。</p>
 </li>
 <li>
 <p>为了移植性考虑，如果使用数据库内置函数，需要对代码相应部分添加详细注释。</p>
 </li>
 </ul>
-<h2 id="6-分组">6. 分组</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#008000">-- 分组的意思是对一列或者多列数据归总
-</span><span style="color:#008000"></span><span style="color:#00f">SELECT</span> column1, column2, <span style="color:#00f">COUNT</span>(*) <span style="color:#00f">AS</span> newName 
-<span style="color:#00f">FROM</span> dataset
-<span style="color:#00f">WHERE</span> column4 &gt; 3
-<span style="color:#00f">GROUP</span> <span style="color:#00f">BY</span> column1, column2
-<span style="color:#00f">HAVING</span> <span style="color:#00f">COUNT</span>(*) &gt; 1
-<span style="color:#00f">ORDER</span> <span style="color:#00f">BY</span> newName
+<h2 id=6-分组>6. 分组</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green>-- 分组的意思是对一列或者多列数据归总
+</span><span style=color:green></span><span style=color:#00f>SELECT</span> column1, column2, <span style=color:#00f>COUNT</span>(*) <span style=color:#00f>AS</span> newName 
+<span style=color:#00f>FROM</span> dataset
+<span style=color:#00f>WHERE</span> column4 &gt; 3
+<span style=color:#00f>GROUP</span> <span style=color:#00f>BY</span> column1, column2
+<span style=color:#00f>HAVING</span> <span style=color:#00f>COUNT</span>(*) &gt; 1
+<span style=color:#00f>ORDER</span> <span style=color:#00f>BY</span> newName
 </code></pre></div><ul>
 <li>
 <p><code>GROUP BY</code>必须出现在<code>WHERE</code>后，<code>ORDER BY</code>前。</p>
@@ -304,16 +252,11 @@
 <p><code>NULL</code>单独给出，多个<code>NULL</code>合并为一组。</p>
 </li>
 <li>
-<p><code>HAVING</code>对分组汇总后数据筛选，区别<code>WHERE</code>（汇总分组前筛选）。不能使用新列名，比如<code>HAVING newName &gt; 1</code>非法。</p>
+<p><code>HAVING</code>对分组汇总后数据筛选，区别<code>WHERE</code>（汇总分组前筛选）。不能使用新列名，比如<code>HAVING newName > 1</code>非法。</p>
 </li>
 </ul>
-<h2 id="8-postgresql支持的函数">8. PostgreSQL支持的函数</h2>
-<h3 id="81-数值">8.1 数值</h3>
-
-
-
-
-
+<h2 id=8-postgresql支持的函数>8. PostgreSQL支持的函数</h2>
+<h3 id=81-数值>8.1 数值</h3>
 <table class="table table-responsive table-striped">
 <thead>
 <tr>
@@ -360,15 +303,8 @@
 </tr>
 </tbody>
 </table>
- 
-
-<p>详细参考：<a href="http://www.postgresql.org/docs/9.4/static/functions-math.html">PostgreSQL支持的数值操作</a></p>
-<h3 id="82-字符串">8.2 字符串</h3>
-
-
-
-
-
+<p>详细参考：<a href=http://www.postgresql.org/docs/9.4/static/functions-math.html>PostgreSQL支持的数值操作</a></p>
+<h3 id=82-字符串>8.2 字符串</h3>
 <table class="table table-responsive table-striped">
 <thead>
 <tr>
@@ -415,15 +351,8 @@
 </tr>
 </tbody>
 </table>
- 
-
-<p>详细参考：<a href="http://www.postgresql.org/docs/9.4/static/functions-string.html">PostgreSQL支持的字符串操作</a></p>
-<h3 id="83-日期">8.3 日期</h3>
-
-
-
-
-
+<p>详细参考：<a href=http://www.postgresql.org/docs/9.4/static/functions-string.html>PostgreSQL支持的字符串操作</a></p>
+<h3 id=83-日期>8.3 日期</h3>
 <table class="table table-responsive table-striped">
 <thead>
 <tr>
@@ -442,57 +371,37 @@
 </tr>
 </tbody>
 </table>
- 
-
-<p>详细参考：<a href="http://www.postgresql.org/docs/9.4/static/functions-datetime.html">PostgreSQL支持的日期操作</a></p>
-<h2 id="使用建议">使用建议</h2>
+<p>详细参考：<a href=http://www.postgresql.org/docs/9.4/static/functions-datetime.html>PostgreSQL支持的日期操作</a></p>
+<h2 id=使用建议>使用建议</h2>
 <ol>
 <li>数据集的名字为一个单词，比如<code>priceCustom</code>而不是一个字符串 <code>'price custom'</code>。同样，命名别名（使用<code>AS</code>）也如此。</li>
 </ol>
-<h3 id="参考资料">参考资料</h3>
+<h3 id=参考资料>参考资料</h3>
 <ul>
 <li>
-<p>《SQL必知必会（SQL in 10 Minutes, Sams Teach Yourself (4th Edition)）》<a href="https://book.douban.com/subject/24250054/">豆瓣链接</a></p>
+<p>《SQL必知必会（SQL in 10 Minutes, Sams Teach Yourself (4th Edition)）》<a href=https://book.douban.com/subject/24250054/>豆瓣链接</a></p>
 </li>
 <li>
-<p><a href="https://wiki.postgresql.org/wiki/9.1%E7%AC%AC%E5%9B%9B%E7%AB%A0">PostgreSQL Wiki</a></p>
+<p><a href=https://wiki.postgresql.org/wiki/9.1%E7%AC%AC%E5%9B%9B%E7%AB%A0>PostgreSQL Wiki</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2015年7月29日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/bioinfo">bioinfo</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/bioinfo>bioinfo</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

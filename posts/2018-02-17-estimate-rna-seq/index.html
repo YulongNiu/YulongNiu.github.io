@@ -1,114 +1,62 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>通过RNA-Seq评估基因表达量的模型 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="通过RNA-Seq评估基因表达量的模型" />
-<meta property="og:description" content="RNA-Seq计量。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-02-17T18:23:29+08:00" />
-<meta property="article:modified_time" content="2018-02-17T18:23:29+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="通过RNA-Seq评估基因表达量的模型"/>
-<meta name="twitter:description" content="RNA-Seq计量。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	<script type="text/javascript" async
-        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
- MathJax.Hub.Config({
-     tex2jax: {
-         inlineMath: [['$','$'], ['\\(','\\)']],
-         displayMath: [['$$','$$'], ['\[\[','\]\]']],
-         processEscapes: true,
-         processEnvironments: true,
-         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-         TeX: { equationNumbers: { autoNumber: "AMS" },
-                extensions: ["AMSmath.js", "AMSsymbols.js"] }
-     }
- });
- MathJax.Hub.Queue(function() {
-     
-     
-     
-     var all = MathJax.Hub.getAllJax(), i;
-     for(i = 0; i < all.length; i += 1) {
-         all[i].SourceElement().parentNode.className += ' has-jax';
-     }
- });
-
- MathJax.Hub.Config({
-     
-     TeX: { equationNumbers: { autoNumber: "AMS" } }
- });
-</script>
-
-<style>
- code.has-jax {
-     font: inherit;
-     font-size: 100%;
-     background: inherit;
-     border: inherit;
-     color: #515151;
- }
-</style>
-
-
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>通过RNA-Seq评估基因表达量的模型 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="通过RNA-Seq评估基因表达量的模型">
+<meta property="og:description" content="RNA-Seq计量。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2018-02-17T18:23:29+08:00">
+<meta property="article:modified_time" content="2018-02-17T18:23:29+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="通过RNA-Seq评估基因表达量的模型">
+<meta name=twitter:description content="RNA-Seq计量。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['[[',']]']],processEscapes:!0,processEnvironments:!0,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var b=MathJax.Hub.getAllJax(),a;for(a=0;a<b.length;a+=1)b[a].SourceElement().parentNode.className+=' has-jax'}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script>
+<style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style>
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">通过RNA-Seq评估基因表达量的模型</h1>
-			<div class="meta">Posted at &mdash; Feb 17, 2018</div>
-		</div>
-
-		<div class="markdown">
-			<p>$$
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>通过RNA-Seq评估基因表达量的模型</h1>
+<div class=meta>Posted at &mdash; Feb 17, 2018</div>
+</div>
+<div class=markdown>
+<p>$$
 \newcommand{\tildel}{\widetilde{l_t}}
 $$</p>
 <p>$$
@@ -117,20 +65,20 @@ $$</p>
 <p>$$
 \DeclareMathOperator*{\argmax}{arg,max}
 $$</p>
-<p>本文基于<a href="#Ref">参考资料1</a>，展示RNA-Seq在评估基因表达量模型的细节。</p>
-<h2 id="1-符号表示">1. 符号表示</h2>
+<p>本文基于<a href=#Ref>参考资料1</a>，展示RNA-Seq在评估基因表达量模型的细节。</p>
+<h2 id=1-符号表示>1. 符号表示</h2>
 <p>$K$个长度为$l_i$的转录序列$t_i$，构成转录本的集合$T=\{t_1, t_2, \dots, t_K\}$。单个转录组中，每个转录序列$t_i$有$c_i$个拷贝数，全部转录序列的总拷贝数为$M$。单个转录序列的相对丰度为$\rho_k=\frac{c_k}{\sum\limits_{t \in T} c_t} = \frac{c_k}{M}$，易得$\sum\limits_{k=1}^K \rho_k=1$。</p>
 <p>单个转录组中，全部转录片段构成集合$F=\{f_1, f_2, \dots, f_N\}$，总转录片段数目为$N=|F|$。比对到的转录序列$t_i$上的转录片段，构成集合$F_t \in F$，对应的转录片段数目为$X_t=|F_t|$。</p>
-<h2 id="2-简单模型">2. 简单模型</h2>
+<h2 id=2-简单模型>2. 简单模型</h2>
 <p>简单模型为：单端RNA-Seq，每一个read只比对到一个转录序列上，且每个read的长度都为定值$m$。对于转录序列$t_i$，从<code>5'</code>到<code>3'</code>一共可能比对上的read数目为$\tildel = l_i - m + 1$。建立模型的思路是：当给定一个read，它会被比对到某个转录序列的某个位置是一个随机事件。通过实际观测（即将read比对到转录序列），进而估计未知参数$\rho = \{\rho_1, \rho_2, \dots, \rho_K\}$。</p>
 <p>通过read序列比对，可得观测数据类似如下矩阵。每一行表示某个read是否比对到某个转录序列的某个位置，行和为1。$1$表示read比对到对应转录序列上，$0$表示没有比对到对应转录序列。</p>
 <p>$$
 \left[
 \begin{matrix}
-0 &amp; 0 &amp; \cdots &amp; 1 \newline
-0 &amp; 0 &amp; \cdots &amp; 0 \newline
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \newline
-0 &amp; 0 &amp; \cdots &amp; 1 \newline
+0 & 0 & \cdots & 1 \newline
+0 & 0 & \cdots & 0 \newline
+\vdots & \vdots & \ddots & \vdots \newline
+0 & 0 & \cdots & 1 \newline
 \end{matrix}
 \right]
 $$</p>
@@ -138,9 +86,9 @@ $$</p>
 <p>$$
 \begin{align}
 \begin{split}
-\P(f \in t) &amp;= \frac{\rho_t M \tildel}{\sum\limits_{k=1}^{K} \rho_k M \widetilde{l_k}} \newline
-&amp;= \frac{\rho_t \tildel}{\sum\limits_{k=1}^{K} \rho_k \widetilde{l_k}} \newline
-&amp;= \alpha_t
+\P(f \in t) &= \frac{\rho_t M \tildel}{\sum\limits_{k=1}^{K} \rho_k M \widetilde{l_k}} \newline
+&= \frac{\rho_t \tildel}{\sum\limits_{k=1}^{K} \rho_k \widetilde{l_k}} \newline
+&= \alpha_t
 \end{split}
 \label{eq:1}
 \end{align}
@@ -167,33 +115,33 @@ $$</p>
 <p>$$
 \begin{align}
 \begin{split}
-L &amp;= \prod_{f \in F_t} \prod_{t \in T} \frac{\alpha_t}{\tildel} \newline
-&amp;= \prod_{t \in T} \left( \frac{\alpha_t}{\tildel} \right)^{X_t} \newline
-&amp;\propto \prod_{t \in T} \alpha_t^{X_t}
+L &= \prod_{f \in F_t} \prod_{t \in T} \frac{\alpha_t}{\tildel} \newline
+&= \prod_{t \in T} \left( \frac{\alpha_t}{\tildel} \right)^{X_t} \newline
+&\propto \prod_{t \in T} \alpha_t^{X_t}
 \end{split}
 \label{eq:4}
 \end{align}
 $$</p>
-<p>在约束条件$\sum\limits_{t \in T} \alpha_t= 1$，求得极大似然估计为$\alpha_t = \frac{X_t}{N}$。有趣的是，在简单模型条件下，该极大似然估计可以来源于<a href="https://www.statlect.com/probability-distributions/multinoulli-distribution">multinoulli分布</a>。</p>
-<h2 id="2-异构体模型">2. 异构体模型</h2>
+<p>在约束条件$\sum\limits_{t \in T} \alpha_t= 1$，求得极大似然估计为$\alpha_t = \frac{X_t}{N}$。有趣的是，在简单模型条件下，该极大似然估计可以来源于<a href=https://www.statlect.com/probability-distributions/multinoulli-distribution>multinoulli分布</a>。</p>
+<h2 id=2-异构体模型>2. 异构体模型</h2>
 <p>在异构体模型中，某一个read可以比对到多个转录序列上，但每一个read的长度为定值$m$。因此，可得观测数据类似如下矩阵：</p>
 <p>$$
 \left[
 \begin{matrix}
-1 &amp; 0 &amp; \cdots &amp; 1 \newline
-1 &amp; 1 &amp; \cdots &amp; 1 \newline
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \newline
-0 &amp; 1 &amp; \cdots &amp; 1 \newline
+1 & 0 & \cdots & 1 \newline
+1 & 1 & \cdots & 1 \newline
+\vdots & \vdots & \ddots & \vdots \newline
+0 & 1 & \cdots & 1 \newline
 \end{matrix}
 \right]
 $$</p>
-<p>因此，对一个每一个read，可观测数值为是否比对到多个转录序列的某个位置，不可观测数据为该read真实来源于哪个转录序列$T=\{t_1, t_2, \dots, t_K\}$，要估计的未知参数为$\alpha=\{\alpha_1, \alpha_2, \dots, \alpha_K\}$。<a href="http://yulongniu.bionutshell.org/blog/2013/07/13/em/">EM算法</a>可以解决类似有隐变量问题。</p>
+<p>因此，对一个每一个read，可观测数值为是否比对到多个转录序列的某个位置，不可观测数据为该read真实来源于哪个转录序列$T=\{t_1, t_2, \dots, t_K\}$，要估计的未知参数为$\alpha=\{\alpha_1, \alpha_2, \dots, \alpha_K\}$。<a href=http://yulongniu.bionutshell.org/blog/2013/07/13/em/>EM算法</a>可以解决类似有隐变量问题。</p>
 <p>首先，异构体模型为：</p>
 <p>$$
 \begin{align}
 \begin{split}
-\P(\mathrm{pos}|\alpha) &amp;= \sum_{k=1}^{K} \P(\mathrm{pos}, f \in t_k|\alpha) \newline
-&amp;= \sum_{k = 1}^{K} y_k \frac{\alpha_k}{\widetilde{l_k}} \newline
+\P(\mathrm{pos}|\alpha) &= \sum_{k=1}^{K} \P(\mathrm{pos}, f \in t_k|\alpha) \newline
+&= \sum_{k = 1}^{K} y_k \frac{\alpha_k}{\widetilde{l_k}} \newline
 \end{split}
 \label{eq:5}
 \end{align}
@@ -203,9 +151,9 @@ $$</p>
 <p>$$
 \begin{align}
 \begin{split}
-\P(f \in t_1|\mathrm{pos}, \alpha^{(n)}) &amp;= \frac{\P(f \in t_1, \mathrm{pos}|\alpha^{(n)})}{\sum\limits_{k=1}^{K} \P(f \in t_k, \mathrm{pos}|\alpha^{(n)})} \newline
-&amp;= \frac{\alpha_1^{(n)} \frac{y_1}{\widetilde{l_1}}}{\sum\limits_{k=1}^{K} \alpha_k^{(n)} \frac{y_k}{\widetilde{l_k}}} \newline
-&amp;= \lambda_1
+\P(f \in t_1|\mathrm{pos}, \alpha^{(n)}) &= \frac{\P(f \in t_1, \mathrm{pos}|\alpha^{(n)})}{\sum\limits_{k=1}^{K} \P(f \in t_k, \mathrm{pos}|\alpha^{(n)})} \newline
+&= \frac{\alpha_1^{(n)} \frac{y_1}{\widetilde{l_1}}}{\sum\limits_{k=1}^{K} \alpha_k^{(n)} \frac{y_k}{\widetilde{l_k}}} \newline
+&= \lambda_1
 \end{split}
 \label{eq:6}
 \end{align}
@@ -214,13 +162,13 @@ $$</p>
 <p>$$
 \begin{align}
 \begin{split}
-\alpha^{(n+1)} &amp;= \argmax_\alpha \left(
+\alpha^{(n+1)} &= \argmax_\alpha \left(
 \sum_{f \in F} \sum_{k=1}^{K} \lambda_k \log\left(
 \alpha_k \frac{y_k}{\widetilde{l_k}}
 \right)
 \right) \newline
-&amp;= \argmax_\alpha \left(
-\sum_{f \in F} \sum_{k=1}^{K}  \lambda_k \log\left(
+&= \argmax_\alpha \left(
+\sum_{f \in F} \sum_{k=1}^{K} \lambda_k \log\left(
 \alpha_k
 \right)
 \right)
@@ -232,8 +180,8 @@ $$</p>
 <p>$$
 \begin{align*}
 \begin{split}
-\alpha_k^{(n+1)} &amp;= \frac{\sum_\limits{f \in F} \lambda_k}{\sum\limits_{i=1}^{K} \sum\limits_{f \in F} \lambda_i} \newline
-&amp;= \frac{\sum\limits_{f \in F} \lambda_k}{N}
+\alpha_k^{(n+1)} &= \frac{\sum_\limits{f \in F} \lambda_k}{\sum\limits_{i=1}^{K} \sum\limits_{f \in F} \lambda_i} \newline
+&= \frac{\sum\limits_{f \in F} \lambda_k}{N}
 ,\ k=1, 2, \dots, K
 \end{split}
 \end{align*}
@@ -242,55 +190,37 @@ $$</p>
 <p>$$
 \begin{align*}
 \begin{split}
-\lambda_k^{(n+1)} &amp;= \frac{y_k \rho_k^{(n)}}{\sum\limits_{i=1}^{K} y_i \rho_i^{(n)}} ,\ k=1, 2, \dots, K \newline
-\rho_k^{(n+1)} &amp;= \frac{\frac{\sum_\limits{f \in F} \lambda_k^{(n+1)}}{\widetilde{l_k}}}{\sum\limits_{i=1}^{K} \frac{\sum_\limits{f \in F} \lambda_i^{(n+1)}}{\widetilde{l_i}}} ,\ k=1, 2, \dots, K
+\lambda_k^{(n+1)} &= \frac{y_k \rho_k^{(n)}}{\sum\limits_{i=1}^{K} y_i \rho_i^{(n)}} ,\ k=1, 2, \dots, K \newline
+\rho_k^{(n+1)} &= \frac{\frac{\sum_\limits{f \in F} \lambda_k^{(n+1)}}{\widetilde{l_k}}}{\sum\limits_{i=1}^{K} \frac{\sum_\limits{f \in F} \lambda_i^{(n+1)}}{\widetilde{l_i}}} ,\ k=1, 2, \dots, K
 \end{split}
 \end{align*}
 $$</p>
-<h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+<h3 id=a-idref参考资料a>参考资料</h3>
 <ul>
 <li>
-<p>Lior Pachter: Models for transcript quantification from RNA-Seq. <a href="https://arxiv.org/abs/1104.3889">arXiv:1104.3889v2</a> [q-bio.GN], 2011.</p>
+<p>Lior Pachter: Models for transcript quantification from RNA-Seq. <a href=https://arxiv.org/abs/1104.3889>arXiv:1104.3889v2</a> [q-bio.GN], 2011.</p>
 </li>
 <li>
-<p>Wing-Kin Sung: Algorithms for Next-Generation Sequencing. <a href="https://www.crcpress.com/Algorithms-for-Next-Generation-Sequencing/Sung/p/book/9781466565500">Chapman and Hall/CRC</a>, 2017.</p>
+<p>Wing-Kin Sung: Algorithms for Next-Generation Sequencing. <a href=https://www.crcpress.com/Algorithms-for-Next-Generation-Sequencing/Sung/p/book/9781466565500>Chapman and Hall/CRC</a>, 2017.</p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2019年04月19日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/bioinfo">bioinfo</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/bioinfo>bioinfo</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

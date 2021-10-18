@@ -1,69 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Python on Yulong Niu</title>
-    <link>https://YulongNiu.github.io/tags/python/</link>
-    <description>Recent content in Python on Yulong Niu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Tue, 28 Jul 2015 14:37:38 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Python使用小技巧</title>
-      <link>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</link>
-      <pubDate>Tue, 28 Jul 2015 14:37:38 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</guid>
-      <description>收集了一些使用Python过程中的小技巧或者常见错误。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Yulong Niu</title><link>https://YulongNiu.github.io/tags/python/</link><description>Recent content in Python on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 28 Jul 2015 14:37:38 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python使用小技巧</title><link>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</link><pubDate>Tue, 28 Jul 2015 14:37:38 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</guid><description>收集了一些使用Python过程中的小技巧或者常见错误。
 1. While&amp;ndash;if&amp;ndash;break 适用情况：当需要执行一个循环，但是不能事先判断何时终止。 可以在循环内部加入判断，符合要求时跳出。比如，使用程序在某个目录下新建一个文件夹，如果文件名已经存在，需要重新生成文件名；否则，创建文件夹。
-import random, os while True: letter = [chr(i) for i in range(97, 123)] folderName = [random.choice(letter) for i in range(5)] fn = &amp;#39;&amp;#39;.join(folderName) if os.path.exists(fn) is not True: # get an unique name  os.mkdir(fn) break 2. 链式比较操作 Python支持一个链式的比较操作。
-testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &amp;lt; testNum &amp;lt; 5): print(&amp;#39;It passed!&amp;#39;) 参考网址   Python Wiki</description>
-    </item>
-    
-    <item>
-      <title>Python打包和上传PyPI</title>
-      <link>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</link>
-      <pubDate>Sat, 23 May 2015 01:03:26 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</guid>
-      <description>一个简单的Python包创建和上传PyPI流程。
+import random, os while True: letter = [chr(i) for i in range(97, 123)] folderName = [random.choice(letter) for i in range(5)] fn = &amp;#39;&amp;#39;.join(folderName) if os.path.exists(fn) is not True: # get an unique name os.mkdir(fn) break 2. 链式比较操作 Python支持一个链式的比较操作。
+testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &amp;lt; testNum &amp;lt; 5): print(&amp;#39;It passed!&amp;#39;) 参考网址 Python Wiki</description></item><item><title>Python打包和上传PyPI</title><link>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</link><pubDate>Sat, 23 May 2015 01:03:26 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</guid><description>一个简单的Python包创建和上传PyPI流程。
 1. 打包 ## 安装相关工具 pip install --upgrade setuptools wheel twine 当Python包代码完成后，在根目录下创建setup.py文件，具体参考sampleproject。
 ## 进入Python包目录 ## 测试 python setup.py test ## 打包 python setup.py sdist bdist_wheel 2. 上传PyPI PyPI注册帐号。
-## 进入Python包目录 ## 上传 twine upload dist/* 参考网址   Packaging Python Projects
-  twine package
-  更新记录 2018年6月23日</description>
-    </item>
-    
-    <item>
-      <title>Django使用介绍</title>
-      <link>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</link>
-      <pubDate>Sat, 09 May 2015 13:42:15 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</guid>
-      <description>本文是学习Django Tutorial的记录，目的为了帮助快速浏览和查找Django使用细节。
+## 进入Python包目录 ## 上传 twine upload dist/* 参考网址 Packaging Python Projects
+twine package
+更新记录 2018年6月23日</description></item><item><title>Django使用介绍</title><link>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</link><pubDate>Sat, 09 May 2015 13:42:15 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</guid><description>本文是学习Django Tutorial的记录，目的为了帮助快速浏览和查找Django使用细节。
 1. 安装Django 本文使用Python 3.3.6和PostgreSQL 9.3.6学习Django。可以参考“使用Pyenv控制多个版本Python”和 “Fedora安装与使用PostgreSQL”，安装对应版本Python和PostgreSQL。
-# 安装Django $ pip install django # 安装PostgreSQL支持psycopg2  $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
+# 安装Django $ pip install django # 安装PostgreSQL支持psycopg2 $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
 # Database # https://docs.djangoproject.com/en/1.8/ref/settings/#databases DATABASES = { &amp;#39;default&amp;#39;: { &amp;#39;ENGINE&amp;#39;: &amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;, &amp;#39;NAME&amp;#39;: &amp;#39;testdb&amp;#39;, &amp;#39;USER&amp;#39;: &amp;#39;userName&amp;#39;, &amp;#39;PASSWORD&amp;#39;: &amp;#39;passWord&amp;#39;, &amp;#39;HOST&amp;#39;: &amp;#39;/var/run/postgresql&amp;#39;, &amp;#39;PORT&amp;#39;: &amp;#39;5432&amp;#39;, } } # 配制好数据库后，链接数据库 $ python manage.py migrate 开启Django测试网络服务器
-$ python manage.</description>
-    </item>
-    
-    <item>
-      <title>使用Pyenv控制多个版本Python</title>
-      <link>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</link>
-      <pubDate>Sat, 09 May 2015 00:14:10 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</guid>
-      <description>同时在一台电脑上使用多个版本的Python，可以通过pyenv控制和管理。
-1. 安装方法 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv # 写入路径信息 $ echo &amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc # 重新载入 $ source ~/.bashrc 2. 安装多个版本Python和对应包 ## 查看可提供的Python版本列表 $ pyenv install --list ## 安装Python所依赖包 $ sudo dnf install readline readline-devel readline-static openssl openssl-devel openssl-static sqlite-devel bzip2-devel bzip2-libs ## 安装其他版本Python ## 如果命令行下载安装Python太慢，可以将下载的安装包放入~/.pyenv/cache/文件夹中，之后安装 $ pyenv install 3.4.3 $ pyenv rehash ## 查看已安装Python版本 $ pyenv versions ## 全局切换Python版本 $ pyenv global 3.</description>
-    </item>
-    
-    <item>
-      <title>Python中使用rpy2模块调用R</title>
-      <link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link>
-      <pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid>
-      <description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
+$ python manage.</description></item><item><title>使用Pyenv控制多个版本Python</title><link>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</link><pubDate>Sat, 09 May 2015 00:14:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</guid><description>同时在一台电脑上使用多个版本的Python，可以通过pyenv控制和管理。
+1. 安装方法 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv # 写入路径信息 $ echo &amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc # 重新载入 $ source ~/.bashrc 2. 安装多个版本Python和对应包 ## 查看可提供的Python版本列表 $ pyenv install --list ## 安装Python所依赖包 $ sudo dnf install readline readline-devel readline-static openssl openssl-devel openssl-static sqlite-devel bzip2-devel bzip2-libs ## 安装其他版本Python ## 如果命令行下载安装Python太慢，可以将下载的安装包放入~/.pyenv/cache/文件夹中，之后安装 $ pyenv install 3.4.3 $ pyenv rehash ## 查看已安装Python版本 $ pyenv versions ## 全局切换Python版本 $ pyenv global 3.</description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
 现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块rpy2 ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是renjin，一个基于JVM的R语言解释器。
 本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以官方文档为准。
 1. 安装 rpy2作为Python的一个模块，其安装非常方便。需要做的准备工作是在本地安装好R。
@@ -71,11 +19,7 @@ $ pip install rpy2 2. python调用R对象 2.1 使用rpy2.robjects 在rpy2中调�
 对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。
 调用方法：
 from rpy2.robjects import r 有三种方式可以选择：
-  使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
-  使用r[&#39;obj&#39;]，比如 r[&#39;c&#39;](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r[&#39;func&#39;](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r[&#39;func&#39;](value1, para2 = value, **{para.3: value3})。
-  使用r(&#39;obj&#39;)，比如 r(&#39;c(1, 3)&#39;)。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r(&#39;Rcode&#39;)调用执行。
-  # import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.</description>
-    </item>
-    
-  </channel>
-</rss>
+使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
+使用r['obj']，比如 r['c'](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r['func'](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r['func'](value1, para2 = value, **{para.3: value3})。
+使用r('obj')，比如 r('c(1, 3)')。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r('Rcode')调用执行。
+# import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.</description></item></channel></rss>

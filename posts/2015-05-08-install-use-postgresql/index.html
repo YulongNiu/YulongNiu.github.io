@@ -1,195 +1,162 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Fedora安装与使用PostgreSQL - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="Fedora安装与使用PostgreSQL" />
-<meta property="og:description" content="安装PostgreSQL。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2015-05-08T18:30:54+08:00" />
-<meta property="article:modified_time" content="2015-05-08T18:30:54+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Fedora安装与使用PostgreSQL"/>
-<meta name="twitter:description" content="安装PostgreSQL。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>Fedora安装与使用PostgreSQL - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="Fedora安装与使用PostgreSQL">
+<meta property="og:description" content="安装PostgreSQL。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2015-05-08T18:30:54+08:00">
+<meta property="article:modified_time" content="2015-05-08T18:30:54+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Fedora安装与使用PostgreSQL">
+<meta name=twitter:description content="安装PostgreSQL。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">Fedora安装与使用PostgreSQL</h1>
-			<div class="meta">Posted at &mdash; May 8, 2015</div>
-		</div>
-
-		<div class="markdown">
-			<h2 id="1-安装和开启postgresql">1. 安装和开启postgresql</h2>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>Fedora安装与使用PostgreSQL</h1>
+<div class=meta>Posted at &mdash; May 8, 2015</div>
+</div>
+<div class=markdown>
+<h2 id=1-安装和开启postgresql>1. 安装和开启postgresql</h2>
 <p>Fedora直接使用<code>dnf</code>安装相关组件。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 安装PostgreSQL</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 安装PostgreSQL</span>
 $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3
 </code></pre></div><p>初始化（只需要执行一次）。如果出现类似<code>Data directory is not empty!</code>报错，可以尝试执行删除操作<code>rm -f -r /usr/local/pgsql/data</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 初始化</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 初始化</span>
 $ sudo postgresql-setup --initdb --unit postgresql
 
-<span style="color:#008000"># 开启服务</span>
+<span style=color:green># 开启服务</span>
 $ sudo service postgresql start
 
-<span style="color:#008000"># 查询工作状态</span>
+<span style=color:green># 查询工作状态</span>
 $ sudo service postgresql status
 
-<span style="color:#008000"># 关闭服务</span>
+<span style=color:green># 关闭服务</span>
 $ sudo service postgresql stop
 
-<span style="color:#008000"># 开机启动</span>
+<span style=color:green># 开机启动</span>
 $ sudo chkconfig postgresql on
-</code></pre></div><h2 id="2-创建用户和数据库">2. 创建用户和数据库</h2>
+</code></pre></div><h2 id=2-创建用户和数据库>2. 创建用户和数据库</h2>
 <p>为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 进入home路径</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 进入home路径</span>
 $ cd /home/
 
 
-<span style="color:#008000"># 进入默认postgres用户，需要输入root密码。</span>
-<span style="color:#008000"># 之后系统命令提示符会变成类似“bash-4.3$”。</span>
+<span style=color:green># 进入默认postgres用户，需要输入root密码。</span>
+<span style=color:green># 之后系统命令提示符会变成类似“bash-4.3$”。</span>
 $ sudo postgres
 
-<span style="color:#008000"># 创建用户</span>
-<span style="color:#008000"># -P：创建用户后立即创建密码</span>
-<span style="color:#008000"># -s：用户为superuser</span>
-<span style="color:#008000"># -e：打印消息</span>
+<span style=color:green># 创建用户</span>
+<span style=color:green># -P：创建用户后立即创建密码</span>
+<span style=color:green># -s：用户为superuser</span>
+<span style=color:green># -e：打印消息</span>
 bash-4.3$ createuser -P -s -e Kitty
 
-<span style="color:#008000"># 创建数据库</span>
-<span style="color:#008000"># -O：制定用户</span>
+<span style=color:green># 创建数据库</span>
+<span style=color:green># -O：制定用户</span>
 bash-4.3$ createdb -O Kitty testdb
 
-<span style="color:#008000"># 退出</span>
+<span style=color:green># 退出</span>
 bash-4.3$ exit
 
-<span style="color:#008000"># 再创建新的数据库时，不需要进入postgres。</span>
-<span style="color:#008000"># 直接在当前登录用户下创建即可。</span>
-<span style="color:#008000"># 由于PostgreSQL用户与系统登录用户相同，不需要指定PostgreSQL用户</span>
+<span style=color:green># 再创建新的数据库时，不需要进入postgres。</span>
+<span style=color:green># 直接在当前登录用户下创建即可。</span>
+<span style=color:green># 由于PostgreSQL用户与系统登录用户相同，不需要指定PostgreSQL用户</span>
 $ creatdb testdb2
 
-<span style="color:#008000"># 删除数据库</span>
+<span style=color:green># 删除数据库</span>
 $ dropdb testdb2
 </code></pre></div><p>创建完用户和对应数据库后，可以登录数据库控制台。登录后，系统命令提示符会变成类似“testdb=#”。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000"># 登录testdb数据库控制台</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># 登录testdb数据库控制台</span>
 $ psql testdb
 
-<span style="color:#008000"># 完整登录命令</span>
-<span style="color:#008000"># -U：用户名</span>
-<span style="color:#008000"># -d：数据库</span>
-<span style="color:#008000"># -h：host，默认为local socket</span>
-<span style="color:#008000"># -p：端口</span>
+<span style=color:green># 完整登录命令</span>
+<span style=color:green># -U：用户名</span>
+<span style=color:green># -d：数据库</span>
+<span style=color:green># -h：host，默认为local socket</span>
+<span style=color:green># -p：端口</span>
 $ psql -U Kitty -d testdb -h /var/run/postgresql -p 5432
 
-<span style="color:#008000"># 查看PostgreSQL配制文件路径</span>
-testdb=<span style="color:#008000"># SHOW config_file;</span>
+<span style=color:green># 查看PostgreSQL配制文件路径</span>
+testdb=<span style=color:green># SHOW config_file;</span>
 
-<span style="color:#008000"># 查看所有用户</span>
-testdb=<span style="color:#008000"># \du</span>
+<span style=color:green># 查看所有用户</span>
+testdb=<span style=color:green># \du</span>
 
-<span style="color:#008000"># 查看表格（table）</span>
-testdb=<span style="color:#008000"># \dt</span>
+<span style=color:green># 查看表格（table）</span>
+testdb=<span style=color:green># \dt</span>
 
-<span style="color:#008000"># 查看所有数据库</span>
-testdb=<span style="color:#008000"># \l</span>
+<span style=color:green># 查看所有数据库</span>
+testdb=<span style=color:green># \l</span>
 
-<span style="color:#008000"># 退出</span>
-testdb=<span style="color:#008000"># \q</span>
-</code></pre></div><h3 id="参考资料">参考资料</h3>
+<span style=color:green># 退出</span>
+testdb=<span style=color:green># \q</span>
+</code></pre></div><h3 id=参考资料>参考资料</h3>
 <ul>
 <li>
-<p><a href="http://www.postgresql.org/docs/9.4/interactive/index.html">PostgreSQL 9.4 Manuals</a></p>
+<p><a href=http://www.postgresql.org/docs/9.4/interactive/index.html>PostgreSQL 9.4 Manuals</a></p>
 </li>
 <li>
-<p><a href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">PostgreSQL新手入门</a></p>
+<p><a href=http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html>PostgreSQL新手入门</a></p>
 </li>
 <li>
-<p><a href="http://www.heatware.net/linux-unix/how-install-postgresql-8-4-centos-5/">初始化错误</a></p>
+<p><a href=http://www.heatware.net/linux-unix/how-install-postgresql-8-4-centos-5/>初始化错误</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2015年7月29日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/linux">Linux</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/linux>Linux</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

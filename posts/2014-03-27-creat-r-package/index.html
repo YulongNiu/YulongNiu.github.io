@@ -1,108 +1,93 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>创建R包的最简流程 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="创建R包的最简流程" />
-<meta property="og:description" content="R包急简流程。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2014-03-27T14:53:05-04:00" />
-<meta property="article:modified_time" content="2014-03-27T14:53:05-04:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="创建R包的最简流程"/>
-<meta name="twitter:description" content="R包急简流程。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>创建R包的最简流程 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="创建R包的最简流程">
+<meta property="og:description" content="R包急简流程。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2014-03-27T14:53:05-04:00">
+<meta property="article:modified_time" content="2014-03-27T14:53:05-04:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="创建R包的最简流程">
+<meta name=twitter:description content="R包急简流程。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">创建R包的最简流程</h1>
-			<div class="meta">Posted at &mdash; Mar 27, 2014</div>
-		</div>
-
-		<div class="markdown">
-			<p>一个最简单创建R包的流程。</p>
-<h2 id="1-载入工具包">1. 载入工具包</h2>
-<p>安装并载入<!-- raw HTML omitted -->devtools<!-- raw HTML omitted -->包和<!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->包。<!-- raw HTML omitted -->devtools<!-- raw HTML omitted -->包提供了一些包的检查、安装和打包的基本工具。<!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合<a href="http://ess.r-project.org/">ESS</a>建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用<a href="http://www.rstudio.com/">Rstudio</a>。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">library(<span style="color:#a31515">&#39;devtools&#39;</span>)
-library(<span style="color:#a31515">&#39;roxygen2&#39;</span>)
-</code></pre></div><h2 id="2-span-stylecolor-bluercppspan和相关的包">2. <!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted -->和相关的包</h2>
-<p>如果使用了<!-- raw HTML omitted -->Rcpp<!-- raw HTML omitted -->或者相关的包，比如<!-- raw HTML omitted -->RcppArmadillo<!-- raw HTML omitted -->，需要格外设置。所有cpp代码都写在src文件夹下。</p>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>创建R包的最简流程</h1>
+<div class=meta>Posted at &mdash; Mar 27, 2014</div>
+</div>
+<div class=markdown>
+<p>一个最简单创建R包的流程。</p>
+<h2 id=1-载入工具包>1. 载入工具包</h2>
+<p>安装并载入devtools包和roxygen2包。devtools包提供了一些包的检查、安装和打包的基本工具。roxygen2包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合<a href=http://ess.r-project.org/>ESS</a>建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用<a href=http://www.rstudio.com/>Rstudio</a>。</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>library(<span style=color:#a31515>&#39;devtools&#39;</span>)
+library(<span style=color:#a31515>&#39;roxygen2&#39;</span>)
+</code></pre></div><h2 id=2-span-stylecolor-bluercppspan和相关的包>2. Rcpp和相关的包</h2>
+<p>如果使用了Rcpp或者相关的包，比如RcppArmadillo，需要格外设置。所有cpp代码都写在src文件夹下。</p>
 <p><strong>首先</strong>，执行：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">use_rcpp()
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>use_rcpp()
 </code></pre></div><p><strong>其次</strong>，在<code>DESCRIPTION</code>中添加依赖或者需要链接的包名称，比如：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Encoding: UTF-8
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>Encoding: UTF-8
 Imports: 
     Rcpp
 LinkingTo: 
     Rcpp,
     RcppArmadillo
 </code></pre></div><p><strong>之后</strong>，在包的<code>R/</code>目录下，添加一个文件<code>RcppChk.R</code>（文件名称自定），并写入：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#008000">#&#39; @useDynLib my-pkg-name, .registration = TRUE</span>
-<span style="color:#008000">#&#39; @importFrom Rcpp sourceCpp</span>
-<span style="color:#00f">NULL</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=color:green>#&#39; @useDynLib my-pkg-name, .registration = TRUE</span>
+<span style=color:green>#&#39; @importFrom Rcpp sourceCpp</span>
+<span style=color:#00f>NULL</span>
 </code></pre></div><p>注意，修改<code>my-pkg-name</code>为自己的包名称。</p>
 <p><strong>然后</strong>，在包的<code>src/</code>目录下，添加一个文件<code>registerDynamicSymbol.c</code>（文件名称自定），并写入：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008000">// RegisteringDynamic Symbols
-</span><span style="color:#008000"></span>
-<span style="color:#00f">#include</span> <span style="color:#00f">&lt;R.h&gt;</span><span style="color:#00f">
-</span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rinternals.h&gt;</span><span style="color:#00f">
-</span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;R_ext/Rdynload.h&gt;</span><span style="color:#00f">
-</span><span style="color:#00f"></span>
-<span style="color:#2b91af">void</span> R_init_markovchain(DllInfo* info) {
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:green>// RegisteringDynamic Symbols
+</span><span style=color:green></span>
+<span style=color:#00f>#include</span> <span style=color:#00f>&lt;R.h&gt;</span><span style=color:#00f>
+</span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;Rinternals.h&gt;</span><span style=color:#00f>
+</span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;R_ext/Rdynload.h&gt;</span><span style=color:#00f>
+</span><span style=color:#00f></span>
+<span style=color:#2b91af>void</span> R_init_markovchain(DllInfo* info) {
   R_registerRoutines(info, NULL, NULL, NULL, NULL);
   R_useDynamicSymbols(info, TRUE);
 } 
 </code></pre></div><p><strong>最后</strong>，可能需要在<code>~/.R/Makevars</code>文件下添加：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># Settings from /etc/R/Makeconf with &#34;non-portable flag(s):&#34;
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback># Settings from /etc/R/Makeconf with &#34;non-portable flag(s):&#34;
 # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic
 # and without -fdebug-prefix-map=... 
 CFLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2 $(LTO)
@@ -110,69 +95,51 @@ CXXFLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2 $
 CXX98FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
 CXX11FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
 CXX14FLAGS = -g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2
-</code></pre></div><h2 id="3-创建description文件模板">3. 创建DESCRIPTION文件模板</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">load_all()
+</code></pre></div><h2 id=3-创建description文件模板>3. 创建DESCRIPTION文件模板</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>load_all()
 </code></pre></div><p>其中<code>import</code>栏目，在源代码中使用了哪些包，需要逐步在import项目中添加和修改。</p>
-<h2 id="4-更新文档和检查包">4. 更新文档和检查包</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">document()
+<h2 id=4-更新文档和检查包>4. 更新文档和检查包</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>document()
 check()
-</code></pre></div><h2 id="5-安装包">5. 安装包</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">install()
-</code></pre></div><h2 id="6-生成targz压缩文件">6. 生成<code>.tar.gz</code>压缩文件</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">build()
-</code></pre></div><h3 id="a-idref参考网址a"><!-- raw HTML omitted -->参考网址<!-- raw HTML omitted --></h3>
+</code></pre></div><h2 id=5-安装包>5. 安装包</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>install()
+</code></pre></div><h2 id=6-生成targz压缩文件>6. 生成<code>.tar.gz</code>压缩文件</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>build()
+</code></pre></div><h3 id=a-idref参考网址a>参考网址</h3>
 <ul>
 <li>
 <p><a href="https://www.youtube.com/watch?v=9PyQlbAEujY">创建R包视频</a></p>
 </li>
 <li>
-<p><a href="http://r-pkgs.had.co.nz/src.html">R package by Hadley Wickham</a></p>
+<p><a href=http://r-pkgs.had.co.nz/src.html>R package by Hadley Wickham</a></p>
 </li>
 <li>
-<p><a href="http://adv-r.had.co.nz/Rcpp.html">Advanced R by Hadley Wickham</a></p>
+<p><a href=http://adv-r.had.co.nz/Rcpp.html>Advanced R by Hadley Wickham</a></p>
 </li>
 <li>
-<p><a href="https://stackoverflow.com/questions/50658198/cran-submission-r-cmd-check-warning-compilation-flags-used/52100124#52100124">CRAN submission - R CMD Check warning - compilation flags used</a></p>
+<p><a href=https://stackoverflow.com/questions/50658198/cran-submission-r-cmd-check-warning-compilation-flags-used/52100124#52100124>CRAN submission - R CMD Check warning - compilation flags used</a></p>
 </li>
 <li>
-<p><a href="https://stackoverflow.com/questions/51694929/warning-about-utf-8-with-roxygen2">Warning about UTF-8 with roxygen2</a></p>
+<p><a href=https://stackoverflow.com/questions/51694929/warning-about-utf-8-with-roxygen2>Warning about UTF-8 with roxygen2</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2019年04月19日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/r">R</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/r>R</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

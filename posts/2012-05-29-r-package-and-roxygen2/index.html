@@ -1,80 +1,65 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>R包制作和roxygen2使用说明 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="R包制作和roxygen2使用说明" />
-<meta property="og:description" content="制作R包的记录。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2012-05-29T19:46:59-04:00" />
-<meta property="article:modified_time" content="2012-05-29T19:46:59-04:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="R包制作和roxygen2使用说明"/>
-<meta name="twitter:description" content="制作R包的记录。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>R包制作和roxygen2使用说明 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="R包制作和roxygen2使用说明">
+<meta property="og:description" content="制作R包的记录。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2012-05-29T19:46:59-04:00">
+<meta property="article:modified_time" content="2012-05-29T19:46:59-04:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="R包制作和roxygen2使用说明">
+<meta name=twitter:description content="制作R包的记录。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">R包制作和roxygen2使用说明</h1>
-			<div class="meta">Posted at &mdash; May 29, 2012</div>
-		</div>
-
-		<div class="markdown">
-			<p>查看创建R包的各种细节，权威的文献是<a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>。</p>
-<h2 id="1-创建r包目录">1. 创建R包目录</h2>
-<p>像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如<code>R</code>，<code>man</code>等）和文件（如<code>DESCRIPTION</code>，<code>NAMESPACE</code>）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如<!-- raw HTML omitted -->Biobase<!-- raw HTML omitted -->包，如下图：</p>
-<p><img src="/images/r_catalog.png" alt="r_catalog"></p>
-<h3 id="11-description文件">1.1 <code>DESCRIPTION</code>文件</h3>
-<p>一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子<!-- raw HTML omitted -->knitr<!-- raw HTML omitted -->包的<code>DESCRIPTION</code>文件：</p>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>R包制作和roxygen2使用说明</h1>
+<div class=meta>Posted at &mdash; May 29, 2012</div>
+</div>
+<div class=markdown>
+<p>查看创建R包的各种细节，权威的文献是<a href=http://cran.r-project.org/doc/manuals/r-release/R-exts.html>Writing R Extensions</a>。</p>
+<h2 id=1-创建r包目录>1. 创建R包目录</h2>
+<p>像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如<code>R</code>，<code>man</code>等）和文件（如<code>DESCRIPTION</code>，<code>NAMESPACE</code>）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：</p>
+<p><img src=/images/r_catalog.png alt=r_catalog></p>
+<h3 id=11-description文件>1.1 <code>DESCRIPTION</code>文件</h3>
+<p>一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的<code>DESCRIPTION</code>文件：</p>
 <ul>
 <li>
 <p>Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。</p>
@@ -95,24 +80,24 @@
 <p>Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数<code>person()</code>，其中变量<code>role</code>的选项<code>aut</code>表示author，<code>cre</code>表示creator（维护者），<code>ctb</code>表示contributor。一个例子：</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">c(person(<span style="color:#a31515">&#34;Hadley&#34;</span>, <span style="color:#a31515">&#34;Wickham&#34;</span>, email = <span style="color:#a31515">&#34;hadley@rice.edu&#34;</span>, role =<span style="color:#a31515">&#34;ctb&#34;</span>),  
-person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a31515">&#34;Xie&#34;</span>, email = <span style="color:#a31515">&#34;xie@yihui.name&#34;</span>, role = c(<span style="color:#a31515">&#34;aut&#34;</span>, <span style="color:#a31515">&#34;cre&#34;</span>)))
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>c(person(<span style=color:#a31515>&#34;Hadley&#34;</span>, <span style=color:#a31515>&#34;Wickham&#34;</span>, email = <span style=color:#a31515>&#34;hadley@rice.edu&#34;</span>, role =<span style=color:#a31515>&#34;ctb&#34;</span>),  
+person(<span style=color:#a31515>&#34;Yihui&#34;</span>, <span style=color:#a31515>&#34;Xie&#34;</span>, email = <span style=color:#a31515>&#34;xie@yihui.name&#34;</span>, role = c(<span style=color:#a31515>&#34;aut&#34;</span>, <span style=color:#a31515>&#34;cre&#34;</span>)))
 </code></pre></div><ul>
 <li>
 <p>Date（可选）：当前版本包日期，格式yyyy-mm-dd。</p>
 </li>
 <li>
-<p>Depends（可选）：依赖的R环境版本和包名称，比如 <code>R (&gt;= 2.14.1)</code>。</p>
+<p>Depends（可选）：依赖的R环境版本和包名称，比如 <code>R (>= 2.14.1)</code>。</p>
 </li>
 </ul>
-<p><!-- raw HTML omitted -->注意：<!-- raw HTML omitted --></p>
+<p>注意：</p>
 <blockquote>
 <ol>
 <li>
 <p>加上版本号，没有版本号等于没用，因为版本之间可能差异很大；</p>
 </li>
 <li>
-<p>对于<!-- raw HTML omitted -->base<!-- raw HTML omitted -->等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.14.0之后完全没有必要写，因为从这个版本后，所有包都有<code>NAMESPACE</code>，直接使用<code>Imports</code>就可以了。</p>
+<p>对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.14.0之后完全没有必要写，因为从这个版本后，所有包都有<code>NAMESPACE</code>，直接使用<code>Imports</code>就可以了。</p>
 </li>
 </ol>
 </blockquote>
@@ -130,7 +115,7 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p>URL（可选）：一系列相关的网址，使用“逗号”或者空格隔开。链接可能是作者的主页、包的补充材料等。</p>
 </li>
 <li>
-<p>BugReports（可选）：一个网址，用于提交bug，代替了向作者发邮件。一个好的想法是使用<a href="https://github.com/">Github</a>，在项目的issures版块提交bug。</p>
+<p>BugReports（可选）：一个网址，用于提交bug，代替了向作者发邮件。一个好的想法是使用<a href=https://github.com/>Github</a>，在项目的issures版块提交bug。</p>
 </li>
 <li>
 <p>Collate（可选）：看不懂。</p>
@@ -145,7 +130,7 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p>BuildVignettes（可选）：如果设定位<code>FALSE</code>，<code>R CMD build</code>不会重新编辑vignette，同时<code>R CMD check</code>也不会检查。</p>
 </li>
 </ul>
-<h3 id="12-包目录下的各种文件夹说明">1.2 包目录下的各种文件夹说明</h3>
+<h3 id=12-包目录下的各种文件夹说明>1.2 包目录下的各种文件夹说明</h3>
 <ul>
 <li>
 <p>R文件夹：这个文件夹下放置用R语言写成的源代码，文件最好使用后缀<code>*.R</code>。</p>
@@ -157,7 +142,7 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p>src文件夹：放置用其他语言写成的代码，比如C/C++/Fortran等。</p>
 </li>
 <li>
-<p>data文件夹：放置一些data文件，比如R代码、表格（<code>*txt</code>/<code>*.tab</code>/<code>*.csv</code>）文件或者是用<code>save()</code>函数保存的镜像（<code>*.RData</code>/<code>*.rda</code>）。这些文件必须是“自给自足”的，即不用调用包也能使用这些data。如果这些data比较大，可以将其压缩为<code>*.gzip</code>/<code>*.bzip2</code>/<code>*.xz</code>格式，或者在保存镜像时，使用<code>save(, compress = TRUE)</code>。这些方法可以有效地减少包的体积和安装时间，以方便用户使用。如果原始数据，比如<code>test.csv</code>文件，可以放入<code>inst/extdata/</code>文件夹。引用这类数据，使用<code>system.file(&quot;extdata&quot;, &quot;test.csv&quot;, package = &quot;myPkg&quot;)</code>。</p>
+<p>data文件夹：放置一些data文件，比如R代码、表格（<code>*txt</code>/<code>*.tab</code>/<code>*.csv</code>）文件或者是用<code>save()</code>函数保存的镜像（<code>*.RData</code>/<code>*.rda</code>）。这些文件必须是“自给自足”的，即不用调用包也能使用这些data。如果这些data比较大，可以将其压缩为<code>*.gzip</code>/<code>*.bzip2</code>/<code>*.xz</code>格式，或者在保存镜像时，使用<code>save(, compress = TRUE)</code>。这些方法可以有效地减少包的体积和安装时间，以方便用户使用。如果原始数据，比如<code>test.csv</code>文件，可以放入<code>inst/extdata/</code>文件夹。引用这类数据，使用<code>system.file("extdata", "test.csv", package = "myPkg")</code>。</p>
 </li>
 <li>
 <p>demo文件夹：放置一些包的示例，通过<code>demo()</code>函数访问。（需要有一个00Index文件？不能自动生成？）</p>
@@ -166,17 +151,17 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p>exec文件夹：放置脚本文件比如shell、Perl、Python、Tcl等。</p>
 </li>
 <li>
-<p>inst文件夹：包在编译安装中，会将这个文件下的文件放入包的根目录下，所以可以放包的更新文件NEWS（或者CHANGELOG）文件、用于引用的CITATION文件等。还有很重要的子文件夹是doc，vignette文件就放在此处，格式为*.Rnw，这个文件会进一步被编程成LaTeX文件，最后生成常见的PDF文档。现在Swear过时了，用<!-- raw HTML omitted -->knitr<!-- raw HTML omitted -->吧。</p>
+<p>inst文件夹：包在编译安装中，会将这个文件下的文件放入包的根目录下，所以可以放包的更新文件NEWS（或者CHANGELOG）文件、用于引用的CITATION文件等。还有很重要的子文件夹是doc，vignette文件就放在此处，格式为*.Rnw，这个文件会进一步被编程成LaTeX文件，最后生成常见的PDF文档。现在Swear过时了，用knitr吧。</p>
 </li>
 </ul>
-<h2 id="2-namespace文件">2. <code>NAMESPACE</code>文件</h2>
-<h3 id="21-文件说明">2.1 文件说明</h3>
+<h2 id=2-namespace文件>2. <code>NAMESPACE</code>文件</h2>
+<h3 id=21-文件说明>2.1 文件说明</h3>
 <p><code>NAMESPACE</code>文件非常重要，因为它指明哪些函数是“输出（export）”给用户使用，哪些又是从其他包中“输入（import）”的。如果作者没有指明这个文件，那么在创建包时会被自动创建，此时所有的对象都被输出，在<code>Imports</code>和<code>Depends</code>下的包全部被输入。</p>
-<p><strong>“输出”格式</strong>：<code>export(f, g)</code>，其中<code>f</code>和<code>g</code>是变量名，一般不用引号括起。也可以使用正则表达式批量输出，比如 <code>exportPattern(&quot;^[^\\.]&quot;)</code>。</p>
-<p><strong>“输入”格式</strong>：<code>import(for, bar)</code>，其中<code>for</code>和<code>bar</code>是包名称，这样做会导致<code>for</code>和<code>bar</code>中所有的输出对象都被引用。如果我们只想引用其中的某几个对象， 可以使用<code>importFrom(foo, f, g)</code>，其中<code>f</code>和<code>g</code>是<code>foo</code>包的变量名。<!-- raw HTML omitted -->Base<!-- raw HTML omitted -->包的命名空间被默认引用。当然，也可以输出其他包的变量，前提是这些变量需要先被输入。</p>
-<h3 id="22-s3类">2.2 S3类</h3>
+<p><strong>“输出”格式</strong>：<code>export(f, g)</code>，其中<code>f</code>和<code>g</code>是变量名，一般不用引号括起。也可以使用正则表达式批量输出，比如 <code>exportPattern("^[^\\.]")</code>。</p>
+<p><strong>“输入”格式</strong>：<code>import(for, bar)</code>，其中<code>for</code>和<code>bar</code>是包名称，这样做会导致<code>for</code>和<code>bar</code>中所有的输出对象都被引用。如果我们只想引用其中的某几个对象， 可以使用<code>importFrom(foo, f, g)</code>，其中<code>f</code>和<code>g</code>是<code>foo</code>包的变量名。Base包的命名空间被默认引用。当然，也可以输出其他包的变量，前提是这些变量需要先被输入。</p>
+<h3 id=22-s3类>2.2 S3类</h3>
 <p><code>S3method(Mymethod, Myclass)</code></p>
-<h3 id="23-s4类">2.3 S4类</h3>
+<h3 id=23-s4类>2.3 S4类</h3>
 <p><strong>“输出”格式</strong>：如果创建的S4类需要被外部调用，使用<code>exportClasses(Myclass1, Myclass2)</code>，同样可以使用<code>exportClassPattern()</code>批量输出。对于S4，输出“方法（methods）”也会输出“泛函（generic）”，输出泛函同样也会输出方法。如果一个方法，在要创建的包中没有找到对应的方法，有两种可能的情况：</p>
 <blockquote>
 <ol>
@@ -184,23 +169,23 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p>泛函已经从别的包中输入，比如<code>importMethods()</code>；</p>
 </li>
 <li>
-<p>从别的包中输入函数，但被转换为默认方法，比如<code>importFrom(&quot;graphics&quot;, plot)</code>，<code>plot()</code>函数又被分配其他的方法，这种情况下输入自己包的<code>plot()</code>函数，使用<code>exportMethods(plot)</code>。</p>
+<p>从别的包中输入函数，但被转换为默认方法，比如<code>importFrom("graphics", plot)</code>，<code>plot()</code>函数又被分配其他的方法，这种情况下输入自己包的<code>plot()</code>函数，使用<code>exportMethods(plot)</code>。</p>
 </li>
 </ol>
 </blockquote>
 <p><strong>“输入”格式</strong>：输入某个包的全部类或者特定的类，<code>ImportClasses(pkg)</code>或者<code>ImportClassesFrom(pkg, class1)</code>；输入某个包全部方法或者特定方法，<code>ImportMethods(pkg)</code>或者<code>ImportMethodsFrom(pkg, method1)</code>。</p>
-<p><!-- raw HTML omitted -->stats4<!-- raw HTML omitted -->给出的例子非常好，R 2.15.0之后，对隐式泛函要求严格，必须先输入显示函数：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  export(mle) 
-  importFrom(<span style="color:#a31515">&#34;graphics&#34;</span>, plot) 
-  importFrom(<span style="color:#a31515">&#34;stats&#34;</span>, optim, qchisq) 
-  <span style="color:#008000">## For these, we define methods or (AIC, BIC, nobs) an implicit generic: </span>
-  importFrom(<span style="color:#a31515">&#34;stats&#34;</span>, AIC, BIC, coef, confint, logLik, nobs, profile, update, vcov)   exportClasses(mle, profile.mle, summary.mle) 
-  <span style="color:#008000">## All methods for imported generics: </span>
+<p>stats4给出的例子非常好，R 2.15.0之后，对隐式泛函要求严格，必须先输入显示函数：</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>  export(mle) 
+  importFrom(<span style=color:#a31515>&#34;graphics&#34;</span>, plot) 
+  importFrom(<span style=color:#a31515>&#34;stats&#34;</span>, optim, qchisq) 
+  <span style=color:green>## For these, we define methods or (AIC, BIC, nobs) an implicit generic: </span>
+  importFrom(<span style=color:#a31515>&#34;stats&#34;</span>, AIC, BIC, coef, confint, logLik, nobs, profile, update, vcov)   exportClasses(mle, profile.mle, summary.mle) 
+  <span style=color:green>## All methods for imported generics: </span>
   exportMethods(coef, confint, logLik, plot, profile, summary, show, update, vcov)
-  <span style="color:#008000">## implicit generics which do not have any methods here </span>
+  <span style=color:green>## implicit generics which do not have any methods here </span>
   export(AIC, BIC, nobs)
-</code></pre></div><h2 id="3-书写r函数帮助文档">3. 书写R函数帮助文档</h2>
-<p>书写函数文档的利器当属Emacs+ESS+<!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->包。Emacs+ESS搭建了一个非常棒的统计学软件（R、SAS、S-Plus等）的代码编辑和运行环境，从ESS命名Emacs Speaks Statistics上就可以感受到它外漏的霸气。而<a href="http://roxygen.org/">roxygen2</a>是R的一个包，仿照Doxygen构建的工具，实现了文档和源码用一个文件共同管理的想法。</p>
+</code></pre></div><h2 id=3-书写r函数帮助文档>3. 书写R函数帮助文档</h2>
+<p>书写函数文档的利器当属Emacs+ESS+roxygen2包。Emacs+ESS搭建了一个非常棒的统计学软件（R、SAS、S-Plus等）的代码编辑和运行环境，从ESS命名Emacs Speaks Statistics上就可以感受到它外漏的霸气。而<a href=http://roxygen.org/>roxygen2</a>是R的一个包，仿照Doxygen构建的工具，实现了文档和源码用一个文件共同管理的想法。</p>
 <p>这个想法相当棒：</p>
 <blockquote>
 <ol>
@@ -214,13 +199,13 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 </blockquote>
 <p>对于编辑R包来说，对应的文档是<code>*.Rd</code>（R documentation）格式的文件，以下是一个框架示意图：</p>
 <p>{% img middle /images/r_rd.png 600 600 &lsquo;Rd file #1&rsquo; &lsquo;a snap of Rd file framework&rsquo; %}</p>
-<h3 id="31-span-stylecolor-blueroxygen2span使用注释">3.1 <!-- raw HTML omitted -->roxygen2<!-- raw HTML omitted -->使用注释</h3>
+<h3 id=31-span-stylecolor-blueroxygen2span使用注释>3.1 roxygen2使用注释</h3>
 <ul>
 <li>
 <p><code>@title</code>：文档标题，通常是函数名缩写（比如首字母缩写）的解释。出现在该函数文档的标题位置和检索（index）目录。</p>
 </li>
 <li>
-<p><code>@aliases</code>：函数别名。这个函数的别名，如果使用，在HTML帮助文档中将出现这个别名，链接的文档还是原来函数文档；同样，<code>?“别名”</code>也能调出帮助文件。具体参考<!-- raw HTML omitted -->stats<!-- raw HTML omitted -->包中，“Normal”是<code>dnorm()</code>，<code>pnorm()</code>，<code>qnorm()</code>，<code>rnorm()</code>三个函数的别名。</p>
+<p><code>@aliases</code>：函数别名。这个函数的别名，如果使用，在HTML帮助文档中将出现这个别名，链接的文档还是原来函数文档；同样，<code>?“别名”</code>也能调出帮助文件。具体参考stats包中，“Normal”是<code>dnorm()</code>，<code>pnorm()</code>，<code>qnorm()</code>，<code>rnorm()</code>三个函数的别名。</p>
 </li>
 <li>
 <p><code>@description</code>：描述，对函数进行稍微详细的描述，可以讲解函数的功能，不能有空行。出现在文档开始位置。</p>
@@ -291,15 +276,15 @@ person(<span style="color:#a31515">&#34;Yihui&#34;</span>, <span style="color:#a
 <p><code>@aliases</code>：命名一个函数的别名，将指向同一个文档；<code>@family</code>：如果几个函数共用一个family name，它们将在seealso中交叉链接；<code>@seealso</code>：其他函数的超链接；<code>@rdname</code>：将多个函数合并在一个文档中。这些标记用于在HTML帮助文档中，可能出现这些超级链接或者文档合并。</p>
 </li>
 <li>
-<p>对<code>data</code>文件夹下的R data file进行注释。R data file通常以.RData或者.rda作为文件名扩展。<a href="http://r-pkgs.had.co.nz/data.html#documenting-data">参考数据注释</a>。</p>
+<p>对<code>data</code>文件夹下的R data file进行注释。R data file通常以.RData或者.rda作为文件名扩展。<a href=http://r-pkgs.had.co.nz/data.html#documenting-data>参考数据注释</a>。</p>
 </li>
 </ul>
-<h2 id="4-写vignittes文件">4. 写vignittes文件</h2>
-<p>推荐使用<a href="https://github.com/yihui/knitr"><!-- raw HTML omitted -->knitr<!-- raw HTML omitted -->包</a>。</p>
-<h2 id="5-其他辅助文件">5. 其他辅助文件</h2>
-<h3 id="51-news文件">5.1 NEWS文件</h3>
-<p>在包根目录下，可以添加<code>NEWS</code>文件，简要说明版本更新特征。参考<a href="https://github.com/hadley/ggplot2/blob/master/NEWS">ggplot2</a>的格式：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">pkgName version
+<h2 id=4-写vignittes文件>4. 写vignittes文件</h2>
+<p>推荐使用<a href=https://github.com/yihui/knitr>knitr包</a>。</p>
+<h2 id=5-其他辅助文件>5. 其他辅助文件</h2>
+<h3 id=51-news文件>5.1 NEWS文件</h3>
+<p>在包根目录下，可以添加<code>NEWS</code>文件，简要说明版本更新特征。参考<a href=https://github.com/hadley/ggplot2/blob/master/NEWS>ggplot2</a>的格式：</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>pkgName version
 -------------------------
 NEW FEATURES
 
@@ -315,42 +300,42 @@ BUG FIXES
 
 * fixed bug2
 </code></pre></div><p>也可以在NEWS的最开头加入自己的TODO列表，提示将来需要作的更新。</p>
-<h2 id="6-检查和压缩包">6. 检查和压缩包</h2>
+<h2 id=6-检查和压缩包>6. 检查和压缩包</h2>
 <p>在提交代码之前，首先需要检查自己的代码，运行命名</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD check Mypkg
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>R CMD check Mypkg
 
 </code></pre></div><p>之后，因为R源码包（source package）的发布都是采用压缩文件（<code>*.tar.gz</code>）形式，所以需要将源代码打包，方法是运行命令</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>R CMD build Mypkg
 
 </code></pre></div><p>当然，有时我们需要发布二进制包（binary packages）,操作方法是</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD INSTALL --build Mypkg
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>R CMD INSTALL --build Mypkg
 </code></pre></div><p>具体执行过程是：首先，在默认目录树下安装包；之后，将成功安装的包转化成（平台依赖的）二进制代码，再将二进制代码打包输出。所以，默认安装目录要有“可写”权限，如果没有，执行<code>R CMD INSTALL -l location --build Mypkg</code>，指定一个“可写”权限目录（location）安装。</p>
-<p>CRAN很体贴地考虑了Window以外平台的作者，通过<a href="http://win-builder.r-project.org/">网站</a>上传源码包，之后编译成window平台二进制包。</p>
+<p>CRAN很体贴地考虑了Window以外平台的作者，通过<a href=http://win-builder.r-project.org/>网站</a>上传源码包，之后编译成window平台二进制包。</p>
 <p>最后是提交代码，依次执行以下命名或者操作:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">R CMD build Mypkg
-<span style="color:#008000"># 检查例子（example）、检查（test）和文档输出，如果有报错或者警告，需要仔细阅读提示，原则上消除所有报错和警告</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>R CMD build Mypkg
+<span style=color:green># 检查例子（example）、检查（test）和文档输出，如果有报错或者警告，需要仔细阅读提示，原则上消除所有报错和警告</span>
 R CMD check --as-cran
-</code></pre></div><p>使用 <a href="ftp://CRAN.R-project.org/incoming/">ftp://CRAN.R-project.org/incoming/</a> （用户名： anonymous；密码：自己邮箱地址）上传自己的包，并向CRAN@R-project.org发邮件通知自己上传了包（名称、版本等）。</p>
-<h2 id="注意事项">注意事项</h2>
-<h3 id="1-命名">1. 命名</h3>
-<p>给自己的包起一个漂亮的名字，注意大小写，因为一些操作系统可能对大小写不敏感。因此，为了平台兼容性，包的命名尽量不要用大小写区分；不仅如此，在包源代码文件夹下，文件命名也要注意这个问题。起了名字之后，最好到<a href="http://cran.r-project.org/web/packages/available_packages_by_name.html">R包列表</a>去看看，检查下自己包的名字是否与其他人的冲突。</p>
-<h3 id="2-名称符号">2. 名称符号</h3>
+</code></pre></div><p>使用 <a href=ftp://CRAN.R-project.org/incoming/>ftp://CRAN.R-project.org/incoming/</a> （用户名： anonymous；密码：自己邮箱地址）上传自己的包，并向CRAN@R-project.org发邮件通知自己上传了包（名称、版本等）。</p>
+<h2 id=注意事项>注意事项</h2>
+<h3 id=1-命名>1. 命名</h3>
+<p>给自己的包起一个漂亮的名字，注意大小写，因为一些操作系统可能对大小写不敏感。因此，为了平台兼容性，包的命名尽量不要用大小写区分；不仅如此，在包源代码文件夹下，文件命名也要注意这个问题。起了名字之后，最好到<a href=http://cran.r-project.org/web/packages/available_packages_by_name.html>R包列表</a>去看看，检查下自己包的名字是否与其他人的冲突。</p>
+<h3 id=2-名称符号>2. 名称符号</h3>
 <blockquote>
 <ul>
 <li>
-<p>文件名中不允许出现如下符号<code>&quot;</code>、 <code>*</code>、 <code>:</code>、<code>/</code>、<code>&lt;&lt;/font&gt;</code>、 <code>&gt;</code>、 <code>?</code>、 <code>\</code> 和 <code>|</code>；</p>
+<p>文件名中不允许出现如下符号<code>"</code>、 <code>*</code>、 <code>:</code>、<code>/</code>、<code>&lt;&lt;/font></code>、 <code>></code>、 <code>?</code>、 <code>\</code> 和 <code>|</code>；</p>
 </li>
 <li>
-<p>文件命名使用的字符包括 <code>A-Za-z0-9._!#$%&amp;+,;=@^(){}'[]</code>，但是不推荐使用 <code>(){}'[]$</code>；</p>
+<p>文件命名使用的字符包括 <code>A-Za-z0-9._!#$%&+,;=@^(){}'[]</code>，但是不推荐使用 <code>(){}'[]$</code>；</p>
 </li>
 <li>
 <p><code>*.Rd</code>文件可以包括URL，但必须是ASCII，不能出现<code>%</code>。</p>
 </li>
 </ul>
 </blockquote>
-<h3 id="3-gnu版本号">3. GNU版本号</h3>
+<h3 id=3-gnu版本号>3. GNU版本号</h3>
 <p>GNU版本命名规则：Major_Version_Number.Minor_Version_Number[.Revision_Number[.Build_Number]]。</p>
-<h3 id="4-关于命名空间namespace的讨论">4. 关于“命名空间（namespace）”的讨论</h3>
+<h3 id=4-关于命名空间namespace的讨论>4. 关于“命名空间（namespace）”的讨论</h3>
 <p>在制作R包时候，有两种方法可以引用其他包的变量：</p>
 <blockquote>
 <p><strong>第一种方法</strong>：只需要在<code>NAMESPACE</code>中声明引用<code>import()</code>或者<code>importFrom()</code>，同时在<code>DESCRIPTION</code>中<code>Imports</code>添加需引用的包即可。这样，在编写代码时不用加上<code>require(pkg)</code>之类载入包的语句。在安装过程中，通过引用可以很方便地获取其他包的变量（比如函数），因而避免了载入整个包；对应的，这很大程度上保证了代码的简洁，一个非常不错的设计。</p>
@@ -362,63 +347,45 @@ R CMD check --as-cran
 <blockquote>
 <ol>
 <li>
-<p>假定自己包的名称是Mypkg，如果在<code>NAMESPACE</code>中声明输入<code>export(f)</code>，但是又从另外一包foo输入同名函数f，比如<code>importFrom(foo, f)</code>。这时，“就近”策略发挥作用，即在载入包Mypkg时，默认f函数是自己编写的，即声明输出的函数f，而不是foo中的f函数。总体而言，命名空间的查找顺序是：<strong>包的命名空间 &ndash;&gt; import声明 &ndash;&gt; Base包的命名空间 &ndash;&gt; 最后是搜索路径</strong>。</p>
+<p>假定自己包的名称是Mypkg，如果在<code>NAMESPACE</code>中声明输入<code>export(f)</code>，但是又从另外一包foo输入同名函数f，比如<code>importFrom(foo, f)</code>。这时，“就近”策略发挥作用，即在载入包Mypkg时，默认f函数是自己编写的，即声明输出的函数f，而不是foo中的f函数。总体而言，命名空间的查找顺序是：<strong>包的命名空间 &ndash;> import声明 &ndash;> Base包的命名空间 &ndash;> 最后是搜索路径</strong>。</p>
 </li>
 <li>
 <p>假定pkg1和pkg2两个包，都有命名空间，而且输出同名函数f。这是，R会怎么处理呢？同样是“就近”原则，哪个包后载入，先用哪个包的函数f。不过，如果函数命名有冲突，后载入的包会给出一个警告“marsked from package: ***”。</p>
 </li>
 </ol>
 </blockquote>
-<h3 id="参考网址资料">参考网址资料</h3>
+<h3 id=参考网址资料>参考网址资料</h3>
 <ul>
 <li>
-<p><a href="https://github.com/yihui/knitr/blob/master/DESCRIPTION">knitr包的DESCRIPTION文件</a></p>
+<p><a href=https://github.com/yihui/knitr/blob/master/DESCRIPTION>knitr包的DESCRIPTION文件</a></p>
 </li>
 <li>
-<p>命名空间讨论：<a href="https://github.com/hadley/devtools/wiki/Namespaces">1</a>、<a href="http://www.r-bloggers.com/namespaces-and-name-conflicts/">2</a>、<a href="http://r-pkgs.had.co.nz/namespace.html">3</a></p>
+<p>命名空间讨论：<a href=https://github.com/hadley/devtools/wiki/Namespaces>1</a>、<a href=http://www.r-bloggers.com/namespaces-and-name-conflicts/>2</a>、<a href=http://r-pkgs.had.co.nz/namespace.html>3</a></p>
 </li>
 <li>
-<p>其他帮助文档：<a href="http://cos.name/2011/05/write-r-packages-like-a-ninja/">1</a>、<a href="http://yihui.name/knitr/">2</a>、<a href="http://cran.r-project.org/doc/manuals/R-exts.html#Dynamic-pages">3</a>、<a href="http://sjp.co.nz/posts/emacs-ess-knitr/">4</a>、<a href="https://github.com/yihui/knitr/issues/252">5</a>、<a href="http://cos.name/cn/topic/106644">6</a></p>
+<p>其他帮助文档：<a href=http://cos.name/2011/05/write-r-packages-like-a-ninja/>1</a>、<a href=http://yihui.name/knitr/>2</a>、<a href=http://cran.r-project.org/doc/manuals/R-exts.html#Dynamic-pages>3</a>、<a href=http://sjp.co.nz/posts/emacs-ess-knitr/>4</a>、<a href=https://github.com/yihui/knitr/issues/252>5</a>、<a href=http://cos.name/cn/topic/106644>6</a></p>
 </li>
 <li>
-<p><a href="https://stackoverflow.com/questions/25605185/how-do-i-add-a-changelog-or-news-file-to-my-r-package">NEWS文件说明</a></p>
+<p><a href=https://stackoverflow.com/questions/25605185/how-do-i-add-a-changelog-or-news-file-to-my-r-package>NEWS文件说明</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2021年05月21日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/r">R</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/r>R</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

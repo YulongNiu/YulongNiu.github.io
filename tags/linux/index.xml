@@ -1,139 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux on Yulong Niu</title>
-    <link>https://YulongNiu.github.io/tags/linux/</link>
-    <description>Recent content in Linux on Yulong Niu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Wed, 14 Jun 2017 23:49:13 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Shadowsocks设置推荐</title>
-      <link>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</link>
-      <pubDate>Wed, 14 Jun 2017 23:49:13 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</guid>
-      <description>1. Shadowsocks客户端 Shadowsocks在主流平台上都有客户端，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装SwitchyOmega插件。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Yulong Niu</title><link>https://YulongNiu.github.io/tags/linux/</link><description>Recent content in Linux on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Wed, 14 Jun 2017 23:49:13 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Shadowsocks设置推荐</title><link>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</link><pubDate>Wed, 14 Jun 2017 23:49:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</guid><description>1. Shadowsocks客户端 Shadowsocks在主流平台上都有客户端，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装SwitchyOmega插件。
 2. 谷歌设置 进入网址，设置自己喜欢的语言，之后重启即可。
 3. 自己配置Shadowsocks 3.1 软件准备 参考shadowsocks网站安装。
 $ sudo dnf copr enable librehat/shadowsocks $ sudo dnf update $ sudo dnf install shadowsocks-libev 3.2 配置文件 文件位置/etc/shadowsocks-libev/config.json，设置模板：
-{ &amp;#34;server&amp;#34;:&amp;#34;0.0.0.0&amp;#34;, &amp;#34;port_password&amp;#34;:{ &amp;#34;8381&amp;#34;:&amp;#34;******&amp;#34;, &amp;#34;8382&amp;#34;:&amp;#34;******&amp;#34; }, &amp;#34;timeout&amp;#34;:600, &amp;#34;method&amp;#34;:&amp;#34;aes-256-cfb&amp;#34; } 3.3 启动 $ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json 4. 使用TCP BBR加速 $ sudo echo &amp;#34;net.core.default_qdisc=fq&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo echo &amp;#34;net.ipv4.tcp_congestion_control=bbr&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo sysctl -p $ sudo sysctl net.</description>
-    </item>
-    
-    <item>
-      <title>两个git的rebase命令应用</title>
-      <link>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</link>
-      <pubDate>Fri, 11 Nov 2016 16:24:39 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</guid>
-      <description>介绍两个git rebase的应用场景，一个是合并commits记录，另一个是贡献代码。
+{ &amp;#34;server&amp;#34;:&amp;#34;0.0.0.0&amp;#34;, &amp;#34;port_password&amp;#34;:{ &amp;#34;8381&amp;#34;:&amp;#34;******&amp;#34;, &amp;#34;8382&amp;#34;:&amp;#34;******&amp;#34; }, &amp;#34;timeout&amp;#34;:600, &amp;#34;method&amp;#34;:&amp;#34;aes-256-cfb&amp;#34; } 3.3 启动 $ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json 4. 使用TCP BBR加速 $ sudo echo &amp;#34;net.core.default_qdisc=fq&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo echo &amp;#34;net.ipv4.tcp_congestion_control=bbr&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo sysctl -p $ sudo sysctl net.</description></item><item><title>两个git的rebase命令应用</title><link>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</link><pubDate>Fri, 11 Nov 2016 16:24:39 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</guid><description>介绍两个git rebase的应用场景，一个是合并commits记录，另一个是贡献代码。
 1. 合并commit记录 假定有多条commits，按照离当前时间从近至远依次为：c1、b2、b1和a1。希望合并c1、b2和b1，即只保留c1和a1。操作流程如下：
- 打开交互式rebase  $ git rebase -i sha1id-of-a1  标记合并commits  弹出的文本编辑器初始可能为：
+打开交互式rebase $ git rebase -i sha1id-of-a1 标记合并commits 弹出的文本编辑器初始可能为：
 pick sha1id-of-c1 c1 pick sha1id-of-b2 b2 pick sha1id-of-b1 b1 ... 修改为：
-pick sha1id-of-c1 c1 squash sha1id-of-b2 b2 squash sha1id-of-b1 b1 ...  记录合并commits  在弹出的文本编辑器中标记和注释commits
- 提交远程  由于本地和远程记录不一致，需要强制合并。
-$ git push -f origin mybranch 2. 贡献代码  Fork项目  Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：
-$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git  建立分支并提交修改  $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch  获取和合并最新远程修改  $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch  发起pull request。  参考资料   合并分支</description>
-    </item>
-    
-    <item>
-      <title>命令行使用Google Drive</title>
-      <link>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</link>
-      <pubDate>Fri, 21 Oct 2016 18:24:31 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</guid>
-      <description>推荐使用更更方便的VGrive。
+pick sha1id-of-c1 c1 squash sha1id-of-b2 b2 squash sha1id-of-b1 b1 ... 记录合并commits 在弹出的文本编辑器中标记和注释commits
+提交远程 由于本地和远程记录不一致，需要强制合并。
+$ git push -f origin mybranch 2. 贡献代码 Fork项目 Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：
+$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git 建立分支并提交修改 $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch 获取和合并最新远程修改 $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch 发起pull request。 参考资料 合并分支</description></item><item><title>命令行使用Google Drive</title><link>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</link><pubDate>Fri, 21 Oct 2016 18:24:31 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</guid><description>推荐使用更更方便的VGrive。
 推荐使用更方便的ODrive。
 本文简单介绍gdrive，它是一个跨多个平台软件，提供命令行操作Google Drive。同类软件还有drive和overGrive（Linux下Google Drive界面客户端）。
 基本思路：对每一个上传至Google Drive的文件或文件夹都分配一个Id，所以云端操作需要指定Id。
 突出优点：自动同步，比较云端和本地文件后，决定上传、删除或者替换；同步加入版本控制，可以下载和删除不同版本文件。
 1. 初始化 下载系统对应版本，执行gdrive about，根据提示设置。
 2. 查找 查找规则
-## 查找所有文件夹，不包括垃圾箱，所有者为自己 $ gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners&amp;#34; ## 加入上层目录Id gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners and &amp;#39;YUlPWWdLcy1mX2c&amp;#39; in parents&amp;#34; ## 查询信息 gdrive info YUlPWWdLcy1mX2c 3. 建立和删除 ## 建立文件夹 $ gdrive mkdir newFolder ## 建立下一层文件夹，-p指定上层目录Id $ gdrive mkdir -p M1h4M1dGYUhpSFE newFolder ## 删除文件（文件Id，非名称） $ gdrive delete 0BzTeuubJesi ## 删除文件夹（文件Id，非名称） $ gdrive delete -r 0BzTeuubJesi 4.</description>
-    </item>
-    
-    <item>
-      <title>Docker使用记录</title>
-      <link>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</link>
-      <pubDate>Fri, 11 Mar 2016 16:53:51 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</guid>
-      <description>关于Docker的安装和使用，有详细的文档可供参考。本文收集一些有趣和重要的记录。
+## 查找所有文件夹，不包括垃圾箱，所有者为自己 $ gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners&amp;#34; ## 加入上层目录Id gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners and &amp;#39;YUlPWWdLcy1mX2c&amp;#39; in parents&amp;#34; ## 查询信息 gdrive info YUlPWWdLcy1mX2c 3. 建立和删除 ## 建立文件夹 $ gdrive mkdir newFolder ## 建立下一层文件夹，-p指定上层目录Id $ gdrive mkdir -p M1h4M1dGYUhpSFE newFolder ## 删除文件（文件Id，非名称） $ gdrive delete 0BzTeuubJesi ## 删除文件夹（文件Id，非名称） $ gdrive delete -r 0BzTeuubJesi 4.</description></item><item><title>Docker使用记录</title><link>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</link><pubDate>Fri, 11 Mar 2016 16:53:51 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</guid><description>关于Docker的安装和使用，有详细的文档可供参考。本文收集一些有趣和重要的记录。
 1. 普通用户权限执行Docker 创建docker用户组并添加普通用户。
 $ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次登录即可。
-2. Docker命令集锦 # 测试Docker $ docker run hello-world # Docker镜象列表 $ docker image ls $ docker image ls --digests # Docker容器列表 $ docker container ls $ docker container ls --all # 列出容器 $ docker ps $ docker ps -al # 终止所有容器 $ docker stop $(docker ps -aq) # 删除镜像 $ docker image rm myImg@sha256:xxx ## 删除虚悬镜像 $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker stop $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker rm $ docker images|grep none|awk &amp;#39;{print $3 }&amp;#39;|xargs docker rmi 3.</description>
-    </item>
-    
-    <item>
-      <title>Bash简易编程</title>
-      <link>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</link>
-      <pubDate>Thu, 28 May 2015 21:24:32 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</guid>
-      <description>1. 循环 for循环体
+2. Docker命令集锦 # 测试Docker $ docker run hello-world # Docker镜象列表 $ docker image ls $ docker image ls --digests # Docker容器列表 $ docker container ls $ docker container ls --all # 列出容器 $ docker ps $ docker ps -al # 终止所有容器 $ docker stop $(docker ps -aq) # 删除镜像 $ docker image rm myImg@sha256:xxx ## 删除虚悬镜像 $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker stop $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker rm $ docker images|grep none|awk &amp;#39;{print $3 }&amp;#39;|xargs docker rmi 3.</description></item><item><title>Bash简易编程</title><link>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</link><pubDate>Thu, 28 May 2015 21:24:32 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</guid><description>1. 循环 for循环体
 for i in *.zip do echo &amp;#34;$i&amp;#34; done 2. 创建数组 declare -a testArray={&amp;#34;element1&amp;#34; &amp;#34;element2&amp;#34;} echo ${testArray[0]} for i in &amp;#34;${testArray[@]}&amp;#34; do echo &amp;#34;$i&amp;#34; done 3. 字符串分割 # write in file &amp;#34;testsplit.sh&amp;#34; IFS=&amp;#39;,&amp;#39; read -ra splitArray &amp;lt;&amp;lt;&amp;lt; &amp;#34;This,is,a,test&amp;#34; for i in &amp;#34;${splitArray[@]}&amp;#34; do echo &amp;#34;$i&amp;#34; done $ bash testsplit.sh This is a test 4. 屏幕输出存入变量 某个bash命令，比如ls -l存入变量，之后引用变量。
-# 注意等号前后不能加空格 listOutput=`ls -l` echo &amp;#34;$listOutput&amp;#34; 5. 文件末尾添加内容 touch testfile printf &amp;#34;hello\n&amp;#34; &amp;gt; testfile printf &amp;#34;world\n&amp;#34; &amp;gt;&amp;gt; testfile 6.</description>
-    </item>
-    
-    <item>
-      <title>Fedora安装与使用PostgreSQL</title>
-      <link>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</link>
-      <pubDate>Fri, 08 May 2015 18:30:54 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</guid>
-      <description>1. 安装和开启postgresql Fedora直接使用dnf安装相关组件。
+# 注意等号前后不能加空格 listOutput=`ls -l` echo &amp;#34;$listOutput&amp;#34; 5. 文件末尾添加内容 touch testfile printf &amp;#34;hello\n&amp;#34; &amp;gt; testfile printf &amp;#34;world\n&amp;#34; &amp;gt;&amp;gt; testfile 6.</description></item><item><title>Fedora安装与使用PostgreSQL</title><link>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</link><pubDate>Fri, 08 May 2015 18:30:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</guid><description>1. 安装和开启postgresql Fedora直接使用dnf安装相关组件。
 # 安装PostgreSQL $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3 初始化（只需要执行一次）。如果出现类似Data directory is not empty!报错，可以尝试执行删除操作rm -f -r /usr/local/pgsql/data
 # 初始化 $ sudo postgresql-setup --initdb --unit postgresql # 开启服务 $ sudo service postgresql start # 查询工作状态 $ sudo service postgresql status # 关闭服务 $ sudo service postgresql stop # 开机启动 $ sudo chkconfig postgresql on 2. 创建用户和数据库 为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。
-# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.3$”。 $ sudo postgres # 创建用户 # -P：创建用户后立即创建密码 # -s：用户为superuser # -e：打印消息 bash-4.</description>
-    </item>
-    
-    <item>
-      <title>构建和展示进化树软件使用心得</title>
-      <link>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</link>
-      <pubDate>Thu, 01 May 2014 17:13:59 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</guid>
-      <description>构建进化树 1. PhyML 构建进化树方法：Maximum Likelihood
+# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.3$”。 $ sudo postgres # 创建用户 # -P：创建用户后立即创建密码 # -s：用户为superuser # -e：打印消息 bash-4.</description></item><item><title>构建和展示进化树软件使用心得</title><link>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</link><pubDate>Thu, 01 May 2014 17:13:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</guid><description>构建进化树 1. PhyML 构建进化树方法：Maximum Likelihood
 评估：选择bootstrap或者Likelihood-ratio test
 运行方式：所有平台和网页
 心得：理论上支持4000条序列，小于2000000个字符。但是，对于个人电脑，通常100-200条序列比较合适。命令行运行时，可以选择非常简介的默认模式运行。在默认模式下，bootstrap需要手动开启。安装和使用非常方便，直接下载后可以直接使用。同时，bootstrap可以通过MPI分布计算，但是需要从源代码安装。
 快速运行：
-phyml -i align_file.phy --no_memory_check  -i：后跟需要Phylip格式文件 --no_memory_check：不用检查内存，防止程序运行时跳出  2. RAxML 构建进化树方法：Maximum Likelihood
+phyml -i align_file.phy --no_memory_check -i：后跟需要Phylip格式文件 --no_memory_check：不用检查内存，防止程序运行时跳出 2. RAxML 构建进化树方法：Maximum Likelihood
 运行方式：所有平台和网页。
 心得：推荐网页运行，支持数据的存放和其他构建进化树的方法。本地安装支持MPI和PThreads的分布计算，但是安装有些复杂，需要仔细阅读文档。
 快速运行1：
-raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST  -x：bootstrap运行时设定随机数，用于结果重现 -p：parsimony推断时设定随机数，用于结果重现 -#：bootstrap次数。也可以设定为autoMRE，最大次数是1000。 -m：设定使用的模型，GTRGAMMA为核苷酸序列适用模型 -T：设定线程数，不要超过最大线程 -s：输入文件，Phylip或者fasta文件 -n：输入文件记号  快速运行2：
-raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST  -f a：选定算法，快速bootstrap  展示进化树 1.</description>
-    </item>
-    
-    <item>
-      <title>Linux常用命令集锦</title>
-      <link>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</link>
-      <pubDate>Mon, 08 Nov 2010 18:00:40 -0400</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid>
-      <description>1. 压缩与解压缩 .tar.gz格式文件
-# 解压  $ tar -zxvf /filePath/filename.tar.gz # 压缩  $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件  $ gzip *.txt .tar.bz2格式文件
-# 解压  $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
+raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST -x：bootstrap运行时设定随机数，用于结果重现 -p：parsimony推断时设定随机数，用于结果重现 -#：bootstrap次数。也可以设定为autoMRE，最大次数是1000。 -m：设定使用的模型，GTRGAMMA为核苷酸序列适用模型 -T：设定线程数，不要超过最大线程 -s：输入文件，Phylip或者fasta文件 -n：输入文件记号 快速运行2：
+raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST -f a：选定算法，快速bootstrap 展示进化树 1.</description></item><item><title>Linux常用命令集锦</title><link>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</link><pubDate>Mon, 08 Nov 2010 18:00:40 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid><description>1. 压缩与解压缩 .tar.gz格式文件
+# 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
+# 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
 需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.</description>
-    </item>
-    
-    <item>
-      <title>Linux常用软件集锦</title>
-      <link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link>
-      <pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid>
-      <description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
-1. 添加常用源   添加rpmfusion的free和nonfree源。
-  添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
-  2. 辅助安装工具   Fedy  Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
-3. 影音  VLC  $ sudo dnf install vlc  Mplayer  $ sudo dnf install mplayer-gui xine smplayer  录音工具Audacity  $ sudo dnf install audacity  屏幕录制RecordMyDesktop  Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。
-# 安装方法 $ sudo dnf install recordmydesktop # 使用方法 $ qt-recordMyDesktop 4. 办公  字典GoldenDict  Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人GoldenDict 。GoldenDict的主要特点有：
-  字典库丰富;</description>
-    </item>
-    
-  </channel>
-</rss>
+# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.</description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
+1. 添加常用源 添加rpmfusion的free和nonfree源。
+添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
+2. 辅助安装工具 Fedy Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
+3. 影音 VLC $ sudo dnf install vlc Mplayer $ sudo dnf install mplayer-gui xine smplayer 录音工具Audacity $ sudo dnf install audacity 屏幕录制RecordMyDesktop Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。
+# 安装方法 $ sudo dnf install recordmydesktop # 使用方法 $ qt-recordMyDesktop 4. 办公 字典GoldenDict Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人GoldenDict 。GoldenDict的主要特点有：
+字典库丰富;</description></item></channel></rss>

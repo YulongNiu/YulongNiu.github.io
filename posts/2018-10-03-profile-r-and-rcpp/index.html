@@ -1,159 +1,126 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>R和Rcpp的性能监测 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="R和Rcpp的性能监测" />
-<meta property="og:description" content="监测R的性能。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-10-03T19:38:37+08:00" />
-<meta property="article:modified_time" content="2018-10-03T19:38:37+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="R和Rcpp的性能监测"/>
-<meta name="twitter:description" content="监测R的性能。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>R和Rcpp的性能监测 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="R和Rcpp的性能监测">
+<meta property="og:description" content="监测R的性能。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2018-10-03T19:38:37+08:00">
+<meta property="article:modified_time" content="2018-10-03T19:38:37+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="R和Rcpp的性能监测">
+<meta name=twitter:description content="监测R的性能。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">R和Rcpp的性能监测</h1>
-			<div class="meta">Posted at &mdash; Oct 3, 2018</div>
-		</div>
-
-		<div class="markdown">
-			<h2 id="1-r性能检测">1. R性能检测</h2>
-<p>直接使用<!-- raw HTML omitted -->profvis<!-- raw HTML omitted -->包即可，例如<a href="https://rstudio.github.io/profvis/">示例</a>。</p>
-<h2 id="2-rcpp性能检测">2. Rcpp性能检测</h2>
-<h3 id="21-安装依赖软件">2.1 安装依赖软件</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
-</code></pre></div><h3 id="22-编译">2.2 编译</h3>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>R和Rcpp的性能监测</h1>
+<div class=meta>Posted at &mdash; Oct 3, 2018</div>
+</div>
+<div class=markdown>
+<h2 id=1-r性能检测>1. R性能检测</h2>
+<p>直接使用profvis包即可，例如<a href=https://rstudio.github.io/profvis/>示例</a>。</p>
+<h2 id=2-rcpp性能检测>2. Rcpp性能检测</h2>
+<h3 id=21-安装依赖软件>2.1 安装依赖软件</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
+</code></pre></div><h3 id=22-编译>2.2 编译</h3>
 <p>在包（包名称为<code>Mypkg</code>）目录<code>src</code>建立如下文件：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#00f">#include</span> <span style="color:#00f">&lt;Rcpp.h&gt;</span><span style="color:#00f">
-</span><span style="color:#00f">#include</span> <span style="color:#00f">&lt;gperftools/profiler.h&gt;</span><span style="color:#00f">
-</span><span style="color:#00f"></span>
-<span style="color:#00f">using</span> <span style="color:#00f">namespace</span> Rcpp;
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#00f>#include</span> <span style=color:#00f>&lt;Rcpp.h&gt;</span><span style=color:#00f>
+</span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;gperftools/profiler.h&gt;</span><span style=color:#00f>
+</span><span style=color:#00f></span>
+<span style=color:#00f>using</span> <span style=color:#00f>namespace</span> Rcpp;
 
-<span style="color:#008000">// [[Rcpp::export]]
-</span><span style="color:#008000"></span>SEXP start_profiler(SEXP str) {
-  ProfilerStart(as&lt;<span style="color:#00f">const</span> <span style="color:#2b91af">char</span>*&gt;(str));
-  <span style="color:#00f">return</span> R_NilValue;
+<span style=color:green>// [[Rcpp::export]]
+</span><span style=color:green></span>SEXP start_profiler(SEXP str) {
+  ProfilerStart(as&lt;<span style=color:#00f>const</span> <span style=color:#2b91af>char</span>*&gt;(str));
+  <span style=color:#00f>return</span> R_NilValue;
 }
 
-<span style="color:#008000">// [[Rcpp::export]]
-</span><span style="color:#008000"></span>SEXP stop_profiler() {
+<span style=color:green>// [[Rcpp::export]]
+</span><span style=color:green></span>SEXP stop_profiler() {
   ProfilerStop();
-  <span style="color:#00f">return</span> R_NilValue;
+  <span style=color:#00f>return</span> R_NilValue;
 }
 </code></pre></div><p>包目录<code>src</code>的Makevars文件中添加<code>-lprofile</code>选项，例如<code>PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler</code>。之后，安装包，并重新载入。</p>
-<h3 id="23-调试">2.3 调试</h3>
+<h3 id=23-调试>2.3 调试</h3>
 <p>使用方法为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Mypkg:::start_profiler(<span style="color:#a31515">&#34;/tmp/profile.out&#34;</span>)
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-R data-lang=R>Mypkg:::start_profiler(<span style=color:#a31515>&#34;/tmp/profile.out&#34;</span>)
 run_cpp_codes()
 Mypkg:::stop_profiler()
 </code></pre></div><p>查看profile结果：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">## text</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green>## text</span>
 pprof --text src/Mypkg.so /tmp/profile.out
 
-<span style="color:#008000">## pdf</span>
+<span style=color:green>## pdf</span>
 pprof --pdf src/Mypkg.so /tmp/profile.out &gt; profile.pdf
 
-<span style="color:#008000">## kcachegrind</span>
+<span style=color:green>## kcachegrind</span>
 pprof --callgrind src/Mypkg.so R/profile.out &gt; profile.res
-</code></pre></div><h3 id="a-idref参考资料a"><!-- raw HTML omitted -->参考资料<!-- raw HTML omitted --></h3>
+</code></pre></div><h3 id=a-idref参考资料a>参考资料</h3>
 <ul>
 <li>
-<p><a href="https://arxiv.org/abs/1104.3889">Introduction to High-Performance Computing with R by Dr. Dirk Eddelbuettel</a></p>
+<p><a href=https://arxiv.org/abs/1104.3889>Introduction to High-Performance Computing with R by Dr. Dirk Eddelbuettel</a></p>
 </li>
 <li>
-<p><a href="https://minimallysufficient.github.io/r%20programming%20cpp/2018/02/16/profiling-rcpp-packages.html">Profiling Rcpp packages</a></p>
+<p><a href=https://minimallysufficient.github.io/r%20programming%20cpp/2018/02/16/profiling-rcpp-packages.html>Profiling Rcpp packages</a></p>
 </li>
 <li>
-<p><a href="https://airekans.github.io/cpp/2014/07/04/gperftools-profile">用gperftools对C/C++程序进行profile</a></p>
+<p><a href=https://airekans.github.io/cpp/2014/07/04/gperftools-profile>用gperftools对C/C++程序进行profile</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2018年10月4日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/r">R</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/r>R</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

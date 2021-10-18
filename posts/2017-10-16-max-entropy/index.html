@@ -1,114 +1,62 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>最大熵模型 - Yulong Niu</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="最大熵模型" />
-<meta property="og:description" content="最大熵模型。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-10-16-max-entropy/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2017-10-16T13:16:12+08:00" />
-<meta property="article:modified_time" content="2017-10-16T13:16:12+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="最大熵模型"/>
-<meta name="twitter:description" content="最大熵模型。"/>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/bootstrap-table.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://YulongNiu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom.css" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-	<link rel="stylesheet" type="text/css" href="https://YulongNiu.github.io/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
-
-	<script type="text/javascript" async
-        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
- MathJax.Hub.Config({
-     tex2jax: {
-         inlineMath: [['$','$'], ['\\(','\\)']],
-         displayMath: [['$$','$$'], ['\[\[','\]\]']],
-         processEscapes: true,
-         processEnvironments: true,
-         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-         TeX: { equationNumbers: { autoNumber: "AMS" },
-                extensions: ["AMSmath.js", "AMSsymbols.js"] }
-     }
- });
- MathJax.Hub.Queue(function() {
-     
-     
-     
-     var all = MathJax.Hub.getAllJax(), i;
-     for(i = 0; i < all.length; i += 1) {
-         all[i].SourceElement().parentNode.className += ' has-jax';
-     }
- });
-
- MathJax.Hub.Config({
-     
-     TeX: { equationNumbers: { autoNumber: "AMS" } }
- });
-</script>
-
-<style>
- code.has-jax {
-     font: inherit;
-     font-size: 100%;
-     background: inherit;
-     border: inherit;
-     color: #515151;
- }
-</style>
-
-
-	
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://YulongNiu.github.io/js/main.js"></script>
-	<script src="https://YulongNiu.github.io/js/abc.js"></script>
-	<script src="https://YulongNiu.github.io/js/xyz.js"></script>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge"><title>最大熵模型 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:title" content="最大熵模型">
+<meta property="og:description" content="最大熵模型。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-10-16-max-entropy/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2017-10-16T13:16:12+08:00">
+<meta property="article:modified_time" content="2017-10-16T13:16:12+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="最大熵模型">
+<meta name=twitter:description content="最大熵模型。">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
+<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
+<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
+<script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['[[',']]']],processEscapes:!0,processEnvironments:!0,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var b=MathJax.Hub.getAllJax(),a;for(a=0;a<b.length;a+=1)b[a].SourceElement().parentNode.className+=' has-jax'}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script>
+<style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style>
+<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<script src=https://YulongNiu.github.io/js/main.js></script>
+<script src=https://YulongNiu.github.io/js/abc.js></script>
+<script src=https://YulongNiu.github.io/js/xyz.js></script>
 </head>
-
 <body>
-	<div class="container wrapper post">
-		<div class="header">
-    <base href="https://YulongNiu.github.io/">
-	<h1 class="site-title"><a href="https://YulongNiu.github.io/">Yulong Niu</a></h1>
-	<div class="site-description"><h2>个人博客</h2><nav class="nav social">
-			<ul class="flat"><a href="https://github.com/YulongNiu" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/YulongNiu" title="Twitter"><i data-feather="twitter"></i></a></ul>
-		</nav>
-	</div>
-
-	<nav class="nav">
-		<ul class="flat">
-			
-			<li>
-				<a href="/">Home</a>
-			</li>
-			
-			<li>
-				<a href="/posts">Posts</a>
-			</li>
-			
-			<li>
-				<a href="/tags">Tags</a>
-			</li>
-			
-			<li>
-				<a href="/about">About</a>
-			</li>
-			
-		</ul>
-	</nav>
+<div class="container wrapper post">
+<div class=header>
+<base href=https://YulongNiu.github.io/>
+<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
+<div class=site-description><h2>个人博客</h2><nav class="nav social">
+<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
+</nav>
 </div>
-
-
-		<div class="post-header">
-			<h1 class="title">最大熵模型</h1>
-			<div class="meta">Posted at &mdash; Oct 16, 2017</div>
-		</div>
-
-		<div class="markdown">
-			<h3 id="1-熵和条件熵">1. 熵和条件熵</h3>
+<nav class=nav>
+<ul class=flat>
+<li>
+<a href=/>Home</a>
+</li>
+<li>
+<a href=/posts>Posts</a>
+</li>
+<li>
+<a href=/tags>Tags</a>
+</li>
+<li>
+<a href=/about>About</a>
+</li>
+</ul>
+</nav>
+</div>
+<div class=post-header>
+<h1 class=title>最大熵模型</h1>
+<div class=meta>Posted at &mdash; Oct 16, 2017</div>
+</div>
+<div class=markdown>
+<h3 id=1-熵和条件熵>1. 熵和条件熵</h3>
 <p>对于随机变量$X$，熵为：</p>
 <p>$$
 \begin{align}
@@ -140,23 +88,23 @@ $$</p>
 <p>$$
 \begin{align}
 \begin{split}
-H(Y|X) &amp;= H(X, Y) - H(X) \newline
-&amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X}p(x)\log{p(x)} \newline
-&amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X, y \in Y}p(x, y)\log{p(x)} \newline
-&amp;= -\sum_{x \in X, y \in Y}p(x, y)\log \frac{p(x, y)}{p(x)}
+H(Y|X) &= H(X, Y) - H(X) \newline
+&= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X}p(x)\log{p(x)} \newline
+&= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X, y \in Y}p(x, y)\log{p(x)} \newline
+&= -\sum_{x \in X, y \in Y}p(x, y)\log \frac{p(x, y)}{p(x)}
 \end{split}
 \label{eq:4}
 \end{align}
 $$</p>
-<h3 id="2-最大熵原理简介">2. 最大熵原理简介</h3>
+<h3 id=2-最大熵原理简介>2. 最大熵原理简介</h3>
 <p>最大熵原理可以表述为，在满足$k+1$个约束条件的模型集合中，选取熵$H(p)$最大的模型。约束条件为：</p>
 <p>$$
 \begin{align}
 \begin{split}
-\sum_{x}p(x) &amp;= 1 \newline
-\sum_{x}p(x)f_1(x) &amp;= \tau_1 \newline
+\sum_{x}p(x) &= 1 \newline
+\sum_{x}p(x)f_1(x) &= \tau_1 \newline
 \vdots \newline
-\sum_{x}p(x)f_k(x) &amp;= \tau_k
+\sum_{x}p(x)f_k(x) &= \tau_k
 \end{split}
 \label{eq:5}
 \end{align}
@@ -165,10 +113,10 @@ $$</p>
 <p>$$
 \begin{align*}
 \begin{split}
-L(p) = -\sum_{x}p(x)\log{p(x)} &amp;+ \newline
-\lambda_0(\sum_{x}p(x) - 1) &amp;+ \newline
-\lambda_1(\sum_{x}p(x)f_1(x) - \tau_1) &amp;+ \newline
-\cdots &amp;+ \newline
+L(p) = -\sum_{x}p(x)\log{p(x)} &+ \newline
+\lambda_0(\sum_{x}p(x) - 1) &+ \newline
+\lambda_1(\sum_{x}p(x)f_1(x) - \tau_1) &+ \newline
+\cdots &+ \newline
 \lambda_k(\sum_{x}p(x)f_1(x) - \tau_k)
 \end{split}
 \end{align*}
@@ -196,7 +144,7 @@ Z = \sum\limits_x \exp\left(\sum\limits_{j=1}^{k}\lambda_j f_j(x)\right)
 \end{align}
 $$</p>
 <p>将$\eqref{eq:3}$带入约束条件$\eqref{eq:2}$中，即可解得$\lambda_j$。</p>
-<h3 id="3-最大熵应用例子">3. 最大熵应用例子</h3>
+<h3 id=3-最大熵应用例子>3. 最大熵应用例子</h3>
 <p>根据参考资料2的例子，应用最大熵模型。例子简述为：</p>
 <blockquote>
 <p>三种食物的售价分别为1、2和3元，平均一餐花费1.75元。</p>
@@ -206,60 +154,42 @@ $$</p>
 <p>$$
 \begin{align*}
 \begin{split}
-max \quad &amp; H(p) = \sum_{x}p(x) \log p(x) \newline
-s.t. \quad &amp; \sum_{x}p(x)x = 1.75 \newline
-\quad &amp; \sum_{x}p(x) = 1
+max \quad & H(p) = \sum_{x}p(x) \log p(x) \newline
+s.t. \quad & \sum_{x}p(x)x = 1.75 \newline
+\quad & \sum_{x}p(x) = 1
 \end{split}
 \end{align*}
 $$</p>
 <p>解方程得：$p(x_1) = 0.466$、 $p(x_2) = 0.318$、$p(x_3) = 0.216$</p>
-<h3 id="参考资料">参考资料</h3>
+<h3 id=参考资料>参考资料</h3>
 <ul>
 <li>
-<p><a href="https://www.cs.cmu.edu/afs/cs/user/aberger/www/html/tutorial/tutorial.html">A Brief Maxent Tutorial</a></p>
+<p><a href=https://www.cs.cmu.edu/afs/cs/user/aberger/www/html/tutorial/tutorial.html>A Brief Maxent Tutorial</a></p>
 </li>
 <li>
-<p><a href="http://www-mtl.mit.edu/Courses/6.050/2003/notes/chapter9.pdf">Chapter 9 Principle of Maximum Entropy: Simple Form</a></p>
+<p><a href=http://www-mtl.mit.edu/Courses/6.050/2003/notes/chapter9.pdf>Chapter 9 Principle of Maximum Entropy: Simple Form</a></p>
 </li>
 <li>
-<p><a href="http://spaces.ac.cn/archives/3552/">“熵”不起：从熵、最大熵原理到最大熵模型</a></p>
+<p><a href=http://spaces.ac.cn/archives/3552/>“熵”不起：从熵、最大熵原理到最大熵模型</a></p>
 </li>
 </ul>
-<h3 id="更新记录">更新记录</h3>
+<h3 id=更新记录>更新记录</h3>
 <p>2017年7月15日</p>
-
-		</div>
-
-		<div class="post-tags">
-			
-				
-					<nav class="nav tags">
-							<ul class="flat">
-								
-								<li><a href="/tags/bioinfo">bioinfo</a></li>
-								
-							</ul>
-					</nav>
-				
-			
-		</div></div>
-	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright notice |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
 </div>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-53073828-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<div class=post-tags>
+<nav class="nav tags">
+<ul class=flat>
+<li><a href=/tags/bioinfo>bioinfo</a></li>
+</ul>
+</nav>
+</div></div>
+<div class="footer wrapper">
+<nav class=nav>
+<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
+</nav>
+</div>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script>feather.replace()</script>
 </body>
 </html>

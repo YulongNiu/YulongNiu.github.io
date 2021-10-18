@@ -1,38 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>XML on Yulong Niu</title>
-    <link>https://YulongNiu.github.io/tags/xml/</link>
-    <description>Recent content in XML on Yulong Niu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Sun, 25 Oct 2015 19:05:33 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/xml/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>XML中XPath规则总结</title>
-      <link>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</link>
-      <pubDate>Sun, 25 Oct 2015 19:05:33 +0800</pubDate>
-      
-      <guid>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</guid>
-      <description>XPath提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的libxml2和对应的R包 xml2。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>XML on Yulong Niu</title><link>https://YulongNiu.github.io/tags/xml/</link><description>Recent content in XML on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 25 Oct 2015 19:05:33 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/xml/index.xml" rel="self" type="application/rss+xml"/><item><title>XML中XPath规则总结</title><link>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</link><pubDate>Sun, 25 Oct 2015 19:05:33 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</guid><description>XPath提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的libxml2和对应的R包 xml2。
 1. 查询规则 XPath查询集中在三个对象：节点、节点属性和节点内容。
-1.1 选择节点   /nodeA/nodeB：nodeA为根节点，nodeA下的所有nodeB节点；等价于nodeB。
-  //nodeB：所有nodeB节点，在R包xml2中（比如函数xml_find_all()），//nodeB搜索范围是整个文档，忽略当前节点；而.//nodeB搜索范围是当前节点之下。
-  //nodeB[1]：所有nodeB节点的第一个；//nodeB[last()-1]：所有nodeB节点的倒数第二个；nodeA/nodeB[position()&amp;lt;3]:当前nodeA节点，其下所有nodeB子节点的前两个。
-  /nodeA/*：nodeA为根节点，nodeA下的所有节点；/*/*/nodeC：所有拥有两个父节点的nodeC节点；//*：所有节点。
-  //*[count(nodeD)=3]：含有3个nodeD子节点的节点；//*[count(*)=2]：含有任意2个子节点的节点。
-  //*[name()=&#39;nodeB&#39;]：所有名称为“nodeB”的节点，等价于//nodeB；//*[starts-with(name(),&#39;N&#39;)]：所有名称以“N”开头的节点；//*[contains(name(),&#39;N&#39;)]：所有名称中含有“N”的节点；//*[string-length(name()) = 3]：所有名称的字符串长度等于3的节点。
-  //nodeA | //nodeB：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。
-  1.2 选择节点属性   //@attr1：所有拥有attr1的属性，注意：返回的不是节点，而是类此attr1=text1的属性；//node1/@attr1：所有node1带有的attr1属性；//nodeB[@attr1]：所有拥有“attr1”属性的nodeB节点；//nodeB[@attr1=&#39;test1&#39;]：所有拥有“attr1”属性为“test1”的nodeB节点；//nodeB[normalize-space(@attr1)=&#39;test1&#39;]：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。
-  //node1[@*]：所有node1带有任意属性的节点；//node1[not(@*)]：所有node1不带属性的节点；//node1[contains(@attr1, &#39;N&#39;)]：带有“attr1”属性的node1节点，“attr1”属性中含有“N”。
-  //node1[TEST1][TEST2]：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。//nodeA[nodeB/@attr1=&#39;test1&#39;]：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。//nodeC[@attr1=&#39;test1&#39;][../nodeB/@attr2=&#39;test2&#39;]：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。
-  1.3 选择节点内容   /nodeA/nodeB[nodeC&amp;gt;5]：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
-  /nodeA/nodeB[nodeC&amp;gt;5]/nodeD：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
-  //nodeC[.=5]：所有nodeC节点，其内容等于5。使用.代替自身。
-  //nodeC/node()：选择所有nodeC节点下的所有点，包括节点下内容和子节点（距离最近，不包括子节点的子节点）。
-  //nodeC/text()：选择所有nodeC节点下的内容。
-  1.4 函数使用  //nodeC[contains(text(), &#39;test1&#39;)]：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。  2.</description>
-    </item>
-    
-  </channel>
-</rss>
+1.1 选择节点 /nodeA/nodeB：nodeA为根节点，nodeA下的所有nodeB节点；等价于nodeB。
+//nodeB：所有nodeB节点，在R包xml2中（比如函数xml_find_all()），//nodeB搜索范围是整个文档，忽略当前节点；而.//nodeB搜索范围是当前节点之下。
+//nodeB[1]：所有nodeB节点的第一个；//nodeB[last()-1]：所有nodeB节点的倒数第二个；nodeA/nodeB[position()&amp;lt;3]:当前nodeA节点，其下所有nodeB子节点的前两个。
+/nodeA/*：nodeA为根节点，nodeA下的所有节点；/*/*/nodeC：所有拥有两个父节点的nodeC节点；//*：所有节点。
+//*[count(nodeD)=3]：含有3个nodeD子节点的节点；//*[count(*)=2]：含有任意2个子节点的节点。
+//*[name()='nodeB']：所有名称为“nodeB”的节点，等价于//nodeB；//*[starts-with(name(),'N')]：所有名称以“N”开头的节点；//*[contains(name(),'N')]：所有名称中含有“N”的节点；//*[string-length(name()) = 3]：所有名称的字符串长度等于3的节点。
+//nodeA | //nodeB：所有nodeA，以及nodeB的节点，多个搜索条件合并，搜索添加没有限制。
+1.2 选择节点属性 //@attr1：所有拥有attr1的属性，注意：返回的不是节点，而是类此attr1=text1的属性；//node1/@attr1：所有node1带有的attr1属性；//nodeB[@attr1]：所有拥有“attr1”属性的nodeB节点；//nodeB[@attr1='test1']：所有拥有“attr1”属性为“test1”的nodeB节点；//nodeB[normalize-space(@attr1)='test1']：所有拥有attr1属性为“test1”（属性去除字符串前后空格，内部连续空格替换为一个空格）的nodeB节点。
+//node1[@*]：所有node1带有任意属性的节点；//node1[not(@*)]：所有node1不带属性的节点；//node1[contains(@attr1, 'N')]：带有“attr1”属性的node1节点，“attr1”属性中含有“N”。
+//node1[TEST1][TEST2]：多个属性形选择可以首位相接，依次判断是否为真。TEST1和TEST2同时为真，返回选择结果。//nodeA[nodeB/@attr1='test1']：选择所有nodeA节点，这些nodeA节点拥有nodeB子节点且属性“attr1”为“test1”。//nodeC[@attr1='test1'][../nodeB/@attr2='test2']：选择所有拥有“attr1”为“test1”的nodeC节点，而且这些nodeC节点有属性“attr2”为“test2”的nodeB父亲节点。
+1.3 选择节点内容 /nodeA/nodeB[nodeC&amp;gt;5]：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
+/nodeA/nodeB[nodeC&amp;gt;5]/nodeD：nodeA为根节点，nodeA下的nodeB节点，而且这些nodeB节点必须有nodeC子节点，并且nodeC子节点内容大于5。
+//nodeC[.=5]：所有nodeC节点，其内容等于5。使用.代替自身。
+//nodeC/node()：选择所有nodeC节点下的所有点，包括节点下内容和子节点（距离最近，不包括子节点的子节点）。
+//nodeC/text()：选择所有nodeC节点下的内容。
+1.4 函数使用 //nodeC[contains(text(), 'test1')]：选择所有nodeC节点，而且nodeC节点下内容包括“test1”。 2.</description></item></channel></rss>
