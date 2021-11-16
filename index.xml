@@ -152,7 +152,7 @@ $ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次�
 取值
 对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
 对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
-Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
+Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);。同样道理，可以转化向量。例如：
 arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.</description></item><item><title>XML中XPath规则总结</title><link>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</link><pubDate>Sun, 25 Oct 2015 19:05:33 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-25-xpath-xml/</guid><description>XPath提供了一种对XML节点、节点属性和内容快速查询的规则。在各种编程语言中都有实现，比如C语言的libxml2和对应的R包 xml2。
 1. 查询规则 XPath查询集中在三个对象：节点、节点属性和节点内容。
 1.1 选择节点 /nodeA/nodeB：nodeA为根节点，nodeA下的所有nodeB节点；等价于nodeB。

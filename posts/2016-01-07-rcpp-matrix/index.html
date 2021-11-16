@@ -91,7 +91,7 @@
 </ul>
 </li>
 <li>
-<p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，<code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false)</code>{:.language-cpp}。同样道理，可以转化向量。例如：</p>
+<p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，<code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);</code>。同样道理，可以转化向量。例如：</p>
 </li>
 </ul>
 <div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) {
@@ -219,7 +219,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </li>
 </ul>
 <h3 id=更新记录>更新记录</h3>
-<p>2018年9月17日</p>
+<p>2021年11月16日</p>
 </div>
 <div class=post-tags>
 <nav class="nav tags">

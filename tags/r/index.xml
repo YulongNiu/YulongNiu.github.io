@@ -42,7 +42,7 @@ R版本3.3.1。
 取值
 对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
 对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
-Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false){:.language-cpp}。同样道理，可以转化向量。例如：
+Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);。同样道理，可以转化向量。例如：
 arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.</description></item><item><title>R使用parallel包并行计算</title><link>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</link><pubDate>Tue, 24 Jun 2014 22:10:20 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</guid><description>最新版本的R已经内置parallel包，parallel包是从snow包和multicore包继承而来，包含了很多非常好用的函数。parallel包可以通过PVM（rpvm包）、MPI（Rmpi包）、NetWorkSpaces（nws包）和raw sockets（如果以上3种都不能使用）平台进行分布计算，支持cluster和多核个人/服务器计算机。在Linux系统上，通常使用openMPI。
 1. 安装Rmpi包 因为使用openMPI，所以parallel包需要Rmpi包来设定节点，所以首先需要在计算机上安装openMPI。
 1.1 Linux系统下安装openMPI环境 # 安装openmpi环境 # yum install openmpi openmpi-devel # 配置环境（安装时执行，可能之后运行也要执行） # ldconfig /usr/lib64/openmpi/lib/ 在~/.bashrc下写入
