@@ -70,5 +70,4 @@ C-x C-f： 读入文件，如果没有该文件，则自动创建这个文件，
 输入/su:root@localhost Mypassword：用以打开root权限文件。
 M-x ffap（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。
 一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：M-x ido-mode。
-补充Dired文件操作（Directory Editor） 在Dired buffer下，光标所在处+新建文件夹。
-f或e或者RET在当前buffer下打开文件。o在另一个buffer中打开文件，并且光标跳转到另一个buffer。C-o在另一个buffer下打开文件，光标保留在Dired buffer中。v在新的buffer打开文件，只读权限。^在新的buffer打开上层目录的Dired buffer。i在Dired buffer下打开文件夹。g更新状态。</description></item></channel></rss>
+补充Dired文件操作（Directory Editor） C-x d进入Dired buffer下，光标所在处+新建文件夹。</description></item></channel></rss>
