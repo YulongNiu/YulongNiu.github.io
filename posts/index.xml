@@ -33,7 +33,7 @@ summerise()：聚合列，对某一列或多列进行聚合操作。比如，求
 filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
 _at()使用contains()等函数时，.var参数需要处理为.var = vars(contains())的形式。
 参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, .</description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>1. R性能检测 直接使用profvis包即可，例如示例。
-2. Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
+2. Linux系统Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
 #include &amp;lt;Rcpp.h&amp;gt;#include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; } 包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
 2.3 调试 使用方法为：
 Mypkg:::start_profiler(&amp;#34;/tmp/profile.out&amp;#34;) run_cpp_codes() Mypkg:::stop_profiler() 查看profile结果：

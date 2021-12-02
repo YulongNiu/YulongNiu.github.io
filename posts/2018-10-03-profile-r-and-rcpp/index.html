@@ -56,7 +56,7 @@
 <div class=markdown>
 <h2 id=1-r性能检测>1. R性能检测</h2>
 <p>直接使用profvis包即可，例如<a href=https://rstudio.github.io/profvis/>示例</a>。</p>
-<h2 id=2-rcpp性能检测>2. Rcpp性能检测</h2>
+<h2 id=2-linux系统rcpp性能检测>2. Linux系统Rcpp性能检测</h2>
 <h3 id=21-安装依赖软件>2.1 安装依赖软件</h3>
 <div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
 </code></pre></div><h3 id=22-编译>2.2 编译</h3>
@@ -92,20 +92,28 @@ pprof --pdf src/Mypkg.so /tmp/profile.out &gt; profile.pdf
 
 <span style=color:green>## kcachegrind</span>
 pprof --callgrind src/Mypkg.so R/profile.out &gt; profile.res
-</code></pre></div><h3 id=a-idref参考资料a>参考资料</h3>
+</code></pre></div><h2 id=3-mac系统rcpp性能检测>3. Mac系统Rcpp性能检测</h2>
+<p>使用<code>Instruments</code>工具的<code>Time profiler</code>功能，<code>Instruments</code>包括在<code>XCode</code>中。</p>
+<h3 id=a-idref参考资料a>参考资料</h3>
 <ul>
 <li>
 <p><a href=https://arxiv.org/abs/1104.3889>Introduction to High-Performance Computing with R by Dr. Dirk Eddelbuettel</a></p>
 </li>
 <li>
-<p><a href=https://minimallysufficient.github.io/r%20programming%20cpp/2018/02/16/profiling-rcpp-packages.html>Profiling Rcpp packages</a></p>
+<p><a href=https://minimallysufficient.github.io/r/programming/c++/2018/02/16/profiling-rcpp-packages.html>Profiling Rcpp packages</a></p>
 </li>
 <li>
 <p><a href=https://airekans.github.io/cpp/2014/07/04/gperftools-profile>用gperftools对C/C++程序进行profile</a></p>
 </li>
+<li>
+<p><a href=https://const-ae.name/post/performance-debugging-in-r-and-cpp/>Mac系统Rcpp性能检测</a></p>
+</li>
+<li>
+<p><a href=https://github.com/magic-lantern/SoftwareEngineeringPrinciples/blob/master/paper/R_with_C%2B%2B_profiling.md>更加详细的Mac调试Rcpp</a></p>
+</li>
 </ul>
 <h3 id=更新记录>更新记录</h3>
-<p>2018年10月4日</p>
+<p>2021年12月2日</p>
 </div>
 <div class=post-tags>
 <nav class="nav tags">
