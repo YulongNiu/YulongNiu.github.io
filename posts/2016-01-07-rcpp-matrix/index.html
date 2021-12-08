@@ -123,7 +123,12 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
   <span style=color:#00f>return</span> M;
 }
 </code></pre></div><ul>
-<li>使用<code>sum(M, 0);</code>和<code>sum(M, 1);</code>分别替代<code>colSums(M)</code>和<code>rowSums(M)</code>。</li>
+<li>
+<p>使用<code>sum(M, 0);</code>和<code>sum(M, 1);</code>分别替代<code>colSums(M)</code>和<code>rowSums(M)</code>。</p>
+</li>
+<li>
+<p>使用<code>join_rows()</code>和<code>join_cols()</code>分别替代<code>cbind()</code>和<code>rbind()</code>。注意事项：连续合并列或行会造成性能下降。好的方法是：提前建立向量，然后将列或行依次填入。</p>
+</li>
 </ul>
 <h2 id=3-span-stylecolor-bluebigmemoryspan>3. bigmemory</h2>
 <p>bigmemory包提供了四种数据类型的矩阵，即<code>double</code>（默认）、<code>integer</code>、<code>short</code>和<code>char</code>。对于<code>big.matrix</code>对象<code>pMat</code>，四种类型通过通过<code>MatrixAccessor&lt;double> macc(*pMat)</code>、<code>MatrixAccessor&lt;int> macc(*pMat)</code>、<code>MatrixAccessor&lt;short> macc(*pMat)</code>和<code>MatrixAccessor&lt;char> macc(*pMat)</code>提取元素。<code>pMat</code>有三种属性<code>nrow()</code>、<code>ncol()</code>和<code>matrix_type()</code>可以使用。一下代码示例展示了将<code>big.matrix</code>转换为<code>matrix</code>：</p>
@@ -219,7 +224,7 @@ Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
 </li>
 </ul>
 <h3 id=更新记录>更新记录</h3>
-<p>2021年11月16日</p>
+<p>2021年12月08日</p>
 </div>
 <div class=post-tags>
 <nav class="nav tags">
