@@ -85,7 +85,7 @@
 <div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>$ conda config --add channels conda-forge
 $ conda config --set channel_priority strict
 
-$ conda create -n make_env cxx-compiler armadillo -c conda-forge
+$ conda create -n make_env cxx-compiler boost armadillo -c conda-forge
 </code></pre></div><h3 id=33-设定cplus_include_path>3.3 设定<code>CPLUS_INCLUDE_PATH</code></h3>
 <div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>## 查看conda
 $ conda env config vars list
@@ -97,7 +97,7 @@ $ conda env config vars set CPLUS_INCLUDE_PATH=${CONDA_PREFIX}/include:${CPLUS_I
 <li><a href=https://stackoverflow.com/questions/30573481/how-to-write-a-makefile-with-separate-source-and-header-directories>极好的makefile操作指南</a></li>
 </ul>
 <h3 id=更新记录>更新记录</h3>
-<p>2022年01月11日</p>
+<p>2022年02月10日</p>
 </div>
 <div class=post-tags>
 <nav class="nav tags">
