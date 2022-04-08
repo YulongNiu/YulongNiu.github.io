@@ -1,64 +1,7 @@
-<!doctype html><html>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge"><title>朴素贝叶斯分类器应用于二元数据类型 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="朴素贝叶斯分类器应用于二元数据类型">
-<meta property="og:description" content="朴素贝叶斯分类器。">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2017-10-15T17:38:16+08:00">
-<meta property="article:modified_time" content="2017-10-15T17:38:16+08:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="朴素贝叶斯分类器应用于二元数据类型">
-<meta name=twitter:description content="朴素贝叶斯分类器。">
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
-<script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['[[',']]']],processEscapes:!0,processEnvironments:!0,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var b=MathJax.Hub.getAllJax(),a;for(a=0;a<b.length;a+=1)b[a].SourceElement().parentNode.className+=' has-jax'}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script>
-<style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style>
-<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>朴素贝叶斯分类器应用于二元数据类型 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="朴素贝叶斯分类器应用于二元数据类型"><meta property="og:description" content="朴素贝叶斯分类器。"><meta property="og:type" content="article"><meta property="og:url" content="https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-10-15T17:38:16+08:00"><meta property="article:modified_time" content="2017-10-15T17:38:16+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="朴素贝叶斯分类器应用于二元数据类型"><meta name=twitter:description content="朴素贝叶斯分类器。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[["$","$"],["\\(","\\)"]],displayMath:[["$$","$$"],["[[","]]"]],processEscapes:!0,processEnvironments:!0,skipTags:["script","noscript","style","textarea","pre"],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var t=MathJax.Hub.getAllJax(),e;for(e=0;e<t.length;e+=1)t[e].SourceElement().parentNode.className+=" has-jax"}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
 <script src=https://YulongNiu.github.io/js/main.js></script>
 <script src=https://YulongNiu.github.io/js/abc.js></script>
-<script src=https://YulongNiu.github.io/js/xyz.js></script>
-</head>
-<body>
-<div class="container wrapper post">
-<div class=header>
-<base href=https://YulongNiu.github.io/>
-<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
-<div class=site-description><h2>个人博客</h2><nav class="nav social">
-<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
-</nav>
-</div>
-<nav class=nav>
-<ul class=flat>
-<li>
-<a href=/>Home</a>
-</li>
-<li>
-<a href=/posts>Posts</a>
-</li>
-<li>
-<a href=/tags>Tags</a>
-</li>
-<li>
-<a href=/about>About</a>
-</li>
-</ul>
-</nav>
-</div>
-<div class=post-header>
-<h1 class=title>朴素贝叶斯分类器应用于二元数据类型</h1>
-<div class=meta>Posted at &mdash; Oct 15, 2017</div>
-</div>
-<div class=markdown>
-<h3 id=1-贝叶斯定理>1. 贝叶斯定理</h3>
-<p>已知事件$A$和$B$，则条件概率为：</p>
-<p>$$
+<script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>朴素贝叶斯分类器应用于二元数据类型</h1><div class=meta>Posted at &mdash; Oct 15, 2017</div></div><div class=markdown><h3 id=1-贝叶斯定理>1. 贝叶斯定理</h3><p>已知事件$A$和$B$，则条件概率为：</p><p>$$
 \begin{align}
 \begin{split}
 P(A | B) &= \frac{P(A,B)}{P(B)} \newline
@@ -66,17 +9,12 @@ P(B | A) &= \frac{P(A,B)}{P(A)}
 \end{split}
 \label{eq:1}
 \end{align}
-$$</p>
-<p>可以推导出：</p>
-<p>$$
+$$</p><p>可以推导出：</p><p>$$
 \begin{align}
 P(B|A) = \frac{P(A|B)P(B)}{P(A)}
 \label{eq:2}
 \end{align}
-$$</p>
-<h3 id=2-分类器简介>2. 分类器简介</h3>
-<p>朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：</p>
-<p>$$
+$$</p><h3 id=2-分类器简介>2. 分类器简介</h3><p>朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：</p><p>$$
 \begin{align}
 \begin{split}
 p(C_j|F_1,\cdots,F_n) &= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \newline
@@ -84,19 +22,14 @@ p(C_j|F_1,\cdots,F_n) &= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \
 \end{split}
 \label{eq:3}
 \end{align}
-$$</p>
-<p>由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：</p>
-<p>$$
+$$</p><p>由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：</p><p>$$
 \begin{align}
 \begin{split}
 p(C_j|F_1,\cdots,F_n) &\propto p(C_j)\prod_{i=1}^{N}p(F_i|C_j)
 \end{split}
 \label{eq:4}
 \end{align}
-$$</p>
-<p>其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。</p>
-<p>以下讨论两种二元数据类型，例如某个数据集有三种特征量：</p>
-<p>$$
+$$</p><p>其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。</p><p>以下讨论两种二元数据类型，例如某个数据集有三种特征量：</p><p>$$
 F =
 \left[
 \begin{array}{f}
@@ -105,10 +38,7 @@ F_2 \newline
 F_3
 \end{array}
 \right]
-$$</p>
-<h3 id=3-伯努利分布>3. 伯努利分布</h3>
-<p>每一个特征量的取值都为$0$或$1$。分组$C_j$含有两个已知样本为：</p>
-<p>$$
+$$</p><h3 id=3-伯努利分布>3. 伯努利分布</h3><p>每一个特征量的取值都为$0$或$1$。分组$C_j$含有两个已知样本为：</p><p>$$
 C_{j1} =
 \left[
 \begin{array}{cj1}
@@ -117,8 +47,7 @@ C_{j1} =
 0
 \end{array}
 \right]
-$$</p>
-<p>$$
+$$</p><p>$$
 C_{j2} =
 \left[
 \begin{array}{cj2}
@@ -127,9 +56,7 @@ C_{j2} =
 1
 \end{array}
 \right]
-$$</p>
-<p>某个预测样本为：</p>
-<p>$$
+$$</p><p>某个预测样本为：</p><p>$$
 C_{jp1} =
 \left[
 \begin{array}{cjp1}
@@ -138,9 +65,7 @@ C_{jp1} =
 1
 \end{array}
 \right]
-$$</p>
-<p>由于$p(F_i \vert C_j)$不能为0，根据<a href=https://en.wikipedia.org/wiki/Rule_of_succession>Rule of succession</a>得各个特征的条件概率为：</p>
-<p>$$
+$$</p><p>由于$p(F_i \vert C_j)$不能为0，根据<a href=https://en.wikipedia.org/wiki/Rule_of_succession>Rule of succession</a>得各个特征的条件概率为：</p><p>$$
 \begin{align*}
 \begin{split}
 p(F1|C_j) &= \frac{0+1}{2+2} &= \frac{1}{4} \newline
@@ -148,10 +73,7 @@ p(F2|C_j) &= \frac{1+1}{2+2} &= \frac{1}{2} \newline
 p(F3|C_j) &= \frac{1+1}{2+2} &= \frac{1}{2}
 \end{split}
 \end{align*}
-$$</p>
-<h3 id=4-二项分布>4. 二项分布</h3>
-<p>每一个特征量的取值都一个元素为$0$或$1$的向量（长度可不等）。分组$C_j$含有两个已知样本为：</p>
-<p>$$
+$$</p><h3 id=4-二项分布>4. 二项分布</h3><p>每一个特征量的取值都一个元素为$0$或$1$的向量（长度可不等）。分组$C_j$含有两个已知样本为：</p><p>$$
 C_{j1} =
 \left[
 \begin{array}{cj1}
@@ -160,8 +82,7 @@ C_{j1} =
 0 & 0
 \end{array}
 \right]
-$$</p>
-<p>$$
+$$</p><p>$$
 C_{j2} =
 \left[
 \begin{array}{cj2}
@@ -170,9 +91,7 @@ C_{j2} =
 0 & 0
 \end{array}
 \right]
-$$</p>
-<p>某个预测样本为：</p>
-<p>$$
+$$</p><p>某个预测样本为：</p><p>$$
 C_{jp1} =
 \left[
 \begin{array}{cjp1}
@@ -181,9 +100,7 @@ C_{jp1} =
 0 & 0
 \end{array}
 \right]
-$$</p>
-<p>各个特征的条件概率为：</p>
-<p>$$
+$$</p><p>各个特征的条件概率为：</p><p>$$
 \begin{align*}
 \begin{split}
 p(F1|C_j) &= \left(\frac{3+1}{8+2}\right)^2 \times \left(\frac{5+1}{8+2}\right)^2 \newline
@@ -191,43 +108,5 @@ p(F2|C_j) &= \left(\frac{5+1}{6+2}\right)^2 \times \left(\frac{1+1}{6+2}\right) 
 p(F3|C_j) &= \left(\frac{4+1}{4+2}\right)^2
 \end{split}
 \end{align*}
-$$</p>
-<h3 id=优化>优化</h3>
-<ol>
-<li>
-<p>当特征较多时，会面临多个小数（$p$值）相乘。可以取对数后再相加，即$\sum\log{p}$。</p>
-</li>
-<li>
-<p>虽然上文讨论的是二元数据，但是朴素贝叶斯分类器也适用于连续型或者其他离散型数据类型。</p>
-</li>
-</ol>
-<h3 id=参考资料>参考资料</h3>
-<ul>
-<li>
-<p><a href=https://www.inf.ed.ac.uk/teaching/courses/inf2b/learnnotes/inf2b-learn-note07-2up.pdf>Text Classification using Naive Bayes</a></p>
-</li>
-<li>
-<p><a href=https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html>Naive Bayes text classification</a></p>
-</li>
-</ul>
-<h3 id=更新记录>更新记录</h3>
-<p>2017年7月15日</p>
-</div>
-<div class=post-tags>
-<nav class="nav tags">
-<ul class=flat>
-<li><a href=/tags/statistics>statistics</a></li>
-<li><a href=/tags/bioinfo>bioinfo</a></li>
-</ul>
-</nav>
-</div></div>
-<div class="footer wrapper">
-<nav class=nav>
-<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
-</nav>
-</div>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script>feather.replace()</script>
-</body>
-</html>
+$$</p><h3 id=优化>优化</h3><ol><li><p>当特征较多时，会面临多个小数（$p$值）相乘。可以取对数后再相加，即$\sum\log{p}$。</p></li><li><p>虽然上文讨论的是二元数据，但是朴素贝叶斯分类器也适用于连续型或者其他离散型数据类型。</p></li></ol><h3 id=参考资料>参考资料</h3><ul><li><p><a href=https://www.inf.ed.ac.uk/teaching/courses/inf2b/learnnotes/inf2b-learn-note07-2up.pdf>Text Classification using Naive Bayes</a></p></li><li><p><a href=https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html>Naive Bayes text classification</a></p></li></ul><h3 id=更新记录>更新记录</h3><p>2017年7月15日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/statistics>statistics</a></li><li><a href=/tags/bioinfo>bioinfo</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53073828-1","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script>feather.replace()</script></body></html>

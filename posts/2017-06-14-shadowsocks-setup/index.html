@@ -1,145 +1,39 @@
-<!doctype html><html>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge"><title>Shadowsocks设置推荐 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Shadowsocks设置推荐">
-<meta property="og:description" content="shadowsocks。">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2017-06-14T23:49:13+08:00">
-<meta property="article:modified_time" content="2017-06-14T23:49:13+08:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Shadowsocks设置推荐">
-<meta name=twitter:description content="shadowsocks。">
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
-<script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['[[',']]']],processEscapes:!0,processEnvironments:!0,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var b=MathJax.Hub.getAllJax(),a;for(a=0;a<b.length;a+=1)b[a].SourceElement().parentNode.className+=' has-jax'}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script>
-<style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style>
-<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Shadowsocks设置推荐 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Shadowsocks设置推荐"><meta property="og:description" content="shadowsocks。"><meta property="og:type" content="article"><meta property="og:url" content="https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-06-14T23:49:13+08:00"><meta property="article:modified_time" content="2017-06-14T23:49:13+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Shadowsocks设置推荐"><meta name=twitter:description content="shadowsocks。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script type=text/javascript async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[["$","$"],["\\(","\\)"]],displayMath:[["$$","$$"],["[[","]]"]],processEscapes:!0,processEnvironments:!0,skipTags:["script","noscript","style","textarea","pre"],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}}),MathJax.Hub.Queue(function(){var t=MathJax.Hub.getAllJax(),e;for(e=0;e<t.length;e+=1)t[e].SourceElement().parentNode.className+=" has-jax"}),MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}})</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
 <script src=https://YulongNiu.github.io/js/main.js></script>
 <script src=https://YulongNiu.github.io/js/abc.js></script>
-<script src=https://YulongNiu.github.io/js/xyz.js></script>
-</head>
-<body>
-<div class="container wrapper post">
-<div class=header>
-<base href=https://YulongNiu.github.io/>
-<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
-<div class=site-description><h2>个人博客</h2><nav class="nav social">
-<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
-</nav>
-</div>
-<nav class=nav>
-<ul class=flat>
-<li>
-<a href=/>Home</a>
-</li>
-<li>
-<a href=/posts>Posts</a>
-</li>
-<li>
-<a href=/tags>Tags</a>
-</li>
-<li>
-<a href=/about>About</a>
-</li>
-</ul>
-</nav>
-</div>
-<div class=post-header>
-<h1 class=title>Shadowsocks设置推荐</h1>
-<div class=meta>Posted at &mdash; Jun 14, 2017</div>
-</div>
-<div class=markdown>
-<h2 id=1-shadowsocks客户端>1. Shadowsocks客户端</h2>
-<p>Shadowsocks在主流平台上都有<a href=https://shadowsocks.org/en/download/clients.html>客户端</a>，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装<a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en">SwitchyOmega</a>插件。</p>
-<h2 id=2-谷歌设置>2. 谷歌设置</h2>
-<p>进入<a href="https://encrypted.google.com/preferences?hl=zh-CN#languages">网址</a>，设置自己喜欢的语言，之后重启即可。</p>
-<h2 id=3-自己配置shadowsocks>3. 自己配置Shadowsocks</h2>
-<h3 id=31-软件准备>3.1 软件准备</h3>
-<p>参考<a href=https://github.com/shadowsocks/shadowsocks-libev>shadowsocks网站</a>安装。</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf copr enable librehat/shadowsocks
-$ sudo dnf update
-$ sudo dnf install shadowsocks-libev
-</code></pre></div><h3 id=32-配置文件>3.2 配置文件</h3>
-<p>文件位置<code>/etc/shadowsocks-libev/config.json</code>，设置模板：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>{
-    &#34;server&#34;:&#34;0.0.0.0&#34;,
-    &#34;port_password&#34;:{
-     &#34;8381&#34;:&#34;******&#34;,
-     &#34;8382&#34;:&#34;******&#34;
-    },
-    &#34;timeout&#34;:600,
-    &#34;method&#34;:&#34;aes-256-cfb&#34;
-}
-</code></pre></div><h3 id=33-启动>3.3 启动</h3>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
-</code></pre></div><h2 id=4-使用tcp-bbr加速>4. 使用TCP BBR加速</h2>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo echo <span style=color:#a31515>&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
-$ sudo echo <span style=color:#a31515>&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
-
-$ sudo sysctl -p
-
-$ sudo sysctl net.ipv4.tcp_available_congestion_control
-$ sudo sysctl net.ipv4.tcp_congestion_control
-</code></pre></div><h2 id=5-全局配置>5. 全局配置</h2>
-<p>使用proxychains全局调用Shadowsocks。</p>
-<p>首先，安装和配置<code>proxychains</code>：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf install -y proxychains-ng
-
-$ sudo echo <span style=color:#a31515>&#39;socks5    127.0.0.1    1080&#39;</span> &gt;&gt; /etc/proxychains.conf
-</code></pre></div><p>之后，打开Shadowsocks后，在需要使用的命令行前加入<code>proxychains4</code>，例如：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ proxychains4 git push origin master
-</code></pre></div><h2 id=6-privoxy全局代理>6. privoxy全局代理</h2>
-<p>首先，安装和配置<code>privoxy</code>：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo dnf install -y privoxy
-
-<span style=color:green># /etc/privoxy/config修改</span>
-<span style=color:green># listen-address 127.0.0.1:8118 </span>
-<span style=color:green># forward-socks5t / 127.0.0.1:1080 </span>
-</code></pre></div><p>配置环境变量并启动：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ export http_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
-$ export https_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
-$ export ftp_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
-
-$ sudo systemctl restart privoxy
-</code></pre></div><h3 id=参考资料>参考资料</h3>
-<ol>
-<li>
-<p><a href="http://nga.178.com/read.php?tid=8798506">更改谷歌语言偏好</a></p>
-</li>
-<li>
-<p><a href=https://dirtysalt.github.io/blogs/boost-shadowsocks-with-tcp-bbr.html>通过TCP BBR为ShadowSocks加速</a></p>
-</li>
-<li>
-<p><a href=https://github.com/shadowsocks/shadowsocks-libev/issues/1668>shadowsocks-libev多用户</a></p>
-</li>
-<li>
-<p><a href=https://blog.csdn.net/ypbsyy/article/details/81146866>linux下的ss+privoxy代理配置</a></p>
-</li>
-</ol>
-<h3 id=更新记录>更新记录</h3>
-<p>2017年12月19日</p>
-</div>
-<div class=post-tags>
-<nav class="nav tags">
-<ul class=flat>
-<li><a href=/tags/linux>Linux</a></li>
-</ul>
-</nav>
-</div></div>
-<div class="footer wrapper">
-<nav class=nav>
-<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
-</nav>
-</div>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script>feather.replace()</script>
-</body>
-</html>
+<script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>Shadowsocks设置推荐</h1><div class=meta>Posted at &mdash; Jun 14, 2017</div></div><div class=markdown><h2 id=1-shadowsocks客户端>1. Shadowsocks客户端</h2><p>Shadowsocks在主流平台上都有<a href=https://shadowsocks.org/en/download/clients.html>客户端</a>，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装<a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en">SwitchyOmega</a>插件。</p><h2 id=2-谷歌设置>2. 谷歌设置</h2><p>进入<a href="https://encrypted.google.com/preferences?hl=zh-CN#languages">网址</a>，设置自己喜欢的语言，之后重启即可。</p><h2 id=3-自己配置shadowsocks>3. 自己配置Shadowsocks</h2><h3 id=31-软件准备>3.1 软件准备</h3><p>参考<a href=https://github.com/shadowsocks/shadowsocks-libev>shadowsocks网站</a>安装。</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo dnf copr enable librehat/shadowsocks
+</span></span><span style=display:flex><span>$ sudo dnf update
+</span></span><span style=display:flex><span>$ sudo dnf install shadowsocks-libev
+</span></span></code></pre></div><h3 id=32-配置文件>3.2 配置文件</h3><p>文件位置<code>/etc/shadowsocks-libev/config.json</code>，设置模板：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    &#34;server&#34;:&#34;0.0.0.0&#34;,
+</span></span><span style=display:flex><span>    &#34;port_password&#34;:{
+</span></span><span style=display:flex><span>     &#34;8381&#34;:&#34;******&#34;,
+</span></span><span style=display:flex><span>     &#34;8382&#34;:&#34;******&#34;
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    &#34;timeout&#34;:600,
+</span></span><span style=display:flex><span>    &#34;method&#34;:&#34;aes-256-cfb&#34;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=33-启动>3.3 启动</h3><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
+</span></span></code></pre></div><h2 id=4-使用tcp-bbr加速>4. 使用TCP BBR加速</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo echo <span style=color:#a31515>&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span style=display:flex><span>$ sudo echo <span style=color:#a31515>&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo sysctl -p
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo sysctl net.ipv4.tcp_available_congestion_control
+</span></span><span style=display:flex><span>$ sudo sysctl net.ipv4.tcp_congestion_control
+</span></span></code></pre></div><h2 id=5-全局配置>5. 全局配置</h2><p>使用proxychains全局调用Shadowsocks。</p><p>首先，安装和配置<code>proxychains</code>：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo dnf install -y proxychains-ng
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo echo <span style=color:#a31515>&#39;socks5    127.0.0.1    1080&#39;</span> &gt;&gt; /etc/proxychains.conf
+</span></span></code></pre></div><p>之后，打开Shadowsocks后，在需要使用的命令行前加入<code>proxychains4</code>，例如：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ proxychains4 git push origin master
+</span></span></code></pre></div><h2 id=6-privoxy全局代理>6. privoxy全局代理</h2><p>首先，安装和配置<code>privoxy</code>：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo dnf install -y privoxy
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green># /etc/privoxy/config修改</span>
+</span></span><span style=display:flex><span><span style=color:green># listen-address 127.0.0.1:8118 </span>
+</span></span><span style=display:flex><span><span style=color:green># forward-socks5t / 127.0.0.1:1080 </span>
+</span></span></code></pre></div><p>配置环境变量并启动：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ export http_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
+</span></span><span style=display:flex><span>$ export https_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
+</span></span><span style=display:flex><span>$ export ftp_proxy=<span style=color:#a31515>&#34;127.0.0.1:8118&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo systemctl restart privoxy
+</span></span></code></pre></div><h3 id=参考资料>参考资料</h3><ol><li><p><a href="http://nga.178.com/read.php?tid=8798506">更改谷歌语言偏好</a></p></li><li><p><a href=https://dirtysalt.github.io/blogs/boost-shadowsocks-with-tcp-bbr.html>通过TCP BBR为ShadowSocks加速</a></p></li><li><p><a href=https://github.com/shadowsocks/shadowsocks-libev/issues/1668>shadowsocks-libev多用户</a></p></li><li><p><a href=https://blog.csdn.net/ypbsyy/article/details/81146866>linux下的ss+privoxy代理配置</a></p></li></ol><h3 id=更新记录>更新记录</h3><p>2017年12月19日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/linux>Linux</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53073828-1","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script>feather.replace()</script></body></html>

@@ -1,245 +1,87 @@
-<!doctype html><html>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge"><title>Rcpp操作矩阵和向量集锦 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Rcpp操作矩阵和向量集锦">
-<meta property="og:description" content="Rcpp处理矩阵和向量。">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2016-01-07T20:50:41+08:00">
-<meta property="article:modified_time" content="2016-01-07T20:50:41+08:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Rcpp操作矩阵和向量集锦">
-<meta name=twitter:description content="Rcpp处理矩阵和向量。">
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
-<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Rcpp操作矩阵和向量集锦 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Rcpp操作矩阵和向量集锦"><meta property="og:description" content="Rcpp处理矩阵和向量。"><meta property="og:type" content="article"><meta property="og:url" content="https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2016-01-07T20:50:41+08:00"><meta property="article:modified_time" content="2016-01-07T20:50:41+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Rcpp操作矩阵和向量集锦"><meta name=twitter:description content="Rcpp处理矩阵和向量。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
 <script src=https://YulongNiu.github.io/js/main.js></script>
 <script src=https://YulongNiu.github.io/js/abc.js></script>
-<script src=https://YulongNiu.github.io/js/xyz.js></script>
-</head>
-<body>
-<div class="container wrapper post">
-<div class=header>
-<base href=https://YulongNiu.github.io/>
-<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
-<div class=site-description><h2>个人博客</h2><nav class="nav social">
-<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
-</nav>
-</div>
-<nav class=nav>
-<ul class=flat>
-<li>
-<a href=/>Home</a>
-</li>
-<li>
-<a href=/posts>Posts</a>
-</li>
-<li>
-<a href=/tags>Tags</a>
-</li>
-<li>
-<a href=/about>About</a>
-</li>
-</ul>
-</nav>
-</div>
-<div class=post-header>
-<h1 class=title>Rcpp操作矩阵和向量集锦</h1>
-<div class=meta>Posted at &mdash; Jan 7, 2016</div>
-</div>
-<div class=markdown>
-<p>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。</p>
-<h2 id=1-span-stylecolor-bluercppspan>1. Rcpp</h2>
-<ul>
-<li>可以使用逻辑下标（<code>LogicalVector</code>）对向量和列表<a href=http://gallery.rcpp.org/articles/subsetting/>取值</a>。</li>
-</ul>
-<h2 id=2-span-stylecolor-bluercpparmadillospan>2. RcppArmadillo</h2>
-<p>基本类型是<code>mat</code>、<code>vec</code>（<code>colvec</code>）和<code>rowvec</code>。</p>
-<ul>
-<li>
-<p>属性</p>
-<ul>
-<li>对于矩阵，行数：<code>m.n_rows;</code>；列数：<code>m.n_cols;</code>；维度：<code>m.size();</code>或<code>size(m);</code>。对于向量，元素数：<code>v.n_elem;</code>。</li>
-</ul>
-</li>
-<li>
-<p>特殊向量或矩阵</p>
-<ul>
-<li>
-<p>全是1<code>ones&lt;mat>(3, 4);</code>/<code>vec(10, fill::ones);</code>/；全是0<code>zeros&lt;vec>(10);</code>/<code>mat(3, 4, fill::zeros);</code>；全是某个数<code>mat a(4, 5); a.fill(123.4);</code>。</p>
-</li>
-<li>
-<p>连续向量，规定长度<code>linspace&lt;vec>(0, 5, 6);</code>；连续向量，规定间距<code>regspace&lt;vec>(0, 2, 9);</code>。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>取值</p>
-<ul>
-<li>
-<p>对于向量，连续取值：<code>v.subvec(1stIdx, lastIdx);</code>；非连续，可以考虑使用<code>find()</code>函数，比如：<code>v.elem(find(v > 0));</code>。</p>
-</li>
-<li>
-<p>对于矩阵，连续取值：<code>m.col(Idx);</code>/<code>m.row(Idx);</code>/<code>m.cols(Idx);</code>/<code>m.rows(Idx);</code>/<code>m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);</code>；非连续，<code>m.submat(vecRowIdx, vecColIdx);</code>。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，<code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);</code>。同样道理，可以转化向量。例如：</p>
-</li>
-</ul>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) {
-    mat tx(x.begin(), x.nrow(), x.ncol(), false);
-    vec ty(y.begin(), y.size(), false);
-    <span style=color:#00f>return</span> tx;
-}
-
-Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
-    NumericMatrix tx(x.n_rows, x.n_cols, x.begin());
-    NumericVector ty(y.begin(), y.end());
-    <span style=color:#00f>return</span> ty;
-    
-<span style=color:green>// 不要使用as&lt;IntegerVector&gt;(wrap(y))，会有内存泄露。
-</span><span style=color:green></span>}
-</code></pre></div><ul>
-<li>使用<code>.each_col()</code>/<code>.each_row()</code>/<code>.for_each()</code>替代<code>apply()</code></li>
-</ul>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>arma::mat TestMat(arma::mat M, <span style=color:#2b91af>double</span> a) {
-
-  M.for_each([a](mat::elem_type&amp; val) {
-      val = val &gt; 0 ? val : a;
-    });
-
-  M.each_row([](rowvec&amp; r) {
-      r /= r.max();
-    });
-
-  <span style=color:#00f>return</span> M;
-}
-</code></pre></div><ul>
-<li>
-<p>使用<code>sum(M, 0);</code>和<code>sum(M, 1);</code>分别替代<code>colSums(M)</code>和<code>rowSums(M)</code>。</p>
-</li>
-<li>
-<p>使用<code>join_rows()</code>和<code>join_cols()</code>分别替代<code>cbind()</code>和<code>rbind()</code>。注意事项：连续合并列或行会造成性能下降。好的方法是：提前建立向量，然后将列或行依次填入。</p>
-</li>
-</ul>
-<h2 id=3-span-stylecolor-bluebigmemoryspan>3. bigmemory</h2>
-<p>bigmemory包提供了四种数据类型的矩阵，即<code>double</code>（默认）、<code>integer</code>、<code>short</code>和<code>char</code>。对于<code>big.matrix</code>对象<code>pMat</code>，四种类型通过通过<code>MatrixAccessor&lt;double> macc(*pMat)</code>、<code>MatrixAccessor&lt;int> macc(*pMat)</code>、<code>MatrixAccessor&lt;short> macc(*pMat)</code>和<code>MatrixAccessor&lt;char> macc(*pMat)</code>提取元素。<code>pMat</code>有三种属性<code>nrow()</code>、<code>ncol()</code>和<code>matrix_type()</code>可以使用。一下代码示例展示了将<code>big.matrix</code>转换为<code>matrix</code>：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#00f>#include</span> <span style=color:#00f>&lt;Rcpp.h&gt;</span><span style=color:#00f>
-</span><span style=color:#00f></span><span style=color:green>// [[Rcpp::depends(BH, bigmemory)]]
-</span><span style=color:green></span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style=color:#00f>
-</span><span style=color:#00f></span>
-<span style=color:#00f>#include</span> <span style=color:#00f>&lt;numeric&gt;</span><span style=color:#00f>
-</span><span style=color:#00f></span>
-<span style=color:#00f>using</span> <span style=color:#00f>namespace</span> Rcpp;
-
-
-<span style=color:green>// [[Rcpp::export]]
-</span><span style=color:green></span>Rcpp::NumericMatrix TestBigMat(XPtr&lt;BigMatrix&gt; pMat) {
-
-  MatrixAccessor&lt;<span style=color:#2b91af>int</span>&gt; macc(*pMat);
-
-  <span style=color:#2b91af>int</span> n = pMat-&gt;nrow();
-  <span style=color:#2b91af>int</span> m = pMat-&gt;ncol();
-
-  NumericMatrix resMat(n, m);
-
-  <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> i = 0; i &lt; n; ++i) {
-    <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> j = 0; j &lt; m; ++j) {
-      resMat(i, j) = macc[j][i];
-    }
-  }
-
-  <span style=color:#00f>return</span> resMat;
-}
-</code></pre></div><p>注意事项：</p>
-<ul>
-<li>
-<p>获取元素为<code>列-行</code>形式，因为<code>big.matrix</code>按照列存储矩阵。例如<code>macc[j][i]</code>表示<code>i-1</code>行的<code>j-1</code>元素。</p>
-</li>
-<li>
-<p>调用函数使用<code>big.matrix</code>的地址，例如<code>TestBigMat(bigmat@address)</code>。</p>
-</li>
-</ul>
-<p>同样，RcppArmadillo也能与bigmemory结合，例如：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#00f>#include</span> <span style=color:#00f>&lt;RcppArmadillo.h&gt;</span><span style=color:#00f>
-</span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style=color:#00f>
-</span><span style=color:#00f></span>
-<span style=color:#00f>#include</span> <span style=color:#00f>&lt;numeric&gt;</span><span style=color:#00f>
-</span><span style=color:#00f></span>
-<span style=color:green>// [[Rcpp::depends(RcppArmadillo, bigmemory)]]
-</span><span style=color:green></span>
-<span style=color:#00f>using</span> <span style=color:#00f>namespace</span> Rcpp;
-<span style=color:#00f>using</span> <span style=color:#00f>namespace</span> arma;
-
-<span style=color:green>// [[Rcpp::export]]
-</span><span style=color:green></span>Rcpp::NumericMatrix TestBigMatArma(SEXP pMat) {
-
-  XPtr&lt;BigMatrix&gt; xpMat(pMat);
-
-  Mat&lt;<span style=color:#2b91af>int</span>&gt; macc = Mat&lt;<span style=color:#2b91af>int</span>&gt;((<span style=color:#2b91af>int</span> *)xpMat-&gt;matrix(), xpMat-&gt;nrow(), xpMat-&gt;ncol(), false);
-
-  <span style=color:#2b91af>int</span> n = xpMat-&gt;nrow();
-  <span style=color:#2b91af>int</span> m = xpMat-&gt;ncol();
-
-  NumericMatrix resMat(n, m);
-
-  <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> i = 0; i &lt; n; ++i) {
-    <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> j = 0; j &lt; m; ++j) {
-      resMat(i, j) = macc(i, j);
-    }
-  }
-
-  <span style=color:#00f>return</span> resMat;
-}
-</code></pre></div><h3 id=a-idref参考网址a>参考网址</h3>
-<ul>
-<li>
-<p><a href=http://arma.sourceforge.net/docs.html#adv_constructors_mat>Armadillo矩阵</a></p>
-</li>
-<li>
-<p><a href=https://stackoverflow.com/questions/13038256/subset-of-a-rcpp-matrix-that-matches-a-logical-statement>StackOverflow中矩阵提取</a></p>
-</li>
-<li>
-<p><a href=https://github.com/petewerner/misc/wiki/RcppArmadillo-cheatsheet>RcppArmadillo和R对照表</a></p>
-</li>
-<li>
-<p><a href=https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-quickref.pdf>Rcpp Quick Reference Guide</a></p>
-</li>
-<li>
-<p><a href=http://statr.me/rcpp-note/>Rcpp note</a></p>
-</li>
-<li>
-<p><a href=https://teuder.github.io/rcpp4everyone_en/>Rcpp for everyone</a></p>
-</li>
-<li>
-<p><a href=https://thecoatlessprofessor.com/programming/unofficial-rcpp-api-documentation/>Unofficial Rcpp API Documentation</a></p>
-</li>
-</ul>
-<h3 id=更新记录>更新记录</h3>
-<p>2021年12月08日</p>
-</div>
-<div class=post-tags>
-<nav class="nav tags">
-<ul class=flat>
-<li><a href=/tags/r>R</a></li>
-</ul>
-</nav>
-</div></div>
-<div class="footer wrapper">
-<nav class=nav>
-<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
-</nav>
-</div>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script>feather.replace()</script>
-</body>
-</html>
+<script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>Rcpp操作矩阵和向量集锦</h1><div class=meta>Posted at &mdash; Jan 7, 2016</div></div><div class=markdown><p>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。</p><h2 id=1-span-stylecolor-bluercppspan>1. Rcpp</h2><ul><li>可以使用逻辑下标（<code>LogicalVector</code>）对向量和列表<a href=http://gallery.rcpp.org/articles/subsetting/>取值</a>。</li></ul><h2 id=2-span-stylecolor-bluercpparmadillospan>2. RcppArmadillo</h2><p>基本类型是<code>mat</code>、<code>vec</code>（<code>colvec</code>）和<code>rowvec</code>。</p><ul><li><p>属性</p><ul><li>对于矩阵，行数：<code>m.n_rows;</code>；列数：<code>m.n_cols;</code>；维度：<code>m.size();</code>或<code>size(m);</code>。对于向量，元素数：<code>v.n_elem;</code>。</li></ul></li><li><p>特殊向量或矩阵</p><ul><li><p>全是1<code>ones&lt;mat>(3, 4);</code>/<code>vec(10, fill::ones);</code>/；全是0<code>zeros&lt;vec>(10);</code>/<code>mat(3, 4, fill::zeros);</code>；全是某个数<code>mat a(4, 5); a.fill(123.4);</code>。</p></li><li><p>连续向量，规定长度<code>linspace&lt;vec>(0, 5, 6);</code>；连续向量，规定间距<code>regspace&lt;vec>(0, 2, 9);</code>。</p></li></ul></li><li><p>取值</p><ul><li><p>对于向量，连续取值：<code>v.subvec(1stIdx, lastIdx);</code>；非连续，可以考虑使用<code>find()</code>函数，比如：<code>v.elem(find(v > 0));</code>。</p></li><li><p>对于矩阵，连续取值：<code>m.col(Idx);</code>/<code>m.row(Idx);</code>/<code>m.cols(Idx);</code>/<code>m.rows(Idx);</code>/<code>m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);</code>；非连续，<code>m.submat(vecRowIdx, vecColIdx);</code>。</p></li></ul></li><li><p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，<code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);</code>。同样道理，可以转化向量。例如：</p></li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) {
+</span></span><span style=display:flex><span>    mat tx(x.begin(), x.nrow(), x.ncol(), false);
+</span></span><span style=display:flex><span>    vec ty(y.begin(), y.size(), false);
+</span></span><span style=display:flex><span>    <span style=color:#00f>return</span> tx;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) {
+</span></span><span style=display:flex><span>    NumericMatrix tx(x.n_rows, x.n_cols, x.begin());
+</span></span><span style=display:flex><span>    NumericVector ty(y.begin(), y.end());
+</span></span><span style=display:flex><span>    <span style=color:#00f>return</span> ty;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:green>// 不要使用as&lt;IntegerVector&gt;(wrap(y))，会有内存泄露。
+</span></span></span><span style=display:flex><span><span style=color:green></span>}
+</span></span></code></pre></div><ul><li>使用<code>.each_col()</code>/<code>.each_row()</code>/<code>.for_each()</code>替代<code>apply()</code></li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>arma::mat TestMat(arma::mat M, <span style=color:#2b91af>double</span> a) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  M.for_each([a](mat::elem_type&amp; val) {
+</span></span><span style=display:flex><span>      val = val &gt; 0 ? val : a;
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  M.each_row([](rowvec&amp; r) {
+</span></span><span style=display:flex><span>      r /= r.max();
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#00f>return</span> M;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ul><li><p>使用<code>sum(M, 0);</code>和<code>sum(M, 1);</code>分别替代<code>colSums(M)</code>和<code>rowSums(M)</code>。</p></li><li><p>使用<code>join_rows()</code>和<code>join_cols()</code>分别替代<code>cbind()</code>和<code>rbind()</code>。注意事项：连续合并列或行会造成性能下降。好的方法是：提前建立向量，然后将列或行依次填入。</p></li></ul><h2 id=3-span-stylecolor-bluebigmemoryspan>3. bigmemory</h2><p>bigmemory包提供了四种数据类型的矩阵，即<code>double</code>（默认）、<code>integer</code>、<code>short</code>和<code>char</code>。对于<code>big.matrix</code>对象<code>pMat</code>，四种类型通过通过<code>MatrixAccessor&lt;double> macc(*pMat)</code>、<code>MatrixAccessor&lt;int> macc(*pMat)</code>、<code>MatrixAccessor&lt;short> macc(*pMat)</code>和<code>MatrixAccessor&lt;char> macc(*pMat)</code>提取元素。<code>pMat</code>有三种属性<code>nrow()</code>、<code>ncol()</code>和<code>matrix_type()</code>可以使用。一下代码示例展示了将<code>big.matrix</code>转换为<code>matrix</code>：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;Rcpp.h&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f></span><span style=color:green>// [[Rcpp::depends(BH, bigmemory)]]
+</span></span></span><span style=display:flex><span><span style=color:green></span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f></span>
+</span></span><span style=display:flex><span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;numeric&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f></span>
+</span></span><span style=display:flex><span><span style=color:#00f>using</span> <span style=color:#00f>namespace</span> Rcpp;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>// [[Rcpp::export]]
+</span></span></span><span style=display:flex><span><span style=color:green></span>Rcpp::NumericMatrix TestBigMat(XPtr&lt;BigMatrix&gt; pMat) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  MatrixAccessor&lt;<span style=color:#2b91af>int</span>&gt; macc(*pMat);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#2b91af>int</span> n = pMat-&gt;nrow();
+</span></span><span style=display:flex><span>  <span style=color:#2b91af>int</span> m = pMat-&gt;ncol();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  NumericMatrix resMat(n, m);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> i = 0; i &lt; n; ++i) {
+</span></span><span style=display:flex><span>    <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> j = 0; j &lt; m; ++j) {
+</span></span><span style=display:flex><span>      resMat(i, j) = macc[j][i];
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#00f>return</span> resMat;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>注意事项：</p><ul><li><p>获取元素为<code>列-行</code>形式，因为<code>big.matrix</code>按照列存储矩阵。例如<code>macc[j][i]</code>表示<code>i-1</code>行的<code>j-1</code>元素。</p></li><li><p>调用函数使用<code>big.matrix</code>的地址，例如<code>TestBigMat(bigmat@address)</code>。</p></li></ul><p>同样，RcppArmadillo也能与bigmemory结合，例如：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;RcppArmadillo.h&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;bigmemory/MatrixAccessor.hpp&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f></span>
+</span></span><span style=display:flex><span><span style=color:#00f>#include</span> <span style=color:#00f>&lt;numeric&gt;</span><span style=color:#00f>
+</span></span></span><span style=display:flex><span><span style=color:#00f></span>
+</span></span><span style=display:flex><span><span style=color:green>// [[Rcpp::depends(RcppArmadillo, bigmemory)]]
+</span></span></span><span style=display:flex><span><span style=color:green></span>
+</span></span><span style=display:flex><span><span style=color:#00f>using</span> <span style=color:#00f>namespace</span> Rcpp;
+</span></span><span style=display:flex><span><span style=color:#00f>using</span> <span style=color:#00f>namespace</span> arma;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>// [[Rcpp::export]]
+</span></span></span><span style=display:flex><span><span style=color:green></span>Rcpp::NumericMatrix TestBigMatArma(SEXP pMat) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  XPtr&lt;BigMatrix&gt; xpMat(pMat);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  Mat&lt;<span style=color:#2b91af>int</span>&gt; macc = Mat&lt;<span style=color:#2b91af>int</span>&gt;((<span style=color:#2b91af>int</span> *)xpMat-&gt;matrix(), xpMat-&gt;nrow(), xpMat-&gt;ncol(), false);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#2b91af>int</span> n = xpMat-&gt;nrow();
+</span></span><span style=display:flex><span>  <span style=color:#2b91af>int</span> m = xpMat-&gt;ncol();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  NumericMatrix resMat(n, m);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> i = 0; i &lt; n; ++i) {
+</span></span><span style=display:flex><span>    <span style=color:#00f>for</span> (<span style=color:#2b91af>int</span> j = 0; j &lt; m; ++j) {
+</span></span><span style=display:flex><span>      resMat(i, j) = macc(i, j);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#00f>return</span> resMat;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=a-idref参考网址a>参考网址</h3><ul><li><p><a href=http://arma.sourceforge.net/docs.html#adv_constructors_mat>Armadillo矩阵</a></p></li><li><p><a href=https://stackoverflow.com/questions/13038256/subset-of-a-rcpp-matrix-that-matches-a-logical-statement>StackOverflow中矩阵提取</a></p></li><li><p><a href=https://github.com/petewerner/misc/wiki/RcppArmadillo-cheatsheet>RcppArmadillo和R对照表</a></p></li><li><p><a href=https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-quickref.pdf>Rcpp Quick Reference Guide</a></p></li><li><p><a href=http://statr.me/rcpp-note/>Rcpp note</a></p></li><li><p><a href=https://teuder.github.io/rcpp4everyone_en/>Rcpp for everyone</a></p></li><li><p><a href=https://thecoatlessprofessor.com/programming/unofficial-rcpp-api-documentation/>Unofficial Rcpp API Documentation</a></p></li></ul><h3 id=更新记录>更新记录</h3><p>2021年12月08日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/r>R</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53073828-1","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script>feather.replace()</script></body></html>

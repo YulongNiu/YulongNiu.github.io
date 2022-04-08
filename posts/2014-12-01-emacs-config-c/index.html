@@ -1,389 +1,223 @@
-<!doctype html><html>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge"><title>Emacs配置C语言编程环境 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Emacs配置C语言编程环境">
-<meta property="og:description" content="转至CLion。">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2014-12-01T17:36:41-05:00">
-<meta property="article:modified_time" content="2014-12-01T17:36:41-05:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Emacs配置C语言编程环境">
-<meta name=twitter:description content="转至CLion。">
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css>
-<link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css>
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)">
-<link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)">
-<script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Emacs配置C语言编程环境 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Emacs配置C语言编程环境"><meta property="og:description" content="转至CLion。"><meta property="og:type" content="article"><meta property="og:url" content="https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2014-12-01T17:36:41-05:00"><meta property="article:modified_time" content="2014-12-01T17:36:41-05:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Emacs配置C语言编程环境"><meta name=twitter:description content="转至CLion。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
 <script src=https://YulongNiu.github.io/js/main.js></script>
 <script src=https://YulongNiu.github.io/js/abc.js></script>
-<script src=https://YulongNiu.github.io/js/xyz.js></script>
-</head>
-<body>
-<div class="container wrapper post">
-<div class=header>
-<base href=https://YulongNiu.github.io/>
-<h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1>
-<div class=site-description><h2>个人博客</h2><nav class="nav social">
-<ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul>
-</nav>
-</div>
-<nav class=nav>
-<ul class=flat>
-<li>
-<a href=/>Home</a>
-</li>
-<li>
-<a href=/posts>Posts</a>
-</li>
-<li>
-<a href=/tags>Tags</a>
-</li>
-<li>
-<a href=/about>About</a>
-</li>
-</ul>
-</nav>
-</div>
-<div class=post-header>
-<h1 class=title>Emacs配置C语言编程环境</h1>
-<div class=meta>Posted at &mdash; Dec 1, 2014</div>
-</div>
-<div class=markdown>
-<p>有很多优秀的C/C++语言IDE用来实现高效的编程，比如<a href=https://www.jetbrains.com/clion/>CLion</a>。本文介绍在Emacs下配置C/C++编程环境。</p>
-<h2 id=1-安装和基本配置>1. 安装和基本配置</h2>
-<h3 id=11-安装需求>1.1. 安装需求</h3>
-<ul>
-<li>安装<a href=http://www.gnu.org/software/global/>GNU Global</a></li>
-</ul>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:green># dnf install global llvm llvm-devel clang* </span>
-</code></pre></div><ul>
-<li>安装Emacs的<code>helm</code>、<code>helm-swoop</code>、<code>helm-gtags</code>、<code>sr-speedbar</code>、<code>smartparens</code>、<code>google-c-style</code>、<code>auto-complete</code>、<code>auto-complete-c-headers</code>、<code>auto-complete-clang</code>包。</li>
-</ul>
-<h3 id=12-emacs配置>1.2. Emacs配置</h3>
-<p>将<a href=#c-mode-config>附加环境设置</a>添加到Emacs设置文件，比如<code>~/.emacs</code>，此环境配置参考<a href=https://github.com/tuhdo/emacs-c-ide-demo/blob/master/custom/setup-helm.el>tuhdo</a>。</p>
-<h2 id=2-文件操作>2. 文件操作</h2>
-<h3 id=21-查找>2.1. 查找</h3>
-<ul>
-<li>
-<p>当前buffer查找函数、类的定义</p>
-<ol>
-<li><code>C-c h i</code>（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。</li>
-</ol>
-</li>
-<li>
-<p>当前project查找定义</p>
-<ol>
-<li>
-<p><code>M-.</code>（helm-gtags-dwim）：输入查找内容。<code>M-,</code>（tags-loop-continue）：返回上一个buffer。</p>
-</li>
-<li>
-<p><code>C-j</code>（helm-gtags-select）：列出当前project所有定义，并且查找。</p>
-</li>
-</ol>
-</li>
-<li>
-<p>查找引用</p>
-<ol>
-<li>
-<p><code>C-c g r</code>（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。</p>
-</li>
-<li>
-<p><code>C-c g s</code>（helm-gtags-find-symbol）：光标停留在变量时的查找。</p>
-</li>
-</ol>
-</li>
-<li>
-<p>查找当前函数引用的函数</p>
-<ol>
-<li><code>C-c g a</code>（helm-gtags-tags-in-this-function）</li>
-</ol>
-</li>
-<li>
-<p>查找文件</p>
-<ol>
-<li><code>C-c g P</code>（elm-gtags-find-files）</li>
-</ol>
-</li>
-</ul>
-<h3 id=22-列出源码树>2.2. 列出源码树</h3>
-<ul>
-<li>
-<p>开启和关闭</p>
-<ol>
-<li><code>M-x sr-speedbar-open RET</code>：开启。<code>M-x sr-speedbar-close RET</code>：关闭。</li>
-</ol>
-</li>
-<li>
-<p>操作</p>
-<ol>
-<li>
-<p><code>b</code>和<code>f</code>切换到当前buffer和所有文件列表。</p>
-</li>
-<li>
-<p><code>=</code>：展开。<code>g</code>：收回。</p>
-</li>
-<li>
-<p><code>U</code>：上一级目录。</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id=23-代码补全>2.3 代码补全</h3>
-<p>代码补全使用<code>auto-complete</code>、<code>auto-complete-c-headers</code>、<code>semantic</code>包。在使用<code>auto-complete-c-headers</code>自动补全头文件名称时，使用以下命令获得头文件路径：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ gcc -xc -E -v -
-$ gcc -xc++ -E -v -
-</code></pre></div><p><img src=/images/emacs_config_c_autocomplete.png alt=emacs_config_c_autocomplete.png></p>
-<h2 id=3-编译和debug>3. 编译和debug</h2>
-<h3 id=31-使用gcc编译>3.1 使用gcc编译</h3>
-<p>使用<code>M-x compile</code>对源文件进行编译链接；或者开启ansi-term模式<code>M-x ansi-term</code>，进入shell操作。一个直接编译&ndash;汇编&ndash;链接的简单例子：</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ gcc helloworld.c -o helloworld
-$ ./helloworld
-</code></pre></div><h2 id=附加内容>附加内容</h2>
-<p>C/C++的Emacs编程环境设置</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lisp data-lang=lisp><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;set up helm</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-(require <span style=color:#a31515>&#39;helm-config</span>)
-(require <span style=color:#a31515>&#39;helm-grep</span>)
-<span style=color:green>;; The default &#34;C-x c&#34; is quite close to &#34;C-x C-c&#34;, which quits Emacs.</span>
-<span style=color:green>;; Changed to &#34;C-c h&#34;. Note: We must set &#34;C-c h&#34; globally, because we</span>
-<span style=color:green>;; cannot change `helm-command-prefix-key&#39; once `helm-config&#39; is loaded.</span>
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c h&#34;</span>) <span style=color:#a31515>&#39;helm-command-prefix</span>)
-(global-unset-key (kbd <span style=color:#a31515>&#34;C-x c&#34;</span>))
-
-(define-key helm-map (kbd <span style=color:#a31515>&#34;&lt;tab&gt;&#34;</span>) <span style=color:#a31515>&#39;helm-execute-persistent-action</span>) <span style=color:green>; rebihnd tab to do persistent action</span>
-(define-key helm-map (kbd <span style=color:#a31515>&#34;C-i&#34;</span>) <span style=color:#a31515>&#39;helm-execute-persistent-action</span>) <span style=color:green>; make TAB works in terminal</span>
-(define-key helm-map (kbd <span style=color:#a31515>&#34;C-z&#34;</span>)  <span style=color:#a31515>&#39;helm-select-action</span>) <span style=color:green>; list actions using C-z</span>
-
-(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;&lt;return&gt;&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window</span>)
-(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;n&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window-forward</span>)
-(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;p&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window-backward</span>)
-
-(when (executable-find <span style=color:#a31515>&#34;curl&#34;</span>)
-  (<span style=color:#00f>setq</span> helm-google-suggest-use-curl-p t))
-
-(<span style=color:#00f>setq</span>
- helm-scroll-amount 4 <span style=color:green>; scroll 4 lines other window using M-&lt;next&gt;/M-&lt;prior&gt;</span>
- helm-quick-update t <span style=color:green>; do not display invisible candidates</span>
- helm-ff-search-library-in-sexp t <span style=color:green>; search for library in `require&#39; and `declare-function&#39; sexp.</span>
- helm-split-window-in-side-p t <span style=color:green>;; open helm buffer inside current window, not occupy whole other window</span>
- helm-candidate-number-limit 500 <span style=color:green>; limit the number of displayed canidates</span>
- helm-ff-file-name-history-use-recentf t
- helm-move-to-line-cycle-in-source t <span style=color:green>; move to end or beginning of source when reaching top or bottom of source.</span>
- helm-buffers-fuzzy-matching t          <span style=color:green>; fuzzy matching buffer names when non-nil</span>
-                                        <span style=color:green>; useful in helm-mini that lists buffers</span>
-
- )
-
-(add-to-list <span style=color:#a31515>&#39;helm-sources-using-default-as-input</span> <span style=color:#a31515>&#39;helm-source-man-pages</span>)
-
-(global-set-key (kbd <span style=color:#a31515>&#34;M-x&#34;</span>) <span style=color:#a31515>&#39;helm-M-x</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;M-y&#34;</span>) <span style=color:#a31515>&#39;helm-show-kill-ring</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;C-x b&#34;</span>) <span style=color:#a31515>&#39;helm-mini</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;C-x C-f&#34;</span>) <span style=color:#a31515>&#39;helm-find-files</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;C-h SPC&#34;</span>) <span style=color:#a31515>&#39;helm-all-mark-rings</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c h o&#34;</span>) <span style=color:#a31515>&#39;helm-occur</span>)
-
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c h C-c w&#34;</span>) <span style=color:#a31515>&#39;helm-wikipedia-suggest</span>)
-
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c h x&#34;</span>) <span style=color:#a31515>&#39;helm-register</span>)
-<span style=color:green>;; (global-set-key (kbd &#34;C-x r j&#34;) &#39;jump-to-register)</span>
-
-(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;C-f&#34;</span>) <span style=color:#a31515>&#39;helm-apropos</span>)
-(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;r&#34;</span>) <span style=color:#a31515>&#39;helm-info-emacs</span>)
-(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;C-l&#34;</span>) <span style=color:#a31515>&#39;helm-locate-library</span>)
-
-<span style=color:green>;; use helm to list eshell history</span>
-(add-hook <span style=color:#a31515>&#39;eshell-mode-hook</span>
-          #&#39;(lambda ()
-              (define-key eshell-mode-map (kbd <span style=color:#a31515>&#34;M-l&#34;</span>)  <span style=color:#a31515>&#39;helm-eshell-history</span>)))
-
-<span style=color:green>;;; Save current position to mark ring</span>
-(add-hook <span style=color:#a31515>&#39;helm-goto-line-before-hook</span> <span style=color:#a31515>&#39;helm-save-current-pos-to-mark-ring</span>)
-
-<span style=color:green>;; show minibuffer history with Helm</span>
-(define-key minibuffer-local-map (kbd <span style=color:#a31515>&#34;M-p&#34;</span>) <span style=color:#a31515>&#39;helm-minibuffer-history</span>)
-(define-key minibuffer-local-map (kbd <span style=color:#a31515>&#34;M-n&#34;</span>) <span style=color:#a31515>&#39;helm-minibuffer-history</span>)
-
-(define-key global-map [remap find-tag] <span style=color:#a31515>&#39;helm-etags-select</span>)
-
-(define-key global-map [remap list-buffers] <span style=color:#a31515>&#39;helm-buffers-list</span>)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;; PACKAGE: helm-swoop                ;;</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;; Locate the helm-swoop folder to your path</span>
-(require <span style=color:#a31515>&#39;helm-swoop</span>)
-
-<span style=color:green>;; Change the keybinds to whatever you like :)</span>
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c h o&#34;</span>) <span style=color:#a31515>&#39;helm-swoop</span>)
-(global-set-key (kbd <span style=color:#a31515>&#34;C-c s&#34;</span>) <span style=color:#a31515>&#39;helm-multi-swoop-all</span>)
-
-<span style=color:green>;; When doing isearch, hand the word over to helm-swoop</span>
-(define-key isearch-mode-map (kbd <span style=color:#a31515>&#34;M-i&#34;</span>) <span style=color:#a31515>&#39;helm-swoop-from-isearch</span>)
-
-<span style=color:green>;; From helm-swoop to helm-multi-swoop-all</span>
-(define-key helm-swoop-map (kbd <span style=color:#a31515>&#34;M-i&#34;</span>) <span style=color:#a31515>&#39;helm-multi-swoop-all-from-helm-swoop</span>)
-
-<span style=color:green>;; Save buffer when helm-multi-swoop-edit complete</span>
-(<span style=color:#00f>setq</span> helm-multi-swoop-edit-save t)
-
-<span style=color:green>;; If this value is t, split window inside the current window</span>
-(<span style=color:#00f>setq</span> helm-swoop-split-with-multiple-windows t)
-
-<span style=color:green>;; Split direcion. &#39;split-window-vertically or &#39;split-window-horizontally</span>
-(<span style=color:#00f>setq</span> helm-swoop-split-direction <span style=color:#a31515>&#39;split-window-vertically</span>)
-
-<span style=color:green>;; If nil, you can slightly boost invoke speed in exchange for text color</span>
-(<span style=color:#00f>setq</span> helm-swoop-speed-or-color t)
-
-(helm-mode 1)
-
-(provide <span style=color:#a31515>&#39;setup-helm</span>)
-
-(require <span style=color:#a31515>&#39;setup-helm</span>)
-(<span style=color:#00f>setq</span>
- helm-gtags-ignore-case t
- helm-gtags-auto-update t
- helm-gtags-use-input-at-cursor t
- helm-gtags-pulse-at-cursor t
- helm-gtags-prefix-key <span style=color:#a31515>&#34;\C-cg&#34;</span>
- helm-gtags-suggested-key-mapping t
- )
-
-(require <span style=color:#a31515>&#39;helm-gtags</span>)
-<span style=color:green>;; Enable helm-gtags-mode</span>
-(add-hook <span style=color:#a31515>&#39;dired-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
-(add-hook <span style=color:#a31515>&#39;eshell-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
-(add-hook <span style=color:#a31515>&#39;c-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
-(add-hook <span style=color:#a31515>&#39;c++-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
-(add-hook <span style=color:#a31515>&#39;asm-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
-
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c g a&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-tags-in-this-function</span>)
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-j&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-select</span>)
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;M-.&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-dwim</span>)
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;M-,&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-pop-stack</span>)
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c &lt;&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-previous-history</span>)
-(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c &gt;&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-next-history</span>)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;enable semantic mode</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
-(require <span style=color:#a31515>&#39;cc-mode</span>)
-(require <span style=color:#a31515>&#39;semantic</span>)
-
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(global-semantic-idle-summary-mode 1)
-(global-semantic-stickyfunc-mode 1)
-
-(semantic-mode 1)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;open hs-mode</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;</span>
-(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span>   <span style=color:#a31515>&#39;hs-minor-mode</span>)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;google-c-style</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;</span>
-(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;google-set-c-style</span>)
-(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;google-make-newline-indent</span>)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;smartparens</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
-(require <span style=color:#a31515>&#39;smartparens-config</span>)
-(show-smartparens-global-mode t)
-(smartparens-global-mode t)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>; auto-complete</span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-(require <span style=color:#a31515>&#39;auto-complete</span>)
-(require <span style=color:#a31515>&#39;auto-complete-config</span>)
-(ac-config-default)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;; auto-complete-c-headers </span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-(defun my:ac-c-header-init()
-  (require <span style=color:#a31515>&#39;auto-complete-c-headers</span>)
-  (add-to-list <span style=color:#a31515>&#39;ac-sources</span> <span style=color:#a31515>&#39;ac-source-c-headers</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2&#34;</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux&#34;</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward&#34;</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include&#34;</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/local/include&#34;</span>)
-  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/include&#34;</span>)
-  )
-(add-hook <span style=color:#a31515>&#39;c++-mode-hook</span> <span style=color:#a31515>&#39;my:ac-c-header-init</span>)
-(add-hook <span style=color:#a31515>&#39;c-mode-hook</span> <span style=color:#a31515>&#39;my:ac-c-header-init</span>)
-
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span style=color:green>;; auto-complete-clang </span>
-<span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-(require <span style=color:#a31515>&#39;auto-complete-clang</span>)
-(<span style=color:#00f>setq</span> ac-auto-start t)
-(<span style=color:#00f>setq</span> ac-quick-help-delay 0.5)
-<span style=color:green>;; (ac-set-trigger-key &#34;TAB&#34;)</span>
-<span style=color:green>;; (define-key ac-mode-map  [(control tab)] &#39;auto-complete)</span>
-(define-key ac-mode-map  [(control tab)] <span style=color:#a31515>&#39;auto-complete</span>)
-(defun my-ac-config ()
-  (<span style=color:#00f>setq</span> ac-clang-flags
-	(mapcar(lambda (item)(concat <span style=color:#a31515>&#34;-I&#34;</span> item))
-	       (split-string
-		<span style=color:#a31515>&#34;
-</span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2
-</span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux
-</span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward
-</span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include
-</span><span style=color:#a31515>/usr/local/include
-</span><span style=color:#a31515>/usr/include&#34;</span>
-		)))
-  (setq-default ac-sources &#39;(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
-  (add-hook <span style=color:#a31515>&#39;emacs-lisp-mode-hook</span> <span style=color:#a31515>&#39;ac-emacs-lisp-mode-setup</span>)
-  <span style=color:green>;; (add-hook &#39;c-mode-common-hook &#39;ac-cc-mode-setup)</span>
-  (add-hook <span style=color:#a31515>&#39;ruby-mode-hook</span> <span style=color:#a31515>&#39;ac-ruby-mode-setup</span>)
-  (add-hook <span style=color:#a31515>&#39;css-mode-hook</span> <span style=color:#a31515>&#39;ac-css-mode-setup</span>)
-  (add-hook <span style=color:#a31515>&#39;auto-complete-mode-hook</span> <span style=color:#a31515>&#39;ac-common-setup</span>)
-  (global-auto-complete-mode t))
-(defun my-ac-cc-mode-setup ()
-  (<span style=color:#00f>setq</span> ac-sources (append &#39;(ac-source-clang ac-source-yasnippet) ac-sources)))
-(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;my-ac-cc-mode-setup</span>)
-<span style=color:green>;; ac-source-gtags</span>
-(my-ac-config)
-</code></pre></div><h3 id=参考资料>参考资料</h3>
-<ul>
-<li>
-<p><a href=http://tuhdo.github.io/c-ide.html#sec-1-3>C/C++ Development Environment for Emacs</a></p>
-</li>
-<li>
-<p><a href="https://www.youtube.com/watch?v=HTUE03LnaXA">YouTube Vedio</a></p>
-</li>
-</ul>
-<h3 id=更新记录>更新记录</h3>
-<p>2022年01月11日</p>
-</div>
-<div class=post-tags>
-<nav class="nav tags">
-<ul class=flat>
-<li><a href=/tags/emacs>Emacs</a></li>
-</ul>
-</nav>
-</div></div>
-<div class="footer wrapper">
-<nav class=nav>
-<div> © Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div>
-</nav>
-</div>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-53073828-1','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script>feather.replace()</script>
-</body>
-</html>
+<script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>Emacs配置C语言编程环境</h1><div class=meta>Posted at &mdash; Dec 1, 2014</div></div><div class=markdown><p>有很多优秀的C/C++语言IDE用来实现高效的编程，比如<a href=https://www.jetbrains.com/clion/>CLion</a>。本文介绍在Emacs下配置C/C++编程环境。</p><h2 id=1-安装和基本配置>1. 安装和基本配置</h2><h3 id=11-安装需求>1.1. 安装需求</h3><ul><li>安装<a href=http://www.gnu.org/software/global/>GNU Global</a></li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:green># dnf install global llvm llvm-devel clang* </span>
+</span></span></code></pre></div><ul><li>安装Emacs的<code>helm</code>、<code>helm-swoop</code>、<code>helm-gtags</code>、<code>sr-speedbar</code>、<code>smartparens</code>、<code>google-c-style</code>、<code>auto-complete</code>、<code>auto-complete-c-headers</code>、<code>auto-complete-clang</code>包。</li></ul><h3 id=12-emacs配置>1.2. Emacs配置</h3><p>将<a href=#c-mode-config>附加环境设置</a>添加到Emacs设置文件，比如<code>~/.emacs</code>，此环境配置参考<a href=https://github.com/tuhdo/emacs-c-ide-demo/blob/master/custom/setup-helm.el>tuhdo</a>。</p><h2 id=2-文件操作>2. 文件操作</h2><h3 id=21-查找>2.1. 查找</h3><ul><li><p>当前buffer查找函数、类的定义</p><ol><li><code>C-c h i</code>（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。</li></ol></li><li><p>当前project查找定义</p><ol><li><p><code>M-.</code>（helm-gtags-dwim）：输入查找内容。<code>M-,</code>（tags-loop-continue）：返回上一个buffer。</p></li><li><p><code>C-j</code>（helm-gtags-select）：列出当前project所有定义，并且查找。</p></li></ol></li><li><p>查找引用</p><ol><li><p><code>C-c g r</code>（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。</p></li><li><p><code>C-c g s</code>（helm-gtags-find-symbol）：光标停留在变量时的查找。</p></li></ol></li><li><p>查找当前函数引用的函数</p><ol><li><code>C-c g a</code>（helm-gtags-tags-in-this-function）</li></ol></li><li><p>查找文件</p><ol><li><code>C-c g P</code>（elm-gtags-find-files）</li></ol></li></ul><h3 id=22-列出源码树>2.2. 列出源码树</h3><ul><li><p>开启和关闭</p><ol><li><code>M-x sr-speedbar-open RET</code>：开启。<code>M-x sr-speedbar-close RET</code>：关闭。</li></ol></li><li><p>操作</p><ol><li><p><code>b</code>和<code>f</code>切换到当前buffer和所有文件列表。</p></li><li><p><code>=</code>：展开。<code>g</code>：收回。</p></li><li><p><code>U</code>：上一级目录。</p></li></ol></li></ul><h3 id=23-代码补全>2.3 代码补全</h3><p>代码补全使用<code>auto-complete</code>、<code>auto-complete-c-headers</code>、<code>semantic</code>包。在使用<code>auto-complete-c-headers</code>自动补全头文件名称时，使用以下命令获得头文件路径：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ gcc -xc -E -v -
+</span></span><span style=display:flex><span>$ gcc -xc++ -E -v -
+</span></span></code></pre></div><p><img src=/images/emacs_config_c_autocomplete.png alt=emacs_config_c_autocomplete.png></p><h2 id=3-编译和debug>3. 编译和debug</h2><h3 id=31-使用gcc编译>3.1 使用gcc编译</h3><p>使用<code>M-x compile</code>对源文件进行编译链接；或者开启ansi-term模式<code>M-x ansi-term</code>，进入shell操作。一个直接编译&ndash;汇编&ndash;链接的简单例子：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ gcc helloworld.c -o helloworld
+</span></span><span style=display:flex><span>$ ./helloworld
+</span></span></code></pre></div><h2 id=附加内容>附加内容</h2><p>C/C++的Emacs编程环境设置</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lisp data-lang=lisp><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;set up helm</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;helm-config</span>)
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;helm-grep</span>)
+</span></span><span style=display:flex><span><span style=color:green>;; The default &#34;C-x c&#34; is quite close to &#34;C-x C-c&#34;, which quits Emacs.</span>
+</span></span><span style=display:flex><span><span style=color:green>;; Changed to &#34;C-c h&#34;. Note: We must set &#34;C-c h&#34; globally, because we</span>
+</span></span><span style=display:flex><span><span style=color:green>;; cannot change `helm-command-prefix-key&#39; once `helm-config&#39; is loaded.</span>
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c h&#34;</span>) <span style=color:#a31515>&#39;helm-command-prefix</span>)
+</span></span><span style=display:flex><span>(global-unset-key (kbd <span style=color:#a31515>&#34;C-x c&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key helm-map (kbd <span style=color:#a31515>&#34;&lt;tab&gt;&#34;</span>) <span style=color:#a31515>&#39;helm-execute-persistent-action</span>) <span style=color:green>; rebihnd tab to do persistent action</span>
+</span></span><span style=display:flex><span>(define-key helm-map (kbd <span style=color:#a31515>&#34;C-i&#34;</span>) <span style=color:#a31515>&#39;helm-execute-persistent-action</span>) <span style=color:green>; make TAB works in terminal</span>
+</span></span><span style=display:flex><span>(define-key helm-map (kbd <span style=color:#a31515>&#34;C-z&#34;</span>)  <span style=color:#a31515>&#39;helm-select-action</span>) <span style=color:green>; list actions using C-z</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;&lt;return&gt;&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window</span>)
+</span></span><span style=display:flex><span>(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;n&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window-forward</span>)
+</span></span><span style=display:flex><span>(define-key helm-grep-mode-map (kbd <span style=color:#a31515>&#34;p&#34;</span>)  <span style=color:#a31515>&#39;helm-grep-mode-jump-other-window-backward</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(when (executable-find <span style=color:#a31515>&#34;curl&#34;</span>)
+</span></span><span style=display:flex><span>  (<span style=color:#00f>setq</span> helm-google-suggest-use-curl-p t))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span>
+</span></span><span style=display:flex><span> helm-scroll-amount 4 <span style=color:green>; scroll 4 lines other window using M-&lt;next&gt;/M-&lt;prior&gt;</span>
+</span></span><span style=display:flex><span> helm-quick-update t <span style=color:green>; do not display invisible candidates</span>
+</span></span><span style=display:flex><span> helm-ff-search-library-in-sexp t <span style=color:green>; search for library in `require&#39; and `declare-function&#39; sexp.</span>
+</span></span><span style=display:flex><span> helm-split-window-in-side-p t <span style=color:green>;; open helm buffer inside current window, not occupy whole other window</span>
+</span></span><span style=display:flex><span> helm-candidate-number-limit 500 <span style=color:green>; limit the number of displayed canidates</span>
+</span></span><span style=display:flex><span> helm-ff-file-name-history-use-recentf t
+</span></span><span style=display:flex><span> helm-move-to-line-cycle-in-source t <span style=color:green>; move to end or beginning of source when reaching top or bottom of source.</span>
+</span></span><span style=display:flex><span> helm-buffers-fuzzy-matching t          <span style=color:green>; fuzzy matching buffer names when non-nil</span>
+</span></span><span style=display:flex><span>                                        <span style=color:green>; useful in helm-mini that lists buffers</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(add-to-list <span style=color:#a31515>&#39;helm-sources-using-default-as-input</span> <span style=color:#a31515>&#39;helm-source-man-pages</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;M-x&#34;</span>) <span style=color:#a31515>&#39;helm-M-x</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;M-y&#34;</span>) <span style=color:#a31515>&#39;helm-show-kill-ring</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-x b&#34;</span>) <span style=color:#a31515>&#39;helm-mini</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-x C-f&#34;</span>) <span style=color:#a31515>&#39;helm-find-files</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-h SPC&#34;</span>) <span style=color:#a31515>&#39;helm-all-mark-rings</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c h o&#34;</span>) <span style=color:#a31515>&#39;helm-occur</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c h C-c w&#34;</span>) <span style=color:#a31515>&#39;helm-wikipedia-suggest</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c h x&#34;</span>) <span style=color:#a31515>&#39;helm-register</span>)
+</span></span><span style=display:flex><span><span style=color:green>;; (global-set-key (kbd &#34;C-x r j&#34;) &#39;jump-to-register)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;C-f&#34;</span>) <span style=color:#a31515>&#39;helm-apropos</span>)
+</span></span><span style=display:flex><span>(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;r&#34;</span>) <span style=color:#a31515>&#39;helm-info-emacs</span>)
+</span></span><span style=display:flex><span>(define-key <span style=color:#a31515>&#39;help-command</span> (kbd <span style=color:#a31515>&#34;C-l&#34;</span>) <span style=color:#a31515>&#39;helm-locate-library</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; use helm to list eshell history</span>
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;eshell-mode-hook</span>
+</span></span><span style=display:flex><span>          #&#39;(lambda ()
+</span></span><span style=display:flex><span>              (define-key eshell-mode-map (kbd <span style=color:#a31515>&#34;M-l&#34;</span>)  <span style=color:#a31515>&#39;helm-eshell-history</span>)))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;; Save current position to mark ring</span>
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;helm-goto-line-before-hook</span> <span style=color:#a31515>&#39;helm-save-current-pos-to-mark-ring</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; show minibuffer history with Helm</span>
+</span></span><span style=display:flex><span>(define-key minibuffer-local-map (kbd <span style=color:#a31515>&#34;M-p&#34;</span>) <span style=color:#a31515>&#39;helm-minibuffer-history</span>)
+</span></span><span style=display:flex><span>(define-key minibuffer-local-map (kbd <span style=color:#a31515>&#34;M-n&#34;</span>) <span style=color:#a31515>&#39;helm-minibuffer-history</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key global-map [remap find-tag] <span style=color:#a31515>&#39;helm-etags-select</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key global-map [remap list-buffers] <span style=color:#a31515>&#39;helm-buffers-list</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;; PACKAGE: helm-swoop                ;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;; Locate the helm-swoop folder to your path</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;helm-swoop</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; Change the keybinds to whatever you like :)</span>
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c h o&#34;</span>) <span style=color:#a31515>&#39;helm-swoop</span>)
+</span></span><span style=display:flex><span>(global-set-key (kbd <span style=color:#a31515>&#34;C-c s&#34;</span>) <span style=color:#a31515>&#39;helm-multi-swoop-all</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; When doing isearch, hand the word over to helm-swoop</span>
+</span></span><span style=display:flex><span>(define-key isearch-mode-map (kbd <span style=color:#a31515>&#34;M-i&#34;</span>) <span style=color:#a31515>&#39;helm-swoop-from-isearch</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; From helm-swoop to helm-multi-swoop-all</span>
+</span></span><span style=display:flex><span>(define-key helm-swoop-map (kbd <span style=color:#a31515>&#34;M-i&#34;</span>) <span style=color:#a31515>&#39;helm-multi-swoop-all-from-helm-swoop</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; Save buffer when helm-multi-swoop-edit complete</span>
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> helm-multi-swoop-edit-save t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; If this value is t, split window inside the current window</span>
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> helm-swoop-split-with-multiple-windows t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; Split direcion. &#39;split-window-vertically or &#39;split-window-horizontally</span>
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> helm-swoop-split-direction <span style=color:#a31515>&#39;split-window-vertically</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;; If nil, you can slightly boost invoke speed in exchange for text color</span>
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> helm-swoop-speed-or-color t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(helm-mode 1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(provide <span style=color:#a31515>&#39;setup-helm</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;setup-helm</span>)
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span>
+</span></span><span style=display:flex><span> helm-gtags-ignore-case t
+</span></span><span style=display:flex><span> helm-gtags-auto-update t
+</span></span><span style=display:flex><span> helm-gtags-use-input-at-cursor t
+</span></span><span style=display:flex><span> helm-gtags-pulse-at-cursor t
+</span></span><span style=display:flex><span> helm-gtags-prefix-key <span style=color:#a31515>&#34;\C-cg&#34;</span>
+</span></span><span style=display:flex><span> helm-gtags-suggested-key-mapping t
+</span></span><span style=display:flex><span> )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;helm-gtags</span>)
+</span></span><span style=display:flex><span><span style=color:green>;; Enable helm-gtags-mode</span>
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;dired-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;eshell-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c++-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;asm-mode-hook</span> <span style=color:#a31515>&#39;helm-gtags-mode</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c g a&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-tags-in-this-function</span>)
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-j&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-select</span>)
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;M-.&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-dwim</span>)
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;M-,&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-pop-stack</span>)
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c &lt;&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-previous-history</span>)
+</span></span><span style=display:flex><span>(define-key helm-gtags-mode-map (kbd <span style=color:#a31515>&#34;C-c &gt;&#34;</span>) <span style=color:#a31515>&#39;helm-gtags-next-history</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;enable semantic mode</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;cc-mode</span>)
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;semantic</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(global-semanticdb-minor-mode 1)
+</span></span><span style=display:flex><span>(global-semantic-idle-scheduler-mode 1)
+</span></span><span style=display:flex><span>(global-semantic-idle-summary-mode 1)
+</span></span><span style=display:flex><span>(global-semantic-stickyfunc-mode 1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(semantic-mode 1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;open hs-mode</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span>   <span style=color:#a31515>&#39;hs-minor-mode</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;google-c-style</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;google-set-c-style</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;google-make-newline-indent</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;smartparens</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;smartparens-config</span>)
+</span></span><span style=display:flex><span>(show-smartparens-global-mode t)
+</span></span><span style=display:flex><span>(smartparens-global-mode t)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>; auto-complete</span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;auto-complete</span>)
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;auto-complete-config</span>)
+</span></span><span style=display:flex><span>(ac-config-default)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;; auto-complete-c-headers </span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(defun my:ac-c-header-init()
+</span></span><span style=display:flex><span>  (require <span style=color:#a31515>&#39;auto-complete-c-headers</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;ac-sources</span> <span style=color:#a31515>&#39;ac-source-c-headers</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2&#34;</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux&#34;</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward&#34;</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include&#34;</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/local/include&#34;</span>)
+</span></span><span style=display:flex><span>  (add-to-list <span style=color:#a31515>&#39;achead:include-directories</span> &#39;<span style=color:#a31515>&#34;/usr/include&#34;</span>)
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c++-mode-hook</span> <span style=color:#a31515>&#39;my:ac-c-header-init</span>)
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-hook</span> <span style=color:#a31515>&#39;my:ac-c-header-init</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span><span style=color:green>;; auto-complete-clang </span>
+</span></span><span style=display:flex><span><span style=color:green>;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+</span></span><span style=display:flex><span>(require <span style=color:#a31515>&#39;auto-complete-clang</span>)
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> ac-auto-start t)
+</span></span><span style=display:flex><span>(<span style=color:#00f>setq</span> ac-quick-help-delay 0.5)
+</span></span><span style=display:flex><span><span style=color:green>;; (ac-set-trigger-key &#34;TAB&#34;)</span>
+</span></span><span style=display:flex><span><span style=color:green>;; (define-key ac-mode-map  [(control tab)] &#39;auto-complete)</span>
+</span></span><span style=display:flex><span>(define-key ac-mode-map  [(control tab)] <span style=color:#a31515>&#39;auto-complete</span>)
+</span></span><span style=display:flex><span>(defun my-ac-config ()
+</span></span><span style=display:flex><span>  (<span style=color:#00f>setq</span> ac-clang-flags
+</span></span><span style=display:flex><span>	(mapcar(lambda (item)(concat <span style=color:#a31515>&#34;-I&#34;</span> item))
+</span></span><span style=display:flex><span>	       (split-string
+</span></span><span style=display:flex><span>		<span style=color:#a31515>&#34;
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/local/include
+</span></span></span><span style=display:flex><span><span style=color:#a31515>/usr/include&#34;</span>
+</span></span><span style=display:flex><span>		)))
+</span></span><span style=display:flex><span>  (setq-default ac-sources &#39;(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
+</span></span><span style=display:flex><span>  (add-hook <span style=color:#a31515>&#39;emacs-lisp-mode-hook</span> <span style=color:#a31515>&#39;ac-emacs-lisp-mode-setup</span>)
+</span></span><span style=display:flex><span>  <span style=color:green>;; (add-hook &#39;c-mode-common-hook &#39;ac-cc-mode-setup)</span>
+</span></span><span style=display:flex><span>  (add-hook <span style=color:#a31515>&#39;ruby-mode-hook</span> <span style=color:#a31515>&#39;ac-ruby-mode-setup</span>)
+</span></span><span style=display:flex><span>  (add-hook <span style=color:#a31515>&#39;css-mode-hook</span> <span style=color:#a31515>&#39;ac-css-mode-setup</span>)
+</span></span><span style=display:flex><span>  (add-hook <span style=color:#a31515>&#39;auto-complete-mode-hook</span> <span style=color:#a31515>&#39;ac-common-setup</span>)
+</span></span><span style=display:flex><span>  (global-auto-complete-mode t))
+</span></span><span style=display:flex><span>(defun my-ac-cc-mode-setup ()
+</span></span><span style=display:flex><span>  (<span style=color:#00f>setq</span> ac-sources (append &#39;(ac-source-clang ac-source-yasnippet) ac-sources)))
+</span></span><span style=display:flex><span>(add-hook <span style=color:#a31515>&#39;c-mode-common-hook</span> <span style=color:#a31515>&#39;my-ac-cc-mode-setup</span>)
+</span></span><span style=display:flex><span><span style=color:green>;; ac-source-gtags</span>
+</span></span><span style=display:flex><span>(my-ac-config)
+</span></span></code></pre></div><h3 id=参考资料>参考资料</h3><ul><li><p><a href=http://tuhdo.github.io/c-ide.html#sec-1-3>C/C++ Development Environment for Emacs</a></p></li><li><p><a href="https://www.youtube.com/watch?v=HTUE03LnaXA">YouTube Vedio</a></p></li></ul><h3 id=更新记录>更新记录</h3><p>2022年01月11日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/emacs>Emacs</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53073828-1","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script>feather.replace()</script></body></html>
