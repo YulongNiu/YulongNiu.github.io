@@ -47,6 +47,7 @@
 </span></span><span style=display:flex><span><span style=color:green>## -d: decrypt</span>
 </span></span><span style=display:flex><span>gpg -o MyFile -d MyEncryptFile
 </span></span></code></pre></div><h2 id=4-github添加gpg认证>4. GitHub添加gpg认证</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:green>## 添加`MyID`</span>
+</span></span><span style=display:flex><span>git config --global gpg.program <span style=color:#a31515>&#34;</span><span style=color:#00f>$(</span>which gpg<span style=color:#00f>)</span><span style=color:#a31515>&#34;</span>
 </span></span><span style=display:flex><span>git config --global user.signingkey MyID
 </span></span><span style=display:flex><span>git config --global commit.gpgsign true
 </span></span><span style=display:flex><span>
