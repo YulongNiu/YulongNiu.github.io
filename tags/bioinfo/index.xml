@@ -53,9 +53,16 @@ $$ F = \left[ \begin{array}{f} F_1 \newline F_2 \newline F_3 \end{array} \right]
 连接研究内容和领域背景，以说服别人这项研究确实有重大突破。
 发表文章的目的是为了更有效地交流，而不是显示自己有聪明!
 NC编辑审核常规要点 研究的创新性。
-支持数据。</description></item><item><title>HISAT2使用问答</title><link>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</link><pubDate>Sat, 10 Sep 2016 16:32:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</guid><description>HISAT2是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代HISAT和TopHat2。本文汇集一些使用HISAT2的常见问题问答。
+支持数据。
+作者或者他人之前的研究。
+参考文献是否完成，是否重大遗漏。
+应对审稿人意见 如果被邀请重新提交文章，确保文章解决了所有审稿人提出的问题。
+如果被要求进一步实验，不要尝试规避。
+保持专业，不要使用侮辱性语言、自大或者恐吓。
+审稿人也可能会犯错，并且记住他们是自己同行专家。不管怎样，以后大家还是要一起打交道。
+更新记录 2016年9月22日</description></item><item><title>HISAT2使用问答</title><link>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</link><pubDate>Sat, 10 Sep 2016 16:32:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</guid><description>HISAT2是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代HISAT和TopHat2。本文汇集一些使用HISAT2的常见问题问答。
 如何解读HISAT2的输出统计？ 一个常见的双端测序样本HISAT2输出统计：
-10000 reads; of these: 10000 (100.00%) were paired; of these: 650 (6.50%) aligned concordantly 0 times 8823 (88.23%) aligned concordantly exactly 1 time 527 (5.27%) aligned concordantly &amp;gt;1 times ---- 650 pairs aligned concordantly 0 times; of these: 34 (5.23%) aligned discordantly 1 time ---- 616 pairs aligned 0 times concordantly or discordantly; of these: 1232 mates make up the pairs; of these: 660 (53.</description></item><item><title>常用参考基因组下载地址</title><link>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</link><pubDate>Sat, 10 Sep 2016 13:17:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</guid><description>本文收集了一些常用参考基因组的下载网址和补充说明。
+10000 reads; of these: 10000 (100.00%) were paired; of these: 650 (6.50%) aligned concordantly 0 times 8823 (88.23%) aligned concordantly exactly 1 time 527 (5.27%) aligned concordantly &amp;gt;1 times ---- 650 pairs aligned concordantly 0 times; of these: 34 (5.23%) aligned discordantly 1 time ---- 616 pairs aligned 0 times concordantly or discordantly; of these: 1232 mates make up the pairs; of these: 660 (53.57%) aligned 0 times 571 (46.</description></item><item><title>常用参考基因组下载地址</title><link>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</link><pubDate>Sat, 10 Sep 2016 13:17:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</guid><description>本文收集了一些常用参考基因组的下载网址和补充说明。
 NCBI genome
 Ensembl FTP
 UCSC FTP：cytoband文件可能含有gneg等标识，其中acen表示着丝粒区域、stalk表示近端着丝粒区域、gvar表示异染色质，例如臂间或端粒区域。
@@ -87,7 +94,12 @@ $$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \
 --idattr：计数单元归类，默认为gene_id。比如把合并汇报多个exon对应的一个gene。
 --format：可以输入bam或者sam文件，bam文件需要制定此参数。
 补充：
-如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为： $ samtools sort -n accepted_filerted.bam acceted_sortname 1.</description></item><item><title>UCSC Table下载注释文件</title><link>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</link><pubDate>Tue, 02 Jun 2015 16:49:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</guid><description>在进行RNA-seq数据分析时，需要从UCSC Table下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。
+如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为： $ samtools sort -n accepted_filerted.bam acceted_sortname 1.2 GenomicAlignments GenomicAlignments是R/Bioconductor的一个包，其中summarizeOverlaps函数用于对alignment数据进行计数。
+1.3 Kallisto 简介：kallisto是由Lior Pachter小组开发一款快速测量RNA-seq数据中转录本表达丰度的软件。因为使用了pseudoalignment的想法，可以不用alignment，直接测量原始测序数据，因此极大提高了运算速度。因为kallisto极高的速度，可以使用bootstrap精确估计的“不确定性（uncertainty）”，可以配合下游软件sleuth确定差异表达基因。
+平台：Linux和Mac
+快速运行：
+首先，建立索引。
+# 查看帮助 $ kallisto index # 建立索引 $ kallisto index -i hg19.</description></item><item><title>UCSC Table下载注释文件</title><link>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</link><pubDate>Tue, 02 Jun 2015 16:49:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</guid><description>在进行RNA-seq数据分析时，需要从UCSC Table下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。
 1. 基因注释信息 下载转录组Ensembl注释文件：
 在“table”选择中，ensemblSource表示Ensembl类型注释，ensemblToGeneName表示Ensembl到基因名注释对应。
 2. rRNA注释信息 分为两步：
@@ -118,7 +130,7 @@ SSH原理与运用（二）：远程操作与端口转发
 第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似chr1命名，而另外一些使用1。如果不一致，建议修改GFF文件。
 # 查看GFF文件中基因组命名 $ awk &amp;#39;{print $1}&amp;#39; hg19USCS.gff | sort -n | uniq -c # 查看bam文件中基因组命名 samtools view accepted_hits.bam | head -1000 | awk &amp;#39;{print $3}&amp;#39; | sort -n | uniq -c 第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了exon_utils工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为hg19USCS.gff，输出筛选的文件名为hg19USCS_selected.gff。
 gffFile &amp;lt;- read.table(&amp;#39;hg19USCS.gff&amp;#39;, stringsAsFactors = FALSE) gffExon &amp;lt;- gffFile[gffFile[, 3] == &amp;#39;exon&amp;#39;, ] exonLen &amp;lt;- abs(gffExon[, 5] - gffExon[, 4]) gffExonSelect &amp;lt;- gffExon[exonLen &amp;gt;= 1000, ] write.</description></item><item><title>过滤TopHat分析双端测序的输出</title><link>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</link><pubDate>Sat, 16 May 2015 04:33:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</guid><description>0. 结论 在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成accepted_hits.bam文件，处理方法如下：
-# 首先查看bam文件头部有多少行 $ samtools view -H accepted_hits.bam | wc -l 86 # 筛选成对且成功map到基因组唯一位置的reads，按照上一条输出结果，调整“NR &amp;lt;= 86” $ samtools view -h accepted_hits.bam | \ awk &amp;#39;{if (NR &amp;lt;= 86) print $0}; {if($5 == 50 &amp;amp;&amp;amp; ($2 == 163 || $2 == 147 || $2 == 83 || $2 == 99)) print $0}&amp;#39; | \ samtools view -b - &amp;gt; accepted_filtered.bam $ samtools view accepted_filtered.bam | wc -l 79143942 1.</description></item><item><title>清洗二代测序数据</title><link>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</link><pubDate>Mon, 28 Jul 2014 20:11:18 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</guid><description>1. FastQC 简介：FastQC是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看输出结果解释。
+# 首先查看bam文件头部有多少行 $ samtools view -H accepted_hits.bam | wc -l 86 # 筛选成对且成功map到基因组唯一位置的reads，按照上一条输出结果，调整“NR &amp;lt;= 86” $ samtools view -h accepted_hits.bam | \ awk &amp;#39;{if (NR &amp;lt;= 86) print $0}; {if($5 == 50 &amp;amp;&amp;amp; ($2 == 163 || $2 == 147 || $2 == 83 || $2 == 99)) print $0}&amp;#39; | \ samtools view -b - &amp;gt; accepted_filtered.bam $ samtools view accepted_filtered.bam | wc -l 79143942 1. TopHat输出sam文件的第五列 TopHat文档没有解释其输出bam文件（比如accepted_hits.</description></item><item><title>清洗二代测序数据</title><link>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</link><pubDate>Mon, 28 Jul 2014 20:11:18 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</guid><description>1. FastQC 简介：FastQC是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看输出结果解释。
 平台：所有平台。
 安装： 依赖Java，下载后直接安装使用。
 快速运行：
@@ -136,7 +148,9 @@ iGenomes提供一些事先编排（index）的基因组。
 # 建立一系列FASTA文件目录 $ bowtie2-build /filePath/genomeFastaFile indexName # 从已经index文件中提取原始基因组 $ bowtie2-inspect indexName &amp;gt; genomeFastaFile # unpaired序列比对 $ bowtie2 -p 4 -x indexName -U readFiles -S samFileName # paired序列比对 $ bowtie2 -p 4 -x indexName -1 readFiles1 -2 readFiles2 -S eg2.sam -p：多线程
 -x：之后跟index名称
 -U：测序文件（比如Fasta，Fastq文件）
--1/-2：标识paired文件</description></item><item><title>RNA-Seq基本概念和数据分析流程</title><link>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</link><pubDate>Tue, 22 Jul 2014 17:03:15 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</guid><description>RNA-Seq相比较基因芯片，价格虽然昂贵一些，精度和灵敏度更高。同时，在测序深度足够时，也可以检测mRNA选择性剪切类型。
+-1/-2：标识paired文件
+-S：SAM格式输出文件
+参考网址 Heng Li总结的工具列表</description></item><item><title>RNA-Seq基本概念和数据分析流程</title><link>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</link><pubDate>Tue, 22 Jul 2014 17:03:15 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</guid><description>RNA-Seq相比较基因芯片，价格虽然昂贵一些，精度和灵敏度更高。同时，在测序深度足够时，也可以检测mRNA选择性剪切类型。
 1. 样品制备 2. 测序 Illumina双端测序动画和图示。
 3. 分析流程 RNA-Seq主要分析流程：
 原始数据质量评估 --&amp;gt; 数据清洗（去除接头和低质量read） --&amp;gt; 清洗数据质量评估 --&amp;gt; map测序结果至基因组（转录组） --&amp;gt; map数据质量评估 --&amp;gt; 差异表达基因/选择性剪切/新基因/融合基因选择 --&amp;gt; GO和pathway分析 --&amp;gt; 共表达网络分析 3.1 序列清洗 序列清洗主要是去除测序结果中的adapter或通用引物等。
@@ -152,7 +166,13 @@ Method #Trimmed #Mapped* #Filtered r50-notrim 108,984,456 109,278,388 79,143,942
 --mate-std-dev：一对reads的间隔长度分布的标准差，默认值为20bp，建议添加。-r/--mate-inner-dist和--mate-std-dev的估计方法参考确定TopHat中mate-inner-dist参数。
 --library-type：
 测序仪器和方法，默认为标准Illumina平台的fr-unstranded。其他平台设置，详见TopHat说明文档、How to tell which library type to use (fr-firststrand or fr-secondstrand)?和链特异性转录组原理。
-如果分不清楚fr-firststrand和fr-secondstrand，推荐两种方法：第一种用两个参数试运行一个有1M reads的小样本，之后比较junction.</description></item><item><title>Circos Notes</title><link>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</link><pubDate>Mon, 17 Mar 2014 15:37:45 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</guid><description>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&amp;rsquo;t afford to miss it. If it doesn&amp;rsquo;t exist, you can&amp;rsquo;t afford to be fooled into thinking that it&amp;rsquo;s there, or left wondering whether it&amp;rsquo;s occluded by other data.</description></item><item><title>A brief intruction of mutual information and demonstration with R</title><link>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</link><pubDate>Sun, 10 Nov 2013 01:21:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</guid><description>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$
+如果分不清楚fr-firststrand和fr-secondstrand，推荐两种方法：第一种用两个参数试运行一个有1M reads的小样本，之后比较junction.bed大小；第二种在两个双端测序文件（fastq.gz）中抽取一些reads，之后Blat到USCS genomes上观察。
+--no-discordant：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考过滤TopHat分析双端测序的输出。
+--no-mixed：只对于paired reads，只报告paired reads都成功map。TopHat默认不加这个参数，即如果对于一个read，如果没有找到alignment的concordant或者discordant mate，那么这一对read将分别寻找和报道各自的alignment。这个参数与--no-discordant不同，因为加上--no-mixed也可能报道discordant pairs（例如一对reads都成功alignment，但是方向或者之间距离不对）。
+-g/--max-multihits：对于多个map的reads，设定报告数目，默认数值为20。需要注意，尽管这个参数可以设定为1，也不能用于设定唯一map的read。因为某个read有可能map到基因组多个位点，当设定为1时，只会返回得分最高的情况。
+后续操作：
+TopHat2运行后查看align_summary.txt获得比对结果。
+TopHat2会输出accepted_hits.bam（接受map的reads文件）和unmapped.bam（没有map上的reads文件）。对于后者，使用基因组浏览器，如IGV或者UCSC Genome Browser大致看下是有无map，之后可以直接丢弃。</description></item><item><title>Circos Notes</title><link>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</link><pubDate>Mon, 17 Mar 2014 15:37:45 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</guid><description>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&amp;rsquo;t afford to miss it. If it doesn&amp;rsquo;t exist, you can&amp;rsquo;t afford to be fooled into thinking that it&amp;rsquo;s there, or left wondering whether it&amp;rsquo;s occluded by other data.</description></item><item><title>A brief intruction of mutual information and demonstration with R</title><link>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</link><pubDate>Sun, 10 Nov 2013 01:21:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</guid><description>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$
 Mututal Information (MI) Introduction Mutual Information (MI) is used to measure the distance between two genes vectors, for example $x_1 = {{1, 0, 1, 1, 1, 1, 0}}$ and $y_1 = {{0, 1, 1, 1, 1, 1, 0}}$. It is easily to transfer the two vectors into a binary table:
 X/Y 1 (Presence) 0 (Absence) Sum 1(Presence) a b a+b 0(Absence) c d c+d Sum a+c b+d n=a+b+c+d Typically, here we give the example of two discrete variables, the mutual information between $x_1$ and $y_1$ is</description></item><item><title>探索EM算法</title><link>https://YulongNiu.github.io/posts/2013-07-13-em/</link><pubDate>Sat, 13 Jul 2013 19:23:22 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
 $$ \DeclareMathOperator*{\argmax}{arg,max} $$
@@ -173,7 +193,33 @@ PhyML
 PHYLIP，在PHYLIP的介绍中，列出了六个高使用率的构建进化树的软件，MrBayes、PAUP*、RAxML、PhyML、MEGA和PHYLIP。
 已知进化树
 Open Tree of Life 时间尺度进化树
-TimeTree sRNA数据库</description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
+TimeTree sRNA数据库
+16S/23S数据库
+细菌16S数据库
+真核生物rRNA
+数据格式转换
+fasta转换为Phylip
+进化树newick和nexus格式转换
+R package ape，提供了函数read.tree()/write.tree()，read.nexus()/read.nexus()。 通用格式转换工具
+3. 网络可视化 Cytoscape
+3D网络BioLayout Expression3D
+VisAnt
+Circos
+4. 序列比对 Clustal
+Blast
+Blast+
+EBI总结
+MAFFT
+MUSCLE
+T-Coffee
+MEGA
+5. 质谱分析 X!Tandem
+X!Tandem bacterial
+ProteinProspector
+R packages list
+Mascot
+OpenMS 最大的开源质谱数据分析平台
+6. 基因/蛋白质注释 Acembly</description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
 1. 完备事件 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：
 $$ \begin{align} \begin{split} \P(x_1) + \P(x_2) + \dots + \P(x_n) = 1 \end{split} \label{eq:1} \end{align} $$
 常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$
