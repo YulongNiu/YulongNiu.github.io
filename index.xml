@@ -611,8 +611,9 @@ ibuffer模式： ibuffer模式是C-x C-b的功能更加强大版本。可以在~
 源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
 2. R包安装 2.1 源代码安装 $ sudo R CMD INSTALL /.../myPackage.tar.gz 使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。
 2.2 内置install.packages()函数安装 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
-install.packages(&amp;#39;myPackage&amp;#39;) 同时，可以使用install.packages()安装本地下载的包，尤其适用于在服务器上安装包
-install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;)) 3. R包版本查询和更新 R和R包版本查询
+install.packages(&amp;#39;myPackage&amp;#39;) 同时，可以使用install.packages()安装本地下载的包，尤其适用于在服务器上安装包。
+install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;)) 当安装包有外部依赖时，可以指定依赖程序的位置。如，安装stringi包时，提示依赖icu4c。可以下载icu4c至指定目录后安装：
+install.packages(&amp;#34;stringi&amp;#34;, configure.vars=&amp;#34;ICUDT_DIR=~/Downloads&amp;#34;) 3. R包版本查询和更新 R和R包版本查询
 # 在启动的R中执行 R.version # R包版本 packageVersion(&amp;#39;myPackage&amp;#39;) # 查询当前R的详细信息，包括R版本、R包版本、命名空间等 sessionInfo() CRAN包更新
 # 可以定期执行以下 update.packages() Bioconductor的安装和更新方法
 source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包 remove.packages(&amp;#39;myPackage&amp;#39;) 5. R包相关函数 # 查看包的安装目录 .libPaths() # 查看已经安装的包目录 library() # 查看已安装包信息 installed.</description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
