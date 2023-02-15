@@ -6,7 +6,7 @@ arrange()：列排序（默认升序）。多列操作时，先排序第一个�
 select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
 rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
 group_by()：对某一列/几列为key，分组。
-计算重复行：
+重复行计数：
 dat %&amp;gt;% group_by_all() %&amp;gt;% count() mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
 summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
 filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
