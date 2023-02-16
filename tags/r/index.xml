@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R on Yulong Niu</title><link>https://YulongNiu.github.io/tags/r/</link><description>Recent content in R on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml"/><item><title>tidyverse使用集锦</title><link>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</link><pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</guid><description>1. 使用dplyr包的好处 大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
 与magrittr包的管道更好地结合。
 更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
-2. 列操作 filter()：过滤列，需要输入一个逻辑向量。 xor(x, y)：x和y并集除去交集的部分。
+2. 列操作 2.1 基本函数 filter()：过滤列，需要输入一个逻辑向量。 xor(x, y)：x和y并集除去交集的部分。
 between(x, left, right)：left &amp;lt;= x &amp;lt;= right。
 near(x, y)：x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。
 filter()受group操作影响。
@@ -14,12 +14,8 @@ group_by()：对某一列/几列为key，分组。
 重复行计数：
 dat %&amp;gt;% group_by_all() %&amp;gt;% count() mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
 summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
-filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：有_all()、_at()和_if()操作，分别表示对全部列、指定列（序号1:4和-1:-2）和满足条件的列操作。
-_at()使用contains()等函数时，.var参数需要处理为.var = vars(contains())的形式。
-参数中的.funs操作是一个匿名函数，例如.funs = funs(ifelse(x, ., NA))，.表示对应的列。同时，.funs可以有多个操作(同时赋值列名)，比如.funs = funs(repNA = ifelse(x, ., NA), repEmp = replace_na(., ''))。在.funs中使用expr(.)引用列名。
-$依然有效，可以方便取某列或者对某列赋值。
-coalesce()用于转换NA。
-3. 行操作 rowwise()：指示tbl_df开始按行操作。</description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>1. R性能检测 直接使用profvis包即可，例如示例。
+2.2 列操作和列选择 filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：
+使用across()选择列： ## 选择全部 dat %&amp;gt;% mutate(across(everything(), mean)) ## 条件选择 dat %&amp;gt;% mutate(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) ## 位置选择 dat %&amp;gt;% mutate(across(c(col1, start_with(&amp;#34;prefix&amp;#34;)), ~ mean(.</description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>1. R性能检测 直接使用profvis包即可，例如示例。
 2. Linux系统Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
 #include &amp;lt;Rcpp.h&amp;gt; #include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; } 包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
 2.3 调试 使用方法为：
