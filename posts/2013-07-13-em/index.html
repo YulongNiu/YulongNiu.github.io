@@ -4,7 +4,7 @@
 <script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>探索EM算法</h1><div class=meta>Posted at &mdash; Jul 13, 2013</div></div><div class=markdown><p>$$
 \newcommand{\P}{\mathrm{P}}
 $$</p><p>$$
-\DeclareMathOperator*{\argmax}{arg\ max}
+\DeclareMathOperator*{\argmax}{arg\ max\ }
 $$</p><p>$$
 \newcommand{\Pz}{\P \left( z|y_j, \theta^{(n)} \right)}
 $$</p><p>$$
@@ -43,24 +43,31 @@ $$</p><p>当$\theta=\theta^{(n)}$时，等号成立。有意思的是，由于$\
 \end{split}
 \label{eq:4}
 \end{align}
+$$</p><p>\eqref{eq:4}可以理解为$Q$函数期望极大化：</p><p>$$
+\begin{align*}
+\begin{split}
+\argmax_\theta & E_Z \left( \log \left( \P(Y, z|\theta) \right) |Y, \theta^{(n)}\right) \newline
+\argmax_\theta & Q \left( \theta, \theta^{(n)} \right)
+\end{split}
+\end{align*}
 $$</p><p>EM算法的核心是通过迭代$L(\theta)$的下限极大化，进而逼近极值。EM算法每次迭代，都会靠近$L(\theta)$，但是最终可能得到局部最优。因此，EM算法对初始值敏感，可以多选几个初始值，对比结果。</p><h2 id=双硬币模型>双硬币模型</h2><p><a href=#Ref>参考资料2</a>中使用EM算法解决双硬币模型：</p><p>$$
 \begin{align*}
 \begin{split}
-\P(y|\theta) = \theta_1^{y}(1-\theta_1)^{N-y} + \theta_2^{y}(1-\theta_2)^{N-y}
+\P(y|\theta) = C_N^y\theta_1^{y}(1-\theta_1)^{N-y} + C_N^y\theta_2^{y}(1-\theta_2)^{N-y}
 \end{split}
 \end{align*}
-$$</p><p>每次从两个硬币中选择一个，抛$N$次并记录正反面，同样的“选硬币-抛$N$次”进行$m$次，估计两个硬币正面出现的概率。观测数据$Y=\{y_1, y_2, \dots, y_m\}$为每次正面朝上的次数，每次抽样的不可观测数据$Z=\{z_1, z_2\}$为选择的硬币，估计参数为$\theta=\{\theta_1, \theta_2\}$。</p><p>对于第$n$次迭代，观察$\P(z_1|y_j, \theta^{(n)})$为：</p><p>$$
+$$</p><p>每次从两个硬币中选择一个，抛$N$次并记录正反面，同样的“选硬币-抛$N$次”进行$m$次，估计两个硬币正面出现的概率。观测数据$Y=\{y_1, y_2, \dots, y_m\}$为每次正面朝上的次数，每次抽样的不可观测数据$Z=\{z_1, z_2\}$为选择的硬币，估计参数为$\theta=\{\theta_1, \theta_2\}$。</p><p>对于第$n$次迭代，观察$\P(z = 1|y_j, \theta^{(n)})$为：</p><p>$$
 \begin{align*}
 \begin{split}
-\P(z_1|y_j, \theta^{(n)}) &= \frac{\P(z_1, y_j|\theta^{(n)})}{\sum\limits_{z \in Z}\P(z, y_j|\theta^{(n)})} \newline
-&= \frac{\theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j}}{\theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j} + \theta_2^{(n)y_j} (1-\theta_2^{(n)})^{N-y_j}} \newline
+\P(z = 1|y_j, \theta^{(n)}) &= \frac{\P(z = 1, y_j|\theta^{(n)})}{\sum\limits_{z \in Z}\P(z, y_j|\theta^{(n)})} \newline
+&= \frac{C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j}}{C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j} + C_N^y \theta_2^{(n)y_j} (1-\theta_2^{(n)})^{N-y_j}} \newline
 &= \mu_{1j}
 \end{split}
 \end{align*}
-$$</p><p>易得$\P(z_2|y_j, \theta^{(n)}) = 1-\mu_{1j} = \mu_{2j}$</p><p>根据$\eqref{eq:4}$得，</p><p>$$
+$$</p><p>易得$\P(z = 2|y_j, \theta^{(n)}) = 1-\mu_{1j} = \mu_{2j}$</p><p>根据$\eqref{eq:4}$得，</p><p>$$
 \begin{align*}
 \begin{split}
-\sum_{j=1}^m \left( \mu_{1j}\log\left(\theta_1^{y_j} (1-\theta_1)^{N-y_j}\right) + \mu_{2j}\log\left(\theta_2^{y_j} (1-\theta_2)^{N-y_j}\right) \right)
+\sum_{j=1}^m \left( \mu_{1j}\log\left(C_N^y \theta_1^{y_j} (1-\theta_1)^{N-y_j}\right) + \mu_{2j}\log\left(C_N^y \theta_2^{y_j} (1-\theta_2)^{N-y_j}\right) \right)
 \end{split}
 \end{align*}
 $$</p><p>分别对$\theta_1$和$\theta_2$求偏导取极限，得第$n+1$次$\theta$估计为：</p><p>$$
