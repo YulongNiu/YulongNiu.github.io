@@ -53,14 +53,16 @@ $$</p><p>\eqref{eq:4}可以理解为$Q$函数期望极大化：</p><p>$$
 $$</p><p>EM算法的核心是通过迭代$L(\theta)$的下限极大化，进而逼近极值。EM算法每次迭代，都会靠近$L(\theta)$，但是最终可能得到局部最优。因此，EM算法对初始值敏感，可以多选几个初始值，对比结果。</p><h2 id=双硬币模型>双硬币模型</h2><p><a href=#Ref>参考资料2</a>中使用EM算法解决双硬币模型：</p><p>$$
 \begin{align*}
 \begin{split}
-\P(y|\theta) = C_N^y\theta_1^{y}(1-\theta_1)^{N-y} + C_N^y\theta_2^{y}(1-\theta_2)^{N-y}
+\P(y|\theta) &= \P(z = 1, y|\theta) + \P(z = 2, y|\theta) \newline
+&= \P(y | z = 1, \theta) \P(z = 1 | \theta) + \P(y | z = 2, \theta) \P(z = 2 | \theta) \newline
+&= \frac{1}{2}C_N^y\theta_1^{y}(1-\theta_1)^{N-y} + \frac{1}{2}C_N^y\theta_2^{y}(1-\theta_2)^{N-y}
 \end{split}
 \end{align*}
-$$</p><p>每次从两个硬币中选择一个，抛$N$次并记录正反面，同样的“选硬币-抛$N$次”进行$m$次，估计两个硬币正面出现的概率。观测数据$Y=\{y_1, y_2, \dots, y_m\}$为每次正面朝上的次数，每次抽样的不可观测数据$Z=\{z_1, z_2\}$为选择的硬币，估计参数为$\theta=\{\theta_1, \theta_2\}$。</p><p>对于第$n$次迭代，观察$\P(z = 1|y_j, \theta^{(n)})$为：</p><p>$$
+$$</p><p>每次从两枚硬币中，随机选择一个，选哪枚硬币的概率相同。抛$N$次并记录正反面，同样的“选硬币-抛$N$次”进行$m$次，估计两个硬币正面出现的概率。观测数据$Y=\{y_1, y_2, \dots, y_m\}$为每次正面朝上的次数，每次抽样的不可观测数据$Z=\{z_1, z_2\}$为选择的硬币，估计参数为$\theta=\{\theta_1, \theta_2\}$。</p><p>对于第$n$次迭代，观察$\P(z = 1|y_j, \theta^{(n)})$为：</p><p>$$
 \begin{align*}
 \begin{split}
 \P(z = 1|y_j, \theta^{(n)}) &= \frac{\P(z = 1, y_j|\theta^{(n)})}{\sum\limits_{z \in Z}\P(z, y_j|\theta^{(n)})} \newline
-&= \frac{C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j}}{C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j} + C_N^y \theta_2^{(n)y_j} (1-\theta_2^{(n)})^{N-y_j}} \newline
+&= \frac{\frac{1}{2} C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j}}{\frac{1}{2} C_N^y \theta_1^{(n)y_j} (1-\theta_1^{(n)})^{N-y_j} + \frac{1}{2} C_N^y \theta_2^{(n)y_j} (1-\theta_2^{(n)})^{N-y_j}} \newline
 &= \mu_{1j}
 \end{split}
 \end{align*}
