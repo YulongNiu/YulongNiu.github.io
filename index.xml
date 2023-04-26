@@ -562,7 +562,9 @@ M-x R： 启动R。R运行的buffer因为是在Emacs编辑器下运行，所以�
 C-u M-x R RET --no-save RET：启动R并且不保存。
 M-x ess-transcript-clean-region：清理R界面。
 C-c C-z：强制停止运行的R进程。
-C-c C-x： 代替ls()函数。
+C-c M-o：清理R console。
+C-c C-x：
+代替ls()函数。
 C-c C-s：代替search()函数。
 C-c C-d：修改已经建立的对象，非常实用。
 C-c C-n： 把当前行送到R。
@@ -577,8 +579,7 @@ C-c C-o C-o： 在函数头按下会激活ESS对R代码的注释功能。
 M-x customize-group RET ess RET：配置默认模板，如果需要插入空行，回车没用，猛戳空格。
 C-c C-o C-c：将代码注释为roxygen的##'开头格式，特别是注释example的时候很好用。
 C-c C-o p：光标跳转到注释段落开头。
-C-c C-o n：光标跳转到注释所在函数段落结尾。
-M-q：整理roxygen注释，将多行注释压缩整理。</description></item><item><title>Emacs使用汇总</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</link><pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid><description>1. 安装 ## 安装Emacs $ sudo dnf install emacs 2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
+C-c C-o n：光标跳转到注释所在函数段落结尾。</description></item><item><title>Emacs使用汇总</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</link><pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid><description>1. 安装 ## 安装Emacs $ sudo dnf install emacs 2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
 C-x 2或C-x 3： 将窗口分割成两个或者三个。
 C-x 1：只保留一个窗口。
 C-x n：开n个窗口

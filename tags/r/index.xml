@@ -122,7 +122,9 @@ M-x R： 启动R。R运行的buffer因为是在Emacs编辑器下运行，所以�
 C-u M-x R RET --no-save RET：启动R并且不保存。
 M-x ess-transcript-clean-region：清理R界面。
 C-c C-z：强制停止运行的R进程。
-C-c C-x： 代替ls()函数。
+C-c M-o：清理R console。
+C-c C-x：
+代替ls()函数。
 C-c C-s：代替search()函数。
 C-c C-d：修改已经建立的对象，非常实用。
 C-c C-n： 把当前行送到R。
@@ -137,8 +139,7 @@ C-c C-o C-o： 在函数头按下会激活ESS对R代码的注释功能。
 M-x customize-group RET ess RET：配置默认模板，如果需要插入空行，回车没用，猛戳空格。
 C-c C-o C-c：将代码注释为roxygen的##'开头格式，特别是注释example的时候很好用。
 C-c C-o p：光标跳转到注释段落开头。
-C-c C-o n：光标跳转到注释所在函数段落结尾。
-M-q：整理roxygen注释，将多行注释压缩整理。</description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>1. R包介绍 R的包（package）通常有两种:
+C-c C-o n：光标跳转到注释所在函数段落结尾。</description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>1. R包介绍 R的包（package）通常有两种:
 二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
 源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
 2. R包安装 2.1 源代码安装 $ sudo R CMD INSTALL /.../myPackage.tar.gz 使用此方法，需要解决包依赖问题，即安装此包所依赖的包，安装过程有提示。
