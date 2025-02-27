@@ -1,151 +1,633 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R on Yulong Niu</title><link>https://YulongNiu.github.io/tags/r/</link><description>Recent content in R on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml"/><item><title>tidyverse使用集锦</title><link>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</link><pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</guid><description>1. 使用dplyr包的好处 大多数时间在操作tbl_df对象，而不是data.frame（特别是含有factor的data.frame）。
-与magrittr包的管道更好地结合。
-更丰富的列操作，例如mutate、select。group_by会节省很多for循环。
-2. 列操作 2.1 基本函数 filter()：过滤列，需要输入一个逻辑向量。 xor(x, y)：x和y并集除去交集的部分。
-between(x, left, right)：left &amp;lt;= x &amp;lt;= right。
-near(x, y)：x和y在一定精度下相等，比==安全）。直接使用列名操作，例如year == 2018。多列操作相当于&amp;amp;。
-filter()受group操作影响。
-返回一个空的表格，只保留列名，filter(x, FALSE)。
-arrange()：列排序（默认升序）。 多列操作时，先排序第一个，再对第一个相等的排第二个。
-desc()降序排列。.by_group = FALSE控制是否需要按照group进行组内操作。
-select()：选择列，重新组合新的tbl_df。结合tidyselect包的starts_with()前缀、end_with()后缀、contains()部分字符串、matches()正则匹配、num_range类似V01和x02之类、everything()（剩余）所有的列、last_col(offset = n)倒数第n+1列（默认n为0）。select(Col1 = col1)更改col1列名为Col1，并只返回Col1列。
-rename(Col1 = col1)：返回全部列，但更改列名为Col1。不受group操作影响。setNames(...)不属于dplyr包，但能快速更改所有列命名。
-group_by()：对某一列/几列为key，分组。
-重复行计数：
-dat %&amp;gt;% group_by_all() %&amp;gt;% count() mutate()：增加列，返回原始对象和增加列，增加列放置最后。transmute()：只返回增加的列。受group操作影响。
-summerise()：聚合列，对某一列或多列进行聚合操作。比如，求均值、方差、极大/小值等。受group操作影响。
-2.2 列操作和列选择 filter()、arrange()、mutate()、select()、transmute()、rename()和summerise()：
-使用across()选择列： ## 选择全部 dat %&amp;gt;% mutate(across(everything(), mean)) ## 条件选择 dat %&amp;gt;% mutate(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) ## 位置选择 dat %&amp;gt;% mutate(across(c(col1, start_with(&amp;#34;prefix&amp;#34;)), ~ mean(.</description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>1. R性能检测 直接使用profvis包即可，例如示例。
-2. Linux系统Rcpp性能检测 2.1 安装依赖软件 $ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind 2.2 编译 在包（包名称为Mypkg）目录src建立如下文件：
-#include &amp;lt;Rcpp.h&amp;gt; #include &amp;lt;gperftools/profiler.h&amp;gt; using namespace Rcpp; // [[Rcpp::export]] SEXP start_profiler(SEXP str) { ProfilerStart(as&amp;lt;const char*&amp;gt;(str)); return R_NilValue; } // [[Rcpp::export]] SEXP stop_profiler() { ProfilerStop(); return R_NilValue; } 包目录src的Makevars文件中添加-lprofile选项，例如PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler。之后，安装包，并重新载入。
-2.3 调试 使用方法为：
-Mypkg:::start_profiler(&amp;#34;/tmp/profile.out&amp;#34;) run_cpp_codes() Mypkg:::stop_profiler() 查看profile结果：
-## text pprof --text src/Mypkg.so /tmp/profile.out ## pdf pprof --pdf src/Mypkg.so /tmp/profile.</description></item><item><title>使用RcppParallel并行计算</title><link>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</link><pubDate>Thu, 19 Jul 2018 22:19:24 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</guid><description>在之前的博文中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：
-当循环数很大时（1万以上），`foreach`会变得非常慢。 这个问题在Florian Privé的A guide to parallelism in R中也提到，解释是foreach每次只合并100个循环结果。
-1. 测试 我尝试使用RcppParallel包调用C++的并行方法。结论是：在循环数很大时，RcppParallel包提供的并行方法优于foreach。
-一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在Gist1和Gist2中，分别实现了：
-SqrtR：用循环非并行操作每个元素。这种方法在R语言编程中不推荐，而应该尽量“向量化”操作。
-SqrtRforeach：foreach并行版本。
-SqrtRParSapply: parSapply并行版本。
-SqrtCpp：C++非并行版本。
-SqrtCppPara：RcppParallel包的C++并行版本。
-sqrt：R内置的向量化方法，C非并行版本。
-首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 CPU@3.6GHz）。测试结果显示SqrtRPara（使用foreach）和非向量化的R版本SqrtR效率较低。
-tmp1 &amp;lt;- runif(10e3) all.equal(SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## TRUE microbenchmark( SqrtCpp(tmp1), sqrt(tmp1), SqrtR(tmp1), SqrtRforeach(tmp1), SqrtRParSapply(tmp1), SqrtCppPara(tmp1)) ## Unit: microseconds ## expr min lq mean median ## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.0335 ## sqrt(tmp1) 36.216 46.074 4.865115e+01 48.3090 ## SqrtR(tmp1) 3030.682 3116.718 4.229971e+03 3947.9380 ## SqrtRforeach(tmp1) 1488851.</description></item><item><title>为什么不推荐在R语言中随意按照下标操作矩阵</title><link>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</link><pubDate>Thu, 21 Jul 2016 19:35:29 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</guid><description>这篇博文的目的是展示R语言中下标操作矩阵的潜在问题。R语言提供了多种方法提取一个矩阵的单个或者部分元素，不同方法对应的效率在Hadley Wickham的Advance R中已有讨论。这些方法中，使用最广泛的是通过下标（行或者列）取值，即操作符[。然而，这种方法存在潜在问题，即内存中会拷贝原始对象。
-举例：首先建立一个矩阵，之后取这个矩阵除了第一行之外的部分，接下来操作这个部分矩阵。
-## step1: build matrix n &amp;lt;- 8000 tmp1 &amp;lt;- matrix(rnorm(n * n), nrow = n, ncol = n) gc() ## step2: manipulate a subset of matrix sink(&amp;#39;/dev/null&amp;#39;) apply(tmp1[2:n, ], 1, function(x) x[1]) sink() ## step3: garbage collection gc() 内存使用情况如下：
-标记1内存上升，因为建立了tmp1的矩阵；
-标记2内存再次上升，主要因为使用下标取矩阵操作，tmp1[2:n, ]；
-标记3内存下降，因为手动执行垃圾回收。
-可以明显看到内存中多余的垃圾对象。如果使用for循环形式，就可以有效避免内存对象拷贝。虽然，R在内存空间不足时，会自动执行gc()。但是，执行程序时，不能全指望自动垃圾回收，毕竟有时回收得并不及时，而新的对象又相继生成。这种情况下，内存空间不足就成为很严重的问题。
-R版本3.3.1。
-更新记录 2016年7月21日</description></item><item><title>Rcpp操作矩阵和向量集锦</title><link>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</link><pubDate>Thu, 07 Jan 2016 20:50:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</guid><description>收集和记录Rcpp或者RcppArmadillo操作矩阵和向量。
-1. Rcpp 可以使用逻辑下标（LogicalVector）对向量和列表取值。 2. RcppArmadillo 基本类型是mat、vec（colvec）和rowvec。
-属性
-对于矩阵，行数：m.n_rows;；列数：m.n_cols;；维度：m.size();或size(m);。对于向量，元素数：v.n_elem;。 特殊向量或矩阵
-全是1ones&amp;lt;mat&amp;gt;(3, 4);/vec(10, fill::ones);/；全是0zeros&amp;lt;vec&amp;gt;(10);/mat(3, 4, fill::zeros);；全是某个数mat a(4, 5); a.fill(123.4);。
-连续向量，规定长度linspace&amp;lt;vec&amp;gt;(0, 5, 6);；连续向量，规定间距regspace&amp;lt;vec&amp;gt;(0, 2, 9);。
-取值
-对于向量，连续取值：v.subvec(1stIdx, lastIdx);；非连续，可以考虑使用find()函数，比如：v.elem(find(v &amp;gt; 0));。
-对于矩阵，连续取值：m.col(Idx);/m.row(Idx);/m.cols(Idx);/m.rows(Idx);/m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);；非连续，m.submat(vecRowIdx, vecColIdx);。
-Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);。同样道理，可以转化向量。例如：
-arma::mat TransferMatArma(Rcpp::NumericMatrix x, Rcpp::NumericVector y) { mat tx(x.begin(), x.nrow(), x.ncol(), false); vec ty(y.begin(), y.size(), false); return tx; } Rcpp::NumericVector TransferMatRcpp(arma::mat x, arma::vec y) { NumericMatrix tx(x.n_rows, x.n_cols, x.begin()); NumericVector ty(y.</description></item><item><title>R使用parallel包并行计算</title><link>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</link><pubDate>Tue, 24 Jun 2014 22:10:20 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</guid><description>最新版本的R已经内置parallel包，parallel包是从snow包和multicore包继承而来，包含了很多非常好用的函数。parallel包可以通过PVM（rpvm包）、MPI（Rmpi包）、NetWorkSpaces（nws包）和raw sockets（如果以上3种都不能使用）平台进行分布计算，支持cluster和多核个人/服务器计算机。在Linux系统上，通常使用openMPI。
-1. 安装Rmpi包 因为使用openMPI，所以parallel包需要Rmpi包来设定节点，所以首先需要在计算机上安装openMPI。
-1.1 Linux系统下安装openMPI环境 # 安装openmpi环境 # yum install openmpi openmpi-devel # 配置环境（安装时执行，可能之后运行也要执行） # ldconfig /usr/lib64/openmpi/lib/ 在~/.bashrc下写入
-export LD_LIBRARY_PATH=&amp;#34;${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}/usr/lib64/openmpi/lib/&amp;#34; 载入~/.bashrc
-$ source ~/.bashrc 1.2 安装Rmpi包 在启动的R窗口中输入：
-install.packages(&amp;#34;Rmpi&amp;#34;, configure.args = c(&amp;#34;--with-Rmpi-include=/usr/include/openmpi-x86_64/&amp;#34;, &amp;#34;--with-Rmpi-libpath=/usr/lib64/openmpi/lib/&amp;#34;, &amp;#34;--with-Rmpi-type=OPENMPI&amp;#34;)) 2. 使用parallel包 2.1 设定节点数 首先，需要设定cluster的节点（nodes）数目
-cl &amp;lt;- makeCluster(2, type = &amp;#34;MPI&amp;#34;) 这里对“节点数”设定做一些解释，如果使用cluster，可以直接设定cluster数据即可；如果是在小型服务器或者个人电脑上使用，最大节点数可以设定为“线程数（processor）-1”。比如一个双核四线程计算机，节点数目最大可以设定为3。这是因为snow包（parallel包的主要依赖包）在设计时，总是要保留一个**“主线程”**来处理和整合数据。
-在linux系统下，线程数可以通过 $ nproc 查看。
-2.2 内置函数 使用parallel包中的内置并行运算函数 比如使用parApply()、parCapply()、parRapply()、parLapply()和parSapply()（如果返回矩阵，使用 cbind()）等函数。其中文档中指出，parApply()函数对于二维矩阵的每一个单元进行操作，因此要慢一些。如果可能，使用parCapply()和parRapply()对列和行进行操作，以加快运行速度。
-2.3 回收节点 stopCluster(cl) 3. 并行计算的包依赖问题 在并行计算过程中，不可避免地会用到其他包辅助。这里涉及到snow包的一个设计原理：并行运算多个R进程，只有一个主进程载入完整的依赖包环境。这就意味着其他并行的R进程中也要载入依赖的包环境。
-有两个思路，第一个思路是修改Rprofile.site文件，让任意R进程在启动时都载入依赖的包。但是，不推荐这种做法，因为这样会增加R载入的速度；并且如果不同的代码用了不同的依赖包，就要不停地修改Rprofile.site文件。
-第二个思路是在新开的R进程中“动态”加载需要的包。所谓**“动态”**，没有什么高深的意思，就是“需要的时候加载即可”。根据需要，可以选择以下两种方法。
-第一种方法是在直接在启动的R进程中加载包。 这种方法非常直观，推荐。
-# 以下代码摘抄自Parallel R，其中packages # 是一个要选择加载的package列表， # 比如c(&amp;#39;bigmemory&amp;#39;, &amp;#39;foreach&amp;#39;, &amp;#39;doMC&amp;#39;) worker.</description></item><item><title>创建R包的最简流程</title><link>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</link><pubDate>Thu, 27 Mar 2014 14:53:05 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</guid><description>一个最简单创建R包的流程。
-1. 载入工具包 安装并载入devtools包和roxygen2包。devtools包提供了一些包的检查、安装和打包的基本工具。roxygen2包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合ESS建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用Rstudio。
-library(&amp;#39;devtools&amp;#39;) library(&amp;#39;roxygen2&amp;#39;) 2. Rcpp和相关的包 如果使用了Rcpp或者相关的包，比如RcppArmadillo，需要格外设置。所有cpp代码都写在src文件夹下。
-首先，执行：
-use_rcpp() 其次，在DESCRIPTION中添加依赖或者需要链接的包名称，比如：
-Encoding: UTF-8 Imports: Rcpp LinkingTo: Rcpp, RcppArmadillo 之后，在包的R/目录下，添加一个文件RcppChk.R（文件名称自定），并写入：
-#&amp;#39; @useDynLib my-pkg-name, .registration = TRUE #&amp;#39; @importFrom Rcpp sourceCpp NULL 注意，修改my-pkg-name为自己的包名称。
-然后，在包的src/目录下，添加一个文件registerDynamicSymbol.c（文件名称自定），并写入：
-// RegisteringDynamic Symbols #include &amp;lt;R.h&amp;gt; #include &amp;lt;Rinternals.h&amp;gt; #include &amp;lt;R_ext/Rdynload.h&amp;gt; void R_init_markovchain(DllInfo* info) { R_registerRoutines(info, NULL, NULL, NULL, NULL); R_useDynamicSymbols(info, TRUE); } 最后，可能需要在~/.R/Makevars文件下添加：
-# Settings from /etc/R/Makeconf with &amp;#34;non-portable flag(s):&amp;#34; # ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’ replaced by -Wall -pedantic # and without -fdebug-prefix-map=.</description></item><item><title>R ggplot2 notes</title><link>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</link><pubDate>Wed, 02 Oct 2013 02:47:11 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</guid><description>R Package ggplot2 Notes 1. Basic grammar 1.1 Plot types The R package ggplot2 is a famous plot tool for high quality scientific figures. The ggplot2 style figures are widely seen in papers published in high quality journals such as PNAS, Nature and Cell.
-The input data should be in data frame form, and it is easily to use the function as.data.frame(). &amp;ldquo;+&amp;rdquo; is used to connect different plot statement. A typical ggplot2 plot statement is like:</description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
-现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块rpy2 ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是renjin，一个基于JVM的R语言解释器。
-本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以官方文档为准。
-1. 安装 rpy2作为Python的一个模块，其安装非常方便。需要做的准备工作是在本地安装好R。
-$ pip install rpy2 2. python调用R对象 2.1 使用rpy2.robjects 在rpy2中调用R对象，实际上是开启了一个R的交互进程。主要思路是将R的代码写入一个字符串内，之后执行即可。
-对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。
-调用方法：
-from rpy2.robjects import r 有三种方式可以选择：
-使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
-使用r['obj']，比如 r['c'](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r['func'](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r['func'](value1, para2 = value, **{para.3: value3})。
-使用r('obj')，比如 r('c(1, 3)')。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r('Rcode')调用执行。
-# import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.f(3) [9.424778] # internal function in R &amp;gt;&amp;gt;&amp;gt; r[&amp;#39;ls&amp;#39;]() # two ways of getting &amp;#39;paste&amp;#39; function in R # first: direct use R function &amp;gt;&amp;gt;&amp;gt; print(r[&amp;#39;paste&amp;#39;](l, collapse = &amp;#39;-&amp;#39;)) # second: eavl R codes &amp;gt;&amp;gt;&amp;gt; coder = &amp;#39;paste(%s, collapse = &amp;#34;-&amp;#34;)&amp;#39; % (l.</description></item><item><title>R包制作和roxygen2使用说明</title><link>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</link><pubDate>Tue, 29 May 2012 19:46:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid><description>查看创建R包的各种细节，权威的文献是Writing R Extensions。
-1. 创建R包目录 像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如R，man等）和文件（如DESCRIPTION，NAMESPACE）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如Biobase包，如下图：
-1.1 DESCRIPTION文件 一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子knitr包的DESCRIPTION文件：
-Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。
-Version：版本号，经典的命名方式比如0.1-0。
-License：GPL。
-Description：一段话描述包主要的功能。
-Title：包的一句话解释。
-Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数person()，其中变量role的选项aut表示author，cre表示creator（维护者），ctb表示contributor。一个例子：
-c(person(&amp;#34;Hadley&amp;#34;, &amp;#34;Wickham&amp;#34;, email = &amp;#34;hadley@rice.edu&amp;#34;, role =&amp;#34;ctb&amp;#34;), person(&amp;#34;Yihui&amp;#34;, &amp;#34;Xie&amp;#34;, email = &amp;#34;xie@yihui.name&amp;#34;, role = c(&amp;#34;aut&amp;#34;, &amp;#34;cre&amp;#34;))) Date（可选）：当前版本包日期，格式yyyy-mm-dd。
-Depends（可选）：依赖的R环境版本和包名称，比如 R (&amp;gt;= 2.14.1)。
-注意：
-加上版本号，没有版本号等于没用，因为版本之间可能差异很大；
-对于base等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.14.0之后完全没有必要写，因为从这个版本后，所有包都有NAMESPACE，直接使用Imports就可以了。
-Imports（可选）：如果只是使用某些包中类、方法或者（一般）函数，而不用完全载入包，可以在此栏列出包的名称，最好加上版本号（在R CMD check会检查版本）。在代码中，引用其他包的namespace可以使用::或者:::操作符。与之对应的，需要在NAMESPACE文件中指明引用（见后）。
-Suggests（可选）：如果只是在帮助文档的examples，tests或者vignettes中用到了一些包，那么没有必要“依赖”或者“引用”，只用“建议”安装即可。版本号同样也要加上，在R CMD check时会用到。当然，我们要考虑到如果读者也想重现一下examples/tests/vignettes的例子，最好使用if(require(pkgname)))的条件句控制：TRUE执行，FALSE返回错误。
-Enhances（可选）：这个条目中的包可以被这个正在创建的包“增强”功能，比如我们创建的这个包为（对列表中的包）提供了更好的方法、更优秀的处理手段等。
-URL（可选）：一系列相关的网址，使用“逗号”或者空格隔开。链接可能是作者的主页、包的补充材料等。
-BugReports（可选）：一个网址，用于提交bug，代替了向作者发邮件。一个好的想法是使用Github，在项目的issures版块提交bug。
-Collate（可选）：看不懂。
-KeepSource（可选）：逻辑值，设定为TRUE，表示包是源码。
-ByteCompile（可选）：逻辑值，目前默认设置为否；如果性能确实可以得到提升，可以选择TRUE，但这可能增加安装时间和体积。
-BuildVignettes（可选）：如果设定位FALSE，R CMD build不会重新编辑vignette，同时R CMD check也不会检查。
-1.2 包目录下的各种文件夹说明 R文件夹：这个文件夹下放置用R语言写成的源代码，文件最好使用后缀*.R。
-man文件夹：man文件夹下放置*.Rd结尾的文档，这写文档详细描述的函数的用途。如果使用roxygen2，就不需要建立这个文件夹。
-src文件夹：放置用其他语言写成的代码，比如C/C++/Fortran等。</description></item><item><title>R面向对象编程S4</title><link>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</link><pubDate>Sat, 05 May 2012 15:19:36 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</guid><description>1. 一些S3的铺垫 在博文“Linux安装R语言包”描述了如何查看一个函数的源代码，其中涉及了例如methods()函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。
-library(&amp;#39;pryr&amp;#39;) ## object is base type, S3, S4 or RC otype(obj) ## function is genetic or method ftype(method) 2. 类 2.1 建立新类 setClass(Class, representation, prototype, contains=character(), validity, access, where, version, sealed, package, S3methods = FALSE, slots) Class：类名。 slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。 contains：父类名，表示继承关系。 prototype：带名setGroupGeneric字的列表或prototype()，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合validity定义，因为默认值不会被检查，因为即使不符合validity定义，也可以通过validObject()检查。 validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用setValidity()后期添加。 where：环境（少用）。 sealed：是否封闭，如果设定为TRUE，其他setClass()不能调用该类。 package：包名（少用） S3methods/representation/access/version：在3.0.0版本后不建议使用。 例子：
-## new class setClass(Class = &amp;#39;trick&amp;#39;, slots = c(id = &amp;#39;character&amp;#39;, time = &amp;#39;matrix&amp;#39;), validity = function(object) { if (length(object@id) !</description></item><item><title>R小技巧集锦</title><link>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</link><pubDate>Wed, 02 May 2012 22:17:02 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</guid><description>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。
-1. if爱你，else就要和你在一起，又要给你一些距离 if (con){ expr } else{ expr2 } if...else..结构中，}与else必须在同一行。
-简易形式（不推荐）：
-# else不能与expr在同一行 if (con) expr else expr2 建议将所有if ... else ...结构写成第一种形式，如果没有else，用else {}代替。
-2. NULL是空，NULL是气，NULL在R中就是空气。 如果表达式（expression）或者函数（function）的值没有定义，那么将返回NULL。在R中，NULL与很多对象合并在一起时，都被忽略掉。比如以下例子：
-# NULL is neglected in vector &amp;gt; c(1, NA, NULL, FALSE) [1] 1 NA 0 # also in matrix &amp;gt; matrix(c(1, NA, NULL, 2), c(2, 2)) [,1] [,2] [1,] 1 2 [2,] NA 1 警告信息： In matrix(c(1, NA, NULL, 2), c(2, 2)) : 数据长度[3]不是矩阵行数[2]的整倍 # also in list &amp;gt; tmp &amp;lt;- list(1, 2) &amp;gt; tmp[1] &amp;lt;- NULL &amp;gt; tmp [[1]] [1] 2 &amp;gt; tmp[[1]] &amp;lt;- NULL &amp;gt; tmp list() 如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：</description></item><item><title>Emacs和ESS的使用技巧</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link><pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid><description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
-$ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法参考，安装ess包。
-2. 使用ESS 进入GNU Emacs界面之后，输入M-X R 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。
-M-x R： 启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
-C-u M-x R RET --no-save RET：启动R并且不保存。
-M-x ess-transcript-clean-region：清理R界面。
-C-c C-z：强制停止运行的R进程。
-C-c M-o：清理R console。
-C-c C-x：
-代替ls()函数。
-C-c C-s：代替search()函数。
-C-c C-d：修改已经建立的对象，非常实用。
-C-c C-n： 把当前行送到R。
-C-c C-c：把当前段送到R。
-C-c C-b：把当前整个文件送到R。
-C-c tab：自动补全R代码。
-C-x o：滚动屏幕。
-C--：
-自动给出R语言中特有的 &amp;lt;-。
-C---：连按两下&amp;ndash;，则可以显示下划线。
-C-c C-o C-o： 在函数头按下会激活ESS对R代码的注释功能。
-M-x customize-group RET ess RET：配置默认模板，如果需要插入空行，回车没用，猛戳空格。
-C-c C-o C-c：将代码注释为roxygen的##'开头格式，特别是注释example的时候很好用。
-C-c C-o p：光标跳转到注释段落开头。
-C-c C-o n：光标跳转到注释所在函数段落结尾。</description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>1. R包介绍 R的包（package）通常有两种:
-二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。
-源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。
-2. R包安装 2.1 源代码安装 ## 需要手动解决包依赖 $ R CMD INSTALL /.../myPackage.tar.gz ## 配置R环境 $ R CMD config 2.2 内置install.packages()函数安装 使用install.packages()安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如Rsubread不能在Windows操作系统下使用。
-install.packages(&amp;#39;myPackage&amp;#39;) 同时，可以使用install.packages()安装本地下载的包，尤其适用于在服务器上安装包。
-install.packages( c(&amp;#39;XML_0.99-5.tar.gz&amp;#39;, &amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;), repos = NULL, configure.args = c(XML = &amp;#39;--with-xml-config=xml-config&amp;#39;, RSPerl = &amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;)) 当安装包有外部依赖时，可以指定依赖程序的位置。如，安装stringi包时，提示依赖icu4c。可以下载icu4c至指定目录后安装：
-install.packages(&amp;#34;stringi&amp;#34;, configure.vars=&amp;#34;ICUDT_DIR=~/Downloads&amp;#34;) 3. R包版本查询和更新 R和R包版本查询
-# 在启动的R中执行 R.version # R包版本 packageVersion(&amp;#39;myPackage&amp;#39;) # 查询当前R的详细信息，包括R版本、R包版本、命名空间等 sessionInfo() CRAN包更新
-# 可以定期执行以下 update.packages() Bioconductor的安装和更新方法
-source(&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;) biocLite(&amp;#39;myPackage&amp;#39;) 4. 卸载R包 remove.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R on Yulong Niu</title><link>https://YulongNiu.github.io/tags/r/</link><description>Recent content in R on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 26 Nov 2018 16:31:58 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/r/index.xml" rel="self" type="application/rss+xml"/><item><title>tidyverse使用集锦</title><link>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</link><pubDate>Mon, 26 Nov 2018 16:31:58 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-11-26-tidyverse/</guid><description>&lt;h2 id="1-使用dplyr包的好处">1. 使用&lt;!-- raw HTML omitted -->dplyr&lt;!-- raw HTML omitted -->包的好处&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>大多数时间在操作&lt;code>tbl_df&lt;/code>对象，而不是&lt;code>data.frame&lt;/code>（特别是含有&lt;code>factor&lt;/code>的&lt;code>data.frame&lt;/code>）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>与&lt;!-- raw HTML omitted -->magrittr&lt;!-- raw HTML omitted -->包的管道更好地结合。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更丰富的列操作，例如&lt;code>mutate&lt;/code>、&lt;code>select&lt;/code>。&lt;code>group_by&lt;/code>会节省很多for循环。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="2-列操作">2. 列操作&lt;/h2>
+&lt;h3 id="21-基本函数">2.1 基本函数&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>filter()&lt;/code>：过滤列，需要输入一个逻辑向量。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>xor(x, y)：&lt;/code>x和y并集除去交集的部分。&lt;/p>
+&lt;p>&lt;code>between(x, left, right)&lt;/code>：left &amp;lt;= x &amp;lt;= right。&lt;/p>
+&lt;p>&lt;code>near(x, y)&lt;/code>：x和y在一定精度下相等，比&lt;code>==&lt;/code>安全）。直接使用列名操作，例如&lt;code>year == 2018&lt;/code>。多列操作相当于&lt;code>&amp;amp;&lt;/code>。&lt;/p>
+&lt;p>&lt;code>filter()&lt;/code>受&lt;code>group&lt;/code>操作影响。&lt;/p>
+&lt;p>返回一个空的表格，只保留列名，&lt;code>filter(x, FALSE)&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>arrange()&lt;/code>：列排序（默认升序）。&lt;/li>
+&lt;/ul>
+&lt;p>多列操作时，先排序第一个，再对第一个相等的排第二个。&lt;/p>
+&lt;p>&lt;code>desc()&lt;/code>降序排列。&lt;code>.by_group = FALSE&lt;/code>控制是否需要按照group进行组内操作。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>select()&lt;/code>：选择列，重新组合新的&lt;code>tbl_df&lt;/code>。结合&lt;!-- raw HTML omitted -->tidyselect&lt;!-- raw HTML omitted -->包&lt;code>的starts_with()&lt;/code>前缀、&lt;code>end_with()&lt;/code>后缀、&lt;code>contains()&lt;/code>部分字符串、&lt;code>matches()&lt;/code>正则匹配、&lt;code>num_range&lt;/code>类似V01和x02之类、&lt;code>everything()&lt;/code>（剩余）所有的列、&lt;code>last_col(offset = n)&lt;/code>倒数第n+1列（默认n为0）。&lt;code>select(Col1 = col1)&lt;/code>更改col1列名为Col1，并只返回Col1列。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>rename(Col1 = col1)&lt;/code>：返回全部列，但更改列名为Col1。不受&lt;code>group&lt;/code>操作影响。&lt;code>setNames(...)&lt;/code>不属于&lt;!-- raw HTML omitted -->dplyr&lt;!-- raw HTML omitted -->包，但能快速更改所有列命名。&lt;/p></description></item><item><title>R和Rcpp的性能监测</title><link>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</link><pubDate>Wed, 03 Oct 2018 19:38:37 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-10-03-profile-r-and-rcpp/</guid><description>&lt;h2 id="1-r性能检测">1. R性能检测&lt;/h2>
+&lt;p>直接使用&lt;!-- raw HTML omitted -->profvis&lt;!-- raw HTML omitted -->包即可，例如&lt;a href="https://rstudio.github.io/profvis/">示例&lt;/a>。&lt;/p>
+&lt;h2 id="2-linux系统rcpp性能检测">2. Linux系统Rcpp性能检测&lt;/h2>
+&lt;h3 id="21-安装依赖软件">2.1 安装依赖软件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install gperftools-devel google-perftools graphviz ghostscript kcachegrind
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="22-编译">2.2 编译&lt;/h3>
+&lt;p>在包（包名称为&lt;code>Mypkg&lt;/code>）目录&lt;code>src&lt;/code>建立如下文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c++" data-lang="c++">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">#include&lt;/span> &lt;span style="color:#00f">&amp;lt;Rcpp.h&amp;gt;&lt;/span>&lt;span style="color:#00f">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">#include&lt;/span> &lt;span style="color:#00f">&amp;lt;gperftools/profiler.h&amp;gt;&lt;/span>&lt;span style="color:#00f">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">using&lt;/span> &lt;span style="color:#00f">namespace&lt;/span> Rcpp;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">// [[Rcpp::export]]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>SEXP start_profiler(SEXP str) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ProfilerStart(as&amp;lt;&lt;span style="color:#00f">const&lt;/span> &lt;span style="color:#2b91af">char&lt;/span>*&amp;gt;(str));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00f">return&lt;/span> R_NilValue;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">// [[Rcpp::export]]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>SEXP stop_profiler() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ProfilerStop();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00f">return&lt;/span> R_NilValue;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>包目录&lt;code>src&lt;/code>的Makevars文件中添加&lt;code>-lprofile&lt;/code>选项，例如&lt;code>PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lprofiler&lt;/code>。之后，安装包，并重新载入。&lt;/p>
+&lt;h3 id="23-调试">2.3 调试&lt;/h3>
+&lt;p>使用方法为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-R" data-lang="R">&lt;span style="display:flex;">&lt;span>Mypkg:::start_profiler(&lt;span style="color:#a31515">&amp;#34;/tmp/profile.out&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>run_cpp_codes()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Mypkg:::stop_profiler()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看profile结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## text&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pprof --text src/Mypkg.so /tmp/profile.out
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## pdf&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pprof --pdf src/Mypkg.so /tmp/profile.out &amp;gt; profile.pdf
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## kcachegrind&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pprof --callgrind src/Mypkg.so R/profile.out &amp;gt; profile.res
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-mac系统rcpp性能检测">3. Mac系统Rcpp性能检测&lt;/h2>
+&lt;p>使用&lt;code>Instruments&lt;/code>工具的&lt;code>Time profiler&lt;/code>功能，&lt;code>Instruments&lt;/code>包括在&lt;code>XCode&lt;/code>中。&lt;/p></description></item><item><title>使用RcppParallel并行计算</title><link>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</link><pubDate>Thu, 19 Jul 2018 22:19:24 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-07-19-rcppparallel-test/</guid><description>&lt;p>在之前的&lt;a href="http://yulongniu.bionutshell.org/blog/2014/06/25/parallel-package/">博文&lt;/a>中，我详细讨论了使用多种R包实现并行计算。其中，提到一个非常重要的问题：&lt;/p>
+&lt;pre>&lt;code>当循环数很大时（1万以上），`foreach`会变得非常慢。
+&lt;/code>&lt;/pre>
+&lt;p>这个问题在Florian Privé的&lt;a href="https://privefl.github.io/blog/a-guide-to-parallelism-in-r/">A guide to parallelism in R&lt;/a>中也提到，解释是&lt;code>foreach&lt;/code>每次只合并100个循环结果。&lt;/p>
+&lt;h2 id="1-测试">1. 测试&lt;/h2>
+&lt;p>我尝试使用&lt;!-- raw HTML omitted -->RcppParallel&lt;!-- raw HTML omitted -->包调用&lt;code>C++&lt;/code>的并行方法。结论是：&lt;strong>在循环数很大时，&lt;!-- raw HTML omitted -->RcppParallel&lt;!-- raw HTML omitted -->包提供的并行方法优于&lt;code>foreach&lt;/code>&lt;/strong>。&lt;/p>
+&lt;p>一个简单的测试场景：对一个数值向量的每个元素做平方根运算，结果按原始顺序返回。在&lt;a href="https://gist.github.com/YulongNiu/add0d9f066299613b64b8458fd5d741a">Gist1&lt;/a>和&lt;a href="https://gist.github.com/YulongNiu/9331ea0d3ef46f0571c5f2dc061c3f8a">Gist2&lt;/a>中，分别实现了：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>SqrtR&lt;/code>：用循环非并行操作每个元素。这种方法在&lt;code>R&lt;/code>语言编程中不推荐，而应该尽量“向量化”操作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>SqrtRforeach&lt;/code>：&lt;code>foreach&lt;/code>并行版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>SqrtRParSapply&lt;/code>: &lt;code>parSapply&lt;/code>并行版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>SqrtCpp&lt;/code>：&lt;code>C++&lt;/code>非并行版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>SqrtCppPara&lt;/code>：&lt;!-- raw HTML omitted -->RcppParallel&lt;!-- raw HTML omitted -->包的&lt;code>C++&lt;/code>并行版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>sqrt&lt;/code>：R内置的向量化方法，&lt;code>C&lt;/code>非并行版本。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>首先，比较5种实现效率，并行计算调用8个线程（Intel i7-4790 &lt;a href="mailto:CPU@3.6GHz">CPU@3.6GHz&lt;/a>）。测试结果显示&lt;code>SqrtRPara&lt;/code>（使用&lt;code>foreach&lt;/code>）和非向量化的R版本&lt;code>SqrtR&lt;/code>效率较低。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-R" data-lang="R">&lt;span style="display:flex;">&lt;span>tmp1 &amp;lt;- runif(10e3)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>all.equal(SqrtCpp(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sqrt(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtR(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtRforeach(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtRParSapply(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtCppPara(tmp1))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## TRUE&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>microbenchmark(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtCpp(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sqrt(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtR(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtRforeach(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtRParSapply(tmp1),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SqrtCppPara(tmp1))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## Unit: microseconds&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## expr min lq mean median&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## SqrtCpp(tmp1) 56.295 72.648 9.338755e+01 82.0335&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## sqrt(tmp1) 36.216 46.074 4.865115e+01 48.3090&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## SqrtR(tmp1) 3030.682 3116.718 4.229971e+03 3947.9380&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## SqrtRforeach(tmp1) 1488851.181 1532937.096 1.561865e+06 1547849.9610&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## SqrtRParSapply(tmp1) 954757.348 963478.755 9.701841e+05 969925.9090&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## SqrtCppPara(tmp1) 23.837 79.314 1.069003e+02 104.5975&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## uq max neval&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 89.0800 1183.279 100&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 52.2995 66.875 100&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 4560.0930 10391.379 100&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 1584297.5760 1750382.995 100&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 974233.5690 1012400.281 100&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 111.9160 1331.442 100&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，增加循环数，比较效率较高的前三种方法。测试结果显示调用&lt;!-- raw HTML omitted -->RcppParallel&lt;!-- raw HTML omitted -->包的&lt;code>C++&lt;/code>并行版本&lt;code>SqrtCppPara&lt;/code>胜出。&lt;/p></description></item><item><title>为什么不推荐在R语言中随意按照下标操作矩阵</title><link>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</link><pubDate>Thu, 21 Jul 2016 19:35:29 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-07-21-subset-matrix-in-r/</guid><description>&lt;p>这篇博文的目的是展示R语言中下标操作矩阵的潜在问题。R语言提供了多种方法提取一个矩阵的单个或者部分元素，不同方法对应的效率在Hadley Wickham的&lt;a href="http://adv-r.had.co.nz/Performance.html#language-performance">Advance R&lt;/a>中已有讨论。这些方法中，使用最广泛的是通过下标（行或者列）取值，即操作符&lt;code>[&lt;/code>。然而，这种方法存在潜在问题，即内存中会拷贝原始对象。&lt;/p>
+&lt;p>举例：首先建立一个矩阵，之后取这个矩阵除了第一行之外的部分，接下来操作这个部分矩阵。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-R" data-lang="R">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## step1: build matrix&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>n &amp;lt;- 8000
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmp1 &amp;lt;- matrix(rnorm(n * n), nrow = n, ncol = n)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gc()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## step2: manipulate a subset of matrix&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sink(&lt;span style="color:#a31515">&amp;#39;/dev/null&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>apply(tmp1[2:n, ], 1, &lt;span style="color:#00f">function&lt;/span>(x) x[1])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sink()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## step3: garbage collection&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gc()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>内存使用情况如下：&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/R_apply_memory.png" alt="R_apply_memory.png">&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>标记1内存上升，因为建立了&lt;code>tmp1&lt;/code>的矩阵；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>标记2内存再次上升，主要因为使用下标取矩阵操作，&lt;code>tmp1[2:n, ]&lt;/code>；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>标记3内存下降，因为手动执行垃圾回收。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>可以明显看到内存中多余的垃圾对象。如果使用&lt;code>for&lt;/code>循环形式，就可以有效避免内存对象拷贝。虽然，R在内存空间不足时，会自动执行&lt;code>gc()&lt;/code>。但是，执行程序时，不能全指望自动垃圾回收，毕竟有时回收得并不及时，而新的对象又相继生成。这种情况下，内存空间不足就成为很严重的问题。&lt;/p>
+&lt;p>R版本&lt;code>3.3.1&lt;/code>。&lt;/p>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2016年7月21日&lt;/p></description></item><item><title>Rcpp操作矩阵和向量集锦</title><link>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</link><pubDate>Thu, 07 Jan 2016 20:50:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-01-07-rcpp-matrix/</guid><description>&lt;p>收集和记录&lt;!-- raw HTML omitted -->Rcpp&lt;!-- raw HTML omitted -->或者&lt;!-- raw HTML omitted -->RcppArmadillo&lt;!-- raw HTML omitted -->操作矩阵和向量。&lt;/p>
+&lt;h2 id="1-rcpp">1. &lt;!-- raw HTML omitted -->Rcpp&lt;!-- raw HTML omitted -->&lt;/h2>
+&lt;ul>
+&lt;li>可以使用逻辑下标（&lt;code>LogicalVector&lt;/code>）对向量和列表&lt;a href="http://gallery.rcpp.org/articles/subsetting/">取值&lt;/a>。&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-rcpparmadillo">2. &lt;!-- raw HTML omitted -->RcppArmadillo&lt;!-- raw HTML omitted -->&lt;/h2>
+&lt;p>基本类型是&lt;code>mat&lt;/code>、&lt;code>vec&lt;/code>（&lt;code>colvec&lt;/code>）和&lt;code>rowvec&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>属性&lt;/p>
+&lt;ul>
+&lt;li>对于矩阵，行数：&lt;code>m.n_rows;&lt;/code>；列数：&lt;code>m.n_cols;&lt;/code>；维度：&lt;code>m.size();&lt;/code>或&lt;code>size(m);&lt;/code>。对于向量，元素数：&lt;code>v.n_elem;&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>特殊向量或矩阵&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>全是1&lt;code>ones&amp;lt;mat&amp;gt;(3, 4);&lt;/code>/&lt;code>vec(10, fill::ones);&lt;/code>/；全是0&lt;code>zeros&amp;lt;vec&amp;gt;(10);&lt;/code>/&lt;code>mat(3, 4, fill::zeros);&lt;/code>；全是某个数&lt;code>mat a(4, 5); a.fill(123.4);&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>连续向量，规定长度&lt;code>linspace&amp;lt;vec&amp;gt;(0, 5, 6);&lt;/code>；连续向量，规定间距&lt;code>regspace&amp;lt;vec&amp;gt;(0, 2, 9);&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>取值&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>对于向量，连续取值：&lt;code>v.subvec(1stIdx, lastIdx);&lt;/code>；非连续，可以考虑使用&lt;code>find()&lt;/code>函数，比如：&lt;code>v.elem(find(v &amp;gt; 0));&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对于矩阵，连续取值：&lt;code>m.col(Idx);&lt;/code>/&lt;code>m.row(Idx);&lt;/code>/&lt;code>m.cols(Idx);&lt;/code>/&lt;code>m.rows(Idx);&lt;/code>/&lt;code>m.submat(1stRowIdx, lastRowIdx, 1stColIdx, lastColIdx);&lt;/code>；非连续，&lt;code>m.submat(vecRowIdx, vecColIdx);&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Rcpp矩阵转换为RcppArmadillo矩阵，可以避免拷贝矩阵，以提升效率，&lt;code>mat(ptr_aux_mem, n_rows, n_cols, copy_aux_mem = true, strict = false);&lt;/code>。同样道理，可以转化向量。例如：&lt;/p></description></item><item><title>R使用parallel包并行计算</title><link>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</link><pubDate>Tue, 24 Jun 2014 22:10:20 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-06-24-parallel-package/</guid><description>&lt;p>最新版本的R已经内置&lt;!-- raw HTML omitted -->parallel&lt;!-- raw HTML omitted -->包，&lt;!-- raw HTML omitted -->parallel&lt;!-- raw HTML omitted -->包是从&lt;!-- raw HTML omitted -->&lt;a href="http://cran.r-project.org/web/packages/snow/index.html">snow&lt;/a>&lt;!-- raw HTML omitted -->包和&lt;!-- raw HTML omitted -->&lt;a href="http://cran.r-project.org/web/packages/multicore/index.html">multicore&lt;/a>&lt;!-- raw HTML omitted -->包继承而来，包含了很多非常好用的函数。&lt;!-- raw HTML omitted -->parallel&lt;!-- raw HTML omitted -->包可以通过PVM（&lt;!-- raw HTML omitted -->rpvm&lt;!-- raw HTML omitted -->包）、MPI（&lt;!-- raw HTML omitted -->&lt;a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi&lt;/a>&lt;!-- raw HTML omitted -->包）、NetWorkSpaces（&lt;!-- raw HTML omitted -->&lt;a href="http://cran.r-project.org/web/packages/nws/index.html">nws&lt;/a>&lt;!-- raw HTML omitted -->包）和raw sockets（如果以上3种都不能使用）平台进行分布计算，支持cluster和多核个人/服务器计算机。在Linux系统上，通常使用&lt;a href="http://www.open-mpi.org/">openMPI&lt;/a>。&lt;/p>
+&lt;h2 id="1-安装rmpi包">1. 安装&lt;!-- raw HTML omitted -->Rmpi&lt;!-- raw HTML omitted -->包&lt;/h2>
+&lt;p>因为使用openMPI，所以&lt;!-- raw HTML omitted -->parallel&lt;!-- raw HTML omitted -->包需要&lt;!-- raw HTML omitted -->Rmpi&lt;!-- raw HTML omitted -->包来设定节点，所以首先需要在计算机上安装openMPI。&lt;/p></description></item><item><title>创建R包的最简流程</title><link>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</link><pubDate>Thu, 27 Mar 2014 14:53:05 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-27-creat-r-package/</guid><description>&lt;p>一个最简单创建R包的流程。&lt;/p>
+&lt;h2 id="1-载入工具包">1. 载入工具包&lt;/h2>
+&lt;p>安装并载入&lt;!-- raw HTML omitted -->devtools&lt;!-- raw HTML omitted -->包和&lt;!-- raw HTML omitted -->roxygen2&lt;!-- raw HTML omitted -->包。&lt;!-- raw HTML omitted -->devtools&lt;!-- raw HTML omitted -->包提供了一些包的检查、安装和打包的基本工具。&lt;!-- raw HTML omitted -->roxygen2&lt;!-- raw HTML omitted -->包则使得书写R帮助文档变得轻松简单。如果习惯使用Emacs，可以结合&lt;a href="http://ess.r-project.org/">ESS&lt;/a>建立R包，可以将R代码和帮助文档有效组合在一起，便于管理。当然，也可以使用&lt;a href="http://www.rstudio.com/">Rstudio&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>library(&lt;span style="color:#a31515">&amp;#39;devtools&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>library(&lt;span style="color:#a31515">&amp;#39;roxygen2&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-rcpp和相关的包">2. &lt;!-- raw HTML omitted -->Rcpp&lt;!-- raw HTML omitted -->和相关的包&lt;/h2>
+&lt;p>如果使用了&lt;!-- raw HTML omitted -->Rcpp&lt;!-- raw HTML omitted -->或者相关的包，比如&lt;!-- raw HTML omitted -->RcppArmadillo&lt;!-- raw HTML omitted -->，需要格外设置。所有cpp代码都写在src文件夹下。&lt;/p>
+&lt;p>&lt;strong>首先&lt;/strong>，执行：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>use_rcpp()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>其次&lt;/strong>，在&lt;code>DESCRIPTION&lt;/code>中添加依赖或者需要链接的包名称，比如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>Encoding: UTF-8
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Imports:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Rcpp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LinkingTo:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Rcpp,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> RcppArmadillo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>之后&lt;/strong>，在包的&lt;code>R/&lt;/code>目录下，添加一个文件&lt;code>RcppChk.R&lt;/code>（文件名称自定），并写入：&lt;/p></description></item><item><title>R ggplot2 notes</title><link>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</link><pubDate>Wed, 02 Oct 2013 02:47:11 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2013-10-02-ggplot2-notes/</guid><description>&lt;h1 id="r-package-ggplot2-notes">R Package &lt;!-- raw HTML omitted -->ggplot2&lt;!-- raw HTML omitted --> Notes&lt;/h1>
+&lt;h2 id="1-basic-grammar">1. Basic grammar&lt;/h2>
+&lt;h3 id="11-plot-types">1.1 Plot types&lt;/h3>
+&lt;p>The R package &lt;!-- raw HTML omitted -->ggplot2&lt;!-- raw HTML omitted --> is a famous plot tool for high quality scientific figures. The &lt;!-- raw HTML omitted -->ggplot2&lt;!-- raw HTML omitted --> style figures are widely seen in papers published in high quality journals such as &lt;em>PNAS&lt;/em>, &lt;em>Nature&lt;/em> and &lt;em>Cell&lt;/em>.&lt;/p>
+&lt;p>The input data should be in &lt;strong>data frame&lt;/strong> form, and it is easily to use the function &lt;code>as.data.frame()&lt;/code>. &amp;ldquo;&lt;!-- raw HTML omitted -->&lt;strong>+&lt;/strong>&lt;!-- raw HTML omitted -->&amp;rdquo; is used to connect different plot statement. A typical &lt;!-- raw HTML omitted -->ggplot2&lt;!-- raw HTML omitted --> plot statement is like:&lt;/p></description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>&lt;p>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。&lt;/p>
+&lt;p>现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块&lt;a href="http://rpy.sourceforge.net/">rpy2&lt;/a> ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是&lt;a href="http://www.renjin.org/">renjin&lt;/a>，一个基于JVM的R语言解释器。&lt;/p>
+&lt;p>本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以&lt;a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/">官方文档&lt;/a>为准。&lt;/p>
+&lt;h2 id="1-安装">1. 安装&lt;/h2>
+&lt;p>rpy2作为Python的一个模块，其&lt;a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/overview.html#installation">安装&lt;/a>非常方便。需要做的准备工作是在本地安装好R。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ pip install rpy2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-python调用r对象">2. python调用R对象&lt;/h2>
+&lt;h3 id="21-使用rpy2robjects">2.1 使用&lt;code>rpy2.robjects&lt;/code>&lt;/h3>
+&lt;p>在rpy2中调用R对象，实际上是开启了一个R的交互进程。主要思路是将R的代码写入一个字符串内，之后执行即可。&lt;/p>
+&lt;p>对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。&lt;/p>
+&lt;p>调用方法：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">from&lt;/span> rpy2.robjects &lt;span style="color:#00f">import&lt;/span> r
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有三种方式可以选择：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>使用&lt;code>r.obj&lt;/code>，比如 &lt;code>r.c(1, 3)&lt;/code>。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 &lt;code>data.frame&lt;/code>或者 &lt;code>read.csv&lt;/code>等。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用&lt;code>r['obj']&lt;/code>，比如 &lt;code>r['c'](1, 3)&lt;/code>。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是&lt;code>r['func'](value1, para2 = value2)&lt;/code>。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 &lt;code>r['func'](value1, para2 = value, **{para.3: value3})&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用&lt;code>r('obj')&lt;/code>，比如 &lt;code>r('c(1, 3)')&lt;/code>。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过&lt;code>r('Rcode')&lt;/code>调用执行。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># import r&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; &lt;span style="color:#00f">from&lt;/span> rpy2.robjects &lt;span style="color:#00f">import&lt;/span> r
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># creat an R function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r(&lt;span style="color:#a31515">&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r.f(3)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[9.424778]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># internal function in R&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r[&lt;span style="color:#a31515">&amp;#39;ls&amp;#39;&lt;/span>]()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># two ways of getting &amp;#39;paste&amp;#39; function in R&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># first: direct use R function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; print(r[&lt;span style="color:#a31515">&amp;#39;paste&amp;#39;&lt;/span>](l, collapse = &lt;span style="color:#a31515">&amp;#39;-&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># second: eavl R codes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; coder = &lt;span style="color:#a31515">&amp;#39;paste(&lt;/span>&lt;span style="color:#a31515">%s&lt;/span>&lt;span style="color:#a31515">, collapse = &amp;#34;-&amp;#34;)&amp;#39;&lt;/span> % (l.r_repr())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; print(r(coder))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># call Python function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; l = r[&lt;span style="color:#a31515">&amp;#39;letters&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; len(l)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>26
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; dir(l)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="22-创建r对象和提取对象的数值">2.2 创建R对象和提取对象的数值&lt;/h3>
+&lt;p>创建向量，可以使用&lt;code>rpy2.robjects.vectors&lt;/code>中提供的一系列函数，将一个Python的元组、列表或者字符串转换为R的向量。其中包括 &lt;code>StrVector()&lt;/code>、&lt;code>IntVector()&lt;/code>、&lt;code>FloatVector()&lt;/code>、&lt;code>FactorVector()&lt;/code>和&lt;code>BoolVector()&lt;/code>，分别提供了转换字符、整数、浮点、因子和布尔向量。&lt;/p></description></item><item><title>R包制作和roxygen2使用说明</title><link>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</link><pubDate>Tue, 29 May 2012 19:46:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-29-r-package-and-roxygen2/</guid><description>&lt;p>查看创建R包的各种细节，权威的文献是&lt;a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions&lt;/a>。&lt;/p>
+&lt;h2 id="1-创建r包目录">1. 创建R包目录&lt;/h2>
+&lt;p>像盖房子一样，创建R包需要先搭建一个骨架，这个骨架往往是固定的，即一些文件夹（如&lt;code>R&lt;/code>，&lt;code>man&lt;/code>等）和文件（如&lt;code>DESCRIPTION&lt;/code>，&lt;code>NAMESPACE&lt;/code>）是必须的，而另外一些则可选择性添加。一个典型的R包目录,比如&lt;!-- raw HTML omitted -->Biobase&lt;!-- raw HTML omitted -->包，如下图：&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/r_catalog.png" alt="r_catalog">&lt;/p>
+&lt;h3 id="11-description文件">1.1 &lt;code>DESCRIPTION&lt;/code>文件&lt;/h3>
+&lt;p>一个纯文本ASCII文件，其中Package, Version, License, Description, Title, Author和Maintainer是必备条目，一个例子&lt;!-- raw HTML omitted -->knitr&lt;!-- raw HTML omitted -->包的&lt;code>DESCRIPTION&lt;/code>文件：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Package：由字母、数字和“点”构成的，至少含有两个字符，第一个必须是字母，结束不能用“点”（这也是包名称的命名规范）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Version：版本号，经典的命名方式比如0.1-0。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>License：GPL。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description：一段话描述包主要的功能。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Title：包的一句话解释。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Author和Maintainer：包的作者和维护者，姓+名 （比如Karl Pearson ）。也可以使使用Author@R描述作者，使用R函数&lt;code>person()&lt;/code>，其中变量&lt;code>role&lt;/code>的选项&lt;code>aut&lt;/code>表示author，&lt;code>cre&lt;/code>表示creator（维护者），&lt;code>ctb&lt;/code>表示contributor。一个例子：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>c(person(&lt;span style="color:#a31515">&amp;#34;Hadley&amp;#34;&lt;/span>, &lt;span style="color:#a31515">&amp;#34;Wickham&amp;#34;&lt;/span>, email = &lt;span style="color:#a31515">&amp;#34;hadley@rice.edu&amp;#34;&lt;/span>, role =&lt;span style="color:#a31515">&amp;#34;ctb&amp;#34;&lt;/span>), 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>person(&lt;span style="color:#a31515">&amp;#34;Yihui&amp;#34;&lt;/span>, &lt;span style="color:#a31515">&amp;#34;Xie&amp;#34;&lt;/span>, email = &lt;span style="color:#a31515">&amp;#34;xie@yihui.name&amp;#34;&lt;/span>, role = c(&lt;span style="color:#a31515">&amp;#34;aut&amp;#34;&lt;/span>, &lt;span style="color:#a31515">&amp;#34;cre&amp;#34;&lt;/span>)))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>Date（可选）：当前版本包日期，格式yyyy-mm-dd。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Depends（可选）：依赖的R环境版本和包名称，比如 &lt;code>R (&amp;gt;= 2.14.1)&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;!-- raw HTML omitted -->注意：&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>加上版本号，没有版本号等于没用，因为版本之间可能差异很大；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对于&lt;!-- raw HTML omitted -->base&lt;!-- raw HTML omitted -->等这样的包就不用写了，因为是必然依赖的，同时也是R启动自动载入的。对于依赖的包名称，在R 2.14.0之后完全没有必要写，因为从这个版本后，所有包都有&lt;code>NAMESPACE&lt;/code>，直接使用&lt;code>Imports&lt;/code>就可以了。&lt;/p></description></item><item><title>R面向对象编程S4</title><link>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</link><pubDate>Sat, 05 May 2012 15:19:36 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-05-r-s4/</guid><description>&lt;h2 id="1-一些s3的铺垫">1. 一些S3的铺垫&lt;/h2>
+&lt;p>在博文“&lt;a href="http://yulongniu.bionutshell.org/blog/2010/09/04/linux-install-r/">Linux安装R语言包&lt;/a>”描述了如何查看一个函数的源代码，其中涉及了例如&lt;code>methods()&lt;/code>函数，用来查看一个S3泛函（S3 generic）的方法。在&lt;!-- raw HTML omitted -->pryr&lt;!-- raw HTML omitted -->包中，提供了更加便捷的查看方法。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>library(&lt;span style="color:#a31515">&amp;#39;pryr&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## object is base type, S3, S4 or RC&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>otype(obj)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## function is genetic or method&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ftype(method)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-类">2. 类&lt;/h2>
+&lt;h3 id="21-建立新类">2.1 建立新类&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>setClass(Class, representation, prototype, contains=character(),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> validity, access, where, version, sealed, package,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> S3methods = FALSE, slots)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;ul>
+&lt;li>Class：类名。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>contains：父类名，表示继承关系。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>prototype：带名setGroupGeneric字的列表或&lt;code>prototype()&lt;/code>，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合&lt;code>validity&lt;/code>定义，因为默认值不会被检查，因为即使不符合&lt;code>validity&lt;/code>定义，也可以通过&lt;code>validObject()&lt;/code>检查。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用&lt;code>setValidity()&lt;/code>后期添加。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>where：环境（少用）。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>sealed：是否封闭，如果设定为&lt;code>TRUE&lt;/code>，其他&lt;code>setClass()&lt;/code>不能调用该类。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>package：包名（少用）&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;blockquote>
+&lt;ul>
+&lt;li>S3methods/representation/access/version：在3.0.0版本后不建议使用。&lt;/li>
+&lt;/ul>&lt;/blockquote>
+&lt;p>例子：&lt;/p></description></item><item><title>R小技巧集锦</title><link>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</link><pubDate>Wed, 02 May 2012 22:17:02 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2012-05-02-r-tricks/</guid><description>&lt;p>持续更新R语言编程中的一些小技巧，包括一些易错点。但是，需要注意的，&lt;strong>一旦需要使用一些非常稀奇古怪的技巧时，可以尝试反思是否是自己数据结构或者算法出了问题。&lt;/strong>&lt;/p>
+&lt;h2 id="1-if爱你else就要和你在一起又要给你一些距离">1. &lt;code>if&lt;/code>爱你，&lt;code>else&lt;/code>就要和你在一起，又要给你一些距离&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">if&lt;/span> (con){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> expr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> } &lt;span style="color:#00f">else&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> expr2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>if...else..&lt;/code>结构中，&lt;code>}&lt;/code>与&lt;code>else&lt;/code>必须在同一行。&lt;/p>
+&lt;p>简易形式（不推荐）：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># else不能与expr在同一行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">if&lt;/span> (con) expr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">else&lt;/span> expr2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>建议将所有&lt;code>if ... else ...&lt;/code>结构写成第一种形式，如果没有&lt;code>else&lt;/code>，用&lt;code>else {}&lt;/code>代替。&lt;/p>
+&lt;h2 id="2-null是空null是气null在r中就是空气">2. &lt;code>NULL&lt;/code>是空，&lt;code>NULL&lt;/code>是气，&lt;code>NULL&lt;/code>在R中就是空气。&lt;/h2>
+&lt;p>如果表达式（expression）或者函数（function）的值没有定义，那么将返回&lt;code>NULL&lt;/code>。在R中，&lt;code>NULL&lt;/code>与很多对象合并在一起时，都被忽略掉。比如以下例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># NULL is neglected in vector&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; c(1, &lt;span style="color:#00f">NA&lt;/span>, &lt;span style="color:#00f">NULL&lt;/span>, &lt;span style="color:#00f">FALSE&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[1] 1 &lt;span style="color:#00f">NA&lt;/span> 0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># also in matrix&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; matrix(c(1, &lt;span style="color:#00f">NA&lt;/span>, &lt;span style="color:#00f">NULL&lt;/span>, 2), c(2, 2))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> [,1] [,2]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[1,] 1 2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[2,] &lt;span style="color:#00f">NA&lt;/span> 1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>警告信息：
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>In matrix(c(1, &lt;span style="color:#00f">NA&lt;/span>, &lt;span style="color:#00f">NULL&lt;/span>, 2), c(2, 2)) : 数据长度[3]不是矩阵行数[2]的整倍
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># also in list&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; tmp &amp;lt;- list(1, 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; tmp[1] &amp;lt;- &lt;span style="color:#00f">NULL&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; tmp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[[1]]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[1] 2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; tmp[[1]] &amp;lt;- &lt;span style="color:#00f">NULL&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; tmp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>list()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果一定要将列表中的某个个元素赋值为NULL，可以使用list(NULL)，比如：&lt;/p></description></item><item><title>Emacs和ESS的使用技巧</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link><pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid><description>&lt;h2 id="1-安装ess">1. 安装ESS&lt;/h2>
+&lt;p>有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如&lt;code>yum&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install emacs-ess
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法&lt;a href="http://yulongniu.bionutshell.org/blog/2012/06/24/emacs-extend-skills/">参考&lt;/a>，安装&lt;code>ess&lt;/code>包。&lt;/p>
+&lt;h2 id="2-使用ess">2. 使用ESS&lt;/h2>
+&lt;p>进入GNU Emacs界面之后，输入&lt;code>M-X R&lt;/code> 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>M-x R&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-u M-x R RET --no-save RET&lt;/code>：启动R并且不保存。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x ess-transcript-clean-region&lt;/code>：清理R界面。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-z&lt;/code>：强制停止运行的R进程。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>C-c M-o&lt;/code>：清理R console。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-x&lt;/code>：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>代替&lt;code>ls()&lt;/code>函数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-s&lt;/code>：代替&lt;code>search()&lt;/code>函数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-d&lt;/code>：修改已经建立的对象，非常实用。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-c C-n&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>把当前行送到R。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-c&lt;/code>：把当前段送到R。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-b&lt;/code>：把当前整个文件送到R。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>C-c tab&lt;/code>：自动补全R代码。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x o&lt;/code>：滚动屏幕。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C--&lt;/code>：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>自动给出R语言中特有的 &lt;code>&amp;lt;-&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C---&lt;/code>：连按两下&amp;ndash;，则可以显示下划线。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-c C-o C-o&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>在函数头按下会激活ESS对R代码的注释功能。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x customize-group RET ess RET&lt;/code>：配置默认模板，如果需要插入空行，回车没用，猛戳空格。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o C-c&lt;/code>：将代码注释为roxygen的&lt;code>##'&lt;/code>开头格式，特别是注释example的时候很好用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o p&lt;/code>：光标跳转到注释段落开头。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o n&lt;/code>：光标跳转到注释所在函数段落结尾。&lt;/p></description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>&lt;h2 id="1-r包介绍">1. R包介绍&lt;/h2>
+&lt;p>R的包（package）通常有两种:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>二进制代码包（Binary package）：这种包属于即得即用型（ready-to-use），但是依赖与平台，比如Windows和Linux平台下不同。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>源代码包（Source package）: 此类包可以跨平台使用，但用之前需要处理或者编译（compiled）。同时，源代码包可以查看到程序源代码，便于查找、修改和引用。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-r包安装">2. R包安装&lt;/h2>
+&lt;h3 id="21-源代码安装">2.1 源代码安装&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 需要手动解决包依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ R CMD INSTALL /.../myPackage.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 配置R环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ R CMD config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="22-内置installpackages函数安装">2.2 内置&lt;code>install.packages()&lt;/code>函数安装&lt;/h3>
+&lt;p>使用&lt;code>install.packages()&lt;/code>安装，比较简便，联网即可装，装了就可用。使用这种方法安装包时，R会自动安装依赖的包。如果出现安装报错，可能的原因是缺少依赖的系统文件。同时，需要注意的是，一些R包只能在特定的平台上使用。比如&lt;a href="http://www.bioconductor.org/packages/release/bioc/html/Rsubread.html">Rsubread&lt;/a>不能在Windows操作系统下使用。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>install.packages(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>同时，可以使用&lt;code>install.packages()&lt;/code>安装本地下载的包，尤其适用于在服务器上安装包。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>install.packages(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> c(&lt;span style="color:#a31515">&amp;#39;XML_0.99-5.tar.gz&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;../../Interfaces/Perl/RSPerl_0.8-0.tar.gz&amp;#39;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> repos = &lt;span style="color:#00f">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> configure.args = c(XML = &lt;span style="color:#a31515">&amp;#39;--with-xml-config=xml-config&amp;#39;&lt;/span>, RSPerl = &lt;span style="color:#a31515">&amp;#39;--with-modules= &amp;#34;IO Fcntl&amp;#34;&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当安装包有外部依赖时，可以指定依赖程序的位置。如，安装&lt;code>stringi&lt;/code>包时，提示依赖&lt;code>icu4c&lt;/code>。可以下载&lt;code>icu4c&lt;/code>至指定目录后安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>install.packages(&lt;span style="color:#a31515">&amp;#34;stringi&amp;#34;&lt;/span>, configure.vars=&lt;span style="color:#a31515">&amp;#34;ICUDT_DIR=~/Downloads&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-r包版本查询和更新">3. R包版本查询和更新&lt;/h2>
+&lt;p>R和R包版本查询&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 在启动的R中执行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>R.version
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># R包版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>packageVersion(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查询当前R的详细信息，包括R版本、R包版本、命名空间等&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sessionInfo()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;a href="http://cran.r-project.org/">CRAN&lt;/a>包更新&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 可以定期执行以下&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>update.packages()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;a href="http://www.bioconductor.org/">Bioconductor&lt;/a>的安装和更新方法&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>source(&lt;span style="color:#a31515">&amp;#39;http://bioconductor.org/biocLite.R&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>biocLite(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-卸载r包">4. 卸载R包&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>remove.packages(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-r包相关函数">5. R包相关函数&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看包的安装目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.libPaths()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看已经安装的包目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>library()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看已安装包信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed.packages()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 载入myPackage包&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>library(myPackage)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>require(myPackage)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看当前载入的包&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>search()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看启动R时自动载入的包。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>getOption(&lt;span style="color:#a31515">&amp;#39;defaultPackages&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="6-帮助信息查询">6. 帮助信息查询&lt;/h2>
+&lt;h3 id="61-r和r包帮助信息">6.1 R和R包帮助信息&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查询R HOME安装地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sys.getenv(&lt;span style="color:#a31515">&amp;#39;R_HOME&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查询用户HOME地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Sys.getenv(&lt;span style="color:#a31515">&amp;#39;HOME&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个“函数”或者“方法”的详细内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>?myFunction
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>?myMethod
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 关键词查询&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>??myKeyword
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看已经安装包的详细HTML文档&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>help.start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 搜索R网站上的“helpinfor”相关信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RSiteSearch(&lt;span style="color:#a31515">&amp;#39;helpinputinfor&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看“myPackage”的帮助&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>help(package = &lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 有的包，特别是bioconductor的包有vignette，用函数查看&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vignette(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 这个函数也可以查看vignette，更好用一些&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openVignette(&lt;span style="color:#a31515">&amp;#39;myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 展示一些包中demostration&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>demo(&lt;span style="color:#a31515">&amp;#39;package&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="62-查询对象信息">6.2 查询对象信息&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看&amp;#34;myPackage&amp;#34;中的所有对象&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ls(&lt;span style="color:#a31515">&amp;#39;package:myPackage&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看函数的参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>args(myFunction)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 自动运行该函数帮助文档中的例子&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>example(myFunction)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个对象的模式（mode）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mode(myObject)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个对象的属性（attribute）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>attributes(myObject)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 快速查看某个对象的信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 尤其适用于对象有很多行/列&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>str(myObject)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个对象的类&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>class(myObject)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查询某个中某个类的帮助信息，举例如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>class?graph::graph
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个S3泛型函数中所有的方法或者一个类中所有的方法（S3：S version 3）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>methods(&lt;span style="color:#a31515">&amp;#39;myMethods&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看S4类的方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>showMethods(class = &lt;span style="color:#a31515">&amp;#39;myClass&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个类或者包的具体内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>getClass(&lt;span style="color:#a31515">&amp;#39;class/package&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个类的slot&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>getSlots(&lt;span style="color:#a31515">&amp;#39;class&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看某个对象的slot&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>slotNames(myObject)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 访问对象的slot值使用@，可以连续用&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Myobject@slotNames
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="7-查看函数源代码">7. 查看函数源代码&lt;/h2>
+&lt;h3 id="71-普通函数源代码">7.1 普通函数源代码&lt;/h3>
+&lt;p>直接输入函数名称，不加后面的括号。比如:&lt;/p></description></item></channel></rss>

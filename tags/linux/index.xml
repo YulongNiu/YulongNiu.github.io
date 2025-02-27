@@ -1,61 +1,471 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Yulong Niu</title><link>https://YulongNiu.github.io/tags/linux/</link><description>Recent content in Linux on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Thu, 23 Jan 2020 16:17:46 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>gpg使用简要</title><link>https://YulongNiu.github.io/posts/2020-01-23-gpg/</link><pubDate>Thu, 23 Jan 2020 16:17:46 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2020-01-23-gpg/</guid><description>本文尝试摘要gpg的常用功能。
-0. 基本概念 secret key/sec：主密钥，非常重要。丢失密钥，无法解密；泄漏密钥，加密无效。
-secret subkey/ssb：子密钥，在不同环境中使用。由主密钥签发。
-public key/pub：主公钥，明文分发。
-public subkey/sub：子公钥，与子密钥对应。
-S：Sign
-C：Certify
-E：Encrypt
-1. 安装 brew install gnupg 2. 基本操作 2.1 生成 ## 生成主密钥 gpg --full-gen-key ## 根据提示设置： ## key size选择4096 ## 生成子密钥 gpg --edit-key MyID ## 进入交互页面，输入： ## addKey ## 之后，根据提示设置 ## save 2.2 查看 ## 查看公钥 gpg --list-keys gpg -k ## `--fingerprint`指纹 ## `--keyid-format`长ID ## 0x后为长ID gpg --list-key --fingerprint --keyid-format long ## 查看私钥 gpg --list-secret-keys gpg -K 2.</description></item><item><title>Shadowsocks设置推荐</title><link>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</link><pubDate>Wed, 14 Jun 2017 23:49:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</guid><description>1. Shadowsocks客户端 Shadowsocks在主流平台上都有客户端，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装SwitchyOmega插件。
-2. 谷歌设置 进入网址，设置自己喜欢的语言，之后重启即可。
-3. 自己配置Shadowsocks 3.1 软件准备 参考shadowsocks网站安装。
-$ sudo dnf copr enable librehat/shadowsocks $ sudo dnf update $ sudo dnf install shadowsocks-libev 3.2 配置文件 文件位置/etc/shadowsocks-libev/config.json，设置模板：
-{ &amp;#34;server&amp;#34;:&amp;#34;0.0.0.0&amp;#34;, &amp;#34;port_password&amp;#34;:{ &amp;#34;8381&amp;#34;:&amp;#34;******&amp;#34;, &amp;#34;8382&amp;#34;:&amp;#34;******&amp;#34; }, &amp;#34;timeout&amp;#34;:600, &amp;#34;method&amp;#34;:&amp;#34;aes-256-cfb&amp;#34; } 3.3 启动 $ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json 4. 使用TCP BBR加速 $ sudo echo &amp;#34;net.core.default_qdisc=fq&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo echo &amp;#34;net.ipv4.tcp_congestion_control=bbr&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf $ sudo sysctl -p $ sudo sysctl net.</description></item><item><title>两个git的rebase命令应用</title><link>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</link><pubDate>Fri, 11 Nov 2016 16:24:39 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</guid><description>介绍两个git rebase的应用场景，一个是合并commits记录，另一个是贡献代码。
-1. 合并commit记录 假定有多条commits，按照离当前时间从近至远依次为：c1、b2、b1和a1。希望合并c1、b2和b1，即只保留c1和a1。操作流程如下：
-打开交互式rebase $ git rebase -i sha1id-of-a1 标记合并commits 弹出的文本编辑器初始可能为：
-pick sha1id-of-c1 c1 pick sha1id-of-b2 b2 pick sha1id-of-b1 b1 ... 修改为：
-pick sha1id-of-c1 c1 squash sha1id-of-b2 b2 squash sha1id-of-b1 b1 ... 记录合并commits 在弹出的文本编辑器中标记和注释commits
-提交远程 由于本地和远程记录不一致，需要强制合并。
-$ git push -f origin mybranch 2. 贡献代码 Fork项目 Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：
-$ git clone https://github.com/my/project.git $ git remote add upstream https://github.com/famous/project.git 建立分支并提交修改 $ git checkout -b devbranch $ git commit -a -m &amp;#39;these commits&amp;#39; $ git push origin devbranch 获取和合并最新远程修改 $ git checkout master $ git pull upstream master $ git checkout devbranch $ git rebase master ## compare and merge the latest commits $ git rebase --continue ## force push $ git push -f origin devbranch 发起pull request。 参考资料 合并分支</description></item><item><title>命令行使用Google Drive</title><link>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</link><pubDate>Fri, 21 Oct 2016 18:24:31 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</guid><description>推荐使用更更方便的VGrive。
-推荐使用更方便的ODrive。
-本文简单介绍gdrive，它是一个跨多个平台软件，提供命令行操作Google Drive。同类软件还有drive和overGrive（Linux下Google Drive界面客户端）。
-基本思路：对每一个上传至Google Drive的文件或文件夹都分配一个Id，所以云端操作需要指定Id。
-突出优点：自动同步，比较云端和本地文件后，决定上传、删除或者替换；同步加入版本控制，可以下载和删除不同版本文件。
-1. 初始化 下载系统对应版本，执行gdrive about，根据提示设置。
-2. 查找 查找规则
-## 查找所有文件夹，不包括垃圾箱，所有者为自己 $ gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners&amp;#34; ## 加入上层目录Id gdrive list --query &amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners and &amp;#39;YUlPWWdLcy1mX2c&amp;#39; in parents&amp;#34; ## 查询信息 gdrive info YUlPWWdLcy1mX2c 3. 建立和删除 ## 建立文件夹 $ gdrive mkdir newFolder ## 建立下一层文件夹，-p指定上层目录Id $ gdrive mkdir -p M1h4M1dGYUhpSFE newFolder ## 删除文件（文件Id，非名称） $ gdrive delete 0BzTeuubJesi ## 删除文件夹（文件Id，非名称） $ gdrive delete -r 0BzTeuubJesi 4.</description></item><item><title>Docker使用记录</title><link>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</link><pubDate>Fri, 11 Mar 2016 16:53:51 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</guid><description>关于Docker的安装和使用，有详细的文档可供参考。本文收集一些有趣和重要的记录。
-1. 普通用户权限执行Docker 创建docker用户组并添加普通用户。
-$ sudo groupadd docker $ sudo usermod -aG docker myUserName 注销后，再次登录即可。
-2. Docker命令集锦 # 测试Docker $ docker run hello-world # Docker镜象列表 $ docker image ls $ docker image ls --digests # Docker容器列表 $ docker container ls $ docker container ls --all # 列出容器 $ docker ps $ docker ps -al # 终止所有容器 $ docker stop $(docker ps -aq) # 删除镜像 $ docker image rm myImg@sha256:xxx ## 删除虚悬镜像 $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker stop $ docker ps -a | grep &amp;#34;Exited&amp;#34; | awk &amp;#39;{print $1 }&amp;#39;|xargs docker rm $ docker images|grep none|awk &amp;#39;{print $3 }&amp;#39;|xargs docker rmi 3.</description></item><item><title>Bash简易编程</title><link>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</link><pubDate>Thu, 28 May 2015 21:24:32 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</guid><description>1. 循环 for循环体
-for i in *.zip do echo &amp;#34;$i&amp;#34; done 2. 创建数组 declare -a testArray={&amp;#34;element1&amp;#34; &amp;#34;element2&amp;#34;} echo ${testArray[0]} for i in &amp;#34;${testArray[@]}&amp;#34; do echo &amp;#34;$i&amp;#34; done 3. 字符串分割 # write in file &amp;#34;testsplit.sh&amp;#34; IFS=&amp;#39;,&amp;#39; read -ra splitArray &amp;lt;&amp;lt;&amp;lt; &amp;#34;This,is,a,test&amp;#34; for i in &amp;#34;${splitArray[@]}&amp;#34; do echo &amp;#34;$i&amp;#34; done $ bash testsplit.sh This is a test 4. 屏幕输出存入变量 某个bash命令，比如ls -l存入变量，之后引用变量。
-# 注意等号前后不能加空格 listOutput=`ls -l` echo &amp;#34;$listOutput&amp;#34; 5. 文件末尾添加内容 touch testfile printf &amp;#34;hello\n&amp;#34; &amp;gt; testfile printf &amp;#34;world\n&amp;#34; &amp;gt;&amp;gt; testfile 6.</description></item><item><title>Fedora安装与使用PostgreSQL</title><link>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</link><pubDate>Fri, 08 May 2015 18:30:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</guid><description>1. 安装和开启postgresql Fedora直接使用dnf安装相关组件。
-# 安装PostgreSQL $ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3 初始化（只需要执行一次）。如果出现类似Data directory is not empty!报错，可以尝试执行删除操作rm -f -r /usr/local/pgsql/data
-# 初始化 $ sudo postgresql-setup --initdb --unit postgresql # 开启服务 $ sudo service postgresql start # 查询工作状态 $ sudo service postgresql status # 关闭服务 $ sudo service postgresql stop # 开机启动 $ sudo chkconfig postgresql on 2. 创建用户和数据库 为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。
-# 进入home路径 $ cd /home/ # 进入默认postgres用户，需要输入root密码。 # 之后系统命令提示符会变成类似“bash-4.3$”。 $ sudo postgres # 创建用户 # -P：创建用户后立即创建密码 # -s：用户为superuser # -e：打印消息 bash-4.</description></item><item><title>构建和展示进化树软件使用心得</title><link>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</link><pubDate>Thu, 01 May 2014 17:13:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</guid><description>构建进化树 1. PhyML 构建进化树方法：Maximum Likelihood
-评估：选择bootstrap或者Likelihood-ratio test
-运行方式：所有平台和网页
-心得：理论上支持4000条序列，小于2000000个字符。但是，对于个人电脑，通常100-200条序列比较合适。命令行运行时，可以选择非常简介的默认模式运行。在默认模式下，bootstrap需要手动开启。安装和使用非常方便，直接下载后可以直接使用。同时，bootstrap可以通过MPI分布计算，但是需要从源代码安装。
-快速运行：
-phyml -i align_file.phy --no_memory_check -i：后跟需要Phylip格式文件 --no_memory_check：不用检查内存，防止程序运行时跳出 2. RAxML 构建进化树方法：Maximum Likelihood
-运行方式：所有平台和网页。
-心得：推荐网页运行，支持数据的存放和其他构建进化树的方法。本地安装支持MPI和PThreads的分布计算，但是安装有些复杂，需要仔细阅读文档。
-快速运行1：
-raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST -x：bootstrap运行时设定随机数，用于结果重现 -p：parsimony推断时设定随机数，用于结果重现 -#：bootstrap次数。也可以设定为autoMRE，最大次数是1000。 -m：设定使用的模型，GTRGAMMA为核苷酸序列适用模型 -T：设定线程数，不要超过最大线程 -s：输入文件，Phylip或者fasta文件 -n：输入文件记号 快速运行2：
-raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST -f a：选定算法，快速bootstrap 展示进化树 1. iTOL 运行方式：网页
-心得：</description></item><item><title>Linux常用命令集锦</title><link>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</link><pubDate>Mon, 08 Nov 2010 18:00:40 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid><description>1. 压缩与解压缩 .tar.gz格式文件
-# 解压 $ tar -zxvf /filePath/filename.tar.gz # 压缩 $ tar -zcvf /filePath/filename.tar.gz /filePath/filename # 解压到特定文件夹 $ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename # 压缩到特定文件夹 $ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename # 压缩所有txt类型文件 $ gzip *.txt .tar.bz2格式文件
-# 解压 $ tar -jxvf /filePath/filename.taz.bz2 # 压缩 $ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename .rar格式文件
-需要安装rar工具, 下载对应的linux版本，解压，make即可。
-# 解压 $ rar e /filePath/filename.rar /filePath/filename # 压缩 $ rar a -m5 /filePath/filename.rar /filePath/filename .zip格式文件</description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。
-1. 添加常用源 添加rpmfusion的free和nonfree源。
-添加FZUG源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。
-2. 辅助安装工具 Fedy Fedy是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。
-3. 影音 VLC $ sudo dnf install vlc Mplayer $ sudo dnf install mplayer-gui xine smplayer 录音工具Audacity $ sudo dnf install audacity 屏幕录制RecordMyDesktop Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。
-# 安装方法 $ sudo dnf install recordmydesktop # 使用方法 $ qt-recordMyDesktop 4. 办公 字典GoldenDict Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人GoldenDict 。GoldenDict的主要特点有：
-字典库丰富;
-直接查询维基百科和其他网络字典;
-支持字典分类、发音（字典库包括发音）、光标取词等。
-安装方法：
-参考GoldenDict的GitHub安装介绍，字典发音需要安装Mplayer，Fedora安装可能依赖的库如下：
-# dnf install bzip2-devel gcc-c++ git hunspell-devel \ libvorbis-devel libXtst-devel phonon-devel \ qt-devel qtwebkit ffmpeg ffmpeg-devel \ lzo lzo-devel eb eb-devel libao libao-devel \ qtwebkit-devel libtiff-devel lzma-devel opencc-devel # 安装字典 $ git clone git://github.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Yulong Niu</title><link>https://YulongNiu.github.io/tags/linux/</link><description>Recent content in Linux on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Thu, 23 Jan 2020 16:17:46 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>gpg使用简要</title><link>https://YulongNiu.github.io/posts/2020-01-23-gpg/</link><pubDate>Thu, 23 Jan 2020 16:17:46 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2020-01-23-gpg/</guid><description>&lt;p>本文尝试摘要gpg的常用功能。&lt;/p>
+&lt;h2 id="0-基本概念">0. 基本概念&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>secret key/sec：主密钥，非常重要。丢失密钥，无法解密；泄漏密钥，加密无效。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>secret subkey/ssb：子密钥，在不同环境中使用。由主密钥签发。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>public key/pub：主公钥，明文分发。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>public subkey/sub：子公钥，与子密钥对应。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>S：Sign&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>C：Certify&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>E：Encrypt&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="1-安装">1. 安装&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>brew install gnupg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-基本操作">2. 基本操作&lt;/h2>
+&lt;h3 id="21-生成">2.1 生成&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 生成主密钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --full-gen-key
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 根据提示设置：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## key size选择4096&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 生成子密钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --edit-key MyID
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 进入交互页面，输入：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## addKey&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 之后，根据提示设置&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## save&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="22-查看">2.2 查看&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查看公钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --list-keys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -k
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## `--fingerprint`指纹&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## `--keyid-format`长ID&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 0x后为长ID&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --list-key --fingerprint --keyid-format long
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查看私钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --list-secret-keys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -K
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="23-撤销">2.3 撤销&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gpg --generate-revocation -ao myRevokeFile MyID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="24-备份">2.4 备份&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 备份公钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## -a: armor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -ao MyPublickKeyFile --export MyID
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 备份主密钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## MyLongID后加!&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -ao MySecretKeyFile --export-secret-key MyLongID!
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 备份签名子密钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -ao MySignSubkeyFile --export-secret-subkeys MyLongID!
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 备份加密子密钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg -ao MyEncryptSubkeyFile --export-secret-subkeys MyLongID!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="25-导入">2.5 导入&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 导入密钥或公钥&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gpg --import MyKeyFile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>导入后出现&lt;code>There is no assurance this key belongs to the named user&lt;/code>警告，需要手动信任。&lt;/p></description></item><item><title>Shadowsocks设置推荐</title><link>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</link><pubDate>Wed, 14 Jun 2017 23:49:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-06-14-shadowsocks-setup/</guid><description>&lt;h2 id="1-shadowsocks客户端">1. Shadowsocks客户端&lt;/h2>
+&lt;p>Shadowsocks在主流平台上都有&lt;a href="https://shadowsocks.org/en/download/clients.html">客户端&lt;/a>，下载直接使用即可。对于Linux平台，可能还需要在Chrome浏览器中安装&lt;a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en">SwitchyOmega&lt;/a>插件。&lt;/p>
+&lt;h2 id="2-谷歌设置">2. 谷歌设置&lt;/h2>
+&lt;p>进入&lt;a href="https://encrypted.google.com/preferences?hl=zh-CN#languages">网址&lt;/a>，设置自己喜欢的语言，之后重启即可。&lt;/p>
+&lt;h2 id="3-自己配置shadowsocks">3. 自己配置Shadowsocks&lt;/h2>
+&lt;h3 id="31-软件准备">3.1 软件准备&lt;/h3>
+&lt;p>参考&lt;a href="https://github.com/shadowsocks/shadowsocks-libev">shadowsocks网站&lt;/a>安装。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf copr enable librehat/shadowsocks
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install shadowsocks-libev
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="32-配置文件">3.2 配置文件&lt;/h3>
+&lt;p>文件位置&lt;code>/etc/shadowsocks-libev/config.json&lt;/code>，设置模板：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;server&amp;#34;:&amp;#34;0.0.0.0&amp;#34;,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;port_password&amp;#34;:{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;8381&amp;#34;:&amp;#34;******&amp;#34;,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;8382&amp;#34;:&amp;#34;******&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;timeout&amp;#34;:600,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;#34;method&amp;#34;:&amp;#34;aes-256-cfb&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="33-启动">3.3 启动&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo ss-manager -c /etc/shadowsocks-libev/config.json --manager-address 127.0.0.1:8000 -u config.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-使用tcp-bbr加速">4. 使用TCP BBR加速&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo echo &lt;span style="color:#a31515">&amp;#34;net.core.default_qdisc=fq&amp;#34;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo echo &lt;span style="color:#a31515">&amp;#34;net.ipv4.tcp_congestion_control=bbr&amp;#34;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo sysctl -p
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo sysctl net.ipv4.tcp_available_congestion_control
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo sysctl net.ipv4.tcp_congestion_control
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-全局配置">5. 全局配置&lt;/h2>
+&lt;p>使用proxychains全局调用Shadowsocks。&lt;/p></description></item><item><title>两个git的rebase命令应用</title><link>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</link><pubDate>Fri, 11 Nov 2016 16:24:39 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-11-11-git-rebase-examples/</guid><description>&lt;p>介绍两个&lt;code>git rebase&lt;/code>的应用场景，一个是合并commits记录，另一个是贡献代码。&lt;/p>
+&lt;h2 id="1-合并commit记录">1. 合并commit记录&lt;/h2>
+&lt;p>假定有多条commits，按照离当前时间从近至远依次为：&lt;code>c1&lt;/code>、&lt;code>b2&lt;/code>、&lt;code>b1&lt;/code>和&lt;code>a1&lt;/code>。希望合并&lt;code>c1&lt;/code>、&lt;code>b2&lt;/code>和&lt;code>b1&lt;/code>，即只保留&lt;code>c1&lt;/code>和&lt;code>a1&lt;/code>。操作流程如下：&lt;/p>
+&lt;ul>
+&lt;li>打开交互式rebase&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git rebase -i sha1id-of-a1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>标记合并commits&lt;/li>
+&lt;/ul>
+&lt;p>弹出的文本编辑器初始可能为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>pick sha1id-of-c1 c1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pick sha1id-of-b2 b2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pick sha1id-of-b1 b1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>pick sha1id-of-c1 c1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>squash sha1id-of-b2 b2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>squash sha1id-of-b1 b1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>记录合并commits&lt;/li>
+&lt;/ul>
+&lt;p>在弹出的文本编辑器中标记和注释commits&lt;/p>
+&lt;ul>
+&lt;li>提交远程&lt;/li>
+&lt;/ul>
+&lt;p>由于本地和远程记录不一致，需要强制合并。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git push -f origin mybranch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-贡献代码">2. 贡献代码&lt;/h2>
+&lt;ul>
+&lt;li>Fork项目&lt;/li>
+&lt;/ul>
+&lt;p>Fork在GitHub对应的项目（famous/project，master分支）至自己账户（my/project），克隆至本地并添加远程地址：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git clone https://github.com/my/project.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git remote add upstream https://github.com/famous/project.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>建立分支并提交修改&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git checkout -b devbranch
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git commit -a -m &lt;span style="color:#a31515">&amp;#39;these commits&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git push origin devbranch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>获取和合并最新远程修改&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git checkout master
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git pull upstream master
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git checkout devbranch
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git rebase master
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## compare and merge the latest commits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git rebase --continue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## force push&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git push -f origin devbranch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>发起pull request。&lt;/li>
+&lt;/ul>
+&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="http://itspg.logdown.com/posts/1731-git-squash-master-commits">合并分支&lt;/a>&lt;/p></description></item><item><title>命令行使用Google Drive</title><link>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</link><pubDate>Fri, 21 Oct 2016 18:24:31 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-10-21-linux-sync-google-drive/</guid><description>&lt;p>&lt;strong>推荐使用更更方便的&lt;a href="https://github.com/bcedu/VGrive">VGrive&lt;/a>。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>推荐使用更方便的&lt;a href="https://liberodark.github.io/ODrive/">ODrive&lt;/a>。&lt;/strong>&lt;/p>
+&lt;p>本文简单介绍&lt;a href="https://github.com/prasmussen/gdrive">gdrive&lt;/a>，它是一个跨多个平台软件，提供命令行操作Google Drive。同类软件还有&lt;a href="https://github.com/odeke-em/drive">drive&lt;/a>和&lt;a href="https://www.thefanclub.co.za/overgrive">overGrive&lt;/a>（Linux下Google Drive界面客户端）。&lt;/p>
+&lt;p>基本思路：对每一个上传至Google Drive的文件或文件夹都分配一个Id，所以云端操作需要指定Id。&lt;/p>
+&lt;p>突出优点：自动同步，比较云端和本地文件后，决定上传、删除或者替换；同步加入版本控制，可以下载和删除不同版本文件。&lt;/p>
+&lt;h2 id="1-初始化">1. 初始化&lt;/h2>
+&lt;p>&lt;a href="https://github.com/prasmussen/gdrive">下载&lt;/a>系统对应版本，执行&lt;code>gdrive about&lt;/code>，根据提示设置。&lt;/p>
+&lt;h2 id="2-查找">2. 查找&lt;/h2>
+&lt;p>&lt;a href="https://developers.google.com/drive/v3/web/search-parameters">查找规则&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查找所有文件夹，不包括垃圾箱，所有者为自己&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive list --query &lt;span style="color:#a31515">&amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 加入上层目录Id&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gdrive list --query &lt;span style="color:#a31515">&amp;#34;mimeType = &amp;#39;application/vnd.google-apps.folder&amp;#39; and trashed = false and &amp;#39;me&amp;#39; in owners and &amp;#39;YUlPWWdLcy1mX2c&amp;#39; in parents&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查询信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gdrive info YUlPWWdLcy1mX2c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-建立和删除">3. 建立和删除&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 建立文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive mkdir newFolder
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 建立下一层文件夹，-p指定上层目录Id&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive mkdir -p M1h4M1dGYUhpSFE newFolder
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 删除文件（文件Id，非名称）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive delete 0BzTeuubJesi
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 删除文件夹（文件Id，非名称）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive delete -r 0BzTeuubJesi
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-普通上传和下载">4. 普通上传和下载&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 上传文件至制定文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive upload -p M1h4M1dGYUhpSFE myFile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 下载文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive download 0BzTeuubJesi
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-同步">5. 同步&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## gdrive sync会标记同步文件，因此不要在同步文件夹中使用gdrive upload或者网页上传文件。未标记文件会被忽略。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 同步列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive sync list
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 同步列表内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive sync content VUxydm5iMnM5LWs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 上传&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive sync upload myLocaldir 0BzTeuubJesi
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 下载&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gdrive sync download 0BzTeuubJesi myLocaldir
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查询所有版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gdrive revision list YUlPWWdLcy1mX2c
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 下载某一版本，最后两个Id分别为文件Id和版本Id&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gdrive revision download YUlPWWdLcy1mX2c Y3JBWEJ5a0gwZndlR3hzWlZubFlUMWFnaHVnPQ
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 删除某一版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gdrive revision delete YUlPWWdLcy1mX2c Y3JBWEJ5a0gwZndlR3hzWlZubFlUMWFnaHVnPQ
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2019年4月27日&lt;/p></description></item><item><title>Docker使用记录</title><link>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</link><pubDate>Fri, 11 Mar 2016 16:53:51 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-03-11-docker-use/</guid><description>&lt;p>关于Docker的安装和使用，有详细的&lt;a href="https://docs.docker.com/">文档&lt;/a>可供参考。本文收集一些有趣和重要的记录。&lt;/p>
+&lt;h2 id="1-普通用户权限执行docker">1. 普通用户权限执行Docker&lt;/h2>
+&lt;p>创建&lt;code>docker&lt;/code>用户组并添加普通用户。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo groupadd docker
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo usermod -aG docker myUserName
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注销后，再次登录即可。&lt;/p>
+&lt;h2 id="2-docker命令集锦">2. Docker命令集锦&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 测试Docker&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker run hello-world
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># Docker镜象列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker image ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker image ls --digests
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># Docker容器列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker container ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker container ls --all
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 列出容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker ps
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker ps -al
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 终止所有容器&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker stop &lt;span style="color:#00f">$(&lt;/span>docker ps -aq&lt;span style="color:#00f">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 删除镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker image rm myImg@sha256:xxx
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 删除虚悬镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker ps -a | grep &lt;span style="color:#a31515">&amp;#34;Exited&amp;#34;&lt;/span> | awk &lt;span style="color:#a31515">&amp;#39;{print $1 }&amp;#39;&lt;/span>|xargs docker stop
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker ps -a | grep &lt;span style="color:#a31515">&amp;#34;Exited&amp;#34;&lt;/span> | awk &lt;span style="color:#a31515">&amp;#39;{print $1 }&amp;#39;&lt;/span>|xargs docker rm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker images|grep none|awk &lt;span style="color:#a31515">&amp;#39;{print $3 }&amp;#39;&lt;/span>|xargs docker rmi
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-运行镜象">3. 运行镜象&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker run -it --rm myDockerImage myCommand
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-挂载卷">4. 挂载卷&lt;/h2>
+&lt;p>挂载文件目录至容器，可以挂载多个。&lt;/p></description></item><item><title>Bash简易编程</title><link>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</link><pubDate>Thu, 28 May 2015 21:24:32 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-28-bash-program/</guid><description>&lt;h2 id="1-循环">1. 循环&lt;/h2>
+&lt;p>&lt;code>for&lt;/code>循环体&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">for&lt;/span> i in *.zip
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> echo &lt;span style="color:#a31515">&amp;#34;&lt;/span>$i&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">done&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-创建数组">2. 创建数组&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>declare -a testArray={&lt;span style="color:#a31515">&amp;#34;element1&amp;#34;&lt;/span> &lt;span style="color:#a31515">&amp;#34;element2&amp;#34;&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#a31515">${&lt;/span>testArray[0]&lt;span style="color:#a31515">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">for&lt;/span> i in &lt;span style="color:#a31515">&amp;#34;&lt;/span>&lt;span style="color:#a31515">${&lt;/span>testArray[@]&lt;span style="color:#a31515">}&lt;/span>&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> echo &lt;span style="color:#a31515">&amp;#34;&lt;/span>$i&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">done&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-字符串分割">3. 字符串分割&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># write in file &amp;#34;testsplit.sh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>IFS=&lt;span style="color:#a31515">&amp;#39;,&amp;#39;&lt;/span> read -ra splitArray &amp;lt;&amp;lt;&amp;lt; &lt;span style="color:#a31515">&amp;#34;This,is,a,test&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">for&lt;/span> i in &lt;span style="color:#a31515">&amp;#34;&lt;/span>&lt;span style="color:#a31515">${&lt;/span>splitArray[@]&lt;span style="color:#a31515">}&lt;/span>&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> echo &lt;span style="color:#a31515">&amp;#34;&lt;/span>$i&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">done&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ bash testsplit.sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>This
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>is
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>a
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>test
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-屏幕输出存入变量">4. 屏幕输出存入变量&lt;/h2>
+&lt;p>某个bash命令，比如&lt;code>ls -l&lt;/code>存入变量，之后引用变量。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 注意等号前后不能加空格&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>listOutput=&lt;span style="color:#a31515">`&lt;/span>ls -l&lt;span style="color:#a31515">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#a31515">&amp;#34;&lt;/span>$listOutput&lt;span style="color:#a31515">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-文件末尾添加内容">5. 文件末尾添加内容&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>touch testfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>printf &lt;span style="color:#a31515">&amp;#34;hello\n&amp;#34;&lt;/span> &amp;gt; testfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>printf &lt;span style="color:#a31515">&amp;#34;world\n&amp;#34;&lt;/span> &amp;gt;&amp;gt; testfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="6-传入sudo密码">6. 传入sudo密码&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#a31515">&amp;#34;myPassword&amp;#34;&lt;/span> | sudo -S myCommond
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考网址">参考网址&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash">How do I split a string on a delimiter in Bash?&lt;/a>&lt;/p></description></item><item><title>Fedora安装与使用PostgreSQL</title><link>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</link><pubDate>Fri, 08 May 2015 18:30:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-08-install-use-postgresql/</guid><description>&lt;h2 id="1-安装和开启postgresql">1. 安装和开启postgresql&lt;/h2>
+&lt;p>Fedora直接使用&lt;code>dnf&lt;/code>安装相关组件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 安装PostgreSQL&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install postgresql postgresql-server postgresql-contrib postgresql-devel pgadmin3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>初始化（只需要执行一次）。如果出现类似&lt;code>Data directory is not empty!&lt;/code>报错，可以尝试执行删除操作&lt;code>rm -f -r /usr/local/pgsql/data&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 初始化&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo postgresql-setup --initdb --unit postgresql
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 开启服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo service postgresql start
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查询工作状态&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo service postgresql status
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 关闭服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo service postgresql stop
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 开机启动&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo chkconfig postgresql on
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-创建用户和数据库">2. 创建用户和数据库&lt;/h2>
+&lt;p>为了方便使用，可以在PostgreSQL中创建一个与当前系统用户名相同的用户，比如目前系统登陆用户为Kitty。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 进入home路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cd /home/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 进入默认postgres用户，需要输入root密码。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 之后系统命令提示符会变成类似“bash-4.3$”。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo postgres
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 创建用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># -P：创建用户后立即创建密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># -s：用户为superuser&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># -e：打印消息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash-4.3$ createuser -P -s -e Kitty
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 创建数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># -O：制定用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash-4.3$ createdb -O Kitty testdb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash-4.3$ exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 再创建新的数据库时，不需要进入postgres。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 直接在当前登录用户下创建即可。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 由于PostgreSQL用户与系统登录用户相同，不需要指定PostgreSQL用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ creatdb testdb2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 删除数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ dropdb testdb2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建完用户和对应数据库后，可以登录数据库控制台。登录后，系统命令提示符会变成类似“testdb=#”。&lt;/p></description></item><item><title>构建和展示进化树软件使用心得</title><link>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</link><pubDate>Thu, 01 May 2014 17:13:59 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-05-01-phylo-tool-summary/</guid><description>&lt;h2 id="构建进化树">构建进化树&lt;/h2>
+&lt;h3 id="1-phyml">1. PhyML&lt;/h3>
+&lt;p>&lt;strong>构建进化树方法&lt;/strong>：Maximum Likelihood&lt;/p>
+&lt;p>&lt;strong>评估&lt;/strong>：选择bootstrap或者Likelihood-ratio test&lt;/p>
+&lt;p>&lt;strong>运行方式&lt;/strong>：所有平台和&lt;a href="http://atgc.lirmm.fr/phyml/">网页&lt;/a>&lt;/p>
+&lt;p>&lt;strong>心得&lt;/strong>：理论上支持4000条序列，小于2000000个字符。但是，对于个人电脑，通常100-200条序列比较合适。命令行运行时，可以选择非常简介的默认模式运行。在默认模式下，bootstrap需要手动开启。安装和使用非常方便，直接下载后可以直接使用。同时，bootstrap可以通过MPI分布计算，但是需要从源代码安装。&lt;/p>
+&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>phyml -i align_file.phy --no_memory_check
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>-i&lt;/code>：后跟需要Phylip格式文件&lt;/li>
+&lt;li>&lt;code>--no_memory_check&lt;/code>：不用检查内存，防止程序运行时跳出&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-raxml">2. RAxML&lt;/h3>
+&lt;p>&lt;strong>构建进化树方法&lt;/strong>：Maximum Likelihood&lt;/p>
+&lt;p>&lt;strong>运行方式&lt;/strong>：所有&lt;a href="http://www.exelixis-lab.org/">平台&lt;/a>和网页。&lt;/p>
+&lt;p>&lt;strong>心得&lt;/strong>：推荐&lt;a href="http://www.phylo.org/portal2/login!input.action">网页运行&lt;/a>，支持数据的存放和其他构建进化树的方法。本地安装支持MPI和PThreads的分布计算，但是安装有些复杂，需要仔细阅读文档。&lt;/p>
+&lt;p>&lt;strong>快速运行1&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>raxmlHPC-PTHREADS-AVX -x 12345 -p 12345 -# 100 -m GTRGAMMA -T 4 -s align_file.phy -n TEST
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>-x&lt;/code>：bootstrap运行时设定随机数，用于结果重现&lt;/li>
+&lt;li>&lt;code>-p&lt;/code>：parsimony推断时设定随机数，用于结果重现&lt;/li>
+&lt;li>&lt;code>-#&lt;/code>：bootstrap次数。也可以设定为autoMRE，最大次数是1000。&lt;/li>
+&lt;li>&lt;code>-m&lt;/code>：设定使用的模型，GTRGAMMA为核苷酸序列适用模型&lt;/li>
+&lt;li>&lt;code>-T&lt;/code>：设定线程数，不要超过最大线程&lt;/li>
+&lt;li>&lt;code>-s&lt;/code>：输入文件，Phylip或者fasta文件&lt;/li>
+&lt;li>&lt;code>-n&lt;/code>：输入文件记号&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>快速运行2&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>raxmlHPC-PTHREADS-AVX -f a -x 12345 -p 12345 -# autoMRE -m GTRCAT -T 4 -s align_file.phy -n TEST
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>-f a&lt;/code>：选定算法，快速bootstrap&lt;/li>
+&lt;/ul>
+&lt;h2 id="展示进化树">展示进化树&lt;/h2>
+&lt;h3 id="1-itol">1. iTOL&lt;/h3>
+&lt;p>&lt;strong>运行方式&lt;/strong>：&lt;a href="http://itol.embl.de/">网页&lt;/a>&lt;/p></description></item><item><title>Linux常用命令集锦</title><link>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</link><pubDate>Mon, 08 Nov 2010 18:00:40 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-11-08-linux-command/</guid><description>&lt;h2 id="1-压缩与解压缩">1. 压缩与解压缩&lt;/h2>
+&lt;p>&lt;code>.tar.gz&lt;/code>格式文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zxvf /filePath/filename.tar.gz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -cvf - /filePath/ | xz -T 0 -c &amp;gt; filename.tar.xz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zcvf /filePath/filename.tar.gz /filePath/filename
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 解压到特定文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zxvf /filePath/filename.tar.gz -C /filePath/filename
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩到特定文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zcvf /filePath/filename.tar.gz -C /filePath/filename
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩所有txt类型文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gzip *.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.tar.bz2&lt;/code>格式文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -jxvf /filePath/filename.taz.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.rar&lt;/code>格式文件&lt;/p>
+&lt;p>需要安装&lt;a href="http://www.rarsoft.com/download.html">rar工具&lt;/a>, 下载对应的linux版本，解压，&lt;code>make&lt;/code>即可。&lt;/p></description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>&lt;p>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。&lt;/p>
+&lt;h2 id="1-添加常用源">1. 添加常用源&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>添加&lt;a href="http://rpmfusion.org/Configuration">rpmfusion&lt;/a>的free和nonfree源。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>添加&lt;a href="http://repo.fdzh.org/">FZUG&lt;/a>源。一个中文Fedora的源和社区，在Fedora下安装中文软件等。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-辅助安装工具">2. 辅助安装工具 &lt;/h2>
+&lt;ul>
+&lt;li>Fedy&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://github.com/rpmfusion-infra/fedy">Fedy&lt;/a>是一个辅助在Fedora系统下，更容易安装Skypy、Chrome、Steam等的工具。&lt;/p>
+&lt;h2 id="3-影音">3. 影音&lt;/h2>
+&lt;ul>
+&lt;li>VLC&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install vlc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Mplayer&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install mplayer-gui xine smplayer
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>录音工具Audacity&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install audacity
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>屏幕录制RecordMyDesktop&lt;/li>
+&lt;/ul>
+&lt;p>Linux下有很多录制屏幕的软件，推荐RecordMyDesktop。可以自己选定屏幕区域和大小，也可以把界面缩小到屏幕的下方，变成一个小的按钮，以方便操作。录制的文件为ogv格式，推荐使用VLC打开。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 安装方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install recordmydesktop
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 使用方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ qt-recordMyDesktop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-办公">4. 办公&lt;/h2>
+&lt;ul>
+&lt;li>字典GoldenDict&lt;/li>
+&lt;/ul>
+&lt;p>Linux下曾经风靡一时的字典StarDict，现在有了更加先进和方便的接班人&lt;a href="http://goldendict.org/">GoldenDict&lt;/a> 。GoldenDict的主要特点有：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>字典库丰富;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>直接查询维基百科和其他网络字典;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>支持字典分类、发音（字典库包括发音）、光标取词等。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>安装方法：&lt;/strong>&lt;/p>
+&lt;p>参考GoldenDict的&lt;a href="https://github.com/goldendict/goldendict">GitHub安装介绍&lt;/a>，字典发音需要安装Mplayer，Fedora安装可能依赖的库如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># dnf install bzip2-devel gcc-c++ git hunspell-devel \&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>libvorbis-devel libXtst-devel phonon-devel &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span>qt-devel qtwebkit ffmpeg ffmpeg-devel &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span>lzo lzo-devel eb eb-devel libao libao-devel &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span>qtwebkit-devel libtiff-devel lzma-devel opencc-devel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 安装字典&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git clone git://github.com/goldendict/goldendict.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cd goldendict
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ qmake-qt4 &lt;span style="color:#a31515">&amp;#34;CONFIG+=zim_support&amp;#34;&lt;/span> &lt;span style="color:#a31515">&amp;#34;CONFIG+=chinese_conversion_support&amp;#34;&lt;/span> &amp;amp;&amp;amp; make
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>添加离线字典&lt;/strong>&lt;/p></description></item></channel></rss>

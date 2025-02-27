@@ -1,7 +1,5 @@
-<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>R面向对象编程S4 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="R面向对象编程S4"><meta property="og:description" content="R S4简介。"><meta property="og:type" content="article"><meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-05-r-s4/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2012-05-05T15:19:36+08:00"><meta property="article:modified_time" content="2012-05-05T15:19:36+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="R面向对象编程S4"><meta name=twitter:description content="R S4简介。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script>
-<script src=https://YulongNiu.github.io/js/main.js></script>
-<script src=https://YulongNiu.github.io/js/abc.js></script>
-<script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>R面向对象编程S4</h1><div class=meta>Posted at &mdash; May 5, 2012</div></div><div class=markdown><h2 id=1-一些s3的铺垫>1. 一些S3的铺垫</h2><p>在博文“<a href=http://yulongniu.bionutshell.org/blog/2010/09/04/linux-install-r/>Linux安装R语言包</a>”描述了如何查看一个函数的源代码，其中涉及了例如<code>methods()</code>函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span>library(<span style=color:#a31515>&#39;pryr&#39;</span>)
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>R面向对象编程S4 - Yulong Niu</title><link rel=icon type=image/png href=icons/favicon.ico><meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:url" content="https://YulongNiu.github.io/posts/2012-05-05-r-s4/"><meta property="og:site_name" content="Yulong Niu"><meta property="og:title" content="R面向对象编程S4"><meta property="og:description" content="R S4简介。"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2012-05-05T15:19:36+08:00"><meta property="article:modified_time" content="2012-05-05T15:19:36+08:00"><meta property="article:tag" content="R"><meta name=twitter:card content="summary"><meta name=twitter:title content="R面向对象编程S4"><meta name=twitter:description content="R S4简介。"><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel=stylesheet><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/bootstrap-table.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/normalize.css><link rel=stylesheet type=text/css media=screen href=https://YulongNiu.github.io/css/main.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom.css><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/dark.css media="(prefers-color-scheme: dark)"><link rel=stylesheet type=text/css href=https://YulongNiu.github.io/css/custom-dark.css media="(prefers-color-scheme: dark)"><script src=https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js></script><script src=https://YulongNiu.github.io/js/main.js></script><script src=https://YulongNiu.github.io/js/abc.js></script><script src=https://YulongNiu.github.io/js/xyz.js></script></head><body><div class="container wrapper post"><div class=header><base href=https://YulongNiu.github.io/><h1 class=site-title><a href=https://YulongNiu.github.io/>Yulong Niu</a></h1><div class=site-description><h2>个人博客</h2><nav class="nav social"><ul class=flat><a href=https://github.com/YulongNiu title=Github><i data-feather=github></i></a><a href=https://twitter.com/YulongNiu title=Twitter><i data-feather=twitter></i></a></ul></nav></div><nav class=nav><ul class=flat><li><a href=/>Home</a></li><li><a href=/posts>Posts</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div><div class=post-header><h1 class=title>R面向对象编程S4</h1><div class=meta>Posted at &mdash; May 5, 2012</div></div><div class=markdown><h2 id=1-一些s3的铺垫>1. 一些S3的铺垫</h2><p>在博文“<a href=http://yulongniu.bionutshell.org/blog/2010/09/04/linux-install-r/>Linux安装R语言包</a>”描述了如何查看一个函数的源代码，其中涉及了例如<code>methods()</code>函数，用来查看一个S3泛函（S3 generic）的方法。在pryr包中，提供了更加便捷的查看方法。</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span>library(<span style=color:#a31515>&#39;pryr&#39;</span>)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## object is base type, S3, S4 or RC</span>
 </span></span><span style=display:flex><span>otype(obj)
@@ -14,12 +12,12 @@
 </span></span></code></pre></div><blockquote><ul><li>Class：类名。</li></ul></blockquote><blockquote><ul><li>slots：带名字的列表或者字符向量，名字表示slot，内容表示slot对应的类名。</li></ul></blockquote><blockquote><ul><li>contains：父类名，表示继承关系。</li></ul></blockquote><blockquote><ul><li>prototype：带名setGroupGeneric字的列表或<code>prototype()</code>，设定默认值。不建议添加，如果不设定，会自动指定一个符合类型的空值。设定时，要结合<code>validity</code>定义，因为默认值不会被检查，因为即使不符合<code>validity</code>定义，也可以通过<code>validObject()</code>检查。</li></ul></blockquote><blockquote><ul><li>validity：函数，检查创建对象是否符合该类要求。建议添加，也可以使用<code>setValidity()</code>后期添加。</li></ul></blockquote><blockquote><ul><li>where：环境（少用）。</li></ul></blockquote><blockquote><ul><li>sealed：是否封闭，如果设定为<code>TRUE</code>，其他<code>setClass()</code>不能调用该类。</li></ul></blockquote><blockquote><ul><li>package：包名（少用）</li></ul></blockquote><blockquote><ul><li>S3methods/representation/access/version：在3.0.0版本后不建议使用。</li></ul></blockquote><p>例子：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span><span style=color:green>## new class</span>
 </span></span><span style=display:flex><span>setClass(Class = <span style=color:#a31515>&#39;trick&#39;</span>,
 </span></span><span style=display:flex><span>         slots = c(id = <span style=color:#a31515>&#39;character&#39;</span>, time = <span style=color:#a31515>&#39;matrix&#39;</span>),
-</span></span><span style=display:flex><span>         validity = function(object) {
-</span></span><span style=display:flex><span>           if (length(object@id) != nrow(object@time)) {
+</span></span><span style=display:flex><span>         validity = <span style=color:#00f>function</span>(object) {
+</span></span><span style=display:flex><span>           <span style=color:#00f>if</span> (length(object@id) != nrow(object@time)) {
 </span></span><span style=display:flex><span>             warns &lt;- paste(<span style=color:#a31515>&#39;length of id is&#39;</span>, length(object@id), <span style=color:#a31515>&#39;is not equal to row number of time&#39;</span>, nrow(object@time))
-</span></span><span style=display:flex><span>             return(warns)
-</span></span><span style=display:flex><span>           } else {
-</span></span><span style=display:flex><span>             return(<span style=color:#00f>TRUE</span>)
+</span></span><span style=display:flex><span>             <span style=color:#00f>return</span>(warns)
+</span></span><span style=display:flex><span>           } <span style=color:#00f>else</span> {
+</span></span><span style=display:flex><span>             <span style=color:#00f>return</span>(<span style=color:#00f>TRUE</span>)
 </span></span><span style=display:flex><span>           }},
 </span></span><span style=display:flex><span>         prototype = list(id = character(), time = matrix(0, 0, 0)))
 </span></span><span style=display:flex><span>
@@ -51,17 +49,17 @@
 </span></span></code></pre></div><blockquote><ul><li>Class：类名。</li></ul></blockquote><blockquote><ul><li>&mldr;：各个slot赋值。如果没有赋值，则使用初始化值。</li></ul></blockquote><p>在使用<code>new()</code>建立新的对象之前，会经历“初始化”。初始化可以对新建对象做一些事先固定的操作，比如给某一个slot添加名字等。这需要使用<code>setMethod()</code>重新定义<code>initialize()</code>泛函，考虑使用<code>callNextMethod()</code>，以保证子类也能够继承初始化，同时需要考虑“空对象”问题。由于<code>callNextMethod()</code>是向父类搜索，在有很多继承关系时，搜索结果会变得难以预测，因此尽量减少使用。</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span><span style=color:green>## first initialize can not be correctly inherited</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
 </span></span><span style=display:flex><span>          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
-</span></span><span style=display:flex><span>          definition = function(.Object, id = character(), time = matrix(0, 0, 0)) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(.Object, id = character(), time = matrix(0, 0, 0)) {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            colNum &lt;- ncol(time)
-</span></span><span style=display:flex><span>            if (colNum &gt; 0) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>if</span> (colNum &gt; 0) {
 </span></span><span style=display:flex><span>              colnames(time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
-</span></span><span style=display:flex><span>            } else {}
+</span></span><span style=display:flex><span>            } <span style=color:#00f>else</span> {}
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            .Object@id &lt;- id
 </span></span><span style=display:flex><span>            .Object@time &lt;- time
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            return(.Object)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(.Object)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
 </span></span><span style=display:flex><span>try(new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6))
@@ -69,14 +67,14 @@
 </span></span><span style=display:flex><span><span style=color:green>## second initialize can not be correctly inherited</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
 </span></span><span style=display:flex><span>          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
-</span></span><span style=display:flex><span>          definition = function(.Object, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(.Object, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            colNum &lt;- ncol(.Object@time)
-</span></span><span style=display:flex><span>            if (colNum &gt; 0) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>if</span> (colNum &gt; 0) {
 </span></span><span style=display:flex><span>              colnames(.Object@time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
-</span></span><span style=display:flex><span>            } else {}
+</span></span><span style=display:flex><span>            } <span style=color:#00f>else</span> {}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            return(.Object)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(.Object)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>try(new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3)))
 </span></span><span style=display:flex><span><span style=color:green>## not as expected, all slots are empty</span>
@@ -85,16 +83,16 @@
 </span></span><span style=display:flex><span><span style=color:green>## third initialize using callNextMethod() works well</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;initialize&#39;</span>,
 </span></span><span style=display:flex><span>          signature = <span style=color:#a31515>&#39;trick&#39;</span>,
-</span></span><span style=display:flex><span>          definition = function(.Object, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(.Object, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            .Object &lt;- callNextMethod()
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>            colNum &lt;- ncol(.Object@time)
-</span></span><span style=display:flex><span>            if (colNum &gt; 0) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>if</span> (colNum &gt; 0) {
 </span></span><span style=display:flex><span>              colnames(.Object@time) &lt;- paste0(<span style=color:#00f>letters</span>[1:colNum], 1:colNum)
-</span></span><span style=display:flex><span>            } else {}
+</span></span><span style=display:flex><span>            } <span style=color:#00f>else</span> {}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            return(.Object)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(.Object)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
 </span></span><span style=display:flex><span>tn1 &lt;- new(<span style=color:#a31515>&#39;trickNum&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3), number = 5:6)
@@ -109,27 +107,27 @@
 </span></span><span style=display:flex><span><span style=color:green>## it is equalt to setGeneric(&#39;plot&#39;)</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;plot&#39;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, y, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, y, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>            matplot(x = slot(x, <span style=color:#a31515>&#39;time&#39;</span>), pch = slot(x, <span style=color:#a31515>&#39;id&#39;</span>))
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## set new generic function</span>
-</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;Add&#39;</span>, def = function(x, y, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;Add&#39;</span>)})
+</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;Add&#39;</span>, def = <span style=color:#00f>function</span>(x, y, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;Add&#39;</span>)})
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## test &#34;missing&#34; class</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;missing&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, y, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, y, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + 1
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## another function</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, y, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, y, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + y
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## with one more parameter &#34;isabs&#34;</span>
@@ -137,9 +135,9 @@
 </span></span><span style=display:flex><span><span style=color:green>## thank for &#34;...&#34;</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trick&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, y, isabs = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, y, isabs = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>            slot(x, <span style=color:#a31515>&#39;time&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;time&#39;</span>) + ifelse(isabs, abs(y), y)
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span><span style=color:green>## getMethod</span>
 </span></span><span style=display:flex><span>getMethod(<span style=color:#a31515>&#39;Add&#39;</span>, c(<span style=color:#a31515>&#39;trick&#39;</span>, <span style=color:#a31515>&#39;numeric&#39;</span>))
@@ -152,28 +150,28 @@
 </span></span><span style=display:flex><span><span style=color:green>## test callNextMethod()</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#39;Add&#39;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trickNum&#39;</span>, y = <span style=color:#a31515>&#39;numeric&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, y, callNext = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
-</span></span><span style=display:flex><span>            if (callNext) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, y, callNext = <span style=color:#00f>FALSE</span>, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>if</span> (callNext) {
 </span></span><span style=display:flex><span>              x &lt;- callNextMethod()
-</span></span><span style=display:flex><span>            } else {}
+</span></span><span style=display:flex><span>            } <span style=color:#00f>else</span> {}
 </span></span><span style=display:flex><span>            slot(x, <span style=color:#a31515>&#39;number&#39;</span>) &lt;- slot(x, <span style=color:#a31515>&#39;number&#39;</span>) + y
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>Add(tn1, -1)
 </span></span><span style=display:flex><span>Add(tn1, -1, callNext = <span style=color:#00f>TRUE</span>, isabs = <span style=color:#00f>TRUE</span>)
 </span></span></code></pre></div><h3 id=32-获取和修改对象>3.2 获取和修改对象</h3><p>重置<code>[</code>、<code>[[</code>和<code>$</code>获取对象。重置<code>[&lt;-</code>、<code>[[&lt;-</code>和<code>$&lt;-</code>修改对象（改变原始对象），建议使用<code>validObject()</code>检查修改后的对象。</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span><span style=color:green>## set &#34;[&#34; and &#34;[&lt;-&#34;</span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#34;[&#34;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;trickNum&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, i, j, <span style=color:#00f>...</span>, drop) {
-</span></span><span style=display:flex><span>            return(slot(x, i))
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, i, j, <span style=color:#00f>...</span>, drop) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(slot(x, i))
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#34;[&lt;-&#34;</span>,
 </span></span><span style=display:flex><span>          signature = <span style=color:#a31515>&#39;trickNum&#39;</span>,
-</span></span><span style=display:flex><span>          definition = function(x, i, j, <span style=color:#00f>...</span>, value) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, i, j, <span style=color:#00f>...</span>, value) {
 </span></span><span style=display:flex><span>            slot(x, i) &lt;- value
 </span></span><span style=display:flex><span>            validObject(x)
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>tn1[<span style=color:#a31515>&#39;time&#39;</span>]
@@ -182,31 +180,31 @@
 </span></span><span style=display:flex><span>try(tn1[<span style=color:#a31515>&#39;id&#39;</span>] &lt;- <span style=color:#00f>LETTERS</span>[1:4])
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:green>## define &#34;numData&#34; and &#34;numData&lt;-&#34;</span>
-</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;numData&#39;</span>, def = function(x, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&#39;</span>)})
-</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;numData&lt;-&#39;</span>, def = function(x, value, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&lt;-&#39;</span>)})
+</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;numData&#39;</span>, def = <span style=color:#00f>function</span>(x, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&#39;</span>)})
+</span></span><span style=display:flex><span>setGeneric(name = <span style=color:#a31515>&#39;numData&lt;-&#39;</span>, def = <span style=color:#00f>function</span>(x, value, <span style=color:#00f>...</span>){standardGeneric(<span style=color:#a31515>&#39;numData&lt;-&#39;</span>)})
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#34;numData&#34;</span>,
 </span></span><span style=display:flex><span>          signature = <span style=color:#a31515>&#39;numWithId&#39;</span>,
-</span></span><span style=display:flex><span>          definition = function(x, <span style=color:#00f>...</span>) {
-</span></span><span style=display:flex><span>            return(x@.Data)
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x@.Data)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>setMethod(f = <span style=color:#a31515>&#34;numData&lt;-&#34;</span>,
 </span></span><span style=display:flex><span>          signature = c(x = <span style=color:#a31515>&#39;numWithId&#39;</span>, value = <span style=color:#a31515>&#39;numeric&#39;</span>),
-</span></span><span style=display:flex><span>          definition = function(x, value, <span style=color:#00f>...</span>) {
+</span></span><span style=display:flex><span>          definition = <span style=color:#00f>function</span>(x, value, <span style=color:#00f>...</span>) {
 </span></span><span style=display:flex><span>            x@.Data = value
 </span></span><span style=display:flex><span>            validObject(x)
-</span></span><span style=display:flex><span>            return(x)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(x)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>numData(numWI1)
 </span></span><span style=display:flex><span>numData(numWI1) &lt;- 10:1
 </span></span></code></pre></div><h3 id=33-泛函组>3.3 泛函组</h3><p>S4允许将一类方法定义为“泛函组（group generic functions）”。已经定义的泛函组，比如<code>ops</code>，通过<code>?S4groupGeneric</code>查看。使用<code>setGroupGeneric()</code>定义新的泛函组，使用<code>callGeneric()</code>调用泛函组，比如：</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r><span style=display:flex><span>setMethod(<span style=color:#a31515>&#39;Ops&#39;</span>,
 </span></span><span style=display:flex><span>          signature(e1=<span style=color:#a31515>&#39;trick&#39;</span>, e2=<span style=color:#a31515>&#39;trick&#39;</span>),
-</span></span><span style=display:flex><span>          function(e1, e2) {
+</span></span><span style=display:flex><span>          <span style=color:#00f>function</span>(e1, e2) {
 </span></span><span style=display:flex><span>            e1@time &lt;- callGeneric(slot(e1, <span style=color:#a31515>&#39;time&#39;</span>), slot(e2, <span style=color:#a31515>&#39;time&#39;</span>))
 </span></span><span style=display:flex><span>            validObject(e1)
-</span></span><span style=display:flex><span>            return(e1)
+</span></span><span style=display:flex><span>            <span style=color:#00f>return</span>(e1)
 </span></span><span style=display:flex><span>          })
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>t1 &lt;- new(<span style=color:#a31515>&#39;trick&#39;</span>, id = <span style=color:#00f>letters</span>[1:3], time = matrix(1:9, ncol = 3))
@@ -259,19 +257,19 @@
 </span></span><span style=display:flex><span>                   time = <span style=color:#a31515>&#39;matrix&#39;</span>))
 </span></span><span style=display:flex><span>setIs(class1 = <span style=color:#a31515>&#39;trickNum&#39;</span>,
 </span></span><span style=display:flex><span>      class2 = <span style=color:#a31515>&#39;trickNumMat&#39;</span>,
-</span></span><span style=display:flex><span>      coerce = function(from) {
+</span></span><span style=display:flex><span>      coerce = <span style=color:#00f>function</span>(from) {
 </span></span><span style=display:flex><span>        toObj &lt;- new(<span style=color:#a31515>&#39;trickNumMat&#39;</span>,
 </span></span><span style=display:flex><span>                     number = as.matrix(from@number),
 </span></span><span style=display:flex><span>                     id = from@id,
 </span></span><span style=display:flex><span>                     time = from@time)
-</span></span><span style=display:flex><span>        return(toObj)
+</span></span><span style=display:flex><span>        <span style=color:#00f>return</span>(toObj)
 </span></span><span style=display:flex><span>      },
-</span></span><span style=display:flex><span>      replace = function(from, value) {
+</span></span><span style=display:flex><span>      replace = <span style=color:#00f>function</span>(from, value) {
 </span></span><span style=display:flex><span>        from@number = as.numeric(value@number)
 </span></span><span style=display:flex><span>        from@id = value@id
 </span></span><span style=display:flex><span>        from@time = value@time
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        return(from)
+</span></span><span style=display:flex><span>        <span style=color:#00f>return</span>(from)
 </span></span><span style=display:flex><span>      })
 </span></span><span style=display:flex><span>as(tn1, <span style=color:#a31515>&#39;trickNumMat&#39;</span>)
 </span></span><span style=display:flex><span>tnm1 &lt;- new(<span style=color:#a31515>&#39;trickNumMat&#39;</span>,
@@ -296,5 +294,4 @@
 </span></span><span style=display:flex><span>setClass(<span style=color:#a31515>&#34;trickUA&#34;</span>, contains = <span style=color:#a31515>&#39;trickUnion&#39;</span>, slots = c(id = <span style=color:#a31515>&#39;numeric&#39;</span>))
 </span></span><span style=display:flex><span>new(<span style=color:#a31515>&#39;trickUA&#39;</span>, 1:10, id = 1)
 </span></span><span style=display:flex><span>getClass(<span style=color:#a31515>&#39;trickUnion&#39;</span>)
-</span></span></code></pre></div><h2 id=6-建立对象注意事项>6. 建立对象注意事项</h2><ol><li><p>把所有对象写入一个文件<code>AllClass.R</code>，所有泛函写入<code>AllGeneric.R</code>。</p></li><li><p><code>setClass()</code>建立一个类，同时添加<code>validity</code>验证。</p></li><li><p>自定义<code>initialize()</code>（可选，建议使用默认设置）。</p></li><li><p>自定义构造函数，比如类似类名，<code>MyClass &lt;- function(slot1, ...){new('myClass', slot1 = slot1, ...)}</code>（可选，建议把<code>initialize()</code>内容放入）。</p></li><li><p>自定义<code>show()</code>，用于合理展示类。例如，一个大的矩阵，可以只展示一部分。而<code>print()</code>用于展示类的全部信息。</p></li><li><p>修改slot后，对返回的对象进行<code>validObject()</code>检查。</p></li></ol><h3 id=参考资料>参考资料</h3><ol><li><p><a href=https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf>A (Not So) Short Introduction to S4</a>：详细的S4介绍。</p></li><li><p><a href=http://adv-r.had.co.nz/S4.html>Advance R &ndash; S4</a></p></li><li><p><a href=https://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf>S4 System Development in Bioconductor</a></p></li><li><p><a href=https://www.crcpress.com/R-Programming-for-Bioinformatics/Gentleman/p/book/9781420063677>R Programming for Bioinformatics</a></p></li></ol><h3 id=更新记录>更新记录</h3><p>2017年9月7日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/r>R</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53073828-1","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
-<script>feather.replace()</script></body></html>
+</span></span></code></pre></div><h2 id=6-建立对象注意事项>6. 建立对象注意事项</h2><ol><li><p>把所有对象写入一个文件<code>AllClass.R</code>，所有泛函写入<code>AllGeneric.R</code>。</p></li><li><p><code>setClass()</code>建立一个类，同时添加<code>validity</code>验证。</p></li><li><p>自定义<code>initialize()</code>（可选，建议使用默认设置）。</p></li><li><p>自定义构造函数，比如类似类名，<code>MyClass &lt;- function(slot1, ...){new('myClass', slot1 = slot1, ...)}</code>（可选，建议把<code>initialize()</code>内容放入）。</p></li><li><p>自定义<code>show()</code>，用于合理展示类。例如，一个大的矩阵，可以只展示一部分。而<code>print()</code>用于展示类的全部信息。</p></li><li><p>修改slot后，对返回的对象进行<code>validObject()</code>检查。</p></li></ol><h3 id=参考资料>参考资料</h3><ol><li><p><a href=https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf>A (Not So) Short Introduction to S4</a>：详细的S4介绍。</p></li><li><p><a href=http://adv-r.had.co.nz/S4.html>Advance R &ndash; S4</a></p></li><li><p><a href=https://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf>S4 System Development in Bioconductor</a></p></li><li><p><a href=https://www.crcpress.com/R-Programming-for-Bioinformatics/Gentleman/p/book/9781420063677>R Programming for Bioinformatics</a></p></li></ol><h3 id=更新记录>更新记录</h3><p>2017年9月7日</p></div><div class=post-tags><nav class="nav tags"><ul class=flat><li><a href=/tags/r>R</a></li></ul></nav></div></div><div class="footer wrapper"><nav class=nav><div>© Copyright notice | <a href=https://github.com/vividvilla/ezhil>Ezhil theme</a> | Built with <a href=https://gohugo.io>Hugo</a></div></nav></div><script>feather.replace()</script></body></html>

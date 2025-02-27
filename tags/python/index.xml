@@ -1,26 +1,170 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Yulong Niu</title><link>https://YulongNiu.github.io/tags/python/</link><description>Recent content in Python on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 28 Jul 2015 14:37:38 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python使用小技巧</title><link>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</link><pubDate>Tue, 28 Jul 2015 14:37:38 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</guid><description>收集了一些使用Python过程中的小技巧或者常见错误。
-1. While&amp;ndash;if&amp;ndash;break 适用情况：当需要执行一个循环，但是不能事先判断何时终止。 可以在循环内部加入判断，符合要求时跳出。比如，使用程序在某个目录下新建一个文件夹，如果文件名已经存在，需要重新生成文件名；否则，创建文件夹。
-import random, os while True: letter = [chr(i) for i in range(97, 123)] folderName = [random.choice(letter) for i in range(5)] fn = &amp;#39;&amp;#39;.join(folderName) if os.path.exists(fn) is not True: # get an unique name os.mkdir(fn) break 2. 链式比较操作 Python支持一个链式的比较操作。
-testNum = 10 # 链式比较操作 # 区别if not和if a is not None if (not 0 &amp;lt; testNum &amp;lt; 5): print(&amp;#39;It passed!&amp;#39;) 参考网址 Python Wiki
-Wei Shen&amp;rsquo;s Python note</description></item><item><title>Python打包和上传PyPI</title><link>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</link><pubDate>Sat, 23 May 2015 01:03:26 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</guid><description>一个简单的Python包创建和上传PyPI流程。
-1. 打包 ## 安装相关工具 pip install --upgrade setuptools wheel twine 当Python包代码完成后，在根目录下创建setup.py文件，具体参考sampleproject。
-## 进入Python包目录 ## 测试 python setup.py test ## 打包 python setup.py sdist bdist_wheel 2. 上传PyPI PyPI注册帐号。
-## 进入Python包目录 ## 上传 twine upload dist/* 参考网址 Packaging Python Projects
-twine package
-更新记录 2018年6月23日</description></item><item><title>Django使用介绍</title><link>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</link><pubDate>Sat, 09 May 2015 13:42:15 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</guid><description>本文是学习Django Tutorial的记录，目的为了帮助快速浏览和查找Django使用细节。
-1. 安装Django 本文使用Python 3.3.6和PostgreSQL 9.3.6学习Django。可以参考“使用Pyenv控制多个版本Python”和 “Fedora安装与使用PostgreSQL”，安装对应版本Python和PostgreSQL。
-# 安装Django $ pip install django # 安装PostgreSQL支持psycopg2 $ pip install psycopg2 # 检查Django版本 $ python -c &amp;#34;import django; print(django.get_version())&amp;#34; 2. 创建项目 # 创建名为mysite的项目 $ django-admin startproject mysite 之后，配制数据库。修改mysite/settings.py对应位置。
-# Database # https://docs.djangoproject.com/en/1.8/ref/settings/#databases DATABASES = { &amp;#39;default&amp;#39;: { &amp;#39;ENGINE&amp;#39;: &amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;, &amp;#39;NAME&amp;#39;: &amp;#39;testdb&amp;#39;, &amp;#39;USER&amp;#39;: &amp;#39;userName&amp;#39;, &amp;#39;PASSWORD&amp;#39;: &amp;#39;passWord&amp;#39;, &amp;#39;HOST&amp;#39;: &amp;#39;/var/run/postgresql&amp;#39;, &amp;#39;PORT&amp;#39;: &amp;#39;5432&amp;#39;, } } # 配制好数据库后，链接数据库 $ python manage.py migrate 开启Django测试网络服务器
-$ python manage.py runserver 3.</description></item><item><title>使用Pyenv控制多个版本Python</title><link>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</link><pubDate>Sat, 09 May 2015 00:14:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</guid><description>同时在一台电脑上使用多个版本的Python，可以通过pyenv控制和管理。
-1. 安装方法 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv # 写入路径信息 $ echo &amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc # 重新载入 $ source ~/.bashrc 2. 安装多个版本Python和对应包 ## 查看可提供的Python版本列表 $ pyenv install --list ## 安装Python所依赖包 $ sudo dnf install readline readline-devel readline-static openssl openssl-devel openssl-static sqlite-devel bzip2-devel bzip2-libs ## 安装其他版本Python ## 如果命令行下载安装Python太慢，可以将下载的安装包放入~/.pyenv/cache/文件夹中，之后安装 $ pyenv install 3.4.3 $ pyenv rehash ## 查看已安装Python版本 $ pyenv versions ## 全局切换Python版本 $ pyenv global 3.</description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。
-现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块rpy2 ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是renjin，一个基于JVM的R语言解释器。
-本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以官方文档为准。
-1. 安装 rpy2作为Python的一个模块，其安装非常方便。需要做的准备工作是在本地安装好R。
-$ pip install rpy2 2. python调用R对象 2.1 使用rpy2.robjects 在rpy2中调用R对象，实际上是开启了一个R的交互进程。主要思路是将R的代码写入一个字符串内，之后执行即可。
-对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。
-调用方法：
-from rpy2.robjects import r 有三种方式可以选择：
-使用r.obj，比如 r.c(1, 3)。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 data.frame或者 read.csv等。
-使用r['obj']，比如 r['c'](1, 3)。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是r['func'](value1, para2 = value2)。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 r['func'](value1, para2 = value, **{para.3: value3})。
-使用r('obj')，比如 r('c(1, 3)')。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过r('Rcode')调用执行。
-# import r &amp;gt;&amp;gt;&amp;gt; from rpy2.robjects import r # creat an R function &amp;gt;&amp;gt;&amp;gt; r(&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;) &amp;gt;&amp;gt;&amp;gt; r.f(3) [9.424778] # internal function in R &amp;gt;&amp;gt;&amp;gt; r[&amp;#39;ls&amp;#39;]() # two ways of getting &amp;#39;paste&amp;#39; function in R # first: direct use R function &amp;gt;&amp;gt;&amp;gt; print(r[&amp;#39;paste&amp;#39;](l, collapse = &amp;#39;-&amp;#39;)) # second: eavl R codes &amp;gt;&amp;gt;&amp;gt; coder = &amp;#39;paste(%s, collapse = &amp;#34;-&amp;#34;)&amp;#39; % (l.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Yulong Niu</title><link>https://YulongNiu.github.io/tags/python/</link><description>Recent content in Python on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 28 Jul 2015 14:37:38 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python使用小技巧</title><link>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</link><pubDate>Tue, 28 Jul 2015 14:37:38 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-07-28-python-tips/</guid><description>&lt;p>收集了一些使用Python过程中的小技巧或者常见错误。&lt;/p>
+&lt;h2 id="1-whileifbreak">1. While&amp;ndash;if&amp;ndash;break&lt;/h2>
+&lt;p>适用情况：&lt;strong>当需要执行一个循环，但是不能事先判断何时终止。&lt;/strong> 可以在循环内部加入判断，符合要求时跳出。比如，使用程序在某个目录下新建一个文件夹，如果文件名已经存在，需要重新生成文件名；否则，创建文件夹。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">import&lt;/span> random, os
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">while&lt;/span> &lt;span style="color:#00f">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> letter = [chr(i) &lt;span style="color:#00f">for&lt;/span> i &lt;span style="color:#00f">in&lt;/span> range(97, 123)]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> folderName = [random.choice(letter) &lt;span style="color:#00f">for&lt;/span> i &lt;span style="color:#00f">in&lt;/span> range(5)]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> fn = &lt;span style="color:#a31515">&amp;#39;&amp;#39;&lt;/span>.join(folderName)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00f">if&lt;/span> os.path.exists(fn) &lt;span style="color:#00f">is&lt;/span> &lt;span style="color:#00f">not&lt;/span> &lt;span style="color:#00f">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000"># get an unique name &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> os.mkdir(fn)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#00f">break&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-链式比较操作">2. 链式比较操作&lt;/h2>
+&lt;p>Python支持一个链式的比较操作。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>testNum = 10
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 链式比较操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 区别if not和if a is not None&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">if&lt;/span> (&lt;span style="color:#00f">not&lt;/span> 0 &amp;lt; testNum &amp;lt; 5):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#a31515">&amp;#39;It passed!&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考网址">参考网址&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://wiki.python.org/moin/FrontPage">Python Wiki&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://blog.shenwei.me/python-note/#more-3951">Wei Shen&amp;rsquo;s Python note&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.codefrom.com/c/214">十个我希望早点知道的python方法&lt;/a>&lt;/p></description></item><item><title>Python打包和上传PyPI</title><link>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</link><pubDate>Sat, 23 May 2015 01:03:26 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-23-python-pkg/</guid><description>&lt;p>一个简单的Python包创建和上传PyPI流程。&lt;/p>
+&lt;h2 id="1-打包">1. 打包&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装相关工具&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pip install --upgrade setuptools wheel twine
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当Python包代码完成后，在根目录下创建&lt;code>setup.py&lt;/code>文件，具体参考&lt;a href="https://github.com/pypa/sampleproject/blob/master/setup.py">sampleproject&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 进入Python包目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 测试&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>python setup.py test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 打包&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>python setup.py sdist bdist_wheel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-上传pypi">2. 上传PyPI&lt;/h2>
+&lt;p>&lt;a href="https://pypi.org/">PyPI&lt;/a>注册帐号。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 进入Python包目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 上传&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>twine upload dist/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考网址">&lt;!-- raw HTML omitted -->参考网址&lt;!-- raw HTML omitted -->&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://packaging.python.org/tutorials/packaging-projects/">Packaging Python Projects&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://pypi.org/project/twine/">twine package&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2018年6月23日&lt;/p></description></item><item><title>Django使用介绍</title><link>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</link><pubDate>Sat, 09 May 2015 13:42:15 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-django-tutorial/</guid><description>&lt;p>本文是学习&lt;a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/">Django Tutorial&lt;/a>的记录，目的为了帮助快速浏览和查找Django使用细节。&lt;/p>
+&lt;h2 id="1-安装django">1. 安装Django&lt;/h2>
+&lt;p>本文使用&lt;a href="https://www.python.org/">Python 3.3.6&lt;/a>和&lt;a href="http://www.postgresql.org/">PostgreSQL 9.3.6&lt;/a>学习Django。可以参考&lt;a href="http://yulongniu.bionutshell.org/blog/2015/05/09/python-different-version/">“使用Pyenv控制多个版本Python”&lt;/a>和 &lt;a href="http://yulongniu.bionutshell.org/blog/2015/05/08/install-use-postgresql/">“Fedora安装与使用PostgreSQL”&lt;/a>，安装对应版本Python和PostgreSQL。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 安装Django&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pip install django
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 安装PostgreSQL支持psycopg2 &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pip install psycopg2 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 检查Django版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ python -c &lt;span style="color:#a31515">&amp;#34;import django; print(django.get_version())&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-创建项目">2. 创建项目&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 创建名为mysite的项目&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ django-admin startproject mysite
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后，配制数据库。修改&lt;code>mysite/settings.py&lt;/code>对应位置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># Database&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># https://docs.djangoproject.com/en/1.8/ref/settings/#databases&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>DATABASES = {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;default&amp;#39;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;ENGINE&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;NAME&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;testdb&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;USER&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;userName&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;PASSWORD&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;passWord&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;HOST&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;/var/run/postgresql&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#39;PORT&amp;#39;&lt;/span>: &lt;span style="color:#a31515">&amp;#39;5432&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 配制好数据库后，链接数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ python manage.py migrate
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>开启Django测试网络服务器&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ python manage.py runserver
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-创建app">3. 创建app&lt;/h2>
+&lt;p>首先， 创建新的app，比如&lt;code>polls&lt;/code>&lt;/p></description></item><item><title>使用Pyenv控制多个版本Python</title><link>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</link><pubDate>Sat, 09 May 2015 00:14:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-09-python-different-version/</guid><description>&lt;p>同时在一台电脑上使用多个版本的Python，可以通过&lt;a href="https://github.com/yyuu/pyenv">pyenv&lt;/a>控制和管理。&lt;/p>
+&lt;h2 id="1-安装方法">1. 安装方法&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 写入路径信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ echo &lt;span style="color:#a31515">&amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39;&lt;/span> &amp;gt;&amp;gt; ~/.bashrc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ echo &lt;span style="color:#a31515">&amp;#39;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&amp;#39;&lt;/span> &amp;gt;&amp;gt; ~/.bashrc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ echo &lt;span style="color:#a31515">&amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39;&lt;/span> &amp;gt;&amp;gt; ~/.bashrc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 重新载入&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ source ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-安装多个版本python和对应包">2. 安装多个版本Python和对应包&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查看可提供的Python版本列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv install --list
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装Python所依赖包&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install readline readline-devel readline-static openssl openssl-devel openssl-static sqlite-devel bzip2-devel bzip2-libs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装其他版本Python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 如果命令行下载安装Python太慢，可以将下载的安装包放入~/.pyenv/cache/文件夹中，之后安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv install 3.4.3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv rehash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查看已安装Python版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv versions
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 全局切换Python版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv global 3.4.3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装对应版本Python包。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 每次安装包之后，都要执行rehash。&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pip install ipython
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pyenv rehash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果在使用&lt;code>pip&lt;/code>安装包时，下载速度过慢，可以考虑使用国内源。比如：&lt;/p></description></item><item><title>Python中使用rpy2模块调用R</title><link>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</link><pubDate>Tue, 21 Aug 2012 19:33:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-08-21-python-r-rpy2/</guid><description>&lt;p>需要在python中调用R，实在是一种无奈的选择。如果能在一门语言中独立完成课题，是一个比较理想的做法。但是，这种想法也不太现实，毕竟每一种语言都有自己的长处。如果能取长补短，综合使用各种语言，也能起到不错的效果。&lt;/p>
+&lt;p>现在遇到的问题是，如何在python中调用R？这其中包括了如何调用R的对象（函数和包），R和python的对象如何互相转换，以及如何调用R的脚本（外界参数的输入）。python提供了一个模块&lt;a href="http://rpy.sourceforge.net/">rpy2&lt;/a> ，可以较好地完成这项工作。rpy2只是提供了一个Python调用R的接口，因此也直接继承了所有R的缺点。一个有意思的项目是&lt;a href="http://www.renjin.org/">renjin&lt;/a>，一个基于JVM的R语言解释器。&lt;/p>
+&lt;p>本文着重记录一些使用过程中的注意事项和小技巧，如有不一致则以&lt;a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/">官方文档&lt;/a>为准。&lt;/p>
+&lt;h2 id="1-安装">1. 安装&lt;/h2>
+&lt;p>rpy2作为Python的一个模块，其&lt;a href="http://rpy.sourceforge.net/rpy2/doc-2.5/html/overview.html#installation">安装&lt;/a>非常方便。需要做的准备工作是在本地安装好R。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ pip install rpy2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-python调用r对象">2. python调用R对象&lt;/h2>
+&lt;h3 id="21-使用rpy2robjects">2.1 使用&lt;code>rpy2.robjects&lt;/code>&lt;/h3>
+&lt;p>在rpy2中调用R对象，实际上是开启了一个R的交互进程。主要思路是将R的代码写入一个字符串内，之后执行即可。&lt;/p>
+&lt;p>对于R代码，将一段R代码写成一行，尽管看起来很丑陋而且不推荐，一样可以执行。但是，反过来，对于Python代码则没有这么简单。因为，Python代码是靠缩进来划分代码的区域，假若一段代码中有两个循环嵌套，如果将代码写成一行，执行起来就要麻烦的多（很可能要依赖空格的多少进行解释）。&lt;/p>
+&lt;p>调用方法：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">from&lt;/span> rpy2.robjects &lt;span style="color:#00f">import&lt;/span> r
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有三种方式可以选择：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>使用&lt;code>r.obj&lt;/code>，比如 &lt;code>r.c(1, 3)&lt;/code>。这种方法虽然方便，但是对于名称中有“点号”的函数会出问题，比如 &lt;code>data.frame&lt;/code>或者 &lt;code>read.csv&lt;/code>等。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用&lt;code>r['obj']&lt;/code>，比如 &lt;code>r['c'](1, 3)&lt;/code>。这种方法几乎可以调用任何R的函数，而且写法与原始调用很相似，无非是&lt;code>r['func'](value1, para2 = value2)&lt;/code>。如果一个R函数中的变量名是有“点号”的，不能直接赋值，需要构建一个字典形式，比如 &lt;code>r['func'](value1, para2 = value, **{para.3: value3})&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用&lt;code>r('obj')&lt;/code>，比如 &lt;code>r('c(1, 3)')&lt;/code>。这种方法从某种程度上讲是万能的，因为总是可以将任意长度的R代码写成一个Python字符串，之后通过&lt;code>r('Rcode')&lt;/code>调用执行。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># import r&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; &lt;span style="color:#00f">from&lt;/span> rpy2.robjects &lt;span style="color:#00f">import&lt;/span> r
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># creat an R function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r(&lt;span style="color:#a31515">&amp;#39;&amp;#39;&amp;#39;f &amp;lt;- function(r){pi * r}&amp;#39;&amp;#39;&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r.f(3)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[9.424778]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># internal function in R&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; r[&lt;span style="color:#a31515">&amp;#39;ls&amp;#39;&lt;/span>]()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># two ways of getting &amp;#39;paste&amp;#39; function in R&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># first: direct use R function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; print(r[&lt;span style="color:#a31515">&amp;#39;paste&amp;#39;&lt;/span>](l, collapse = &lt;span style="color:#a31515">&amp;#39;-&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># second: eavl R codes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; coder = &lt;span style="color:#a31515">&amp;#39;paste(&lt;/span>&lt;span style="color:#a31515">%s&lt;/span>&lt;span style="color:#a31515">, collapse = &amp;#34;-&amp;#34;)&amp;#39;&lt;/span> % (l.r_repr())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; print(r(coder))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># call Python function&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; l = r[&lt;span style="color:#a31515">&amp;#39;letters&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; len(l)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>26
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt;&amp;gt;&amp;gt; dir(l)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="22-创建r对象和提取对象的数值">2.2 创建R对象和提取对象的数值&lt;/h3>
+&lt;p>创建向量，可以使用&lt;code>rpy2.robjects.vectors&lt;/code>中提供的一系列函数，将一个Python的元组、列表或者字符串转换为R的向量。其中包括 &lt;code>StrVector()&lt;/code>、&lt;code>IntVector()&lt;/code>、&lt;code>FloatVector()&lt;/code>、&lt;code>FactorVector()&lt;/code>和&lt;code>BoolVector()&lt;/code>，分别提供了转换字符、整数、浮点、因子和布尔向量。&lt;/p></description></item></channel></rss>

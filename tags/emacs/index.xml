@@ -1,125 +1,556 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Emacs on Yulong Niu</title><link>https://YulongNiu.github.io/tags/emacs/</link><description>Recent content in Emacs on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 11 Jan 2022 16:48:13 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml"/><item><title>Spacemacs配置C/C++语言编程环境</title><link>https://YulongNiu.github.io/posts/2022-01-11-spacemacs-c-env/</link><pubDate>Tue, 11 Jan 2022 16:48:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2022-01-11-spacemacs-c-env/</guid><description>一份极简的Spacemacs的C/C++语言编程环境配置。
-1. 前奏 安装clangd、Bear。
-在项目目录下使用Bear，之后在目录下会生成compile_commands.json文件。LSP会自动搜索和使用该文件。
-$ bear -- make 另一种生成compile_commands.json文件的方法是使用compiledb，使用pip install compiledb安装。 $ compiledb make 2. 配置 配置Spacemacs的~/.spacemacs文件。基本思路是添加lsp layer和c-c++ layer。 例如：
-dotspacemacs-configuration-layers &amp;#39;((lsp :variables lsp-lens-enable t lsp-use-lsp-ui t) (c-c++ :variables c-c++-backend &amp;#39;lsp-clangd c-c++-lsp-enable-semantic-highlight &amp;#39;rainbow c-c++-enable-clang-format-on-save t c-c++-adopt-subprojects t) ) 3. conda配置gcc环境 3.1 设定conda环境 $ conda config --add channels conda-forge $ conda config --set channel_priority strict $ conda create -n make_env cxx-compiler boost armadillo -c conda-forge 3.3 设定CPLUS_INCLUDE_PATH ## 查看conda $ conda env config vars list ## 添加include path $ conda env config vars set CPLUS_INCLUDE_PATH=${CONDA_PREFIX}/include:${CPLUS_INCLUDE_PATH} ## 恢复conda环境 $ conda env config vars set CPLUS_INCLUDE_PATH 参考资料 极好的makefile操作指南 更新记录 2022年02月10日</description></item><item><title>Spacemacs使用记录</title><link>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</link><pubDate>Wed, 07 Oct 2015 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</guid><description>Spacemacs结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用hybrid模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。hybrid模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是SPC，在Emacs模式下是M-m。
-1. Vim快捷键记录 在Spacemacs中SPC-h-T进入Emacs Evil快速入门。
-1.1 移动 h：前
-j：上
-k：下
-l：后
-gg：
-文档开始位置。
-G：文档结束位置。
-:[number]：跳转到制定行。
-1.2 插入和替换 i：
-在光标前的位置，进入insert mode，进行编辑。
-ESC或者C-[退出insert mode。
-r：替换光标所在位置的单个字符。
-[number] d object：
-cw或ce：从光标处删除整个单词，并进入insert mode。
-c$：从光标处删除整行，并进入insert mode。
-1.3 搜索和替换 \：
-\searchWord：输入搜索内容，n向下搜索，N向上搜索。
-%：在各种括号跳转。
-:s/old/new：替换第一个匹配；:s/old/new/g：替换当前行匹配；:#,#s/old/new/g：替换行（#为行号）之间匹配；:%s/old/new/g ：替换全文匹配。
-:%s/old/new/gc：替换全文匹配，每一个匹配会提示是否匹配（输入y表示执行替换，n表示跳过匹配）。
-1.4 删除、剪切和粘贴 x：删除光标所在位置的单个字符。
-[number] d object：
-dw：从光标处删除整个单词，包括单词后的空格。
-de：从光标处删除整个单词，不包括空格。
-d$：从光标处删除整行。
-dd：删除光标所在的整行。
-p：在光标后的位置粘贴剪切（d类和x操作）的内容。
-1.5 撤销 u：撤销
-Ctr-R：反撤销
-2. 常用快捷键 常用的快捷键参考使用layer的说明文档。
-更新记录 2019年11月3日</description></item><item><title>Emacs配置C语言编程环境</title><link>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</link><pubDate>Mon, 01 Dec 2014 17:36:41 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid><description>有很多优秀的C/C++语言IDE用来实现高效的编程，比如CLion。本文介绍在Emacs下配置C/C++编程环境。
-1. 安装和基本配置 1.1. 安装需求 安装GNU Global # dnf install global llvm llvm-devel clang* 安装Emacs的helm、helm-swoop、helm-gtags、sr-speedbar、smartparens、google-c-style、auto-complete、auto-complete-c-headers、auto-complete-clang包。 1.2. Emacs配置 将附加环境设置添加到Emacs设置文件，比如~/.emacs，此环境配置参考tuhdo。
-2. 文件操作 2.1. 查找 当前buffer查找函数、类的定义
-C-c h i（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。 当前project查找定义
-M-.（helm-gtags-dwim）：输入查找内容。M-,（tags-loop-continue）：返回上一个buffer。
-C-j（helm-gtags-select）：列出当前project所有定义，并且查找。
-查找引用
-C-c g r（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。
-C-c g s（helm-gtags-find-symbol）：光标停留在变量时的查找。
-查找当前函数引用的函数
-C-c g a（helm-gtags-tags-in-this-function） 查找文件
-C-c g P（elm-gtags-find-files） 2.2. 列出源码树 开启和关闭
-M-x sr-speedbar-open RET：开启。M-x sr-speedbar-close RET：关闭。 操作
-b和f切换到当前buffer和所有文件列表。
-=：展开。g：收回。
-U：上一级目录。
-2.3 代码补全 代码补全使用auto-complete、auto-complete-c-headers、semantic包。在使用auto-complete-c-headers自动补全头文件名称时，使用以下命令获得头文件路径：
-$ gcc -xc -E -v - $ gcc -xc++ -E -v - 3.</description></item><item><title>Emacs配置HTML/JS/CSS编辑环境</title><link>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</link><pubDate>Mon, 30 Jul 2012 22:31:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</guid><description>以下所有Emacs mode都使用Emacs包安装系统。
-1. web-mode web-mode 提供了很好的wen配件（HTML、JavaScript、CSS、PHP等）的代码缩进、折叠和高亮等出色的功能。
-有用技巧：
-C-c C-n：放在HTML标签上，在标签间跳转。
-C-c C-f：放在HTML标签上，在标签折叠。
-2. emmet-mode emmet-mode是emmet的Emacs扩展，取代了陈旧的ZenCoding。只需要输入制定的缩写，这个工具可以自动补全HTML标签。非常方便。
-有用技巧：
-M-x emmet-mode：打开emmet-mode。
-C-j：自动补全。
-补全缩写规律：
-a：a+href
-#q：div+id(q)
-.x：div+class(x)
-#q.x：div+id(q)+class(x)
-附加内容 Emacs编程环境设置
-;;;;;;;;;;;;;; ;emmet-mode ;;;;;;;;;;;;; (require &amp;#39;emmet-mode) (add-hook &amp;#39;sgml-mode-hook &amp;#39;emmet-mode) ;; Auto-start on any markup modes (add-hook &amp;#39;html-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;web-mode-hook &amp;#39;emmet-mode) (add-hook &amp;#39;css-mode-hook &amp;#39;emmet-mode) ;;;;;;;;;;;;;; ;web-mode ;;;;;;;;;;;;;;; (require &amp;#39;web-mode) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.phtml\\&amp;#39;&amp;#34; . web-mode)) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.tpl\\.php\\&amp;#39;&amp;#34; . web-mode)) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.[agj]sp\\&amp;#39;&amp;#34; . web-mode)) (add-to-list &amp;#39;auto-mode-alist &amp;#39;(&amp;#34;\\.</description></item><item><title>Emacs高级使用技巧</title><link>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</link><pubDate>Sun, 24 Jun 2012 19:01:36 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</guid><description>1. Emacs配置文件位置 在Fedora系统下，Emacs的配置文件位置是~/.emacs。在Emacs配置文件中添加内容后，使用M-x eval-buffer，使当前配置生效。编译代码以加快加载速度，M-x byte-compile-file。
-使用Eamcs解释器M-x ielm。
-2. Emacs自带的包管理系统 在Emacs24之后，自带包管理系统，使用M-x eval-buffer进入。可以添加MELPA源、marmalade源、GNU源。
-(require &amp;#39;package) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;melpa&amp;#34; . &amp;#34;http://melpa.milkbox.net/packages/&amp;#34;)) (add-to-list &amp;#39;package-archives &amp;#39;(&amp;#34;gnu&amp;#34; . &amp;#34;http://elpa.gnu.org/packages/&amp;#34;)) (package-initialize) 这样设置之后，就不需要类似(add-to-list 'load-path &amp;quot;~/.emacs.d/elpa/popup-20140207.1702/&amp;quot;)的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上(require 'popup)之类的语句。
-3. 显示行号 使用M-x linum-mode添加行号。如果需要永久显示，在Emacs配置文件中添加一下内容。
-;;;;;;;;;;;;;;;;;;;;;;;;; ;open linum mode ;;;;;;;;;;;;;;;;;;;;;;;;; (setq linum-format &amp;#34;%4d \u2502&amp;#34;) (add-hook &amp;#39;prog-mode-hook &amp;#39;linum-mode) (add-hook &amp;#39;ess-mode-hook &amp;#39;linum-mode) 4. 进入Shell 三种方法：
-M-x shell
-M-x ansi-term
-M-x eshell
-5. root权限 C-x C-f 之后输入root密码/su:root@usrname password
-6. 移动整体代码块 选中代码块后： 向左移动2个字符：C-u -2 C-x TAB 向右移动4个字符：C-u 4 C-x TAB</description></item><item><title>Emacs和ESS的使用技巧</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link><pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid><description>1. 安装ESS 有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如yum：
-$ sudo dnf install emacs-ess 但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法参考，安装ess包。
-2. 使用ESS 进入GNU Emacs界面之后，输入M-X R 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。
-M-x R： 启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。
-C-u M-x R RET --no-save RET：启动R并且不保存。
-M-x ess-transcript-clean-region：清理R界面。
-C-c C-z：强制停止运行的R进程。
-C-c M-o：清理R console。
-C-c C-x：
-代替ls()函数。
-C-c C-s：代替search()函数。
-C-c C-d：修改已经建立的对象，非常实用。
-C-c C-n： 把当前行送到R。
-C-c C-c：把当前段送到R。
-C-c C-b：把当前整个文件送到R。
-C-c tab：自动补全R代码。
-C-x o：滚动屏幕。
-C--：
-自动给出R语言中特有的 &amp;lt;-。
-C---：连按两下&amp;ndash;，则可以显示下划线。
-C-c C-o C-o： 在函数头按下会激活ESS对R代码的注释功能。
-M-x customize-group RET ess RET：配置默认模板，如果需要插入空行，回车没用，猛戳空格。
-C-c C-o C-c：将代码注释为roxygen的##'开头格式，特别是注释example的时候很好用。
-C-c C-o p：光标跳转到注释段落开头。
-C-c C-o n：光标跳转到注释所在函数段落结尾。</description></item><item><title>Emacs使用汇总</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</link><pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid><description>1. 安装 ## 安装Emacs $ sudo dnf install emacs 2. 窗口和文件操作 Emacs的按键操作，约定C代表Ctrl键，M代表Alt键，RET表示Enter键。C-x对应字符扩展，比如C-x C-b表示列出所有buffer；M-x对应命令扩展，比如M-x replace-string（可以用TAB补全）表示字符替换。
-C-x 2或C-x 3： 将窗口分割成两个或者三个。
-C-x 1：只保留一个窗口。
-C-x n：开n个窗口
-C-x C-f： 读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。
-对于Emacs minibuffer的路径，在Emacs中可以使用~/表示当前登录的用户，可以替代/home/usr。同时，可以在当前路径下直接输入/home//median/TOOL或者/home//~/进入需要的目录，因为Emacs会自动忽略//或者/~之前的内容（不能在终端使用它）。
-输入/su:root@localhost Mypassword：用以打开root权限文件。
-M-x ffap（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。
-一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：M-x ido-mode。
-补充Dired文件操作（Directory Editor） C-x d进入Dired buffer下，光标所在处+新建文件夹。
-f或e或者RET在当前buffer下打开文件。o在另一个buffer中打开文件，并且光标跳转到另一个buffer。C-o在另一个buffer下打开文件，光标保留在Dired buffer中。v在新的buffer打开文件，只读权限。^在新的buffer打开上层目录的Dired buffer。i在Dired buffer下打开文件夹。g更新状态。
-m标记文件。%m标记文件名符合正则规则的文件。%g标记内容符合正则规则的文件。u删除当前光标所在文件的标记。M-DEL删除所有标记的文件。t标记所有文件。
-以下操作针对标记的文件；如果没有标记的文件，将操作光标所在处文件。C拷贝文件，R移动或者重命名文件，H创建硬链接，C创建软链接，M更改文件执行权限（比如777），D删除文件，Q正则匹配（所有标记文件）。
-d标记要删除的文件。~标记所有Emacs备份文件。#标记所有自动保存文件。%d标记文件名符合正则表达式的文件，以供删除。x执行删除操作。
-C-x C-s： 保存文件，经常使用这个命令存盘，避免文件丢失。
-C-x s：把所有的buffer存盘。
-C-x C-w： 文件另存为。
-M-x recover Myfilename 之后输入文件名和yes：用来恢复自动保存的文件。Emacs自动保存的文件一般以#Myfilename#来命名。
-C-x C-b： 列出所有buffer。
-C-x b：回到某一个buffer，需要在minibuffer中输入需要跳转的buffer名字。
-C-x o（other）：在不同的buffer间切换。
-C-x k：kill一个buffer。
-ibuffer模式： ibuffer模式是C-x C-b的功能更加强大版本。可以在~/.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Emacs on Yulong Niu</title><link>https://YulongNiu.github.io/tags/emacs/</link><description>Recent content in Emacs on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 11 Jan 2022 16:48:13 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml"/><item><title>Spacemacs配置C/C++语言编程环境</title><link>https://YulongNiu.github.io/posts/2022-01-11-spacemacs-c-env/</link><pubDate>Tue, 11 Jan 2022 16:48:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2022-01-11-spacemacs-c-env/</guid><description>&lt;p>一份极简的Spacemacs的C/C++语言编程环境配置。&lt;/p>
+&lt;h2 id="1-前奏">1. 前奏&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>安装&lt;a href="https://clangd.llvm.org/installation.html">clangd&lt;/a>、&lt;a href="https://github.com/rizsotto/Bear">Bear&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在项目目录下使用&lt;code>Bear&lt;/code>，之后在目录下会生成&lt;code>compile_commands.json&lt;/code>文件。LSP会自动搜索和使用该文件。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>$ bear -- make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>另一种生成&lt;code>compile_commands.json&lt;/code>文件的方法是使用&lt;a href="https://github.com/nickdiego/compiledb">compiledb&lt;/a>，使用&lt;code>pip install compiledb&lt;/code>安装。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>$ compiledb make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-配置">2. 配置&lt;/h2>
+&lt;ol>
+&lt;li>配置&lt;a href="https://github.com/syl20bnr/spacemacs">Spacemacs&lt;/a>的&lt;code>~/.spacemacs&lt;/code>文件。基本思路是添加&lt;a href="https://develop.spacemacs.org/layers/+tools/lsp/README.html">lsp layer&lt;/a>和&lt;a href="https://develop.spacemacs.org/layers/+lang/c-c++/README.html">c-c++ layer&lt;/a>。&lt;/li>
+&lt;/ol>
+&lt;p>例如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span style="display:flex;">&lt;span>dotspacemacs-configuration-layers
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&amp;#39;((lsp :variables&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lsp-lens-enable t
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lsp-use-lsp-ui t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (c-c++ :variables
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> c-c++-backend &lt;span style="color:#a31515">&amp;#39;lsp-clangd&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> c-c++-lsp-enable-semantic-highlight &lt;span style="color:#a31515">&amp;#39;rainbow&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> c-c++-enable-clang-format-on-save t
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> c-c++-adopt-subprojects t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-conda配置gcc环境">3. conda配置gcc环境&lt;/h2>
+&lt;h3 id="31-设定conda环境">3.1 设定conda环境&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>$ conda config --add channels conda-forge
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ conda config --set channel_priority strict
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ conda create -n make_env cxx-compiler boost armadillo -c conda-forge
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="33-设定cplus_include_path">3.3 设定&lt;code>CPLUS_INCLUDE_PATH&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 查看conda&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ conda env config vars list
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 添加include path&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ conda env config vars set CPLUS_INCLUDE_PATH=${CONDA_PREFIX}/include:${CPLUS_INCLUDE_PATH}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 恢复conda环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ conda env config vars set CPLUS_INCLUDE_PATH
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/30573481/how-to-write-a-makefile-with-separate-source-and-header-directories">极好的makefile操作指南&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2022年02月10日&lt;/p></description></item><item><title>Spacemacs使用记录</title><link>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</link><pubDate>Wed, 07 Oct 2015 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2015-09-30-spacemacs-tutorial/</guid><description>&lt;p>&lt;a href="https://github.com/syl20bnr/spacemacs">Spacemacs&lt;/a>结合了Vim和Emacs，而且定制了各种好用的设置，极大地减轻了Emacs的配置负担。推荐使用&lt;code>hybrid&lt;/code>模式，这样浏览代码时可以使用Vim快捷键，进入Insert mode后使用Emacs快捷键。&lt;code>hybrid&lt;/code>模式还有一个好处，编辑时方便汉字输入。Vim模式的先导键是&lt;code>SPC&lt;/code>，在Emacs模式下是&lt;code>M-m&lt;/code>。&lt;/p>
+&lt;h2 id="1-vim快捷键记录">1. Vim快捷键记录&lt;/h2>
+&lt;p>在Spacemacs中&lt;code>SPC-h-T&lt;/code>进入Emacs Evil快速入门。&lt;/p>
+&lt;h3 id="11-移动">1.1 移动&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>h&lt;/code>：前&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>j&lt;/code>：上&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>k&lt;/code>：下&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>l&lt;/code>：后&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>gg&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>文档开始位置。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>G&lt;/code>：文档结束位置。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>:[number]&lt;/code>：跳转到制定行。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="12-插入和替换">1.2 插入和替换&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>i&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>在&lt;strong>光标前&lt;/strong>的位置，进入insert mode，进行编辑。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>ESC&lt;/code>或者&lt;code>C-[&lt;/code>退出insert mode。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>r&lt;/code>：替换&lt;strong>光标所在位置&lt;/strong>的单个字符。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>[number] d object&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>cw&lt;/code>或&lt;code>ce&lt;/code>：从光标处删除整个单词，并进入insert mode。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>c$&lt;/code>：从光标处删除整行，并进入insert mode。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="13-搜索和替换">1.3 搜索和替换&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>\&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>\searchWord&lt;/code>：输入搜索内容，&lt;code>n&lt;/code>向下搜索，&lt;code>N&lt;/code>向上搜索。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>%&lt;/code>：在各种括号跳转。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>:s/old/new&lt;/code>：替换第一个匹配；&lt;code>:s/old/new/g&lt;/code>：替换当前行匹配；&lt;code>:#,#s/old/new/g&lt;/code>：替换行（&lt;code>#&lt;/code>为行号）之间匹配；&lt;code>:%s/old/new/g &lt;/code>：替换全文匹配。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>:%s/old/new/gc&lt;/code>：替换全文匹配，每一个匹配会提示是否匹配（输入&lt;code>y&lt;/code>表示执行替换，&lt;code>n&lt;/code>表示跳过匹配）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="14-删除剪切和粘贴">1.4 删除、剪切和粘贴&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>x&lt;/code>：删除&lt;strong>光标所在位置&lt;/strong>的单个字符。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>[number] d object&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>dw&lt;/code>：从光标处删除整个单词，包括单词后的空格。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>de&lt;/code>：从光标处删除整个单词，不包括空格。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>d$&lt;/code>：从光标处删除整行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>dd&lt;/code>：删除光标所在的整行。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>p&lt;/code>：在&lt;strong>光标后&lt;/strong>的位置粘贴剪切（&lt;code>d&lt;/code>类和&lt;code>x&lt;/code>操作）的内容。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="15-撤销">1.5 撤销&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>u&lt;/code>：撤销&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Ctr-R&lt;/code>：反撤销&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-常用快捷键">2. 常用快捷键&lt;/h2>
+&lt;p>常用的快捷键参考使用layer的说明文档。&lt;/p>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2019年11月3日&lt;/p></description></item><item><title>Emacs配置C语言编程环境</title><link>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</link><pubDate>Mon, 01 Dec 2014 17:36:41 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2014-12-01-emacs-config-c/</guid><description>&lt;p>有很多优秀的C/C++语言IDE用来实现高效的编程，比如&lt;a href="https://www.jetbrains.com/clion/">CLion&lt;/a>。本文介绍在Emacs下配置C/C++编程环境。&lt;/p>
+&lt;h2 id="1-安装和基本配置">1. 安装和基本配置&lt;/h2>
+&lt;h3 id="11-安装需求">1.1. 安装需求&lt;/h3>
+&lt;ul>
+&lt;li>安装&lt;a href="http://www.gnu.org/software/global/">GNU Global&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># dnf install global llvm llvm-devel clang* &lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>安装Emacs的&lt;code>helm&lt;/code>、&lt;code>helm-swoop&lt;/code>、&lt;code>helm-gtags&lt;/code>、&lt;code>sr-speedbar&lt;/code>、&lt;code>smartparens&lt;/code>、&lt;code>google-c-style&lt;/code>、&lt;code>auto-complete&lt;/code>、&lt;code>auto-complete-c-headers&lt;/code>、&lt;code>auto-complete-clang&lt;/code>包。&lt;/li>
+&lt;/ul>
+&lt;h3 id="12-emacs配置">1.2. Emacs配置&lt;/h3>
+&lt;p>将&lt;a href="#c-mode-config">附加环境设置&lt;/a>添加到Emacs设置文件，比如&lt;code>~/.emacs&lt;/code>，此环境配置参考&lt;a href="https://github.com/tuhdo/emacs-c-ide-demo/blob/master/custom/setup-helm.el">tuhdo&lt;/a>。&lt;/p>
+&lt;h2 id="2-文件操作">2. 文件操作&lt;/h2>
+&lt;h3 id="21-查找">2.1. 查找&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>当前buffer查找函数、类的定义&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>C-c h i&lt;/code>（helm-semantic-or-imenu）：可以输入部分关键词、空格等，以快速搜索。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>当前project查找定义&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>M-.&lt;/code>（helm-gtags-dwim）：输入查找内容。&lt;code>M-,&lt;/code>（tags-loop-continue）：返回上一个buffer。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-j&lt;/code>（helm-gtags-select）：列出当前project所有定义，并且查找。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>查找引用&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>C-c g r&lt;/code>（helm-gtags-find-rtags）：光标停留在函数内部，查找该函数名；如果光标停留在函数名，查找该函数的所有引用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c g s&lt;/code>（helm-gtags-find-symbol）：光标停留在变量时的查找。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>查找当前函数引用的函数&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>C-c g a&lt;/code>（helm-gtags-tags-in-this-function）&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>查找文件&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>C-c g P&lt;/code>（elm-gtags-find-files）&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="22-列出源码树">2.2. 列出源码树&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>开启和关闭&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>M-x sr-speedbar-open RET&lt;/code>：开启。&lt;code>M-x sr-speedbar-close RET&lt;/code>：关闭。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>操作&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>b&lt;/code>和&lt;code>f&lt;/code>切换到当前buffer和所有文件列表。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>=&lt;/code>：展开。&lt;code>g&lt;/code>：收回。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>U&lt;/code>：上一级目录。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="23-代码补全">2.3 代码补全&lt;/h3>
+&lt;p>代码补全使用&lt;code>auto-complete&lt;/code>、&lt;code>auto-complete-c-headers&lt;/code>、&lt;code>semantic&lt;/code>包。在使用&lt;code>auto-complete-c-headers&lt;/code>自动补全头文件名称时，使用以下命令获得头文件路径：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ gcc -xc -E -v -
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ gcc -xc++ -E -v -
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://YulongNiu.github.io/images/emacs_config_c_autocomplete.png" alt="emacs_config_c_autocomplete.png">&lt;/p></description></item><item><title>Emacs配置HTML/JS/CSS编辑环境</title><link>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</link><pubDate>Mon, 30 Jul 2012 22:31:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2012-07-30-emacs-html-css-js/</guid><description>&lt;p>以下所有Emacs mode都使用&lt;a href="http://yulongniu.bionutshell.org/blog/2012/06/25/emacs-extend-skills/">Emacs包安装系统&lt;/a>。&lt;/p>
+&lt;h2 id="1-web-mode">1. web-mode&lt;/h2>
+&lt;p>&lt;a href="http://web-mode.org/">web-mode&lt;/a> 提供了很好的wen配件（HTML、JavaScript、CSS、PHP等）的代码缩进、折叠和高亮等出色的功能。&lt;/p>
+&lt;p>有用技巧：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>C-c C-n&lt;/code>：放在HTML标签上，在标签间跳转。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-f&lt;/code>：放在HTML标签上，在标签折叠。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-emmet-mode">2. emmet-mode&lt;/h2>
+&lt;p>&lt;a href="https://github.com/smihica/emmet-mode">emmet-mode&lt;/a>是&lt;a href="http://emmet.io/">emmet&lt;/a>的Emacs扩展，取代了陈旧的&lt;a href="http://www.emacswiki.org/emacs/ZenCoding">ZenCoding&lt;/a>。只需要输入制定的缩写，这个工具可以自动补全HTML标签。非常方便。&lt;/p>
+&lt;p>有用技巧：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>M-x emmet-mode&lt;/code>：打开emmet-mode。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-j&lt;/code>：自动补全。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>补全缩写规律：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>a&lt;/code>：a+href&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>#q&lt;/code>：div+id(q)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>.x&lt;/code>：div+class(x)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>#q.x&lt;/code>：div+id(q)+class(x)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="附加内容">附加内容&lt;/h2>
+&lt;p>Emacs编程环境设置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-emacs-lisp" data-lang="emacs-lisp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;emmet-mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(require &lt;span style="color:#a31515">&amp;#39;emmet-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;sgml-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;emmet-mode&lt;/span>) &lt;span style="color:#008000">;; Auto-start on any markup modes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;html-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;emmet-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;web-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;emmet-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;css-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;emmet-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;web-mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(require &lt;span style="color:#a31515">&amp;#39;web-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.phtml\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.tpl\\.php\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.[agj]sp\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.as[cp]x\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.erb\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.mustache\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.djhtml\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;auto-mode-alist&lt;/span> &amp;#39;(&lt;span style="color:#a31515">&amp;#34;\\.html?\\&amp;#39;&amp;#34;&lt;/span> . web-mode))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(defun my-web-mode-hook ()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a31515">&amp;#34;Hooks for Web mode.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (setq web-mode-markup-indent-offset 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;web-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;my-web-mode-hook&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://web-mode.org/">web-mode说明文档&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2015年8月30日&lt;/p></description></item><item><title>Emacs高级使用技巧</title><link>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</link><pubDate>Sun, 24 Jun 2012 19:01:36 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2012-06-24-emacs-extend-skills/</guid><description>&lt;h2 id="1-emacs配置文件位置">1. Emacs配置文件位置&lt;/h2>
+&lt;p>在Fedora系统下，Emacs的配置文件位置是&lt;code>~/.emacs&lt;/code>。在Emacs配置文件中添加内容后，使用&lt;code>M-x eval-buffer&lt;/code>，使当前配置生效。编译代码以加快加载速度，&lt;code>M-x byte-compile-file&lt;/code>。&lt;/p>
+&lt;p>使用Eamcs解释器&lt;code>M-x ielm&lt;/code>。&lt;/p>
+&lt;h2 id="2-emacs自带的包管理系统">2. Emacs自带的包管理系统&lt;/h2>
+&lt;p>在Emacs24之后，自带包管理系统，使用&lt;code>M-x eval-buffer&lt;/code>进入。可以添加&lt;a href="http://melpa.org/">MELPA源&lt;/a>、&lt;a href="https://marmalade-repo.org/">marmalade源&lt;/a>、&lt;a href="http://elpa.gnu.org/packages/">GNU源&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-emacs-lisp" data-lang="emacs-lisp">&lt;span style="display:flex;">&lt;span>(require &lt;span style="color:#a31515">&amp;#39;package&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;package-archives&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	 &amp;#39;(&lt;span style="color:#a31515">&amp;#34;melpa&amp;#34;&lt;/span> . &lt;span style="color:#a31515">&amp;#34;http://melpa.milkbox.net/packages/&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-to-list &lt;span style="color:#a31515">&amp;#39;package-archives&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	 &amp;#39;(&lt;span style="color:#a31515">&amp;#34;gnu&amp;#34;&lt;/span> . &lt;span style="color:#a31515">&amp;#34;http://elpa.gnu.org/packages/&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(package-initialize)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样设置之后，就不需要类似&lt;code>(add-to-list 'load-path &amp;quot;~/.emacs.d/elpa/popup-20140207.1702/&amp;quot;)&lt;/code>的语句了，因为Emacs会自动识别安装的包。但是，如果需要对某个包进行进一步设置，需要加上&lt;code>(require 'popup)&lt;/code>之类的语句。&lt;/p>
+&lt;h2 id="3-显示行号">3. 显示行号&lt;/h2>
+&lt;p>使用&lt;code>M-x linum-mode&lt;/code>添加行号。如果需要永久显示，在Emacs配置文件中添加一下内容。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-emacs-lisp" data-lang="emacs-lisp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;open linum mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(setq linum-format &lt;span style="color:#a31515">&amp;#34;%4d \u2502&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;prog-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;linum-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(add-hook &lt;span style="color:#a31515">&amp;#39;ess-mode-hook&lt;/span> &lt;span style="color:#a31515">&amp;#39;linum-mode&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-进入shell">4. 进入Shell&lt;/h2>
+&lt;p>三种方法：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>M-x shell&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x ansi-term&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x eshell&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-root权限">5. root权限&lt;/h2>
+&lt;p>&lt;code>C-x C-f&lt;/code> 之后输入root密码&lt;code>/su:root@usrname password&lt;/code>&lt;/p>
+&lt;h2 id="6-移动整体代码块">6. 移动整体代码块&lt;/h2>
+&lt;p>选中代码块后：
+向左移动2个字符：&lt;code>C-u -2 C-x TAB&lt;/code>
+向右移动4个字符：&lt;code>C-u 4 C-x TAB&lt;/code>&lt;/p>
+&lt;h2 id="7-添加彩虹猫">7. 添加彩虹猫&lt;/h2>
+&lt;p>添加&lt;code>nyan-mode&lt;/code>包，之后在Emacs配置文档中写入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-emacs-lisp" data-lang="emacs-lisp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;nyan-mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">;;;;;;;;;;;;;;;;;;;;;;;;;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>(nyan-mode t)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="8-自定义yasnippet模板">8. 自定义YASnippet模板&lt;/h2>
+&lt;p>使用&lt;code>M-x yas-new-snippet&lt;/code>，打开一个模板。比如，添加Octopress的语言高亮模板&lt;/p></description></item><item><title>Emacs和ESS的使用技巧</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</link><pubDate>Fri, 12 Aug 2011 17:20:57 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-ess-tips/</guid><description>&lt;h2 id="1-安装ess">1. 安装ESS&lt;/h2>
+&lt;p>有两种方法可以安装，一种是直接使用系统自带的包安装系统，比如&lt;code>yum&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo dnf install emacs-ess
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是，有时可能不是ESS最新版本。所以，推荐第二种方法，使用Emacs自带的包系统，方便更新及时，设置方法&lt;a href="http://yulongniu.bionutshell.org/blog/2012/06/24/emacs-extend-skills/">参考&lt;/a>，安装&lt;code>ess&lt;/code>包。&lt;/p>
+&lt;h2 id="2-使用ess">2. 使用ESS&lt;/h2>
+&lt;p>进入GNU Emacs界面之后，输入&lt;code>M-X R&lt;/code> 即可进入R界面。在这个过程中，会询问是否在当前运行目录下运行R，可以选择在不同目录下运行。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>M-x R&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>启动R。R运行的buffer因为是在Emacs编辑器下运行，所以称为inferior（Emacs文档中称之为iESS buffer）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-u M-x R RET --no-save RET&lt;/code>：启动R并且不保存。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x ess-transcript-clean-region&lt;/code>：清理R界面。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-z&lt;/code>：强制停止运行的R进程。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>C-c M-o&lt;/code>：清理R console。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-x&lt;/code>：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>代替&lt;code>ls()&lt;/code>函数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-s&lt;/code>：代替&lt;code>search()&lt;/code>函数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-d&lt;/code>：修改已经建立的对象，非常实用。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-c C-n&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>把当前行送到R。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-c&lt;/code>：把当前段送到R。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-b&lt;/code>：把当前整个文件送到R。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>C-c tab&lt;/code>：自动补全R代码。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x o&lt;/code>：滚动屏幕。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C--&lt;/code>：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>自动给出R语言中特有的 &lt;code>&amp;lt;-&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C---&lt;/code>：连按两下&amp;ndash;，则可以显示下划线。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-c C-o C-o&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>在函数头按下会激活ESS对R代码的注释功能。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x customize-group RET ess RET&lt;/code>：配置默认模板，如果需要插入空行，回车没用，猛戳空格。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o C-c&lt;/code>：将代码注释为roxygen的&lt;code>##'&lt;/code>开头格式，特别是注释example的时候很好用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o p&lt;/code>：光标跳转到注释段落开头。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-c C-o n&lt;/code>：光标跳转到注释所在函数段落结尾。&lt;/p></description></item><item><title>Emacs使用汇总</title><link>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</link><pubDate>Fri, 12 Aug 2011 14:57:17 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2011-08-12-emacs-tips/</guid><description>&lt;h2 id="1-安装">1. 安装 &lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装Emacs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install emacs 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-窗口和文件操作">2. 窗口和文件操作&lt;/h2>
+&lt;p>Emacs的按键操作，约定&lt;code>C&lt;/code>代表&lt;code>Ctrl&lt;/code>键，&lt;code>M&lt;/code>代表&lt;code>Alt&lt;/code>键，&lt;code>RET&lt;/code>表示Enter键。&lt;code>C-x&lt;/code>对应字符扩展，比如&lt;code>C-x C-b&lt;/code>表示列出所有buffer；&lt;code>M-x&lt;/code>对应命令扩展，比如&lt;code>M-x replace-string&lt;/code>（可以用TAB补全）表示字符替换。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>C-x 2&lt;/code>或&lt;code>C-x 3&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>将窗口分割成两个或者三个。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x 1&lt;/code>：只保留一个窗口。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x n&lt;/code>：开n个窗口&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-x C-f&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>读入文件，如果没有该文件，则自动创建这个文件，这个命令在mini buffer中呼出路径。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对于Emacs minibuffer的路径，在Emacs中可以使用&lt;code>~/&lt;/code>表示当前登录的用户，可以替代&lt;code>/home/usr&lt;/code>。同时，可以在当前路径下直接输入&lt;code>/home//median/TOOL&lt;/code>或者&lt;code>/home//~/&lt;/code>进入需要的目录，因为Emacs会自动忽略&lt;code>//&lt;/code>或者&lt;code>/~&lt;/code>之前的内容（不能在终端使用它）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>输入/su:root@localhost Mypassword：用以打开root权限文件。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x ffap&lt;/code>（find-file-at-point）：如果光标停留在一个路径上，可以直接打开这个路径对应目录的文件。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个更加酷的命令是Ido模式（Interactively Do Things），可以实现智能化的交互。打开方式：&lt;code>M-x ido-mode&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>补充Dired文件操作（Directory Editor）&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>C-x d&lt;/code>进入Dired buffer下，光标所在处&lt;code>+&lt;/code>新建文件夹。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>f&lt;/code>或&lt;code>e&lt;/code>或者&lt;code>RET&lt;/code>在当前buffer下打开文件。&lt;code>o&lt;/code>在另一个buffer中打开文件，并且光标跳转到另一个buffer。&lt;code>C-o&lt;/code>在另一个buffer下打开文件，光标保留在Dired buffer中。&lt;code>v&lt;/code>在新的buffer打开文件，只读权限。&lt;code>^&lt;/code>在新的buffer打开上层目录的Dired buffer。&lt;code>i&lt;/code>在Dired buffer下打开文件夹。&lt;code>g&lt;/code>更新状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>m&lt;/code>标记文件。&lt;code>%m&lt;/code>标记文件名符合正则规则的文件。&lt;code>%g&lt;/code>标记内容符合正则规则的文件。&lt;code>u&lt;/code>删除当前光标所在文件的标记。&lt;code>M-DEL&lt;/code>删除所有标记的文件。&lt;code>t&lt;/code>标记所有文件。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>以下操作针对标记的文件；如果没有标记的文件，将操作光标所在处文件。&lt;code>C&lt;/code>拷贝文件，&lt;code>R&lt;/code>移动或者重命名文件，&lt;code>H&lt;/code>创建硬链接，&lt;code>C&lt;/code>创建软链接，&lt;code>M&lt;/code>更改文件执行权限（比如777），&lt;code>D&lt;/code>删除文件，&lt;code>Q&lt;/code>正则匹配（所有标记文件）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>d&lt;/code>标记要删除的文件。&lt;code>~&lt;/code>标记所有Emacs备份文件。&lt;code>#&lt;/code>标记所有自动保存文件。&lt;code>%d&lt;/code>标记文件名符合正则表达式的文件，以供删除。&lt;code>x&lt;/code>执行删除操作。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-x C-s&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>保存文件，经常使用这个命令存盘，避免文件丢失。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x s&lt;/code>：把所有的buffer存盘。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-x C-w&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>文件另存为。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>M-x recover Myfilename&lt;/code> 之后输入文件名和yes：用来恢复自动保存的文件。Emacs自动保存的文件一般以&lt;code>#Myfilename#&lt;/code>来命名。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>C-x C-b&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>列出所有buffer。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x b&lt;/code>：回到某一个buffer，需要在minibuffer中输入需要跳转的buffer名字。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x o&lt;/code>（other）：在不同的buffer间切换。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>C-x k&lt;/code>：kill一个buffer。&lt;/p></description></item></channel></rss>

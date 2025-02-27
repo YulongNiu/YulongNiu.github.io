@@ -1,38 +1,182 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>statistics on Yulong Niu</title><link>https://YulongNiu.github.io/tags/statistics/</link><description>Recent content in statistics on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 15 Oct 2017 17:38:16 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>朴素贝叶斯分类器应用于二元数据类型</title><link>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</link><pubDate>Sun, 15 Oct 2017 17:38:16 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</guid><description>1. 贝叶斯定理 已知事件$A$和$B$，则条件概率为：
-$$ \begin{align} \begin{split} P(A | B) &amp;amp;= \frac{P(A,B)}{P(B)} \newline P(B | A) &amp;amp;= \frac{P(A,B)}{P(A)} \end{split} \label{eq:1} \end{align} $$
-可以推导出：
-$$ \begin{align} P(B|A) = \frac{P(A|B)P(B)}{P(A)} \label{eq:2} \end{align} $$
-2. 分类器简介 朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：
-$$ \begin{align} \begin{split} p(C_j|F_1,\cdots,F_n) &amp;amp;= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \newline &amp;amp;= p(F_1|C_j) \cdots p(F_n|C_j)p(C_j)(1/p(F_1,\cdots,F_n)) \end{split} \label{eq:3} \end{align} $$
-由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：
-$$ \begin{align} \begin{split} p(C_j|F_1,\cdots,F_n) &amp;amp;\propto p(C_j)\prod_{i=1}^{N}p(F_i|C_j) \end{split} \label{eq:4} \end{align} $$
-其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。
-以下讨论两种二元数据类型，例如某个数据集有三种特征量：
-$$ F = \left[ \begin{array}{f} F_1 \newline F_2 \newline F_3 \end{array} \right] $$</description></item><item><title>Gibbs取样</title><link>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</link><pubDate>Sat, 03 Oct 2015 14:37:08 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</guid><description>$$ \newcommand{\md}{\mathrm{d}} $$
-1. Gibbs取样简介 Gibbs取样的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：
-$$ \begin{align*} \begin{split} 第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_1^{(n+1)} \newline p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_2^{(n+1)} \newline &amp;amp; \vdots \newline p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取变量即为x_k^{(n+1)} \newline 生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T \end{split} \end{align*} $$
-当抽取足够多次时，计算目标函数$f(x)$的均值：
-$$ \begin{align*} \begin{split} f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)}) \end{split} \end{align*} $$
-2. 结合图模型提高抽样效率 在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：</description></item><item><title>一些共轭先验</title><link>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</link><pubDate>Sun, 02 Aug 2015 15:53:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid><description>$$ \newcommand{\md}{\mathrm{d}} $$
-共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。
-贝叶斯公式：
-$$ \begin{align} \begin{split} f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline &amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta} \end{split} \label{eq:1} \end{align} $$
-1. 离散分布 1.1 伯努利分布 伯努利分布（Bernoulli distribution）的概率质量函数为：
-$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1) \end{split} \label{eq:2} \end{align} $$
-对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。
-该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：
-$$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline &amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline &amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline &amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i) \end{split} \label{eq:3} \end{align} $$</description></item><item><title>探索EM算法</title><link>https://YulongNiu.github.io/posts/2013-07-13-em/</link><pubDate>Sat, 13 Jul 2013 19:23:22 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
-$$ \DeclareMathOperator*{\argmax}{arg\ max\ } $$
-$$ \newcommand{\Pz}{\P \left( z|y_j, \theta^{(n)} \right)} $$
-$$ \newcommand{\Pyz}{\P \left( y_j, z|\theta^{(n)} \right)} $$
-EM算法的推出 考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：
-$$ \begin{align} \begin{split} L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) \end{split} \label{eq:1} \end{align} $$
-为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，否能找到一个方法，将求和放在对数外面？ 一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
-$$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \Pz \frac{\P(y_j, z|\theta)}{\Pz} \right) - L(\theta^{(n)}) \newline &amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \Pz \log \left( \frac{\P(y_j, z|\theta)}{\Pz} \right) \newline &amp;amp;- \sum_{j=1}^m \log \left( \P \left( y_j|\theta^{(n)} \right) \right) \left( \sum_{z \in Z} \Pz \right) \newline &amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \Pz \log\left(\frac{\P(y_j, z|\theta)}{\Pyz} \right) \end{split} \label{eq:2} \end{align} $$</description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
-1. 完备事件 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：
-$$ \begin{align} \begin{split} \P(x_1) + \P(x_2) + \dots + \P(x_n) = 1 \end{split} \label{eq:1} \end{align} $$
-常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$
-2. 全概率公式 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：
-$$ \begin{align} \begin{split} \P(Y) &amp;amp;= \P(Y, x_1) + \P(Y, x_2) + \dots + \P(Y, x_n) \newline &amp;amp;= \P(x_1)\P(Y|x_1) + \P(x_2)\P(Y|x_2) + \dots + \P(x_n)\P(Y|x_n) \end{split} \label{eq:2} \end{align} $$
-使用概率密度函数表示为：
-$$ \begin{align} \begin{split} f(Y) &amp;amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline &amp;amp;= \int_{-\infty}^{+\infty}f(Y|x)f(x) \mathrm{d}x \end{split} \label{eq:3} \end{align} $$</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Statistics on Yulong Niu</title><link>https://YulongNiu.github.io/tags/statistics/</link><description>Recent content in Statistics on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 15 Oct 2017 17:38:16 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>朴素贝叶斯分类器应用于二元数据类型</title><link>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</link><pubDate>Sun, 15 Oct 2017 17:38:16 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</guid><description>&lt;h3 id="1-贝叶斯定理">1. 贝叶斯定理&lt;/h3>
+&lt;p>已知事件$A$和$B$，则条件概率为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+P(A | B) &amp;amp;= \frac{P(A,B)}{P(B)} \newline
+P(B | A) &amp;amp;= \frac{P(A,B)}{P(A)}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>可以推导出：&lt;/p>
+&lt;p>$$
+\begin{align}
+P(B|A) = \frac{P(A|B)P(B)}{P(A)}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;h3 id="2-分类器简介">2. 分类器简介&lt;/h3>
+&lt;p>朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+p(C_j|F_1,\cdots,F_n) &amp;amp;= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \newline
+&amp;amp;= p(F_1|C_j) \cdots p(F_n|C_j)p(C_j)(1/p(F_1,\cdots,F_n))
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p>
+&lt;p>由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+p(C_j|F_1,\cdots,F_n) &amp;amp;\propto p(C_j)\prod_{i=1}^{N}p(F_i|C_j)
+\end{split}
+\label{eq:4}
+\end{align}
+$$&lt;/p>
+&lt;p>其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。&lt;/p>
+&lt;p>以下讨论两种二元数据类型，例如某个数据集有三种特征量：&lt;/p>
+&lt;p>$$
+F =
+\left[
+\begin{array}{f}
+F_1 \newline
+F_2 \newline
+F_3
+\end{array}
+\right]
+$$&lt;/p></description></item><item><title>Gibbs取样</title><link>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</link><pubDate>Sat, 03 Oct 2015 14:37:08 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</guid><description>&lt;p>$$
+\newcommand{\md}{\mathrm{d}}
+$$&lt;/p>
+&lt;h2 id="1-gibbs取样简介">1. Gibbs取样简介&lt;/h2>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs取样&lt;/a>的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：&lt;/p>
+&lt;p>$$
+\begin{align*}
+\begin{split}
+第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline
+p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_1^{(n+1)} \newline
+p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_2^{(n+1)} \newline
+&amp;amp; \vdots \newline
+p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取变量即为x_k^{(n+1)} \newline
+生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T
+\end{split}
+\end{align*}
+$$&lt;/p>
+&lt;p>当抽取足够多次时，计算目标函数$f(x)$的均值：&lt;/p>
+&lt;p>$$
+\begin{align*}
+\begin{split}
+f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)})
+\end{split}
+\end{align*}
+$$&lt;/p>
+&lt;h2 id="2-结合图模型提高抽样效率">2. 结合图模型提高抽样效率&lt;/h2>
+&lt;p>在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：&lt;/p></description></item><item><title>一些共轭先验</title><link>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</link><pubDate>Sun, 02 Aug 2015 15:53:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid><description>&lt;p>$$
+\newcommand{\md}{\mathrm{d}}
+$$&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Conjugate_prior#cite_note-beta_rate-6">共轭先验（Conjugate prior）&lt;/a>在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。&lt;/p>
+&lt;p>贝叶斯公式：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline
+&amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;h2 id="1-离散分布">1. 离散分布&lt;/h2>
+&lt;h3 id="11-伯努利分布">1.1 伯努利分布&lt;/h3>
+&lt;p>伯努利分布（Bernoulli distribution）的概率质量函数为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。&lt;/p>
+&lt;p>该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline
+&amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline
+&amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline
+&amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i)
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p></description></item><item><title>探索EM算法</title><link>https://YulongNiu.github.io/posts/2013-07-13-em/</link><pubDate>Sat, 13 Jul 2013 19:23:22 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid><description>&lt;p>$$
+\newcommand{\P}{\mathrm{P}}
+$$&lt;/p>
+&lt;p>$$
+\DeclareMathOperator*{\argmax}{arg\ max\ }
+$$&lt;/p>
+&lt;p>$$
+\newcommand{\Pz}{\P \left( z|y_j, \theta^{(n)} \right)}
+$$&lt;/p>
+&lt;p>$$
+\newcommand{\Pyz}{\P \left( y_j, z|\theta^{(n)} \right)}
+$$&lt;/p>
+&lt;h2 id="em算法的推出">EM算法的推出&lt;/h2>
+&lt;p>考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline
+&amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right)
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，&lt;strong>否能找到一个方法，将求和放在对数外面？&lt;/strong> 一个常用的技巧是转化为不等式，&lt;a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen&amp;rsquo;s inequality&lt;/a>描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline
+&amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \Pz \frac{\P(y_j, z|\theta)}{\Pz} \right) - L(\theta^{(n)}) \newline
+&amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \Pz \log \left( \frac{\P(y_j, z|\theta)}{\Pz} \right) \newline
+&amp;amp;- \sum_{j=1}^m \log \left( \P \left( y_j|\theta^{(n)} \right) \right) \left( \sum_{z \in Z} \Pz \right) \newline
+&amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \Pz \log\left(\frac{\P(y_j, z|\theta)}{\Pyz} \right)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p></description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>&lt;p>$$
+\newcommand{\P}{\mathrm{P}}
+$$&lt;/p>
+&lt;h2 id="1-完备事件">1. 完备事件&lt;/h2>
+&lt;p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+\P(x_1) + \P(x_2) + \dots + \P(x_n) = 1
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$&lt;/p>
+&lt;h2 id="2-全概率公式">2. 全概率公式&lt;/h2>
+&lt;p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+\P(Y) &amp;amp;= \P(Y, x_1) + \P(Y, x_2) + \dots + \P(Y, x_n) \newline
+&amp;amp;= \P(x_1)\P(Y|x_1) + \P(x_2)\P(Y|x_2) + \dots + \P(x_n)\P(Y|x_n)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;p>使用概率密度函数表示为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(Y) &amp;amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline
+&amp;amp;= \int_{-\infty}^{+\infty}f(Y|x)f(x) \mathrm{d}x
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p></description></item></channel></rss>

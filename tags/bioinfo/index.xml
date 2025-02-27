@@ -1,231 +1,1064 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bioinfo on Yulong Niu</title><link>https://YulongNiu.github.io/tags/bioinfo/</link><description>Recent content in bioinfo on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 15 Apr 2019 14:58:58 +0200</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/bioinfo/index.xml" rel="self" type="application/rss+xml"/><item><title>DESeq2包的对比组设计</title><link>https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/</link><pubDate>Mon, 15 Apr 2019 14:58:58 +0200</pubDate><guid>https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/</guid><description>1. 两两比对 DataFrame with 12 rows and 2 columns condition genotype &amp;lt;factor&amp;gt; &amp;lt;factor&amp;gt; sample1 A I sample2 A I sample3 A I sample4 A II sample5 A II ... ... ... sample8 B I sample9 B I sample10 B II sample11 B II sample12 B II 组A vs. 组B。
-dds &amp;lt;- makeExampleDESeqDataSet(n = 100, m = 12) dds$genotype &amp;lt;- factor(rep(rep(c(&amp;#39;I&amp;#39;, &amp;#39;II&amp;#39;), each=3), 2)) ## condition: A vs. B design(dds) &amp;lt;- ~ condition ddres &amp;lt;- DESeq(dds) res &amp;lt;- results(ddres, contrast = c(&amp;#39;condition&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;A&amp;#39;)) ## genotype I vs.</description></item><item><title>通过RNA-Seq评估基因表达量的模型</title><link>https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/</link><pubDate>Sat, 17 Feb 2018 18:23:29 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/</guid><description>$$ \newcommand{\tildel}{\widetilde{l_t}} $$
-$$ \newcommand{\P}{\mathrm{P}} $$
-$$ \DeclareMathOperator*{\argmax}{arg,max} $$
-本文基于参考资料1，展示RNA-Seq在评估基因表达量模型的细节。
-1. 符号表示 $K$个长度为$l_i$的转录序列$t_i$，构成转录本的集合$T=\{t_1, t_2, \dots, t_K\}$。单个转录组中，每个转录序列$t_i$有$c_i$个拷贝数，全部转录序列的总拷贝数为$M$。单个转录序列的相对丰度为$\rho_k=\frac{c_k}{\sum\limits_{t \in T} c_t} = \frac{c_k}{M}$，易得$\sum\limits_{k=1}^K \rho_k=1$。
-单个转录组中，全部转录片段构成集合$F=\{f_1, f_2, \dots, f_N\}$，总转录片段数目为$N=|F|$。比对到的转录序列$t_i$上的转录片段，构成集合$F_t \in F$，对应的转录片段数目为$X_t=|F_t|$。
-2. 简单模型 简单模型为：单端RNA-Seq，每一个read只比对到一个转录序列上，且每个read的长度都为定值$m$。对于转录序列$t_i$，从5'到3'一共可能比对上的read数目为$\tildel = l_i - m + 1$。建立模型的思路是：当给定一个read，它会被比对到某个转录序列的某个位置是一个随机事件。通过实际观测（即将read比对到转录序列），进而估计未知参数$\rho = \{\rho_1, \rho_2, \dots, \rho_K\}$。
-通过read序列比对，可得观测数据类似如下矩阵。每一行表示某个read是否比对到某个转录序列的某个位置，行和为1。$1$表示read比对到对应转录序列上，$0$表示没有比对到对应转录序列。
-$$ \left[ \begin{matrix} 0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 1 \newline 0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 0 \newline \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \newline 0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 1 \newline \end{matrix} \right] $$</description></item><item><title>Bray-Curtis distance解释</title><link>https://YulongNiu.github.io/posts/2017-10-24-bray-curtis-distance/</link><pubDate>Tue, 24 Oct 2017 12:26:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-24-bray-curtis-distance/</guid><description>$$ \newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1} $$
-Bray-Curtis distance（BCD）的定义为：
-$$ \begin{align} \begin{split} BCD(X, Y) = \frac{\sumup{|x_i - y_j|}}{\sumup{x_i} + \sumup{y_i}} \end{split} \label{eq:1} \end{align} $$
-其中，$X$和$Y$分别为长度为$n$的数值向量。根据$\eqref{eq:1}$可以得出：$BCD$的取值范围为$[0, 1]$；当$X$和$Y$完全相同时，$BCD$为0；反之，$BCD$为1。
-同样，Bray-Curtis similarity（BCS）或Bray-Curtis index为：
-$$ \begin{align} \begin{split} BCS(X, Y) = 1 - BCD(X, Y) \end{split} \label{eq:2} \end{align} $$
-参考资料 Chapter 6 Measures of distance and correlation between variables 更新记录 2017年10月22日</description></item><item><title>Normalized Google distance解释</title><link>https://YulongNiu.github.io/posts/2017-10-22-google-distance/</link><pubDate>Sun, 22 Oct 2017 21:35:30 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-22-google-distance/</guid><description>$$ \newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1} $$
-本文尝试探索Normalized Google distance（简称NGD）的定义和拓展应用。
-1. NGD原始定义 维基百科的定义为：
-$$ \begin{align} \begin{split} NGD(x, y) = \frac{\max{\log f(x), \log f(y)} - \log f(x, y)}{\log N - \min{\log f(x), \log f(y)}} \end{split} \label{eq:1} \end{align} $$
-其中，$f(x)$和$f(y)$分别为关键词$x$和$y$出现的次数，$f(x,y)$为$x$和$y$同时出现的次数，$N$为全部搜索单词数目。根据$\eqref{eq:1}$可以得出：如果$x$和$y$几乎总是同时出现时，$NGD$趋近于$0$；如果$x$和$y$出现的次数很少，即$\log f(x,y)$趋近于负无穷，则$NGD$可能大于$1$。
-2. NGD定义延伸 Choi and Rashid在2008年的文章提出一种针对向量的$NGD$定义：
-$$ \begin{align} \begin{split} NGD(X, Y) &amp;amp;= \frac{\max\left\{\sumup{x_i}, \sumup{y_i}\right\} - \sumup{\min(x_i, y_i)}}{\sumup{x_i} + \sumup{y_i} - \sumup{\min(x_i, y_i)}} \newline &amp;amp;= \frac{\max\left\{\sumup{x_i}, \sumup{y_i}\right\} - \sumup{\min(x_i, y_i)}}{\max\left\{\sumup{x_i}, \sumup{y_i}\right\}} \end{split} \label{eq:2} \end{align} $$</description></item><item><title>最大熵模型</title><link>https://YulongNiu.github.io/posts/2017-10-16-max-entropy/</link><pubDate>Mon, 16 Oct 2017 13:16:12 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-16-max-entropy/</guid><description>1. 熵和条件熵 对于随机变量$X$，熵为：
-$$ \begin{align} \begin{split} H(X) = -\sum_{x \in X}p(x)\log{p(x)} \end{split} \label{eq:1} \end{align} $$
-其中：
-$$ \begin{align} \begin{split} \sum_{x \in X}p(x) = 1 \end{split} \label{eq:2} \end{align} $$
-同样道理，对于任意随机变量$X$和$Y$，联合熵为：
-$$ \begin{align} \begin{split} H(X,Y) = -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} \end{split} \label{eq:3} \end{align} $$
-基于$X$的$Y$的熵为条件熵：
-$$ \begin{align} \begin{split} H(Y|X) &amp;amp;= H(X, Y) - H(X) \newline &amp;amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X}p(x)\log{p(x)} \newline &amp;amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X, y \in Y}p(x, y)\log{p(x)} \newline &amp;amp;= -\sum_{x \in X, y \in Y}p(x, y)\log \frac{p(x, y)}{p(x)} \end{split} \label{eq:4} \end{align} $$</description></item><item><title>朴素贝叶斯分类器应用于二元数据类型</title><link>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</link><pubDate>Sun, 15 Oct 2017 17:38:16 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</guid><description>1. 贝叶斯定理 已知事件$A$和$B$，则条件概率为：
-$$ \begin{align} \begin{split} P(A | B) &amp;amp;= \frac{P(A,B)}{P(B)} \newline P(B | A) &amp;amp;= \frac{P(A,B)}{P(A)} \end{split} \label{eq:1} \end{align} $$
-可以推导出：
-$$ \begin{align} P(B|A) = \frac{P(A|B)P(B)}{P(A)} \label{eq:2} \end{align} $$
-2. 分类器简介 朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：
-$$ \begin{align} \begin{split} p(C_j|F_1,\cdots,F_n) &amp;amp;= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \newline &amp;amp;= p(F_1|C_j) \cdots p(F_n|C_j)p(C_j)(1/p(F_1,\cdots,F_n)) \end{split} \label{eq:3} \end{align} $$
-由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：
-$$ \begin{align} \begin{split} p(C_j|F_1,\cdots,F_n) &amp;amp;\propto p(C_j)\prod_{i=1}^{N}p(F_i|C_j) \end{split} \label{eq:4} \end{align} $$
-其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。
-以下讨论两种二元数据类型，例如某个数据集有三种特征量：
-$$ F = \left[ \begin{array}{f} F_1 \newline F_2 \newline F_3 \end{array} \right] $$</description></item><item><title>如何在Nature communications上发表文章</title><link>https://YulongNiu.github.io/posts/2016-09-22-how-to-publish-in-nc/</link><pubDate>Thu, 22 Sep 2016 16:25:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-22-how-to-publish-in-nc/</guid><description>我最近看到一个幻灯片，主要讲了在Nature Communications（NC）上发表文章的建议，作者是NC的副主编Nicky Dean。整个幻灯片一种轻松幽默的口吻，讲述了投稿和发表文章过程的各种问题，并提出了针对性建议，值得推荐。以下记录一些关键信息。
-投稿前注意事项 Nature杂志（可能此处也指NC）只考虑有重大创新（conceptually novel）的工作，而不是补充完善数据类型研究。
-不要有快速发表的想法。
-不介意会议报告或者预印服务网站发表。
-介意发表在出版的会议录（conference proceedings）或者其他大规模传播的媒介上。
-准备充分 问问自己这个研究适合于本领域的哪些地方？这个研究是否有显著的进步？
-从一开始就好好准备文稿，比如文稿有清晰的结构、容易理解，并且能够传达出最主要信息。
-阅读《作者须知》，使得文稿符合杂志的要求。
-准备cover letters 解释工作的创新，但不要过了。
-推荐审稿人，但不能都是自己的熟人。
-可以推荐需要屏蔽的审稿人。
-明确一切相关的正在发表或者已经投稿的文章。
-文章要素 解释清楚研究领域背景，即回答“我们为什么要重视这项研究？”
-清晰地描述做了什么工作。
-连接研究内容和领域背景，以说服别人这项研究确实有重大突破。
-发表文章的目的是为了更有效地交流，而不是显示自己有聪明!
-NC编辑审核常规要点 研究的创新性。
-支持数据。
-作者或者他人之前的研究。
-参考文献是否完成，是否重大遗漏。
-应对审稿人意见 如果被邀请重新提交文章，确保文章解决了所有审稿人提出的问题。
-如果被要求进一步实验，不要尝试规避。
-保持专业，不要使用侮辱性语言、自大或者恐吓。
-审稿人也可能会犯错，并且记住他们是自己同行专家。不管怎样，以后大家还是要一起打交道。
-更新记录 2016年9月22日</description></item><item><title>HISAT2使用问答</title><link>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</link><pubDate>Sat, 10 Sep 2016 16:32:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</guid><description>HISAT2是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代HISAT和TopHat2。本文汇集一些使用HISAT2的常见问题问答。
-如何解读HISAT2的输出统计？ 一个常见的双端测序样本HISAT2输出统计：
-10000 reads; of these: 10000 (100.00%) were paired; of these: 650 (6.50%) aligned concordantly 0 times 8823 (88.23%) aligned concordantly exactly 1 time 527 (5.27%) aligned concordantly &amp;gt;1 times ---- 650 pairs aligned concordantly 0 times; of these: 34 (5.23%) aligned discordantly 1 time ---- 616 pairs aligned 0 times concordantly or discordantly; of these: 1232 mates make up the pairs; of these: 660 (53.57%) aligned 0 times 571 (46.</description></item><item><title>常用参考基因组下载地址</title><link>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</link><pubDate>Sat, 10 Sep 2016 13:17:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</guid><description>本文收集了一些常用参考基因组的下载网址和补充说明。
-NCBI genome
-Ensembl FTP
-UCSC FTP：cytoband文件可能含有gneg等标识，其中acen表示着丝粒区域、stalk表示近端着丝粒区域、gvar表示异染色质，例如臂间或端粒区域。
-GENCODE：只有人和大鼠，注释较好。
-iGenomes：部分模式生物bowtie、bowtie2和BWA索引基因组。
-HISAT2：部分模式生物HISAT2索引基因组。
-更新记录 2018年8月6日</description></item><item><title>Gibbs取样</title><link>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</link><pubDate>Sat, 03 Oct 2015 14:37:08 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</guid><description>$$ \newcommand{\md}{\mathrm{d}} $$
-1. Gibbs取样简介 Gibbs取样的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：
-$$ \begin{align*} \begin{split} 第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_1^{(n+1)} \newline p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_2^{(n+1)} \newline &amp;amp; \vdots \newline p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取变量即为x_k^{(n+1)} \newline 生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T \end{split} \end{align*} $$
-当抽取足够多次时，计算目标函数$f(x)$的均值：
-$$ \begin{align*} \begin{split} f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)}) \end{split} \end{align*} $$
-2. 结合图模型提高抽样效率 在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：</description></item><item><title>一些共轭先验</title><link>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</link><pubDate>Sun, 02 Aug 2015 15:53:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid><description>$$ \newcommand{\md}{\mathrm{d}} $$
-共轭先验（Conjugate prior）在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。
-贝叶斯公式：
-$$ \begin{align} \begin{split} f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline &amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta} \end{split} \label{eq:1} \end{align} $$
-1. 离散分布 1.1 伯努利分布 伯努利分布（Bernoulli distribution）的概率质量函数为：
-$$ \begin{align} \begin{split} f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1) \end{split} \label{eq:2} \end{align} $$
-对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。
-该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：
-$$ \begin{align} \begin{split} f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline &amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline &amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline &amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i) \end{split} \label{eq:3} \end{align} $$</description></item><item><title>PostgreSQL使用指南</title><link>https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/</link><pubDate>Wed, 29 Jul 2015 18:24:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/</guid><description>1. 查询 -- 选取特定的一列或者多列 SELECT column1, column2 FROM dataset -- 选取全部列 SELECT * FROM dataset -- 去除重复，选取一列或多列中唯一元素 -- 如输入多列，则去除多列组合后的重复 SELECT DISTINCT column1, column2 FROM dataset -- 指定输出列数 -- a是输出行数，b是输出起始行（第一行计为0） SELECT column FROM dataset LIMIT a OFFSET b 使用;结束一条SQL语句，本文中省略；
-返回未排序数据；
-2. 排序 -- 按照一列或者多列升序排序 -- 可以按照“不查询”的列排序 -- 先按照column2排，再按照column5排 SELECT column1, column2, column3 FROM dataset ORDER BY column2, column5 -- 降序 -- DESC只作用于最靠近的唯一一列，即column2，不作用于column5 SELECT column1, column2, column3 FROM dataset ORDER BY column2 DESC, column5 --使用查询列相对编号 SELECT column1, column2, column3 FROM dataset ORDER BY 2, column5 使用相对列查询时，不查询的列，比如上述例子的column5，不能用数字代替。</description></item><item><title>估计RNA-seq转录本表达量和寻找差异表达基因</title><link>https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/</link><pubDate>Wed, 03 Jun 2015 16:58:01 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/</guid><description>1. 标准化和计数 1.1 HTseq 简介：HTseq 是用于Python平台写成的处理高通量测序的平台。htseq-count可以用来对原始转录本计数，具体计数规则参考Counting reads in features with htseq-count。
-平台：Python跨平台使用。
-快速运行：
-# 查看帮助 $ htseq-count --help # 对bam文件按照reads名称排序 $ samtools sort -n accepted_filtered.bam accepted_sortname # 注意“=”前后无空格 $ htseq-count --mode=union --stranded=no --type=exon --idattr=gene_id \ --format=bam accepted_sort.bam hg19USCS_ensembl.gtf &amp;gt; htseqcount_accepted.hsc 重要参数解释：
---mode：统计落在某个基因上的reads数目的模型，默认值为“union”（图示）。作者认为“union”方法在绝大多数情况下都有很好的表现，建议使用。
---stranded：测序方法，默认为“yes”。
---type：计数单元类型，默认为GTF文件的exon。
---idattr：计数单元归类，默认为gene_id。比如把合并汇报多个exon对应的一个gene。
---format：可以输入bam或者sam文件，bam文件需要制定此参数。
-补充：
-如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为： $ samtools sort -n accepted_filerted.bam acceted_sortname 1.2 GenomicAlignments GenomicAlignments是R/Bioconductor的一个包，其中summarizeOverlaps函数用于对alignment数据进行计数。
-1.3 Kallisto 简介：kallisto是由Lior Pachter小组开发一款快速测量RNA-seq数据中转录本表达丰度的软件。因为使用了pseudoalignment的想法，可以不用alignment，直接测量原始测序数据，因此极大提高了运算速度。因为kallisto极高的速度，可以使用bootstrap精确估计的“不确定性（uncertainty）”，可以配合下游软件sleuth确定差异表达基因。
-平台：Linux和Mac
-快速运行：
-首先，建立索引。
-# 查看帮助 $ kallisto index # 建立索引 $ kallisto index -i hg19.</description></item><item><title>UCSC Table下载注释文件</title><link>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</link><pubDate>Tue, 02 Jun 2015 16:49:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</guid><description>在进行RNA-seq数据分析时，需要从UCSC Table下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。
-1. 基因注释信息 下载转录组Ensembl注释文件：
-在“table”选择中，ensemblSource表示Ensembl类型注释，ensemblToGeneName表示Ensembl到基因名注释对应。
-2. rRNA注释信息 分为两步：
-第一步， “table”选择wgEncodeGencodeBasicV19。
-第二步，按照下图编辑“filter”。
-3. tRNA注释信息 分为两步：
-第一步，“track”选择 tRNA Genes。
-第二步，保留pseudo tRNA注释。
-4. 线粒体基因组注释 分为两步：
-第一步， “table”选择wgEncodeGencodeBasicV19。
-第二步，按照下图编辑“filter”。
-参考资料 USCS Genome Browser的Google论坛：1、2
-另一种选择rRNA、tRNA和线粒体组注释的方法How to get tRNA/rRNA/mitochondrial gene GTF file
-Extract rRNA and tRNA features from UCSC Browser
-更新记录 2015年6月1日</description></item><item><title>SSH建立端口转发</title><link>https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/</link><pubDate>Sun, 31 May 2015 21:14:02 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/</guid><description>SSH建立端口转发分为两步：
-1. 连接远程主机 $ ssh -NT -D 8080 usrname@host 其中，-N表示只连接远程主机，不打开远程shell；-T表示不分配TTY；-D表示某端口数据都通过SSH传向远程主机；8080可以设置为其他端口。
-2. 添加Chrome浏览器支持 添加Proxy SwitchySharp插件，之后在SOCKS host栏目中填入地址127.0.0.1，端口8080并启用即可。
-参考网址 SSH隧道翻墙的原理和实现
-SSH原理与运用（二）：远程操作与端口转发
-更新记录 2017年5月31日</description></item><item><title>确定TopHat中mate-inner-dist参数</title><link>https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/</link><pubDate>Sat, 23 May 2015 19:08:19 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/</guid><description>对于双端测序RNA-seq数据，TopHat在运行时候，有两个参数-r/--mate-inner-dist和--mate-std-dev分别标识一对reads的间隔长度的期望平均值和标准差，其默认值分别为50bp和20bp。这两个参数本身是个估计值，用于TopHat在map过程中确定一对reads是否匹配到基因组正确位置。如果能够准确设定这两个数值，将会提升TopHat结果的准确性和完整性，参考一个例子。
-有两种方法获得这对参数的准确值：
-第一种：获取RNA-seq实验建库方法，之后按照以下网址说明计算，RNA-seq差异表达分析工作流程。
-第二种：根据RNA-seq数据进行估算，具体步骤为：
-使用TopHat默认参数先跑一遍。
-使用MISO的pe_utils工具估算。
-以下详细介绍pe_utils使用方法。
-第一步， 下载对应物种的基因注释文件GTF或者GFF，比如USCS Table Browser（output format选择GTF）或者使用MISO提供的Ensembl版本。如果GTF文件，使用Cufflinks的gffread工具进行转换。
-第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似chr1命名，而另外一些使用1。如果不一致，建议修改GFF文件。
-# 查看GFF文件中基因组命名 $ awk &amp;#39;{print $1}&amp;#39; hg19USCS.gff | sort -n | uniq -c # 查看bam文件中基因组命名 samtools view accepted_hits.bam | head -1000 | awk &amp;#39;{print $3}&amp;#39; | sort -n | uniq -c 第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了exon_utils工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为hg19USCS.gff，输出筛选的文件名为hg19USCS_selected.gff。
-gffFile &amp;lt;- read.table(&amp;#39;hg19USCS.gff&amp;#39;, stringsAsFactors = FALSE) gffExon &amp;lt;- gffFile[gffFile[, 3] == &amp;#39;exon&amp;#39;, ] exonLen &amp;lt;- abs(gffExon[, 5] - gffExon[, 4]) gffExonSelect &amp;lt;- gffExon[exonLen &amp;gt;= 1000, ] write.</description></item><item><title>过滤TopHat分析双端测序的输出</title><link>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</link><pubDate>Sat, 16 May 2015 04:33:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</guid><description>0. 结论 在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成accepted_hits.bam文件，处理方法如下：
-# 首先查看bam文件头部有多少行 $ samtools view -H accepted_hits.bam | wc -l 86 # 筛选成对且成功map到基因组唯一位置的reads，按照上一条输出结果，调整“NR &amp;lt;= 86” $ samtools view -h accepted_hits.bam | \ awk &amp;#39;{if (NR &amp;lt;= 86) print $0}; {if($5 == 50 &amp;amp;&amp;amp; ($2 == 163 || $2 == 147 || $2 == 83 || $2 == 99)) print $0}&amp;#39; | \ samtools view -b - &amp;gt; accepted_filtered.bam $ samtools view accepted_filtered.bam | wc -l 79143942 1. TopHat输出sam文件的第五列 TopHat文档没有解释其输出bam文件（比如accepted_hits.</description></item><item><title>清洗二代测序数据</title><link>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</link><pubDate>Mon, 28 Jul 2014 20:11:18 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</guid><description>1. FastQC 简介：FastQC是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看输出结果解释。
-平台：所有平台。
-安装： 依赖Java，下载后直接安装使用。
-快速运行：
-# 输出分析结果至特定文档 $ fastqc seqFile1 --outdir setFolder1 # 支持批量处理测序数据 $ fastqc seqFile1 seqFile2 seqFileN # 查看帮助信息 $ fastqc --help # 查看一共分析了多少个reads，比如fastqc文件为“accepted_filtered_fastqc.zip” $ unzip -p accepted_filtered_fastqc.zip accepted_filtered_fastqc/fastqc_data.txt | \ sed -n &amp;#39;7 p&amp;#39; | \ awk &amp;#39;{print $3}&amp;#39; 2. Trim Galore! 简介：Trim Galore!是对FastQC和Cutadapt的包装。可以处理Illumina、Nextera 3和smallRNA测序平台的双端和单端数据，包括去除adapter和低质量reads。
-平台：Linux
-安装:
-需要先分别安装FastQC和Cutadapt，其中Cutadapt安装使用 # pip install cutadapt 快速运行：
-# 处理双端测序结果 $ trim_galore --quality 20 --phred33 --stringency 3 --length 20 --paired \ --gzip --output_dir human_trimgalore \ mySeq_1_1.</description></item><item><title>二代测序中的短序列比对</title><link>https://YulongNiu.github.io/posts/2014-07-25-short-sequence-alignment/</link><pubDate>Fri, 25 Jul 2014 14:04:25 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-25-short-sequence-alignment/</guid><description>在二代测序数据分析中，非常重要的一步是将测得的短序列“对应”到基因组上。所使用的工具被称为“短序列比对工具（short sequence aligners）”。以下是一些常用工具的介绍。
-1. Bowtie 简介：Bowtie2是现在广泛使用的序列比对工具。
-运行方式：所有平台
-特点：
-相比较Bowtie1，处理大于50bp的短序列，速度更快、也更敏感。Bowtie1在处理小于50bp的短序列上，效果更好。
-iGenomes提供一些事先编排（index）的基因组。
-快速运行：
-# 建立一系列FASTA文件目录 $ bowtie2-build /filePath/genomeFastaFile indexName # 从已经index文件中提取原始基因组 $ bowtie2-inspect indexName &amp;gt; genomeFastaFile # unpaired序列比对 $ bowtie2 -p 4 -x indexName -U readFiles -S samFileName # paired序列比对 $ bowtie2 -p 4 -x indexName -1 readFiles1 -2 readFiles2 -S eg2.sam -p：多线程
--x：之后跟index名称
--U：测序文件（比如Fasta，Fastq文件）
--1/-2：标识paired文件
--S：SAM格式输出文件
-参考网址 Heng Li总结的工具列表</description></item><item><title>RNA-Seq基本概念和数据分析流程</title><link>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</link><pubDate>Tue, 22 Jul 2014 17:03:15 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</guid><description>RNA-Seq相比较基因芯片，价格虽然昂贵一些，精度和灵敏度更高。同时，在测序深度足够时，也可以检测mRNA选择性剪切类型。
-1. 样品制备 2. 测序 Illumina双端测序动画和图示。
-3. 分析流程 RNA-Seq主要分析流程：
-原始数据质量评估 --&amp;gt; 数据清洗（去除接头和低质量read） --&amp;gt; 清洗数据质量评估 --&amp;gt; map测序结果至基因组（转录组） --&amp;gt; map数据质量评估 --&amp;gt; 差异表达基因/选择性剪切/新基因/融合基因选择 --&amp;gt; GO和pathway分析 --&amp;gt; 共表达网络分析 3.1 序列清洗 序列清洗主要是去除测序结果中的adapter或通用引物等。
-以下使用Illumina HiSeq2000平台，对一个人类样本的RNA测序。统计各种序列清洗方法和选择后的reads数目。原始数据两端测序reads分别为54,492,228和54,492,228。
-Method #Trimmed #Mapped* #Filtered r50-notrim 108,984,456 109,278,388 79,143,942 r50-nomixed-notrim 108,984,456 103,548,800 79,143,942 r50-nomixed-trimmomatic-min20 104,164,622 116,315,394 80,337,256 r50-nomixed-trimmomatic-min36 101,548,172 110,778,108 79,248,896 r50-nomixed-trimmomatic-min50 98,525,312 106,659,988 77,779,424 r50-nomixed-galore-min20 107,097,862 114,943,386 83,039,928 r100-nomixed-galore-min20 107,097,862 114,944,672 87,899,316 r165sd45-nomixed-galore-min20 107,097,862 114,201,366 90,750,208 r165sd45G-nomixed-galore-min20 107,097,862 109,901,742 93,477,122 r165sd45-nomixed-galore-min50 104,869,208 109,258,544 89,329,672 *：使用TopHat2把序列mapped到hs19基因组。TopHat2默认设置为，如果一个reads能mapped到多个位点，则都会报道。因此数目可能比原始数据多。 4.</description></item><item><title>TopHat/Cufflinks/CummeRbund使用介绍</title><link>https://YulongNiu.github.io/posts/2014-07-26-tophat-cufflinks-cummerbund/</link><pubDate>Thu, 26 Jun 2014 14:51:56 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-26-tophat-cufflinks-cummerbund/</guid><description>TopHat、Cufflinks和cummeRbund，被称为处理RNA-seq数据的“燕尾服（tuxedo）”。TopHat负责RNA-seq的reads映射比对到基因组，并且自动识别mRNA“内含子-外显子”剪切；Cufflinks擅长组装转录组和寻找差异表达基因（或转录起始位点TSS等）；cummeRbund主攻数据可视化。
-1. Tophat 简介：TopHat是快速将RNA测序片段“对应（mapping）”到基因组上的工具，优势在于处理外显子间的剪切。内部首先使用bowtie或bowtie2把RNA测序片段“比对（alignment）”到基因组，之后再分析和鉴定剪切连接区域。
-平台：Mac OS/Linux
-快速运行：
-# 双端测序 $ tophat2 -p 8 -o human_1 \ --mate-inner-dist 165 --mate-std-dev 45 --no-mixed \ hg19 human_1.fastq.gz human_2.fastq.gz # 单端测序 $ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz 重要参数解释：
--p：设置线程数，用于多核计算。
--o：执行输入文件夹。
--r/--mate-inner-dist：一对reads的间隔长度的期望平均值，默认值为50bp，建议添加。具体解释，参考RNA-seq差异表达分析工作流程和Tophat中-r/–mate-inner-dist参数。
---mate-std-dev：一对reads的间隔长度分布的标准差，默认值为20bp，建议添加。-r/--mate-inner-dist和--mate-std-dev的估计方法参考确定TopHat中mate-inner-dist参数。
---library-type：
-测序仪器和方法，默认为标准Illumina平台的fr-unstranded。其他平台设置，详见TopHat说明文档、How to tell which library type to use (fr-firststrand or fr-secondstrand)?和链特异性转录组原理。
-如果分不清楚fr-firststrand和fr-secondstrand，推荐两种方法：第一种用两个参数试运行一个有1M reads的小样本，之后比较junction.bed大小；第二种在两个双端测序文件（fastq.gz）中抽取一些reads，之后Blat到USCS genomes上观察。
---no-discordant：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考过滤TopHat分析双端测序的输出。
---no-mixed：只对于paired reads，只报告paired reads都成功map。TopHat默认不加这个参数，即如果对于一个read，如果没有找到alignment的concordant或者discordant mate，那么这一对read将分别寻找和报道各自的alignment。这个参数与--no-discordant不同，因为加上--no-mixed也可能报道discordant pairs（例如一对reads都成功alignment，但是方向或者之间距离不对）。
--g/--max-multihits：对于多个map的reads，设定报告数目，默认数值为20。需要注意，尽管这个参数可以设定为1，也不能用于设定唯一map的read。因为某个read有可能map到基因组多个位点，当设定为1时，只会返回得分最高的情况。
-后续操作：
-TopHat2运行后查看align_summary.txt获得比对结果。
-TopHat2会输出accepted_hits.bam（接受map的reads文件）和unmapped.bam（没有map上的reads文件）。对于后者，使用基因组浏览器，如IGV或者UCSC Genome Browser大致看下是有无map，之后可以直接丢弃。</description></item><item><title>Circos Notes</title><link>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</link><pubDate>Mon, 17 Mar 2014 15:37:45 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</guid><description>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&amp;rsquo;t afford to miss it. If it doesn&amp;rsquo;t exist, you can&amp;rsquo;t afford to be fooled into thinking that it&amp;rsquo;s there, or left wondering whether it&amp;rsquo;s occluded by other data.</description></item><item><title>A brief intruction of mutual information and demonstration with R</title><link>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</link><pubDate>Sun, 10 Nov 2013 01:21:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</guid><description>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$
-Mututal Information (MI) Introduction Mutual Information (MI) is used to measure the distance between two genes vectors, for example $x_1 = {{1, 0, 1, 1, 1, 1, 0}}$ and $y_1 = {{0, 1, 1, 1, 1, 1, 0}}$. It is easily to transfer the two vectors into a binary table:
-X/Y 1 (Presence) 0 (Absence) Sum 1(Presence) a b a+b 0(Absence) c d c+d Sum a+c b+d n=a+b+c+d Typically, here we give the example of two discrete variables, the mutual information between $x_1$ and $y_1$ is</description></item><item><title>探索EM算法</title><link>https://YulongNiu.github.io/posts/2013-07-13-em/</link><pubDate>Sat, 13 Jul 2013 19:23:22 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
-$$ \DeclareMathOperator*{\argmax}{arg\ max\ } $$
-$$ \newcommand{\Pz}{\P \left( z|y_j, \theta^{(n)} \right)} $$
-$$ \newcommand{\Pyz}{\P \left( y_j, z|\theta^{(n)} \right)} $$
-EM算法的推出 考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：
-$$ \begin{align} \begin{split} L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) \end{split} \label{eq:1} \end{align} $$
-为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，否能找到一个方法，将求和放在对数外面？ 一个常用的技巧是转化为不等式，Jensen&amp;rsquo;s inequality描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：
-$$ \begin{align} \begin{split} L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \Pz \frac{\P(y_j, z|\theta)}{\Pz} \right) - L(\theta^{(n)}) \newline &amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \Pz \log \left( \frac{\P(y_j, z|\theta)}{\Pz} \right) \newline &amp;amp;- \sum_{j=1}^m \log \left( \P \left( y_j|\theta^{(n)} \right) \right) \left( \sum_{z \in Z} \Pz \right) \newline &amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \Pz \log\left(\frac{\P(y_j, z|\theta)}{\Pyz} \right) \end{split} \label{eq:2} \end{align} $$</description></item><item><title>生物信息学工具网址</title><link>https://YulongNiu.github.io/posts/2013-06-18-bioinfor-tools/</link><pubDate>Tue, 18 Jun 2013 16:42:10 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2013-06-18-bioinfor-tools/</guid><description>1. 基因组注释信息 NCBI ftp 下载基因组
-Craig Venter Institute
-Ensembl
-2. 进化树 进化树展示
-Wiki software list
-Biostats总结
-iTOL
-Dendroscope
-进化树构建
-RAxML
-PhyML
-PHYLIP，在PHYLIP的介绍中，列出了六个高使用率的构建进化树的软件，MrBayes、PAUP*、RAxML、PhyML、MEGA和PHYLIP。
-已知进化树
-Open Tree of Life 时间尺度进化树
-TimeTree sRNA数据库
-16S/23S数据库
-细菌16S数据库
-真核生物rRNA
-数据格式转换
-fasta转换为Phylip
-进化树newick和nexus格式转换
-R package ape，提供了函数read.tree()/write.tree()，read.nexus()/read.nexus()。 通用格式转换工具
-3. 网络可视化 Cytoscape
-3D网络BioLayout Expression3D
-VisAnt
-Circos
-4. 序列比对 Clustal
-Blast
-Blast+
-EBI总结
-MAFFT
-MUSCLE
-T-Coffee
-MEGA
-5. 质谱分析 X!Tandem
-X!Tandem bacterial
-ProteinProspector
-R packages list
-Mascot
-OpenMS 最大的开源质谱数据分析平台
-6. 基因/蛋白质注释 Acembly</description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>$$ \newcommand{\P}{\mathrm{P}} $$
-1. 完备事件 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：
-$$ \begin{align} \begin{split} \P(x_1) + \P(x_2) + \dots + \P(x_n) = 1 \end{split} \label{eq:1} \end{align} $$
-常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$
-2. 全概率公式 对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：
-$$ \begin{align} \begin{split} \P(Y) &amp;amp;= \P(Y, x_1) + \P(Y, x_2) + \dots + \P(Y, x_n) \newline &amp;amp;= \P(x_1)\P(Y|x_1) + \P(x_2)\P(Y|x_2) + \dots + \P(x_n)\P(Y|x_n) \end{split} \label{eq:2} \end{align} $$
-使用概率密度函数表示为：
-$$ \begin{align} \begin{split} f(Y) &amp;amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline &amp;amp;= \int_{-\infty}^{+\infty}f(Y|x)f(x) \mathrm{d}x \end{split} \label{eq:3} \end{align} $$</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioinfo on Yulong Niu</title><link>https://YulongNiu.github.io/tags/bioinfo/</link><description>Recent content in Bioinfo on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Mon, 15 Apr 2019 14:58:58 +0200</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/bioinfo/index.xml" rel="self" type="application/rss+xml"/><item><title>DESeq2包的对比组设计</title><link>https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/</link><pubDate>Mon, 15 Apr 2019 14:58:58 +0200</pubDate><guid>https://YulongNiu.github.io/posts/2019-04-15-deseq2-design/</guid><description>&lt;h2 id="1-两两比对">1. 两两比对&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>DataFrame with 12 rows and 2 columns
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> condition genotype
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;factor&amp;gt; &amp;lt;factor&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample1 A I
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample2 A I
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample3 A I
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample4 A II
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample5 A II
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>... ... ...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample8 B I
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample9 B I
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample10 B II
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample11 B II
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sample12 B II
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>组A &lt;em>vs.&lt;/em> 组B。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-R" data-lang="R">&lt;span style="display:flex;">&lt;span>dds &amp;lt;- makeExampleDESeqDataSet(n = 100, m = 12)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dds$genotype &amp;lt;- factor(rep(rep(c(&lt;span style="color:#a31515">&amp;#39;I&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;II&amp;#39;&lt;/span>), each=3), 2))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## condition: A vs. B&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>design(dds) &amp;lt;- ~ condition
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ddres &amp;lt;- DESeq(dds)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>res &amp;lt;- results(ddres, contrast = c(&lt;span style="color:#a31515">&amp;#39;condition&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;B&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;A&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## genotype I vs. II&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>design(dds) &amp;lt;- ~ genotype
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ddres &amp;lt;- DESeq(dds)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>res &amp;lt;- results(ddres, contrast = c(&lt;span style="color:#a31515">&amp;#39;genotype&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;I&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;II&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## A vs. B at genotype II&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dds$group &amp;lt;- factor(paste0(dds$genotype, dds$condition))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>design(dds) &amp;lt;- ~ group
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ddres &amp;lt;- DESeq(dds)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>results(ddres, contrast = c(&lt;span style="color:#a31515">&amp;#39;group&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;IIB&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;IIA&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-交叉项">2. 交叉项&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-R" data-lang="R">&lt;span style="display:flex;">&lt;span>dds &amp;lt;- makeExampleDESeqDataSet(n = 100, m = 12)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dds$genotype &amp;lt;- factor(rep(rep(c(&lt;span style="color:#a31515">&amp;#39;I&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;II&amp;#39;&lt;/span>), each=3), 2))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>design(dds) &amp;lt;- ~ genotype + condition + genotype:condition
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ddres &amp;lt;- DESeq(dds) 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## A vs. B at genotype I&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>res &amp;lt;- results(ddres, contrast = c(&lt;span style="color:#a31515">&amp;#39;condition&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;B&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;A&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## A vs. B at genotype II&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>res &amp;lt;- results(ddres, list(c(&lt;span style="color:#a31515">&amp;#39;condition_B_vs_A&amp;#39;&lt;/span>, &lt;span style="color:#a31515">&amp;#39;genotypeII.conditionB&amp;#39;&lt;/span>)))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## condition effect *different* across genotypes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>res &amp;lt;- results(ddres, name = &lt;span style="color:#a31515">&amp;#39;genotypeII.conditionB&amp;#39;&lt;/span>) 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，第二例子中的&lt;code>A vs. B at genotype II&lt;/code>与第一个的区别是，考虑了交叉项的影响。如果只是为了两两比对，可以考虑使用第一个例子的处理方法。&lt;/p></description></item><item><title>通过RNA-Seq评估基因表达量的模型</title><link>https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/</link><pubDate>Sat, 17 Feb 2018 18:23:29 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2018-02-17-estimate-rna-seq/</guid><description>&lt;p>$$
+\newcommand{\tildel}{\widetilde{l_t}}
+$$&lt;/p>
+&lt;p>$$
+\newcommand{\P}{\mathrm{P}}
+$$&lt;/p>
+&lt;p>$$
+\DeclareMathOperator*{\argmax}{arg,max}
+$$&lt;/p>
+&lt;p>本文基于&lt;a href="#Ref">参考资料1&lt;/a>，展示RNA-Seq在评估基因表达量模型的细节。&lt;/p>
+&lt;h2 id="1-符号表示">1. 符号表示&lt;/h2>
+&lt;p>$K$个长度为$l_i$的转录序列$t_i$，构成转录本的集合$T=\{t_1, t_2, \dots, t_K\}$。单个转录组中，每个转录序列$t_i$有$c_i$个拷贝数，全部转录序列的总拷贝数为$M$。单个转录序列的相对丰度为$\rho_k=\frac{c_k}{\sum\limits_{t \in T} c_t} = \frac{c_k}{M}$，易得$\sum\limits_{k=1}^K \rho_k=1$。&lt;/p>
+&lt;p>单个转录组中，全部转录片段构成集合$F=\{f_1, f_2, \dots, f_N\}$，总转录片段数目为$N=|F|$。比对到的转录序列$t_i$上的转录片段，构成集合$F_t \in F$，对应的转录片段数目为$X_t=|F_t|$。&lt;/p>
+&lt;h2 id="2-简单模型">2. 简单模型&lt;/h2>
+&lt;p>简单模型为：单端RNA-Seq，每一个read只比对到一个转录序列上，且每个read的长度都为定值$m$。对于转录序列$t_i$，从&lt;code>5'&lt;/code>到&lt;code>3'&lt;/code>一共可能比对上的read数目为$\tildel = l_i - m + 1$。建立模型的思路是：当给定一个read，它会被比对到某个转录序列的某个位置是一个随机事件。通过实际观测（即将read比对到转录序列），进而估计未知参数$\rho = \{\rho_1, \rho_2, \dots, \rho_K\}$。&lt;/p>
+&lt;p>通过read序列比对，可得观测数据类似如下矩阵。每一行表示某个read是否比对到某个转录序列的某个位置，行和为1。$1$表示read比对到对应转录序列上，$0$表示没有比对到对应转录序列。&lt;/p>
+&lt;p>$$
+\left[
+\begin{matrix}
+0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 1 \newline
+0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 0 \newline
+\vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \newline
+0 &amp;amp; 0 &amp;amp; \cdots &amp;amp; 1 \newline
+\end{matrix}
+\right]
+$$&lt;/p></description></item><item><title>Bray-Curtis distance解释</title><link>https://YulongNiu.github.io/posts/2017-10-24-bray-curtis-distance/</link><pubDate>Tue, 24 Oct 2017 12:26:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-24-bray-curtis-distance/</guid><description>&lt;p>$$
+\newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1}
+$$&lt;/p>
+&lt;p>Bray-Curtis distance（BCD）的定义为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+BCD(X, Y) = \frac{\sumup{|x_i - y_j|}}{\sumup{x_i} + \sumup{y_i}}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>其中，$X$和$Y$分别为长度为$n$的数值向量。根据$\eqref{eq:1}$可以得出：$BCD$的取值范围为$[0, 1]$；当$X$和$Y$完全相同时，$BCD$为0；反之，$BCD$为1。&lt;/p>
+&lt;p>同样，Bray-Curtis similarity（BCS）或Bray-Curtis index为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+BCS(X, Y) = 1 - BCD(X, Y)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://84.89.132.1/~michael/stanford/maeb6.pdf">Chapter 6 Measures of distance and correlation between variables&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2017年10月22日&lt;/p></description></item><item><title>Normalized Google distance解释</title><link>https://YulongNiu.github.io/posts/2017-10-22-google-distance/</link><pubDate>Sun, 22 Oct 2017 21:35:30 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-22-google-distance/</guid><description>&lt;p>$$
+\newcommand{\sumup}[1] {\sum\limits_{i=1}^{n} #1}
+$$&lt;/p>
+&lt;p>本文尝试探索Normalized Google distance（简称NGD）的定义和拓展应用。&lt;/p>
+&lt;h3 id="1-ngd原始定义">1. NGD原始定义&lt;/h3>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Normalized_Google_distance">维基百科&lt;/a>的定义为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+NGD(x, y) = \frac{\max{\log f(x), \log f(y)} - \log f(x, y)}{\log N - \min{\log f(x), \log f(y)}}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>其中，$f(x)$和$f(y)$分别为关键词$x$和$y$出现的次数，$f(x,y)$为$x$和$y$同时出现的次数，$N$为全部搜索单词数目。根据$\eqref{eq:1}$可以得出：如果$x$和$y$几乎总是同时出现时，$NGD$趋近于$0$；如果$x$和$y$出现的次数很少，即$\log f(x,y)$趋近于负无穷，则$NGD$可能大于$1$。&lt;/p>
+&lt;h3 id="2-ngd定义延伸">2. NGD定义延伸&lt;/h3>
+&lt;p>Choi and Rashid在2008年的&lt;a href="#Ref">文章&lt;/a>提出一种针对向量的$NGD$定义：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+NGD(X, Y) &amp;amp;= \frac{\max\left\{\sumup{x_i}, \sumup{y_i}\right\} - \sumup{\min(x_i, y_i)}}{\sumup{x_i} + \sumup{y_i} - \sumup{\min(x_i, y_i)}} \newline
+&amp;amp;= \frac{\max\left\{\sumup{x_i}, \sumup{y_i}\right\} - \sumup{\min(x_i, y_i)}}{\max\left\{\sumup{x_i}, \sumup{y_i}\right\}}
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p></description></item><item><title>最大熵模型</title><link>https://YulongNiu.github.io/posts/2017-10-16-max-entropy/</link><pubDate>Mon, 16 Oct 2017 13:16:12 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-16-max-entropy/</guid><description>&lt;h3 id="1-熵和条件熵">1. 熵和条件熵&lt;/h3>
+&lt;p>对于随机变量$X$，熵为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+H(X) = -\sum_{x \in X}p(x)\log{p(x)}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>其中：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+\sum_{x \in X}p(x) = 1
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;p>同样道理，对于任意随机变量$X$和$Y$，联合熵为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+H(X,Y) = -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)}
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p>
+&lt;p>基于$X$的$Y$的熵为条件熵：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+H(Y|X) &amp;amp;= H(X, Y) - H(X) \newline
+&amp;amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X}p(x)\log{p(x)} \newline
+&amp;amp;= -\sum_{x \in X, y \in Y}p(x,y)\log{p(x,y)} + \sum_{x \in X, y \in Y}p(x, y)\log{p(x)} \newline
+&amp;amp;= -\sum_{x \in X, y \in Y}p(x, y)\log \frac{p(x, y)}{p(x)}
+\end{split}
+\label{eq:4}
+\end{align}
+$$&lt;/p></description></item><item><title>朴素贝叶斯分类器应用于二元数据类型</title><link>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</link><pubDate>Sun, 15 Oct 2017 17:38:16 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-10-15-naive-bayes-binary-multinomial/</guid><description>&lt;h3 id="1-贝叶斯定理">1. 贝叶斯定理&lt;/h3>
+&lt;p>已知事件$A$和$B$，则条件概率为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+P(A | B) &amp;amp;= \frac{P(A,B)}{P(B)} \newline
+P(B | A) &amp;amp;= \frac{P(A,B)}{P(A)}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>可以推导出：&lt;/p>
+&lt;p>$$
+\begin{align}
+P(B|A) = \frac{P(A|B)P(B)}{P(A)}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;h3 id="2-分类器简介">2. 分类器简介&lt;/h3>
+&lt;p>朴素贝叶斯分类器（Naive Bayes classifier）是一种简单、有效的分类器，其难点在于估算条件概率。比如，一个数据集拥有$N$个相互独立的特征，$C$个分组，对于$C_j$条件概率模型为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+p(C_j|F_1,\cdots,F_n) &amp;amp;= \frac{p(F_1,\cdots,F_n|C_j)p(C_j)}{p(F_1,\cdots,F_n)} \newline
+&amp;amp;= p(F_1|C_j) \cdots p(F_n|C_j)p(C_j)(1/p(F_1,\cdots,F_n))
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p>
+&lt;p>由于$1/p(F_1,\cdots,F_n)$在不同分组中为定值，因此：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+p(C_j|F_1,\cdots,F_n) &amp;amp;\propto p(C_j)\prod_{i=1}^{N}p(F_i|C_j)
+\end{split}
+\label{eq:4}
+\end{align}
+$$&lt;/p>
+&lt;p>其中，$p(C_j)$通常容易求得，即$C_j$分组在测试数据集中出现的频率。而$p(F_i\ \vert C_j)$则根据不同的测试数据类型，有不同的估计值。&lt;/p>
+&lt;p>以下讨论两种二元数据类型，例如某个数据集有三种特征量：&lt;/p>
+&lt;p>$$
+F =
+\left[
+\begin{array}{f}
+F_1 \newline
+F_2 \newline
+F_3
+\end{array}
+\right]
+$$&lt;/p></description></item><item><title>如何在Nature communications上发表文章</title><link>https://YulongNiu.github.io/posts/2016-09-22-how-to-publish-in-nc/</link><pubDate>Thu, 22 Sep 2016 16:25:13 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-22-how-to-publish-in-nc/</guid><description>&lt;p>我最近看到一个&lt;a href="http://spotidoc.com/doc/159334/how-to-get-published-in-nature-communications">幻灯片&lt;/a>，主要讲了在Nature Communications（NC）上发表文章的建议，作者是NC的副主编Nicky Dean。整个幻灯片一种轻松幽默的口吻，讲述了投稿和发表文章过程的各种问题，并提出了针对性建议，值得推荐。以下记录一些关键信息。&lt;/p>
+&lt;h3 id="投稿前注意事项">投稿前注意事项&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Nature杂志（可能此处也指NC）只考虑有重大创新（conceptually novel）的工作，而不是补充完善数据类型研究。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>不要有快速发表的想法。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>不介意会议报告或者预印服务网站发表。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>介意发表在出版的会议录（conference proceedings）或者其他大规模传播的媒介上。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="准备充分">准备充分&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>问问自己这个研究适合于本领域的哪些地方？这个研究是否有显著的进步？&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>从一开始就好好准备文稿，比如文稿有清晰的结构、容易理解，并且能够传达出最主要信息。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>阅读《作者须知》，使得文稿符合杂志的要求。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="准备cover-letters">准备cover letters&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>解释工作的创新，但不要过了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>推荐审稿人，但不能都是自己的熟人。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可以推荐需要屏蔽的审稿人。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>明确一切相关的正在发表或者已经投稿的文章。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="文章要素">文章要素&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>解释清楚研究领域背景，即回答“我们为什么要重视这项研究？”&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>清晰地描述做了什么工作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>连接研究内容和领域背景，以说服别人这项研究确实有重大突破。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>发表文章的目的是为了更有效地交流，而不是显示自己有聪明!&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="nc编辑审核常规要点">NC编辑审核常规要点&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>研究的创新性。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>支持数据。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>作者或者他人之前的研究。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>参考文献是否完成，是否重大遗漏。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="应对审稿人意见">应对审稿人意见&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>如果被邀请重新提交文章，确保文章解决了&lt;strong>所有&lt;/strong>审稿人提出的问题。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果被要求进一步实验，不要尝试规避。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>保持专业，不要使用侮辱性语言、自大或者恐吓。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>审稿人也可能会犯错，并且记住他们是自己同行专家。不管怎样，以后大家还是要一起打交道。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2016年9月22日&lt;/p></description></item><item><title>HISAT2使用问答</title><link>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</link><pubDate>Sat, 10 Sep 2016 16:32:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-hisat2-faq/</guid><description>&lt;p>&lt;a href="https://ccb.jhu.edu/software/hisat2/manual.shtml#the-hisat2-build-indexer">HISAT2&lt;/a>是一款用于“对应（map）”二代测序数据（全基因组、转录组和外显子组）至目标基因组的工具，用来替代&lt;a href="http://ccb.jhu.edu/software/hisat/index.shtml">HISAT&lt;/a>和&lt;a href="http://www.ccb.jhu.edu/software/tophat/index.shtml">TopHat2&lt;/a>。本文汇集一些使用HISAT2的常见问题问答。&lt;/p>
+&lt;h3 id="如何解读hisat2的输出统计">如何解读HISAT2的输出统计？&lt;/h3>
+&lt;p>一个常见的双端测序样本HISAT2输出统计：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>10000 reads; of these:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 10000 (100.00%) were paired; of these:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 650 (6.50%) aligned concordantly 0 times
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 8823 (88.23%) aligned concordantly exactly 1 time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 527 (5.27%) aligned concordantly &amp;gt;1 times
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ----
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 650 pairs aligned concordantly 0 times; of these:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 34 (5.23%) aligned discordantly 1 time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ----
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 616 pairs aligned 0 times concordantly or discordantly; of these:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1232 mates make up the pairs; of these:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 660 (53.57%) aligned 0 times
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 571 (46.35%) aligned exactly 1 time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1 (0.08%) aligned &amp;gt;1 times
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>96.70% overall alignment rate
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>总共10000对reads；&lt;/p></description></item><item><title>常用参考基因组下载地址</title><link>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</link><pubDate>Sat, 10 Sep 2016 13:17:00 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-09-10-reference-genome-location/</guid><description>&lt;p>本文收集了一些常用参考基因组的下载网址和补充说明。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="https://www.ncbi.nlm.nih.gov/genome/">NCBI genome&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://uswest.ensembl.org/info/data/ftp/index.html">Ensembl FTP&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://hgdownload.cse.ucsc.edu/goldenPath/">UCSC FTP&lt;/a>：cytoband文件可能含有&lt;code>gneg&lt;/code>等标识，其中&lt;code>acen&lt;/code>表示着丝粒区域、&lt;code>stalk&lt;/code>表示近端着丝粒区域、&lt;code>gvar&lt;/code>表示异染色质，例如臂间或端粒区域。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.gencodegenes.org/">GENCODE&lt;/a>：只有人和大鼠，注释较好。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://support.illumina.com/sequencing/sequencing_software/igenome.html">iGenomes&lt;/a>：部分模式生物bowtie、bowtie2和BWA索引基因组。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://ccb.jhu.edu/software/hisat2/index.shtml">HISAT2&lt;/a>：部分模式生物HISAT2索引基因组。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2018年8月6日&lt;/p></description></item><item><title>Gibbs取样</title><link>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</link><pubDate>Sat, 03 Oct 2015 14:37:08 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-10-03-gibbs-sampling/</guid><description>&lt;p>$$
+\newcommand{\md}{\mathrm{d}}
+$$&lt;/p>
+&lt;h2 id="1-gibbs取样简介">1. Gibbs取样简介&lt;/h2>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs取样&lt;/a>的核心在于写出多元变量的联合分布，然后根据 $p(X | Y)=\frac{p(X, Y)}{p(Y)}$ 写出各个变量的条件分布，之后使用已有变量样本，依次“抽取-更新”迭代：&lt;/p>
+&lt;p>$$
+\begin{align*}
+\begin{split}
+第n次迭代，变量样本为: x^{(n)} = (x_1^{(n)}, x_2^{(n)}, \dots, x_k^{(n)})^T \newline
+p(x_1 | x_2^{(n)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_1^{(n+1)} \newline
+p(x_2 | x_1^{(n+1)}, x_3^{(n)}, \dots, x_k^{(n)})抽取变量即为x_2^{(n+1)} \newline
+&amp;amp; \vdots \newline
+p(x_k | x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_{k-1}^{(n+1)})抽取变量即为x_k^{(n+1)} \newline
+生成新样本: x^{(n+1)} = (x_1^{(n+1)}, x_2^{(n+1)}, \dots, x_k^{(n+1)})^T
+\end{split}
+\end{align*}
+$$&lt;/p>
+&lt;p>当抽取足够多次时，计算目标函数$f(x)$的均值：&lt;/p>
+&lt;p>$$
+\begin{align*}
+\begin{split}
+f_{mn} = \frac{1}{n-m}\sum_{i = m+1}^{n}f(x^{(i)})
+\end{split}
+\end{align*}
+$$&lt;/p>
+&lt;h2 id="2-结合图模型提高抽样效率">2. 结合图模型提高抽样效率&lt;/h2>
+&lt;p>在实际应用中，可以结合概率图模型提高抽样效率。具体原理是：对于随机变量$x_1, x_2, \dots, x_n$，条件概率：&lt;/p></description></item><item><title>一些共轭先验</title><link>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</link><pubDate>Sun, 02 Aug 2015 15:53:54 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-08-02-conjugate-priors/</guid><description>&lt;p>$$
+\newcommand{\md}{\mathrm{d}}
+$$&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Conjugate_prior#cite_note-beta_rate-6">共轭先验（Conjugate prior）&lt;/a>在贝叶斯估计中被广泛应用，本文尝试详细推理一些常见分布的共轭先验。&lt;/p>
+&lt;p>贝叶斯公式：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(\theta | x) &amp;amp;= \frac{f(\theta, x)}{f(x)} \newline
+&amp;amp;= \frac{f(x | \theta)f(\theta)}{\int f(x | \theta)f(\theta) \md \theta}
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;h2 id="1-离散分布">1. 离散分布&lt;/h2>
+&lt;h3 id="11-伯努利分布">1.1 伯努利分布&lt;/h3>
+&lt;p>伯努利分布（Bernoulli distribution）的概率质量函数为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(k;p) = p^k (1-p)^{1-k} \quad \mathrm{for} \quad k \in (0, 1)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;p>对于随机变量$X_i \in \{X_1, X_2, \dots, X_m\}$易得，$p$的极大似然估计（Maximum Likelihood Estimator, MLE）为$\hat{p}=\frac{\sum_{i=1}^{m}k_i}{m}$。&lt;/p>
+&lt;p>该分布的共轭先验为Beta分布$\mathrm{Beta}(\alpha, \beta)$，即对于随机变量$X_i$：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(p|X_i) &amp;amp;= \frac{p^{k_i} (1-p)^{1-k_i} \frac{1}{\mathrm{B}(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta -1}}{f(X_i)} \newline
+&amp;amp;=\frac{\frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\int_0^1 \frac{1}{\mathrm{B}(\alpha, \beta)} p^{k_i+\alpha-1}(1-p)^{\beta - k_i} \md p} \newline
+&amp;amp;= \frac{p^{k_i+\alpha-1}(1-p)^{\beta - k_i}}{\mathrm{B}(k_i+\alpha, \beta+1 -k_i)} \newline
+&amp;amp;= \mathrm{Beta}(k_i+\alpha, \beta+1-k_i)
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p></description></item><item><title>PostgreSQL使用指南</title><link>https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/</link><pubDate>Wed, 29 Jul 2015 18:24:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-07-29-postgresql-usage/</guid><description>&lt;h2 id="1-查询">1. 查询&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 选取特定的一列或者多列
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> column1, column2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 选取全部列
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> *
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 去除重复，选取一列或多列中唯一元素
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 如输入多列，则去除多列组合后的重复
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> &lt;span style="color:#00f">DISTINCT&lt;/span> column1, column2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 指定输出列数
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- a是输出行数，b是输出起始行（第一行计为0）
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> &lt;span style="color:#00f">column&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">LIMIT&lt;/span> a &lt;span style="color:#00f">OFFSET&lt;/span> b
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>使用&lt;code>;&lt;/code>结束一条SQL语句，本文中省略；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>返回未排序数据；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-排序">2. 排序&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 按照一列或者多列升序排序
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 可以按照“不查询”的列排序
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 先按照column2排，再按照column5排
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> column1, column2, column3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">ORDER&lt;/span> &lt;span style="color:#00f">BY&lt;/span> column2, column5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- 降序
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">-- DESC只作用于最靠近的唯一一列，即column2，不作用于column5
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> column1, column2, column3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">ORDER&lt;/span> &lt;span style="color:#00f">BY&lt;/span> column2 &lt;span style="color:#00f">DESC&lt;/span>, column5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">--使用查询列相对编号
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">&lt;/span>&lt;span style="color:#00f">SELECT&lt;/span> column1, column2, column3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">FROM&lt;/span> dataset
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#00f">ORDER&lt;/span> &lt;span style="color:#00f">BY&lt;/span> 2, column5
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>使用相对列查询时，不查询的列，比如上述例子的column5，不能用数字代替。&lt;/p></description></item><item><title>估计RNA-seq转录本表达量和寻找差异表达基因</title><link>https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/</link><pubDate>Wed, 03 Jun 2015 16:58:01 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-03-quantifing-rna-seq/</guid><description>&lt;h2 id="1-标准化和计数">1. 标准化和计数&lt;/h2>
+&lt;h3 id="11-htseq">1.1 HTseq&lt;/h3>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://www-huber.embl.de/users/anders/HTSeq/doc/index.html">HTseq&lt;/a> 是用于Python平台写成的处理高通量测序的平台。&lt;code>htseq-count&lt;/code>可以用来对原始转录本计数，具体计数规则参考&lt;a href="http://www-huber.embl.de/users/anders/HTSeq/doc/count.html">Counting reads in features with htseq-count&lt;/a>。&lt;/p>
+&lt;p>&lt;strong>平台&lt;/strong>：Python跨平台使用。&lt;/p>
+&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看帮助&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ htseq-count --help
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 对bam文件按照reads名称排序&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ samtools sort -n accepted_filtered.bam accepted_sortname
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 注意“=”前后无空格&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ htseq-count --mode=union --stranded=no --type=exon --idattr=gene_id &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span>	 --format=bam accepted_sort.bam hg19USCS_ensembl.gtf &amp;gt; htseqcount_accepted.hsc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>重要参数解释&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>--mode&lt;/code>：统计落在某个基因上的reads数目的模型，默认值为“union”（&lt;a href="http://www-huber.embl.de/users/anders/HTSeq/doc/count.html">图示&lt;/a>）。作者认为“union”方法在绝大多数情况下都有很好的表现，建议使用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--stranded&lt;/code>：测序方法，默认为“yes”。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--type&lt;/code>：计数单元类型，默认为&lt;a href="http://mblab.wustl.edu/GTF22.html">GTF&lt;/a>文件的&lt;code>exon&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--idattr&lt;/code>：计数单元归类，默认为&lt;code>gene_id&lt;/code>。比如把合并汇报多个exon对应的一个gene。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--format&lt;/code>：可以输入bam或者sam文件，bam文件需要制定此参数。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>补充&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>如果输入的是bam文件，bam文件需要按照reads名称排序，操作方法为：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ samtools sort -n accepted_filerted.bam acceted_sortname
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="12--genomicalignments">1.2 &lt;!-- raw HTML omitted -->GenomicAlignments&lt;!-- raw HTML omitted -->&lt;/h3>
+&lt;p>&lt;a href="http://bioconductor.org/packages/release/bioc/html/GenomicAlignments.html">GenomicAlignments&lt;/a>是R/Bioconductor的一个包，其中&lt;code>summarizeOverlaps&lt;/code>函数用于对alignment数据进行计数。&lt;/p>
+&lt;h3 id="13-kallisto">1.3 Kallisto&lt;/h3>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://pachterlab.github.io/kallisto/">kallisto&lt;/a>是由&lt;a href="http://pachterlab.github.io/">Lior Pachter小组&lt;/a>开发一款快速测量RNA-seq数据中转录本表达丰度的软件。因为使用了&lt;em>pseudoalignment&lt;/em>的想法，可以不用alignment，直接测量原始测序数据，因此极大提高了运算速度。因为kallisto极高的速度，可以使用&lt;a href="http://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap&lt;/a>精确估计的“不确定性（uncertainty）”，可以配合下游软件sleuth确定差异表达基因。&lt;/p></description></item><item><title>UCSC Table下载注释文件</title><link>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</link><pubDate>Tue, 02 Jun 2015 16:49:41 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-06-02-download-ucsc-gene-mask/</guid><description>&lt;p>在进行RNA-seq数据分析时，需要从&lt;a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC Table&lt;/a>下载各种注释信息。比如Cufflinks等要求的转录组注释信息、Cufflinks建议去除的rRNA/tRNA/线粒体组注释。&lt;/p>
+&lt;h2 id="1-基因注释信息">1. 基因注释信息&lt;/h2>
+&lt;p>下载转录组Ensembl注释文件：&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_ensembl.png" alt="hg19_ensembl.png">&lt;/p>
+&lt;p>在“table”选择中，&lt;code>ensemblSource&lt;/code>表示Ensembl类型注释，&lt;code>ensemblToGeneName&lt;/code>表示Ensembl到基因名注释对应。&lt;/p>
+&lt;h2 id="2-rrna注释信息">2. rRNA注释信息&lt;/h2>
+&lt;p>分为两步：&lt;/p>
+&lt;p>第一步， “table”选择&lt;code>wgEncodeGencodeBasicV19&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_rRNA.png" alt="hg19_rRNA.png">&lt;/p>
+&lt;p>第二步，按照下图编辑“filter”。&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_rRNA_maskTable.png" alt="hg19_rRNA_maskTable.png">&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_rRNA_mask.png" alt="hg19_rRNA_mask.png">&lt;/p>
+&lt;h2 id="3-trna注释信息">3. tRNA注释信息&lt;/h2>
+&lt;p>分为两步：&lt;/p>
+&lt;p>第一步，“track”选择 &lt;code>tRNA Genes&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_tRNA.png" alt="hg19_tRNA.png">&lt;/p>
+&lt;p>第二步，保留pseudo tRNA注释。&lt;/p>
+&lt;p>&lt;img src="images/hg19_tRNA_mask.png" alt="hg19_tRNA_mask.png">&lt;/p>
+&lt;h2 id="4-线粒体基因组注释">4. 线粒体基因组注释&lt;/h2>
+&lt;p>分为两步：&lt;/p>
+&lt;p>第一步， “table”选择&lt;code>wgEncodeGencodeBasicV19&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_chrM.png" alt="hg19_chrM.png">&lt;/p>
+&lt;p>第二步，按照下图编辑“filter”。&lt;/p>
+&lt;p>&lt;img src="https://YulongNiu.github.io/images/hg19_chrM_mask.png" alt="hg19_chrM_mask.png">&lt;/p>
+&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>USCS Genome Browser的Google论坛：&lt;a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!topic/genome/IL_aeOuPYU0">1&lt;/a>、&lt;a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!msg/genome/jSAY8w1JVVo/P6lk4OJzDNEJ">2&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>另一种选择rRNA、tRNA和线粒体组注释的方法&lt;a href="http://onetipperday.blogspot.tw/2012/08/how-to-get-trnarrnamitochondrial-gene.html">How to get tRNA/rRNA/mitochondrial gene GTF file&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://webappl.blogspot.tw/2015/02/extract-rrna-and-trna-features-from.html">Extract rRNA and tRNA features from UCSC Browser&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2015年6月1日&lt;/p></description></item><item><title>SSH建立端口转发</title><link>https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/</link><pubDate>Sun, 31 May 2015 21:14:02 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-31-ssh-tunnel/</guid><description>&lt;p>SSH建立端口转发分为两步：&lt;/p>
+&lt;h2 id="1-连接远程主机">1. 连接远程主机&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ ssh -NT -D 8080 usrname@host
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>-N&lt;/code>表示只连接远程主机，不打开远程shell；&lt;code>-T&lt;/code>表示不分配TTY；&lt;code>-D&lt;/code>表示某端口数据都通过SSH传向远程主机；&lt;code>8080&lt;/code>可以设置为其他端口。&lt;/p>
+&lt;h2 id="2-添加chrome浏览器支持">2. 添加Chrome浏览器支持&lt;/h2>
+&lt;p>添加&lt;a href="https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm?hl=en">Proxy SwitchySharp插件&lt;/a>，之后在SOCKS host栏目中填入地址&lt;code>127.0.0.1&lt;/code>，端口&lt;code>8080&lt;/code>并启用即可。&lt;/p>
+&lt;h3 id="参考网址">参考网址&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://www.pchou.info/linux/2015/11/01/ssh-tunnel.html">SSH隧道翻墙的原理和实现&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html">SSH原理与运用（二）：远程操作与端口转发&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="更新记录">更新记录&lt;/h3>
+&lt;p>2017年5月31日&lt;/p></description></item><item><title>确定TopHat中mate-inner-dist参数</title><link>https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/</link><pubDate>Sat, 23 May 2015 19:08:19 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-23-tophat-inner-distance/</guid><description>&lt;p>对于双端测序RNA-seq数据，TopHat在运行时候，有两个参数&lt;code>-r/--mate-inner-dist&lt;/code>和&lt;code>--mate-std-dev&lt;/code>分别标识一对reads的间隔长度的期望平均值和标准差，其默认值分别为50bp和20bp。这两个参数本身是个估计值，用于TopHat在map过程中确定一对reads是否匹配到基因组正确位置。如果能够准确设定这两个数值，将会提升TopHat结果的准确性和完整性，参考&lt;a href="http://yulongniu.bionutshell.org/blog/2014/07/23/rna-seq-analysis/">一个例子&lt;/a>。&lt;/p>
+&lt;p>有两种方法获得这对参数的准确值：&lt;/p>
+&lt;p>第一种：获取RNA-seq实验建库方法，之后按照以下网址说明计算，&lt;a href="http://blog.qiuworld.com:8080/archives/3007">RNA-seq差异表达分析工作流程&lt;/a>。&lt;/p>
+&lt;p>第二种：根据RNA-seq数据进行估算，具体步骤为：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>使用TopHat默认参数先跑一遍。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用&lt;a href="http://miso.readthedocs.org/en/fastmiso/#computing-the-insert-length-distribution-and-its-statistics">MISO&lt;/a>的&lt;code>pe_utils&lt;/code>工具估算。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以下详细介绍&lt;code>pe_utils&lt;/code>使用方法。&lt;/p>
+&lt;p>第一步， 下载对应物种的基因注释文件GTF或者GFF，比如&lt;a href="http://genome.ucsc.edu/cgi-bin/hgTables?command=start">USCS Table Browser&lt;/a>（&lt;code>output format&lt;/code>选择&lt;code>GTF&lt;/code>）或者使用MISO提供的&lt;a href="http://miso.readthedocs.org/en/fastmiso/#human-mouse-gene-models-for-isoform-centric-analyses">Ensembl版本&lt;/a>。如果GTF文件，使用&lt;a href="https://cole-trapnell-lab.github.io/cufflinks/file_formats/">Cufflinks&lt;/a>的&lt;code>gffread&lt;/code>工具进行转换。&lt;/p>
+&lt;p>第二步，确定TopHat运行结果的bam文件与基因注释GFF文件，两者基因组命名方法一致。有的使用类似&lt;code>chr1&lt;/code>命名，而另外一些使用&lt;code>1&lt;/code>。如果不一致，建议修改GFF文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看GFF文件中基因组命名&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ awk &lt;span style="color:#a31515">&amp;#39;{print $1}&amp;#39;&lt;/span> hg19USCS.gff | sort -n | uniq -c
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看bam文件中基因组命名&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>samtools view accepted_hits.bam | head -1000 | awk &lt;span style="color:#a31515">&amp;#39;{print $3}&amp;#39;&lt;/span> | sort -n | uniq -c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>第三步，筛选较长外显子，比如长度大于1000bp。MISO提供了&lt;code>exon_utils&lt;/code>工具用于提取长外显子，但是我们没有能够成功运行过。因此这里提供一个R版本的脚本，比如基因注释文件名为&lt;code>hg19USCS.gff&lt;/code>，输出筛选的文件名为&lt;code>hg19USCS_selected.gff&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gffFile &amp;lt;- read.table(&lt;span style="color:#a31515">&amp;#39;hg19USCS.gff&amp;#39;&lt;/span>, stringsAsFactors = FALSE)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gffExon &amp;lt;- gffFile[gffFile[, 3] == &lt;span style="color:#a31515">&amp;#39;exon&amp;#39;&lt;/span>, ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exonLen &amp;lt;- abs(gffExon[, 5] - gffExon[, 4])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gffExonSelect &amp;lt;- gffExon[exonLen &amp;gt;= 1000, ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>write.table(gffExonSelect, &lt;span style="color:#a31515">&amp;#39;hg19USCS_selected.gff&amp;#39;&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> row.names = FALSE, col.names = FALSE,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> quote = FALSE, sep = &lt;span style="color:#a31515">&amp;#39;\t&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>第四步，使用&lt;code>pe_utils&lt;/code>，实例如下：&lt;/p></description></item><item><title>过滤TopHat分析双端测序的输出</title><link>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</link><pubDate>Sat, 16 May 2015 04:33:10 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2015-05-16-filter-tophat2-output/</guid><description>&lt;h2 id="0-结论">0. 结论&lt;/h2>
+&lt;p>在使用TopHat2匹配双端测序结果后，建议根据成对reads的map基因组位置唯一、方向正确和距离合适的标准，筛选得到的匹配结果。比如，TopHat2可能生成&lt;code>accepted_hits.bam&lt;/code>文件，处理方法如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 首先查看bam文件头部有多少行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ samtools view -H accepted_hits.bam | wc -l
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>86
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 筛选成对且成功map到基因组唯一位置的reads，按照上一条输出结果，调整“NR &amp;lt;= 86”&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ samtools view -h accepted_hits.bam | &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> awk &lt;span style="color:#a31515">&amp;#39;{if (NR &amp;lt;= 86) print $0}; {if($5 == 50 &amp;amp;&amp;amp; ($2 == 163 || $2 == 147 || $2 == 83 || $2 == 99)) print $0}&amp;#39;&lt;/span> | &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> samtools view -b - &amp;gt; accepted_filtered.bam
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ samtools view accepted_filtered.bam | wc -l
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>79143942
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="1-tophat输出sam文件的第五列">1. TopHat输出sam文件的第五列&lt;/h2>
+&lt;p>&lt;a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat文档&lt;/a>没有解释其输出bam文件（比如&lt;code>accepted_hits.bam&lt;/code>）的第五列的意义。按照&lt;a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">Bowtie2&lt;/a>输出结果来看，是表示映射质量指标Mapping Quality scores（MAPQ），具体计算参考公式$\eqref{eq:1}$。&lt;/p></description></item><item><title>清洗二代测序数据</title><link>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</link><pubDate>Mon, 28 Jul 2014 20:11:18 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-28-clean-seq-data/</guid><description>&lt;h2 id="1-fastqc">1. FastQC&lt;/h2>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC&lt;/a>是用于对二代测序数据质量快速检验的工具，可以输入fastq（fastq.gz）、sam或者bam文件。查看&lt;a href="http://www.bioinformatics.nl/courses/RNAseq/FastQC_Manual.pdf">输出结果解释&lt;/a>。&lt;/p>
+&lt;p>&lt;strong>平台&lt;/strong>：所有平台。&lt;/p>
+&lt;p>&lt;strong>安装&lt;/strong>： 依赖Java，下载后直接安装使用。&lt;/p>
+&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 输出分析结果至特定文档&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ fastqc seqFile1 --outdir setFolder1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 支持批量处理测序数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ fastqc seqFile1 seqFile2 seqFileN
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看帮助信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ fastqc --help
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 查看一共分析了多少个reads，比如fastqc文件为“accepted_filtered_fastqc.zip”&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ unzip -p accepted_filtered_fastqc.zip accepted_filtered_fastqc/fastqc_data.txt | &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> sed -n &lt;span style="color:#a31515">&amp;#39;7 p&amp;#39;&lt;/span> | &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> awk &lt;span style="color:#a31515">&amp;#39;{print $3}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-trim-galore">2. Trim Galore!&lt;/h2>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/">Trim Galore!&lt;/a>是对&lt;a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC&lt;/a>和&lt;a href="https://cutadapt.readthedocs.org/en/stable/installation.html">Cutadapt&lt;/a>的包装。可以处理Illumina、Nextera 3和smallRNA测序平台的双端和单端数据，包括去除adapter和低质量reads。&lt;/p>
+&lt;p>&lt;strong>平台&lt;/strong>：Linux&lt;/p>
+&lt;p>&lt;strong>安装&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>需要先分别安装FastQC和Cutadapt，其中Cutadapt安装使用&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># pip install cutadapt&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 处理双端测序结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ trim_galore --quality 20 --phred33 --stringency 3 --length 20 --paired &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> --gzip --output_dir human_trimgalore &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> mySeq_1_1.fastq.gz mySeq_1_2.fastq.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>重要参数解释&lt;/strong>：&lt;/p></description></item><item><title>二代测序中的短序列比对</title><link>https://YulongNiu.github.io/posts/2014-07-25-short-sequence-alignment/</link><pubDate>Fri, 25 Jul 2014 14:04:25 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-25-short-sequence-alignment/</guid><description>&lt;p>在二代测序数据分析中，非常重要的一步是将测得的短序列“对应”到基因组上。所使用的工具被称为“短序列比对工具（short sequence aligners）”。以下是一些常用工具的介绍。&lt;/p>
+&lt;h2 id="1-bowtie">1. Bowtie&lt;/h2>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://bowtie-bio.sourceforge.net/">Bowtie2&lt;/a>是现在广泛使用的序列比对工具。&lt;/p>
+&lt;p>&lt;strong>运行方式&lt;/strong>：所有平台&lt;/p>
+&lt;p>&lt;strong>特点&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>相比较&lt;a href="http://bowtie-bio.sourceforge.net/index.shtml">Bowtie1&lt;/a>，处理大于50bp的短序列，速度更快、也更敏感。Bowtie1在处理小于50bp的短序列上，效果更好。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://support.illumina.com/sequencing/sequencing_software/igenome.ilmn">iGenomes&lt;/a>提供一些事先编排（index）的基因组。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 建立一系列FASTA文件目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ bowtie2-build /filePath/genomeFastaFile indexName
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 从已经index文件中提取原始基因组&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ bowtie2-inspect indexName &amp;gt; genomeFastaFile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># unpaired序列比对&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ bowtie2 -p 4 -x indexName -U readFiles -S samFileName
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># paired序列比对&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ bowtie2 -p 4 -x indexName -1 readFiles1 -2 readFiles2 -S eg2.sam
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>-p&lt;/code>：多线程&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-x&lt;/code>：之后跟index名称&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-U&lt;/code>：测序文件（比如Fasta，Fastq文件）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-1&lt;/code>/&lt;code>-2&lt;/code>：标识paired文件&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-S&lt;/code>：SAM格式输出文件&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="参考网址">参考网址&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://lh3lh3.users.sourceforge.net/NGSalign.shtml">Heng Li总结的工具列表&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>RNA-Seq基本概念和数据分析流程</title><link>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</link><pubDate>Tue, 22 Jul 2014 17:03:15 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-22-rna-seq-analysis/</guid><description>&lt;p>RNA-Seq相比较基因芯片，价格虽然昂贵一些，精度和灵敏度更高。同时，在测序深度足够时，也可以检测mRNA选择性剪切类型。&lt;/p>
+&lt;h2 id="1-样品制备">1. 样品制备&lt;/h2>
+&lt;h2 id="2-测序">2. 测序&lt;/h2>
+&lt;p>Illumina双端测序&lt;a href="http://www.illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html">动画&lt;/a>和&lt;a href="http://onetipperday.blogspot.sg/2013/12/illumina-hiseq2000-adapter-and.html">图示&lt;/a>。&lt;/p>
+&lt;h2 id="3-分析流程">3. 分析流程&lt;/h2>
+&lt;p>RNA-Seq&lt;a href="http://blog.qiuworld.com:8080/archives/2343">主要分析流程&lt;/a>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>原始数据质量评估 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>数据清洗（去除接头和低质量read） --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>清洗数据质量评估 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>map测序结果至基因组（转录组） --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>map数据质量评估 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>差异表达基因/选择性剪切/新基因/融合基因选择 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GO和pathway分析 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>共表达网络分析
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="31-序列清洗">3.1 序列清洗&lt;/h3>
+&lt;p>序列清洗主要是去除测序结果中的&lt;a href="http://onetipperday.blogspot.sg/2013/06/illumina-hiseq2000-adapter.html">adapter&lt;/a>或通用引物等。&lt;/p>
+&lt;p>以下使用Illumina HiSeq2000平台，对一个人类样本的RNA测序。统计各种序列清洗方法和选择后的reads数目。原始数据两端测序reads分别为54,492,228和54,492,228。&lt;/p>
+
+
+
+
+
+&lt;table class="table table-responsive table-striped">
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Method&lt;/th>
+ &lt;th>#Trimmed&lt;/th>
+ &lt;th>#Mapped*&lt;/th>
+ &lt;th>#Filtered&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>r50-notrim&lt;/td>
+ &lt;td>108,984,456&lt;/td>
+ &lt;td>109,278,388&lt;/td>
+ &lt;td>79,143,942&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r50-nomixed-notrim&lt;/td>
+ &lt;td>108,984,456&lt;/td>
+ &lt;td>103,548,800&lt;/td>
+ &lt;td>79,143,942&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r50-nomixed-trimmomatic-min20&lt;/td>
+ &lt;td>104,164,622&lt;/td>
+ &lt;td>116,315,394&lt;/td>
+ &lt;td>80,337,256&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r50-nomixed-trimmomatic-min36&lt;/td>
+ &lt;td>101,548,172&lt;/td>
+ &lt;td>110,778,108&lt;/td>
+ &lt;td>79,248,896&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r50-nomixed-trimmomatic-min50&lt;/td>
+ &lt;td>98,525,312&lt;/td>
+ &lt;td>106,659,988&lt;/td>
+ &lt;td>77,779,424&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r50-nomixed-galore-min20&lt;/td>
+ &lt;td>107,097,862&lt;/td>
+ &lt;td>114,943,386&lt;/td>
+ &lt;td>83,039,928&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r100-nomixed-galore-min20&lt;/td>
+ &lt;td>107,097,862&lt;/td>
+ &lt;td>114,944,672&lt;/td>
+ &lt;td>87,899,316&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r165sd45-nomixed-galore-min20&lt;/td>
+ &lt;td>107,097,862&lt;/td>
+ &lt;td>114,201,366&lt;/td>
+ &lt;td>90,750,208&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r165sd45G-nomixed-galore-min20&lt;/td>
+ &lt;td>107,097,862&lt;/td>
+ &lt;td>109,901,742&lt;/td>
+ &lt;td>93,477,122&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>r165sd45-nomixed-galore-min50&lt;/td>
+ &lt;td>104,869,208&lt;/td>
+ &lt;td>109,258,544&lt;/td>
+ &lt;td>89,329,672&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>*&lt;/strong>：使用TopHat2把序列mapped到hs19基因组。TopHat2默认设置为，如果一个reads能mapped到多个位点，则都会报道。因此数目可能比原始数据多。&lt;/p></description></item><item><title>TopHat/Cufflinks/CummeRbund使用介绍</title><link>https://YulongNiu.github.io/posts/2014-07-26-tophat-cufflinks-cummerbund/</link><pubDate>Thu, 26 Jun 2014 14:51:56 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2014-07-26-tophat-cufflinks-cummerbund/</guid><description>&lt;p>&lt;a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat&lt;/a>、&lt;a href="http://cole-trapnell-lab.github.io/cufflinks/">Cufflinks&lt;/a>和cummeRbund，被称为处理RNA-seq数据的“燕尾服（tuxedo）”。TopHat负责RNA-seq的reads映射比对到基因组，并且自动识别mRNA“内含子-外显子”剪切；Cufflinks擅长组装转录组和寻找差异表达基因（或转录起始位点TSS等）；cummeRbund主攻数据可视化。&lt;/p>
+&lt;h2 id="1-tophat">1. Tophat&lt;/h2>
+&lt;p>&lt;strong>简介&lt;/strong>：&lt;a href="http://ccb.jhu.edu/software/tophat/index.shtml">TopHat&lt;/a>是快速将RNA测序片段“对应（mapping）”到基因组上的工具，优势在于处理外显子间的剪切。内部首先使用bowtie或bowtie2把RNA测序片段“比对（alignment）”到基因组，之后再分析和鉴定剪切连接区域。&lt;/p>
+&lt;p>&lt;strong>平台&lt;/strong>：Mac OS/Linux&lt;/p>
+&lt;p>&lt;strong>快速运行&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 双端测序&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tophat2 -p 8 -o human_1 &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> --mate-inner-dist 165 --mate-std-dev 45 --no-mixed &lt;span style="color:#a31515">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a31515">&lt;/span> hg19 human_1.fastq.gz human_2.fastq.gz 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 单端测序&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tophat2 -p 8 -o human_1 hg19 human_1.fastq.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>重要参数解释&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>-p&lt;/code>：设置线程数，用于多核计算。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-o&lt;/code>：执行输入文件夹。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-r/--mate-inner-dist&lt;/code>：一对reads的间隔长度的期望平均值，默认值为50bp，&lt;strong>建议添加&lt;/strong>。具体解释，参考&lt;a href="http://blog.qiuworld.com:8080/archives/3007">RNA-seq差异表达分析工作流程&lt;/a>和&lt;a href="http://www.plob.org/2012/12/04/4988.html">Tophat中-r/–mate-inner-dist参数&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--mate-std-dev&lt;/code>：一对reads的间隔长度分布的标准差，默认值为20bp，&lt;strong>建议添加&lt;/strong>。&lt;code>-r/--mate-inner-dist&lt;/code>和&lt;code>--mate-std-dev&lt;/code>的估计方法参考&lt;a href="http://yulongniu.bionutshell.org/blog/2015/05/23/tophat-inner-distance/">确定TopHat中mate-inner-dist参数&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--library-type&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>测序仪器和方法，默认为标准Illumina平台的&lt;code>fr-unstranded&lt;/code>。其他平台设置，详见&lt;a href="http://ccb.jhu.edu/software/tophat/manual.shtml">TopHat说明文档&lt;/a>、&lt;a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">How to tell which library type to use (fr-firststrand or fr-secondstrand)?&lt;/a>和&lt;a href="http://www.plob.org/2013/12/03/6731.html">链特异性转录组原理&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果分不清楚&lt;code>fr-firststrand&lt;/code>和&lt;code>fr-secondstrand&lt;/code>，推荐两种方法：&lt;a href="http://ccb.jhu.edu/software/tophat/faq.shtml">第一种&lt;/a>用两个参数试运行一个有1M reads的小样本，之后比较&lt;code>junction.bed&lt;/code>大小；&lt;a href="http://onetipperday.blogspot.sg/2012/07/how-to-tell-which-library-type-to-use.html">第二种&lt;/a>在两个双端测序文件（&lt;code>fastq.gz&lt;/code>）中抽取一些reads，之后&lt;a href="http://genome.ucsc.edu/cgi-bin/hgBlat?org=human">Blat&lt;/a>到USCS genomes上观察。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--no-discordant&lt;/code>：只对于paired reads，只报告concordant mappings。加入这个参数，tophat2在最后一步失败。也可以不加入这个参数，通过sam/bam文件第二列过滤discordant reads，方法参考&lt;a href="http://yulongniu.bionutshell.org/blog/2015/05/16/filter-tophat2-output/">过滤TopHat分析双端测序的输出&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>--no-mixed&lt;/code>：只对于paired reads，只报告paired reads都成功map。TopHat默认不加这个参数，即如果对于一个read，如果没有找到alignment的concordant或者discordant mate，那么这一对read将分别寻找和报道各自的alignment。这个参数与&lt;code>--no-discordant&lt;/code>不同，因为加上&lt;code>--no-mixed&lt;/code>也可能报道discordant pairs（例如一对reads都成功alignment，但是方向或者之间距离不对）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>-g/--max-multihits&lt;/code>：对于多个map的reads，设定报告数目，默认数值为20。需要注意，尽管这个参数可以设定为1，也不能用于设定唯一map的read。因为某个read有可能map到基因组多个位点，当设定为1时，只会返回得分最高的情况。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>后续操作&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>TopHat2运行后查看&lt;code>align_summary.txt&lt;/code>获得比对结果。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>TopHat2会输出&lt;code>accepted_hits.bam&lt;/code>（接受map的reads文件）和&lt;code>unmapped.bam&lt;/code>（没有map上的reads文件）。对于后者，使用基因组浏览器，如&lt;a href="http://www.broadinstitute.org/igv/">IGV&lt;/a>或者&lt;a href="http://genome.ucsc.edu/">UCSC Genome Browser&lt;/a>大致看下是有无map，之后可以直接丢弃。&lt;/p></description></item><item><title>Circos Notes</title><link>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</link><pubDate>Mon, 17 Mar 2014 15:37:45 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2014-03-17-circos-notes/</guid><description>&lt;p>Mapping data onto a Circos figure requires that you identify what patterns in your data are (a) likely to be important and (b) likely to be present, and create a figure that exposes such patterns. Remember, if the pattern exists, you can&amp;rsquo;t afford to miss it. If it doesn&amp;rsquo;t exist, you can&amp;rsquo;t afford to be fooled into thinking that it&amp;rsquo;s there, or left wondering whether it&amp;rsquo;s occluded by other data.&lt;/p></description></item><item><title>A brief intruction of mutual information and demonstration with R</title><link>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</link><pubDate>Sun, 10 Nov 2013 01:21:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2013-11-10-mutual-information/</guid><description>&lt;p>$\newcommand{\entropfrac}[2]{\frac{#1}{#2} \log \left( \frac{#1}{#2} \right)}$&lt;/p>
+&lt;h2 id="mututal-information-mi">Mututal Information (MI)&lt;/h2>
+&lt;h3 id="introduction">Introduction&lt;/h3>
+&lt;p>Mutual Information (MI) is used to measure the distance between two genes vectors, for example $x_1 = {{1, 0, 1, 1, 1, 1, 0}}$ and $y_1 = {{0, 1, 1, 1, 1, 1, 0}}$. It is easily to transfer the two vectors into a binary table:&lt;/p>
+
+
+
+
+
+&lt;table class="table table-responsive table-striped">
+ &lt;thead>
+ &lt;tr>
+ &lt;th>&lt;strong>X/Y&lt;/strong>&lt;/th>
+ &lt;th>&lt;strong>1 (Presence)&lt;/strong>&lt;/th>
+ &lt;th>&lt;strong>0 (Absence)&lt;/strong>&lt;/th>
+ &lt;th>&lt;strong>Sum&lt;/strong>&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>1(Presence)&lt;/strong>&lt;/td>
+ &lt;td>a&lt;/td>
+ &lt;td>b&lt;/td>
+ &lt;td>a+b&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>0(Absence)&lt;/strong>&lt;/td>
+ &lt;td>c&lt;/td>
+ &lt;td>d&lt;/td>
+ &lt;td>c+d&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Sum&lt;/strong>&lt;/td>
+ &lt;td>a+c&lt;/td>
+ &lt;td>b+d&lt;/td>
+ &lt;td>n=a+b+c+d&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+ 
+
+&lt;p>Typically, here we give the example of two discrete variables, the mutual information between $x_1$ and $y_1$ is&lt;/p></description></item><item><title>探索EM算法</title><link>https://YulongNiu.github.io/posts/2013-07-13-em/</link><pubDate>Sat, 13 Jul 2013 19:23:22 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-07-13-em/</guid><description>&lt;p>$$
+\newcommand{\P}{\mathrm{P}}
+$$&lt;/p>
+&lt;p>$$
+\DeclareMathOperator*{\argmax}{arg\ max\ }
+$$&lt;/p>
+&lt;p>$$
+\newcommand{\Pz}{\P \left( z|y_j, \theta^{(n)} \right)}
+$$&lt;/p>
+&lt;p>$$
+\newcommand{\Pyz}{\P \left( y_j, z|\theta^{(n)} \right)}
+$$&lt;/p>
+&lt;h2 id="em算法的推出">EM算法的推出&lt;/h2>
+&lt;p>考虑观测数据$Y=\{y_1, y_2, \dots, y_m\}$，其中不可观测数据为$Z=\{z_1, z_2, \dots, z_k\}$，需要估计的参数为$\theta=\{\theta_1, \theta_2, \dots, \theta_t\}$。$Z$可以是离散或连续型随机变量，以下过程中假设$Z$为离散型（$Z$为连续型，则全概率公式由求和改为积分）。则观测数据的对数似然函数为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+L(\theta) &amp;amp;= \log\left(\prod_{j=1}^m \P(y_j|\theta)\right) \newline
+&amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right)
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>为了使$L(\theta)$最大，很容易想到对$\theta$偏导求极值。但有一个困难，即$Z$不可观测，导致的直接后果是对数套求和，计算难度增加。直觉是，&lt;strong>否能找到一个方法，将求和放在对数外面？&lt;/strong> 一个常用的技巧是转化为不等式，&lt;a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen&amp;rsquo;s inequality&lt;/a>描述了积分的函数与函数的积分的关系。由于$\log(x)$是凹函数，尝试考察某一次特定的$\theta^{(n)}$取值后，$L(\theta)$与$L(\theta^{(n)})$的差：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+L(\theta) - L(\theta^{(n)}) &amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \P(y_j, z|\theta)\right) - L(\theta^{(n)}) \newline
+&amp;amp;= \sum_{j=1}^m \log\left( \sum_{z \in Z} \Pz \frac{\P(y_j, z|\theta)}{\Pz} \right) - L(\theta^{(n)}) \newline
+&amp;amp;\geq \sum_{j=1}^m \sum_{z \in Z} \Pz \log \left( \frac{\P(y_j, z|\theta)}{\Pz} \right) \newline
+&amp;amp;- \sum_{j=1}^m \log \left( \P \left( y_j|\theta^{(n)} \right) \right) \left( \sum_{z \in Z} \Pz \right) \newline
+&amp;amp;= \sum_{j=1}^m \sum_{z \in Z} \Pz \log\left(\frac{\P(y_j, z|\theta)}{\Pyz} \right)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p></description></item><item><title>生物信息学工具网址</title><link>https://YulongNiu.github.io/posts/2013-06-18-bioinfor-tools/</link><pubDate>Tue, 18 Jun 2013 16:42:10 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2013-06-18-bioinfor-tools/</guid><description>&lt;h2 id="1-基因组注释信息">1. 基因组注释信息&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="ftp://ftp.ncbi.nih.gov/genomes/">NCBI ftp 下载基因组&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.jcvi.org/cms/home/">Craig Venter Institute&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://useast.ensembl.org/info/data/ftp/index.html">Ensembl&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-进化树">2. 进化树&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>进化树展示&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://en.wikipedia.org/wiki/List_of_phylogenetic_tree_visualization_software">Wiki software list&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://www.biostars.org/p/2438/">Biostats总结&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://itol.embl.de/index.shtml">iTOL&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://ab.inf.uni-tuebingen.de/software/dendroscope/welcome.html">Dendroscope&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>进化树构建&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://sco.h-its.org/exelixis/web/software/raxml/index.html">RAxML&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.atgc-montpellier.fr/phyml/">PhyML&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://evolution.genetics.washington.edu/phylip.html">PHYLIP&lt;/a>，在PHYLIP的&lt;a href="http://evolution.genetics.washington.edu/phylip/general.html">介绍&lt;/a>中，列出了六个高使用率的构建进化树的软件，MrBayes、PAUP*、RAxML、PhyML、MEGA和PHYLIP。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>已知进化树&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://opentreeoflife.org/">Open Tree of Life&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>时间尺度进化树&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://www.timetree.org/about.php">TimeTree&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>sRNA数据库&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://www.arb-silva.de/">16S/23S数据库&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://greengenes.lbl.gov/cgi-bin/nph-index.cgi">细菌16S数据库&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://rdp.cme.msu.edu/index.jsp">真核生物rRNA&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>数据格式转换&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://sco.h-its.org/exelixis/web/software/raxml/index.html">fasta转换为Phylip&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>进化树newick和nexus格式转换&lt;/p>
+&lt;ol>
+&lt;li>R package &lt;!-- raw HTML omitted -->ape&lt;!-- raw HTML omitted -->，提供了函数&lt;code>read.tree()&lt;/code>/&lt;code>write.tree()&lt;/code>，&lt;code>read.nexus()&lt;/code>/&lt;code>read.nexus()&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.phylogeny.fr/version2_cgi/data_converter.cgi">通用格式转换工具&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-网络可视化">3. 网络可视化&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://www.cytoscape.org/">Cytoscape&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.biolayout.org/">3D网络BioLayout Expression3D&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://visant.bu.edu/">VisAnt&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://circos.ca/">Circos&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-序列比对">4. 序列比对&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://www.clustal.org/">Clustal&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/">Blast&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&amp;amp;DOC_TYPE=Download">Blast+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.ebi.ac.uk/Tools/msa/">EBI总结&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://mafft.cbrc.jp/alignment/server/">MAFFT&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.drive5.com/muscle/">MUSCLE&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.tcoffee.org/">T-Coffee&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://www.megasoftware.net/">MEGA&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-质谱分析">5. 质谱分析&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="http://www.thegpm.org/TANDEM/">X!Tandem&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="http://bacteria.thegpm.org/tandem/thegpm_tandem.html">X!Tandem bacterial&lt;/a>&lt;/p></description></item><item><title>统计学基本知识汇总</title><link>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</link><pubDate>Fri, 10 May 2013 00:29:47 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2013-05-10-primary-statistic/</guid><description>&lt;p>$$
+\newcommand{\P}{\mathrm{P}}
+$$&lt;/p>
+&lt;h2 id="1-完备事件">1. 完备事件&lt;/h2>
+&lt;p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+\P(x_1) + \P(x_2) + \dots + \P(x_n) = 1
+\end{split}
+\label{eq:1}
+\end{align}
+$$&lt;/p>
+&lt;p>常用的技巧构造乘法系数，例如$\P(Y) = \sum\limits_{i=1}^{n}\P(x_i|\theta)\P(Y)$&lt;/p>
+&lt;h2 id="2-全概率公式">2. 全概率公式&lt;/h2>
+&lt;p>对于完备事件组$X = \{x_1, x_2, \dots, x_n\}$，事件$Y$的全概率公式：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+\P(Y) &amp;amp;= \P(Y, x_1) + \P(Y, x_2) + \dots + \P(Y, x_n) \newline
+&amp;amp;= \P(x_1)\P(Y|x_1) + \P(x_2)\P(Y|x_2) + \dots + \P(x_n)\P(Y|x_n)
+\end{split}
+\label{eq:2}
+\end{align}
+$$&lt;/p>
+&lt;p>使用概率密度函数表示为：&lt;/p>
+&lt;p>$$
+\begin{align}
+\begin{split}
+f(Y) &amp;amp;= \int_{-\infty}^{+\infty}f(Y, x) \mathrm{d}x \newline
+&amp;amp;= \int_{-\infty}^{+\infty}f(Y|x)f(x) \mathrm{d}x
+\end{split}
+\label{eq:3}
+\end{align}
+$$&lt;/p></description></item></channel></rss>

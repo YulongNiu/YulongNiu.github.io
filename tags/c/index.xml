@@ -1,2 +1,136 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C on Yulong Niu</title><link>https://YulongNiu.github.io/tags/c/</link><description>Recent content in C on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 17 Apr 2016 22:42:25 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/c/index.xml" rel="self" type="application/rss+xml"/><item><title>C语言指针记录</title><link>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</link><pubDate>Sun, 17 Apr 2016 22:42:25 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</guid><description>1. C语言指针基础 C语言的指针设计是一致和优雅的。C语言中“指针（pointer）”就是地址（所以不能用普通整数储存地址），“指针变量（pointer variable）”是存储地址的变量。一个指针变量，只能指向一个特定类型的变量，比如整数、浮点数、字符或者指针。
-int tmp1 = 1, tmp2; /* &amp;#34;=&amp;#34; does not mean &amp;#34;assignment&amp;#34;, it just means &amp;#34;initiating&amp;#34; */ /* p is the address of tmp1, *p is equal to the value of tmp1*/ int *p = &amp;amp;tmp1; int *q; q = &amp;amp;tmp2; /* p points to tmp1, q points to tmp2, now the value of tmp2 is 1*/ *p = *q; /* p and q now both points to tmp1*/ q = p; 2.</description></item><item><title>C语言学习记录</title><link>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</link><pubDate>Sun, 07 Dec 2014 18:23:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</guid><description>1. 基本数据类型 1.1 算术类型 类型 解释 说明 注意事项 本地字节数 short 有符号短整数 完整形式signed short int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 2 unsigned short 无符号短整数 完整形式unsigned short int，int可以省略 全部位占满 2 int 有符号整数 完整形式signed int，singed可以省略 最左边一位表示符号，0为正数，1为负数 4 unsigned int 无符号整数 全部位占满 4 long 有符号长整数 完整形式为signed long int，singed和int可以省略 最左边一位表示符号，0为正数，1为负数 8 unsigned long 无符号长整数 完整形式为unsigned short int，int可以省略 全部位占满 8 long long 无符号长长整数 完整形式为signed long long int，singed和int可以省略 C99特有 8 unsigned long long 有符号长长整数 完整形式为unsigned long long int，int可以省略 C99特有 8 char 字符 实质是“小整数”（可能比短整数占用字节更少） 分为char、singed char和unsigned char。使用单引号标记常量，比如'A'（值为65） 1 _Bool 布尔型整数 实质是无符号整数 只能赋值0或1，赋值_Bool类型变量为非零值会导致赋值为1 1 float 单精度浮点数 4 double 双精度浮点数 8 long double 扩展精度浮点数 16 强制编辑器处理常量为长整数（十进制、八进制和十六进制），1135L；强制处理为无符号，1135U；混合使用，1135UL，U和L顺序和大小写不重要。 C99中增加了ll或者LL后缀，强制long long int型整数，可以与u或U连用。避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C on Yulong Niu</title><link>https://YulongNiu.github.io/tags/c/</link><description>Recent content in C on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 17 Apr 2016 22:42:25 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/c/index.xml" rel="self" type="application/rss+xml"/><item><title>C语言指针记录</title><link>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</link><pubDate>Sun, 17 Apr 2016 22:42:25 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2016-04-17-pointers-in-c/</guid><description>&lt;h2 id="1-c语言指针基础">1. C语言指针基础&lt;/h2>
+&lt;p>C语言的指针设计是一致和优雅的。C语言中“指针（pointer）”就是&lt;strong>地址&lt;/strong>（所以不能用普通整数储存地址），“指针变量（pointer variable）”是存储地址的变量。一个指针变量，&lt;strong>只能&lt;/strong>指向一个特定类型的变量，比如整数、浮点数、字符或者指针。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#2b91af">int&lt;/span> tmp1 = 1, tmp2;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">/* &amp;#34;=&amp;#34; does not mean &amp;#34;assignment&amp;#34;, it just means &amp;#34;initiating&amp;#34; */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">/* p is the address of tmp1, *p is equal to the value of tmp1*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#2b91af">int&lt;/span> *p = &amp;amp;tmp1;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#2b91af">int&lt;/span> *q;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>q = &amp;amp;tmp2;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">/* p points to tmp1, q points to tmp2, now the value of tmp2 is 1*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>*p = *q;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">/* p and q now both points to tmp1*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>q = p;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-指针运算有且只有三种">2. 指针运算有且只有三种&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>指针加一个整数，该表达式值为同类型指针；&lt;/p></description></item><item><title>C语言学习记录</title><link>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</link><pubDate>Sun, 07 Dec 2014 18:23:16 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2014-12-07-c-program-note/</guid><description>&lt;h2 id="1-基本数据类型">1. 基本数据类型&lt;/h2>
+&lt;h3 id="11-算术类型">1.1 算术类型&lt;/h3>
+
+
+
+
+
+&lt;table class="table table-responsive table-striped">
+ &lt;thead>
+ &lt;tr>
+ &lt;th>类型&lt;/th>
+ &lt;th>解释&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;th>注意事项&lt;/th>
+ &lt;th>本地字节数&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>short&lt;/code>&lt;/td>
+ &lt;td>有符号短整数&lt;/td>
+ &lt;td>完整形式&lt;code>signed short int&lt;/code>，&lt;code>singed&lt;/code>和&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>最左边一位表示符号，&lt;code>0&lt;/code>为正数，&lt;code>1&lt;/code>为负数&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned short&lt;/code>&lt;/td>
+ &lt;td>无符号短整数&lt;/td>
+ &lt;td>完整形式&lt;code>unsigned short int&lt;/code>，&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>全部位占满&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>int&lt;/code>&lt;/td>
+ &lt;td>有符号整数&lt;/td>
+ &lt;td>完整形式&lt;code>signed int&lt;/code>，&lt;code>singed&lt;/code>可以省略&lt;/td>
+ &lt;td>最左边一位表示符号，&lt;code>0&lt;/code>为正数，&lt;code>1&lt;/code>为负数&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned int&lt;/code>&lt;/td>
+ &lt;td>无符号整数&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>全部位占满&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>long&lt;/code>&lt;/td>
+ &lt;td>有符号长整数&lt;/td>
+ &lt;td>完整形式为&lt;code>signed long int&lt;/code>，&lt;code>singed&lt;/code>和&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>最左边一位表示符号，&lt;code>0&lt;/code>为正数，&lt;code>1&lt;/code>为负数&lt;/td>
+ &lt;td>8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned long&lt;/code>&lt;/td>
+ &lt;td>无符号长整数&lt;/td>
+ &lt;td>完整形式为&lt;code>unsigned short int&lt;/code>，&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>全部位占满&lt;/td>
+ &lt;td>8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>long long&lt;/code>&lt;/td>
+ &lt;td>无符号长长整数&lt;/td>
+ &lt;td>完整形式为&lt;code>signed long long int&lt;/code>，&lt;code>singed&lt;/code>和&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>&lt;!-- raw HTML omitted -->&lt;strong>C99&lt;/strong>&lt;!-- raw HTML omitted -->特有&lt;/td>
+ &lt;td>8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned long long &lt;/code>&lt;/td>
+ &lt;td>有符号长长整数&lt;/td>
+ &lt;td>完整形式为&lt;code>unsigned long long int&lt;/code>，&lt;code>int&lt;/code>可以省略&lt;/td>
+ &lt;td>&lt;!-- raw HTML omitted -->&lt;strong>C99&lt;/strong>&lt;!-- raw HTML omitted -->特有&lt;/td>
+ &lt;td>8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>char&lt;/code>&lt;/td>
+ &lt;td>字符&lt;/td>
+ &lt;td>实质是“小整数”（可能比短整数占用字节更少）&lt;/td>
+ &lt;td>分为&lt;code>char&lt;/code>、&lt;code>singed char&lt;/code>和&lt;code>unsigned char&lt;/code>。使用&lt;strong>单引号&lt;/strong>标记常量，比如&lt;code>'A'&lt;/code>（&lt;strong>值&lt;/strong>为65）&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>_Bool&lt;/code>&lt;/td>
+ &lt;td>布尔型整数&lt;/td>
+ &lt;td>实质是无符号整数&lt;/td>
+ &lt;td>只能赋值0或1，赋值&lt;code>_Bool&lt;/code>类型变量为非零值会导致赋值为1&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>float&lt;/code>&lt;/td>
+ &lt;td>单精度浮点数&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>double&lt;/code>&lt;/td>
+ &lt;td>双精度浮点数&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>long double&lt;/code>&lt;/td>
+ &lt;td>扩展精度浮点数&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>16&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+ 
+
+&lt;ul>
+&lt;li>
+&lt;p>强制编辑器处理常量为长整数（十进制、八进制和十六进制），&lt;code>1135L&lt;/code>；强制处理为无符号，&lt;code>1135U&lt;/code>；混合使用，&lt;code>1135UL&lt;/code>，&lt;code>U&lt;/code>和&lt;code>L&lt;/code>顺序和大小写不重要。
+&lt;!-- raw HTML omitted -->&lt;strong>C99&lt;/strong>&lt;!-- raw HTML omitted -->中增加了&lt;code>ll&lt;/code>或者&lt;code>LL&lt;/code>后缀，强制&lt;code>long long int&lt;/code>型整数，可以与&lt;code>u&lt;/code>或&lt;code>U&lt;/code>连用。&lt;strong>避免无符号和有符号整数混用，特别是无符号和有符号整数比较，会产生意想不到的后果&lt;/strong>。&lt;/p></description></item></channel></rss>

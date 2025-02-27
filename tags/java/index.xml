@@ -1,3 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on Yulong Niu</title><link>https://YulongNiu.github.io/tags/java/</link><description>Recent content in Java on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 16 May 2017 20:17:46 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>探索Java基本类型的二进制表示</title><link>https://YulongNiu.github.io/posts/2017-05-16-java-binary/</link><pubDate>Tue, 16 May 2017 20:17:46 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-05-16-java-binary/</guid><description>1. 基本数据类型 Java有八种基本数据类型（primitive data type），分别是boolean、char、byte、short、int、long、float和double，所占用的比特数如下表所示。
-Data type Bit Range boolean not precisely defined True or false char unsigned 16 $2^{16}$ byte signed 8 $-2^{7}$ ~ $2^7-1$ short signed 16 $-2^{15}$ ~ $2^{15}-1$ int signed 32 $-2^{31}$ ~ $2^{31}-1$ long signed 64 $-2^{63}$ ~ $2^{63}-1$ float signed 32 $\pm (1-2^{-24}) * 2^{128}$ 精度$2^{-126}$ 2. 整数二进制表示和范围 以byte类型为例，每个整数占用了8个比特，最左边比特位表示正负（0为正，1为负）。例如，$1$表示为$0000 0001_2$。因此，能表示的最大正整数为$0111 1111_2$，即
-$$ 2^0 + 2^1 + 2^2 + \cdots + 2^6 = 2^7 - 1 $$</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on Yulong Niu</title><link>https://YulongNiu.github.io/tags/java/</link><description>Recent content in Java on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Tue, 16 May 2017 20:17:46 +0800</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>探索Java基本类型的二进制表示</title><link>https://YulongNiu.github.io/posts/2017-05-16-java-binary/</link><pubDate>Tue, 16 May 2017 20:17:46 +0800</pubDate><guid>https://YulongNiu.github.io/posts/2017-05-16-java-binary/</guid><description>&lt;h2 id="1-基本数据类型">1. 基本数据类型&lt;/h2>
+&lt;p>Java有&lt;a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.2">八种&lt;/a>基本数据类型（primitive data type），分别是&lt;code>boolean&lt;/code>、&lt;code>char&lt;/code>、&lt;code>byte&lt;/code>、&lt;code>short&lt;/code>、&lt;code>int&lt;/code>、&lt;code>long&lt;/code>、&lt;code>float&lt;/code>和&lt;code>double&lt;/code>，所占用的比特数如下表所示。&lt;/p>
+
+
+
+
+
+&lt;table class="table table-responsive table-striped">
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Data type&lt;/th>
+ &lt;th>Bit&lt;/th>
+ &lt;th>Range&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>boolean&lt;/td>
+ &lt;td>not precisely defined&lt;/td>
+ &lt;td>&lt;code>True&lt;/code> or &lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>char&lt;/td>
+ &lt;td>unsigned 16&lt;/td>
+ &lt;td>$2^{16}$&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>byte&lt;/td>
+ &lt;td>signed 8&lt;/td>
+ &lt;td>$-2^{7}$ ~ $2^7-1$&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>short&lt;/td>
+ &lt;td>signed 16&lt;/td>
+ &lt;td>$-2^{15}$ ~ $2^{15}-1$&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>int&lt;/td>
+ &lt;td>signed 32&lt;/td>
+ &lt;td>$-2^{31}$ ~ $2^{31}-1$&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>long&lt;/td>
+ &lt;td>signed 64&lt;/td>
+ &lt;td>$-2^{63}$ ~ $2^{63}-1$&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>float&lt;/td>
+ &lt;td>signed 32&lt;/td>
+ &lt;td>$\pm (1-2^{-24}) * 2^{128}$ 精度$2^{-126}$&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+ 
+
+&lt;h2 id="2-整数二进制表示和范围">2. 整数二进制表示和范围&lt;/h2>
+&lt;p>以&lt;code>byte&lt;/code>类型为例，每个整数占用了8个比特，最左边比特位表示正负（0为正，1为负）。例如，$1$表示为$0000 0001_2$。因此，能表示的最大正整数为$0111 1111_2$，即&lt;/p>
+&lt;p>$$
+2^0 + 2^1 + 2^2 + \cdots + 2^6 = 2^7 - 1
+$$&lt;/p></description></item></channel></rss>

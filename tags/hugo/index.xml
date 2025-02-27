@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hugo on Yulong Niu</title><link>https://YulongNiu.github.io/tags/hugo/</link><description>Recent content in hugo on Yulong Niu</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 03 Nov 2019 16:46:02 +0100</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Hugo搭建博客</title><link>https://YulongNiu.github.io/posts/2019-11-03-setup_hugo_blog/</link><pubDate>Sun, 03 Nov 2019 16:46:02 +0100</pubDate><guid>https://YulongNiu.github.io/posts/2019-11-03-setup_hugo_blog/</guid><description>从Octopress迁移至Hugo，希望可以稳定地维持5年。
-1. 安装 ## 安装hogu $ sudo dnf install hugo ## 创建个人博客目录 $ hugo new site HugoBlog $ cd HugoBlog ## 选择主题 $ cd themes $ git clone https://github.com/vividvilla/ezhil.git $ cd .. ## 启动hugo $ hugo server ## 启动hugo并预览博文 $ hugo server -D 2. 基本配置 2.1 配置主页 编辑模板HugoBlog/config.toml。
-2.2 配置博文header 编辑HugoBlog/archetypes/default.md，例如：
---- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .Date }} description: &amp;#34;&amp;#34; tags: [] disqus: false draft: true --- draft: true为私密博文，draft: false为公开博文。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on Yulong Niu</title><link>https://YulongNiu.github.io/tags/hugo/</link><description>Recent content in Hugo on Yulong Niu</description><generator>Hugo</generator><language>en-us</language><copyright>© Copyright notice</copyright><lastBuildDate>Sun, 03 Nov 2019 16:46:02 +0100</lastBuildDate><atom:link href="https://YulongNiu.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Hugo搭建博客</title><link>https://YulongNiu.github.io/posts/2019-11-03-setup_hugo_blog/</link><pubDate>Sun, 03 Nov 2019 16:46:02 +0100</pubDate><guid>https://YulongNiu.github.io/posts/2019-11-03-setup_hugo_blog/</guid><description>&lt;p>从&lt;a href="http://octopress.org/">Octopress&lt;/a>迁移至Hugo，希望可以稳定地维持5年。&lt;/p>
+&lt;h2 id="1-安装">1. 安装&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 安装hogu&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ sudo dnf install hugo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 创建个人博客目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ hugo new site HugoBlog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cd HugoBlog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 选择主题&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cd themes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ git clone https://github.com/vividvilla/ezhil.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cd ..
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 启动hugo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ hugo server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">## 启动hugo并预览博文&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ hugo server -D
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-基本配置">2. 基本配置&lt;/h2>
+&lt;h3 id="21-配置主页">2.1 配置主页&lt;/h3>
+&lt;p>编辑模板&lt;code>HugoBlog/config.toml&lt;/code>。&lt;/p>
+&lt;h3 id="22-配置博文header">2.2 配置博文header&lt;/h3>
+&lt;p>编辑&lt;code>HugoBlog/archetypes/default.md&lt;/code>，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>---
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>date: {{ .Date }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>description: &amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tags: []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>disqus: false
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>draft: true
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>---
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>draft: true&lt;/code>为私密博文，&lt;code>draft: false&lt;/code>为公开博文。&lt;/p></description></item></channel></rss>
