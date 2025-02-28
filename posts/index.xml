@@ -3026,7 +3026,8 @@ $$&lt;/p></description></item><item><title>Python中使用rpy2模块调用R</tit
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.tar.xz&lt;/code>格式文件&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 多线程 -T 6为6线程&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 多线程&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># -T 6为6线程&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -cvf - /filePath/ | xz -T 6 -c &amp;gt; filename.tar.xz
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.rar&lt;/code>格式文件&lt;/p></description></item><item><title>Linux安装R语言包</title><link>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</link><pubDate>Sat, 04 Sep 2010 10:21:38 -0400</pubDate><guid>https://YulongNiu.github.io/posts/2010-09-04-linux-install-r/</guid><description>&lt;h2 id="1-r包介绍">1. R包介绍&lt;/h2>
 &lt;p>R的包（package）通常有两种:&lt;/p>
