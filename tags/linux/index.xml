@@ -382,7 +382,6 @@
 &lt;p>&lt;code>.tar.gz&lt;/code>格式文件&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 解压&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zxvf /filePath/filename.tar.gz
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -cvf - /filePath/ | xz -T 6 -c &amp;gt; filename.tar.xz
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zcvf /filePath/filename.tar.gz /filePath/filename
@@ -401,8 +400,10 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 压缩&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -jcvf /filePath/filename.tar.bz2 /filePath/filename
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.rar&lt;/code>格式文件&lt;/p>
-&lt;p>需要安装&lt;a href="http://www.rarsoft.com/download.html">rar工具&lt;/a>, 下载对应的linux版本，解压，&lt;code>make&lt;/code>即可。&lt;/p></description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>&lt;p>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.tar.xz&lt;/code>格式文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000"># 多线程 -T 6为6线程&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -cvf - /filePath/ | xz -T 6 -c &amp;gt; filename.tar.xz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.rar&lt;/code>格式文件&lt;/p></description></item><item><title>Linux常用软件集锦</title><link>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</link><pubDate>Wed, 07 Jul 2010 22:09:31 -0500</pubDate><guid>https://YulongNiu.github.io/posts/2010-07-07-linux-software/</guid><description>&lt;p>本文收集了一些好用或者好玩的Linux软件，使用Fedora示例。&lt;/p>
 &lt;h2 id="1-添加常用源">1. 添加常用源&lt;/h2>
 &lt;ul>
 &lt;li>
